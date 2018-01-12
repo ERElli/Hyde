@@ -5,17 +5,25 @@ Play
     Play pre-programmed level
     Play own level
     Play tutorial
-  Move left-right
-  Platform
-  Attack enemy
-  Change Weapon (?)
-  Save Progress (by reaching checkpoint?)
+  Mechanics
+    Move left-right
+    Platform
+    Attack enemy
+    Change Weapon (?)
+    Save Progress (by reaching checkpoint?)
 Settings
   Adjust Settings
+  Enter cheat code
 Editor
   Launch Level Editor
   Set level background
-  Create Terrain
+  Set level music
+  Add terrain
+  Add obstacle
+  Add enemy
+  Add boss
+  Add pick-up
+  Remove entity
 Account
   Create Profile
   Sign in/out
