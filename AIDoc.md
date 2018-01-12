@@ -1,4 +1,6 @@
-## Artificial Intelligence ##
+## 6 - Artificial Intelligence ##
+
+### 6.1 - Enemy AI ###
 
 Enemy AI will vary among different enemy types, based on their intended difficulty, as well as their weapons and movement abilities.
 The most basic/beginner enemies will simply move back and forth unless killed. More advanced enemies will have their own weapons,
