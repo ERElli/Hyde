@@ -5,13 +5,16 @@ Play
     Play pre-programmed level
     Play own level
     Play tutorial
+    Unlock Achievements:  player unlocks achievements by collecting coins throughout the level. If the number of coins collected is high enough a trophy is awarded such as renewal of full health bar. 
+
   Mechanics
     Move left-right
     Platform
     Changing state (light -> heavy)
     Attack enemy
     Change Weapon (?)
-    Save Progress (by reaching checkpoint?)
+    Save Progress checkpoint : save the location of the player in the game and provide the ability for the player to load in to that checkpoint and spawn in that location of the game that the checkpoint was in. 
+
 Settings
   Adjust Settings
   Enter cheat code
@@ -32,3 +35,5 @@ Account
   Create Profile
   Sign in/out
   Modify Profile
+  Update score and Finishing Time: at the end of the level the score of the player is updated and saved in his profile if it is the highest score (comparison between previous scores in database) and time to finish is also updated in the same way. 
+
