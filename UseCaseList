@@ -31,9 +31,10 @@ Editor
   Remove entity
   Test Level
   Share Level
-Account
+Account 
   Create Profile
   Sign in/out
+  Forget password
   Modify Profile
   Update score and Finishing Time: at the end of the level the score of the player is updated and saved in his profile if it is the highest score (comparison between previous scores in database) and time to finish is also updated in the same way. 
 
