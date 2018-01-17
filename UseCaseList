@@ -14,6 +14,7 @@ Play
     Attack enemy
     Change Weapon (?)
     Save Progress checkpoint : save the location of the player in the game and provide the ability for the player to load in to that checkpoint and spawn in that location of the game that the checkpoint was in. 
+    Pick up power-up
 
 Settings
   Adjust Settings
