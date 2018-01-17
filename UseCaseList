@@ -8,6 +8,7 @@ Play
   Mechanics
     Move left-right
     Platform
+    Changing state (light -> heavy)
     Attack enemy
     Change Weapon (?)
     Save Progress (by reaching checkpoint?)
