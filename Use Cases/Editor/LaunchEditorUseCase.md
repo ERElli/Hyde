@@ -62,9 +62,9 @@ User decides that he/she wants to use the level editor, selects this option from
   </ol> 
 </li>
 <li>System displays options for selected level (delete, rename, edit, etc.)</li>
-<li>User chooses "Edit"
+<li>User selectshooses "Edit"
 
-&nbsp;&nbsp;6a. User Selects "Back"
+&nbsp;&nbsp;6a. User selects "Back"
   <ol>
       <li>Resume at step 3 of current flow (or step 2.a.i. if 2.a. was taken to get to this point)</li>
   </ol> 
