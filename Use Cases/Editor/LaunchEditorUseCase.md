@@ -62,7 +62,7 @@ User decides that he/she wants to use the level editor, selects this option from
   </ol> 
 </li>
 <li>System displays options for selected level (delete, rename, edit, etc.)</li>
-<li>User selectshooses "Edit"
+<li>User selects "Edit"
 
 &nbsp;&nbsp;6a. User selects "Back"
   <ol>
