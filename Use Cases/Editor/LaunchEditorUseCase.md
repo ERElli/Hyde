@@ -66,7 +66,7 @@ User decides that he/she wants to use the level editor, selects this option from
 
 &nbsp;&nbsp;6a. User Selects "Back"
   <ol>
-      <li>Resume at step 3 of current flow</li>
+      <li>Resume at step 3 of current flow (or step 2.a.i. if 2.a. was taken to get to this point)</li>
   </ol> 
 </li>
 <li>System launches level editor with most recent version of selected level</li>
