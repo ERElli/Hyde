@@ -39,7 +39,7 @@ User decides that he/she wants to use the level editor, selects this option from
 
 4a. User selects "Load existing level"
 <ol>
-<li>System prompts user to select from user's own levels, or the default pre-programmed levels</li>
+<li>System prompts user to select from either their own levels, or the default pre-programmed levels</li>
 <li>User selects "My levels"
 
 &nbsp;&nbsp;2a. User Selects "Examples"
