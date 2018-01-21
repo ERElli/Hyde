@@ -70,7 +70,7 @@ Alternative flow: connection to the database is not possible and the score and t
 
 **Unlock Achievements:**
 
-Description: at the end of each level an achievement is unlocked based on the score of the player and saved in his profile if it is higher than the one before it (example gold medal, bronze medal).
+Description: player unlocks achievements by collecting coins throughout the level. If the number of coins collected is high enough a medal is awarded at the end of each level and saved in his profile if it is higher than the one before it (example gold medal, bronze medal).
 
 Actor: player
 
