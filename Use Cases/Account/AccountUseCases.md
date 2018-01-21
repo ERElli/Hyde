@@ -67,3 +67,20 @@ Postconditions: player is displayed with his updated score and time to finish
 Normal flow: the score and time is displayed, comparison between previous scores and times in the database is done, and if the score and time are highest it is shown on the player’s profile.
 
 Alternative flow: connection to the database is not possible and the score and time are not saved.
+
+**Unlock Achievements:**
+
+Description: at the end of each level an achievement is unlocked based on the score of the player and saved in his profile if it is higher than the one before it (example gold medal, bronze medal).
+
+Actor: player
+
+Triggers: end of level reached
+
+Preconditions: player is signed in
+
+Postconditions: player is displayed with his achievement for that level
+
+Normal flow: the unlocked achievement is displayed, comparison between previous ones  in the database is done, and if the achievement is the highest it is shown on the player’s profile.
+
+Alternative flow: connection to the database is not possible and the achievement is not saved.
+
