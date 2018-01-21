@@ -50,3 +50,18 @@ User decides that he/she wants to move the camera.
     <li>User closes help menu</li>
     <li>Resume at step 1 of main flow</li>
   </ol>
+
+&nbsp;&nbsp;3a. User's desired direction would take the camera out of bounds
+  <ol>
+    <li>System does not move camera in desired direction</li>
+    <li>User realizes that the position the want to view is out of bounds, chooses new desired location
+ 
+  &nbsp;&nbsp;2a. User does not come to this realization, continues to attempt illegal camera move
+  <ol>
+      <li>After 3 seconds of continuous effort by user, system displays message that move is illegal</li>
+      <li>User acknowledges error, chooses new desired location</li>
+      <li>Resume at step 1 of main flow</li>
+  </ol>
+  </li>
+    <li>Resume at step 1 of main flow</li>
+  </ol>
