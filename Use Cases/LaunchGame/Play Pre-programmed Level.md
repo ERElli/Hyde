@@ -42,5 +42,5 @@ User choses a desired level to play.
   
 &nbsp;&nbsp;5.a. User selects "Back" on level screen
   <ol>
-    <li>Resume at step 3 of normal flow</li>
+    <li>Resume at step 4 of normal flow</li>
   </ol>
