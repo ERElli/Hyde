@@ -5,7 +5,6 @@ Play
     Play pre-programmed level
     Play own level
     Play tutorial
-    Unlock Achievements:  player unlocks achievements by collecting coins throughout the level. If the number of coins collected is high enough a trophy is awarded such as renewal of full health bar. 
 
   Mechanics
     Move left-right
@@ -38,4 +37,4 @@ Account
   Forget password
   Modify Profile
   Update score and Finishing Time: at the end of the level the score of the player is updated and saved in his profile if it is the highest score (comparison between previous scores in database) and time to finish is also updated in the same way. 
-
+  Unlock Achievements:  player unlocks achievements by collecting coins throughout the level. If the number of coins collected is high enough a trophy is awarded such as renewal of full health bar. 
