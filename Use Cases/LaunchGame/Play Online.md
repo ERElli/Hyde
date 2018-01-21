@@ -32,6 +32,7 @@ User choses to play his/her created levels, another level created by another use
 <li>User accesses the games's main menu (separate use case)</li>
 <li>User selects "Play Online"</li>
 <li>Navigate to online menu where system presents four options. 3.a) Find levels, 3.b) My levels, 3.c)Upload level and 4.)Quit</li>
+  
   &nbsp;&nbsp;3.a) User selects "Find Levels"
   <ol>
     <li>User is presented with browse menu displaying all the most recently created levels from all users</li>
@@ -39,12 +40,14 @@ User choses to play his/her created levels, another level created by another use
   </ol>
   
   &nbsp;&nbsp;3.b) User selects "My Levels"
+  
   <ol>
     <li>User is presented with browse menu displaying all levels created by the user</li>
     <li>User selects desired level and begins to play</li>
   </ol>
   
   &nbsp;&nbsp;3.c) User selects "Upload"
+  
   <ol>
     <li>User is presented with browse menu displaying all levels created by the user</li>
     <li>User selects desired level to upload</li>
@@ -52,6 +55,7 @@ User choses to play his/her created levels, another level created by another use
   </ol>
   
   &nbsp;&nbsp;3.d) User selects "Quit"
+  
   <ol>
     <li>User disconnects from server and is brought back to main starting menu</li>
   </ol>
@@ -61,16 +65,19 @@ User choses to play his/her created levels, another level created by another use
 <strong> Alternative Flows </strong>
 
 &nbsp;&nbsp;3.a) User selects "Back" browse(Users others users levels) menu
+  
   <ol>
     <li>Resume at step 3 of normal flow</li>
   </ol>
   
 &nbsp;&nbsp;3.b) User selects "Back" on browse(Users levels) menu
+  
   <ol>
     <li>Resume at step 3 of normal flow</li>
   </ol>
   
   &nbsp;&nbsp;3.b) User selects "Back" on browse(Upload levels) menu
+  
   <ol>
     <li>Resume at step 3 of normal flow</li>
   </ol>
