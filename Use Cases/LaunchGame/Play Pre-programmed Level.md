@@ -27,6 +27,7 @@ User choses a desired level to play.
 <ol>
 <li>User accesses the games's main menu (separate use case)</li>
 <li>User selects "Play"</li>
+<li>User is presented with option to either play story or play own created level. User selects play story</li>
 <li>System presents a stage screen with a list of stages(each stage has a collection of levels), where user must select</li>
 <li>After user has selected stage, system presents a level screen with list of levels included in that stage</li>
 <li>User selects desired level and begins to play</li>
@@ -39,7 +40,7 @@ User choses a desired level to play.
     <li>Resume at step 2 of normal flow</li>
   </ol>
   
-&nbsp;&nbsp;4.a. User selects "Back" on level screen
+&nbsp;&nbsp;5.a. User selects "Back" on level screen
   <ol>
     <li>Resume at step 3 of normal flow</li>
   </ol>
