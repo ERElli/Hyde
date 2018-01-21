@@ -29,7 +29,7 @@ User decides that he/she wants to change the level music.
 <li>User selects "Change Music"</li>
 <li>System displays list of available tracks</li>
 <li>User selects desired track</li>
-<li>System prompts user for the section of the level to which they want to apply the music</li>
+<li>System plays track (as a sample) and prompts user for the section of the level to which they want to apply the music</li>
 <li>User selects desired section</li>
 <li>System sets the music of the selected section to the selected track</li>
 </ol>
