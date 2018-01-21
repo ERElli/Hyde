@@ -11,7 +11,11 @@ Preconditions: user is viewing the login menu.
 
 Postconditions: a new page is displayed for the player to enter his name, password, and email.
 
-Normal flow: player enters his name, password, and email and presses a create account button. The account gets created and saved in the database and the user can continue playing the game.
+Normal flow: 
+
+1. Player enters his name, password, and email.
+2. Player presses  create account button. 
+3. The account gets created and saved in the database and the user can continue playing the game. 
 
 Alternative flow: the account is not saved for some reason( for example no connection to the database server) , and the user is advised to try again.
 
@@ -42,7 +46,9 @@ Preconditions: user is viewing the login menu
 
 Postconditions: the forget password screen is displayed
 
-Normal flow: the user enters the required information in the forget password screen which allows him to reset his password
+Normal flow: 
+1. The user enters his username in  the required information text bar.
+2. The user presses the reset password button.
 
 Alternative flow: the user enters information that does not match the database information and is not able to reset his password. Instead his prompted to try again.
 
