@@ -8,7 +8,7 @@ The user is currently using the level editor, and wishes to test the level they 
 User
 
 <strong> Triggers: </strong>
-User decides that he/she wants to the level they are currently editing.
+User decides that he/she wants to test the level they are currently editing.
 
 <strong> Preconditions: </strong>
 
