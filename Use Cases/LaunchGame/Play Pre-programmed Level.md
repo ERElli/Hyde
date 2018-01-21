@@ -2,7 +2,7 @@
 Play pre-programmed level.
 
 <strong> Description: </strong>
-The user is currently on the starting menu and wants to play a level that is part of the regular story mode.
+The user is currently on the starting main menu and wants to play a level that is part of the regular story mode.
 
 <strong> Actors: </strong>
 User
