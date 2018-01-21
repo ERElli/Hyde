@@ -1,6 +1,6 @@
 Use cases:
 
-Create Account:
+**Create Account:**
 
 Description: the user creates an account if he doesn’t have one already in order to have a profile and save his progress.
 Actor: Player
@@ -15,7 +15,7 @@ Normal flow: player enters his name, password, and email and presses a create ac
 
 Alternative flow: the account is not saved for some reason( for example no connection to the database server) , and the user is advised to try again.
 
-Sign in:
+**Sign in:**
 
 Description: the user signs in to his already existing account
 
@@ -30,7 +30,7 @@ Postconditions: the main menu game screen is displayed to the player
 Normal flow: player enters his login information and his account gets signed in
 Alternative flow: account does not exist, or wrong email/password combination, the user is prompted to try again.
 
-Forget password:
+**Forget password:**
 
 Description: the user forgot his password and wants to change it
 
@@ -46,7 +46,7 @@ Normal flow: the user enters the required information in the forget password scr
 
 Alternative flow: the user enters information that does not match the database information and is not able to reset his password. Instead his prompted to try again.
 
-Update score and finishing time:
+**Update score and finishing time:**
 
 Description: at the end of each level the score of the player and time to finish is updated and saved in his profile if it is higher than the ones before it.
 
