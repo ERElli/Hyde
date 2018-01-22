@@ -1,86 +1,118 @@
-Use cases:
+Account Use cases:
 
 **Create Account:**
 
 Description: the user creates an account if he doesn’t have one already in order to have a profile and save his progress.
-Actor: Player
 
-Triggers: the player presses on “Create Account” in the main menu.
+Actor: User 
+
+Triggers: the player presses on “Create Account” in the login menu.
 
 Preconditions: user is viewing the login menu.
 
-Postconditions: a new page is displayed for the player to enter his name, password, and email.
+Postconditions: a new page is displayed for the player to enter his name, password, and email in order to create his account.
 
 Normal flow: 
 
-1. Player enters his name, password, and email.
-2. Player presses  create account button. 
+1. Player enters his name, password, and email in the text boxes specified. 
+2. Player presses  "Create Account" button. 
 3. The account gets created and saved in the database and the user can continue playing the game. 
 
-Alternative flow: the account is not saved for some reason( for example no connection to the database server) , and the user is advised to try again.
+Alternative flow:
+
+1. The account is not saved for some reason(for example, no connection to the database server
+2. The user is advised to try again.
 
 **Sign in:**
 
-Description: the user signs in to his already existing account
+Description: the user signs in to his already existing account.
 
-Actor: Player
+Actor: User
 
-Triggers: the  player presses on “Sign in” in the main menu.
+Triggers: the  player presses on “Sign in” in the login menu.
 
 Preconditions: user is viewing the login menu.
 
-Postconditions: the main menu game screen is displayed to the player
+Postconditions: the main menu game screen is displayed to the player.
 
-Normal flow: player enters his login information and his account gets signed in
-Alternative flow: account does not exist, or wrong email/password combination, the user is prompted to try again.
+Normal flow: 
+
+1. Player enters his login information which is his username and password.
+
+2. The account gets signed in successfully.
+
+Alternative flow:
+
+1. Account does not exist, wrong email/password combination, or connection to the database is not possible to verify the account information.
+
+2. The user is prompted to try again.
 
 **Forget password:**
 
-Description: the user forgot his password and wants to change it
+Description: the user forgot his/her password and wants to reset his password. 
 
-Actor: Player
+Actor: User
 
-Triggers: the user clicks on the “Forgot Password” button on the login menu.
+Triggers: the user clicks on the “Forgot Password” button on the login menu underneath the textbox for entering his password.
 
-Preconditions: user is viewing the login menu
+Preconditions: user is viewing the login menu.
 
-Postconditions: the forget password screen is displayed
+Postconditions: the "Forget Password" screen is displayed.
 
 Normal flow: 
 1. The user enters his username in  the required information text bar.
 2. The user presses the reset password button.
+3. An email is sent to the user's email to reset his password. 
 
-Alternative flow: the user enters information that does not match the database information and is not able to reset his password. Instead his prompted to try again.
+Alternative flow: 
+
+1. The user enters information that does not match the database information about his username and is not able to reset his password.
+2. The user is prompted to try again.
 
 **Update score and finishing time:**
 
-Description: at the end of each level the score of the player and time to finish is updated and saved in his profile if it is higher than the ones before it.
+Description: At the end of each level the score of the player and time to finish is updated and saved in his/her profile if it is higher than the ones before it.
 
-Actor: player
+Actor: User
 
-Triggers: end of level reached
+Triggers: End of level reached.
 
-Preconditions: player is signed in
+Preconditions: Player is signed in to the game.
 
-Postconditions: player is displayed with his updated score and time to finish
+Postconditions: Player is displayed with his updated score and time to finish.
 
-Normal flow: the score and time is displayed, comparison between previous scores and times in the database is done, and if the score and time are highest it is shown on the player’s profile.
+Normal flow: 
+1. The player reaches the end of the level successfully.
+2. the score and time to finish is displayed.
+3. In the backend, comparison between previous scores and times in the database is done.
+4. The highest score and time to finish is displayed on the player's profile. 
 
-Alternative flow: connection to the database is not possible and the score and time are not saved.
+Alternative flow:
 
-**Unlock Achievements:**
+1. Connection to the database is not possible.
+2. A message is displayed on the screen to the user saying "Sorry, We were unable to update your score and time".
+3. The score and time are not saved.
 
-Description: player unlocks achievements by collecting coins throughout the level. If the number of coins collected is high enough a medal is awarded at the end of each level and saved in his profile if it is higher than the one before it (example gold medal, bronze medal).
+**Unlock Achievements (Medals):**
 
-Actor: player
+Description: Player unlocks medals based on his time to finish the level. There are 4 medal: bronze, silver, gold, and platinum. Specific times are set and compared to the user's timer. If the medal awarded is higher than the one before it, it is saved in the player's account. 
 
-Triggers: end of level reached
+Actor: User
 
-Preconditions: player is signed in
+Triggers: End of level is reached.
 
-Postconditions: player is displayed with his achievement for that level
+Preconditions: Player is signed in.
 
-Normal flow: the unlocked achievement is displayed, comparison between previous ones  in the database is done, and if the achievement is the highest it is shown on the player’s profile.
+Postconditions: Player is displayed with his achievement for that level.
 
-Alternative flow: connection to the database is not possible and the achievement is not saved.
+Normal flow: 
+1. The time to finish the level is displayed on the user's screen. 
+2. The unlocked achievement is displayed to the user's screen.
+3. Comparison between previous ones  in the database is done, and if the achievement is the highest it is shown on the player’s profile.
+
+Alternative flow: 
+
+1. connection to the database is not possible.
+2. A message is displayed on the screen to the user saying "Sorry, We were unable to update your achievement to your account".
+3. the achievement is not saved.
 
