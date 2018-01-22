@@ -69,6 +69,11 @@ User decides that he/she wants to share the level they are currently editing.
   </li>
  </ol>
  
+ &nbsp;&nbsp;2b. Level does not include ending point/finish line
+  <ol>
+  <li>Same as alternative flow 2a, but with ending point instead of starting point / sprite.</li>
+  </ol>
+ 
  &nbsp;&nbsp;2c. Level has no name
   <ol>
     <li>User opens Settings
