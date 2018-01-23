@@ -19,17 +19,19 @@ Normal Flow:
     5.Damage is applied to target.
     6.Player's velocity and momentum is reduced by targets resistance.
 
-Alternative Flow: 
-2a. Player is in human form. 
-	1. Attack attempt does not occur.
+Alternative Flow:<br> 
+&nbsp;&nbsp;&nbsp;&nbsp; 2a. Player is in human form. <br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. Attack attempt does not occur.
 
-3a. Player momentum is too low to pass momentum check. 
-	1. Player takes damage based on current momentum. 2. Player's velocity and momentum is set to 0. 3. Target takes no damage.
+&nbsp;&nbsp;&nbsp;&nbsp;3a. Player momentum is too low to pass momentum check.<br> 
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. Player takes damage based on current momentum.<br> 
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. Player's velocity and momentum is set to 0.<br> 
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. Target takes no damage.<br>
 
-5a. Target is a breakable object 
-	1. Object health is less then calculated damage output. 
-		i) Object destroyed. 
-		ii) Player maintains current momentum. 
-	2. Object health is greater then calculated damage output. 
-		i) Player takes damage based on momentum. 
-		ii) Player's velocity and momentum is set to 0.
+&nbsp;&nbsp;&nbsp;&nbsp; 5a. Target is a breakable object.<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. Object health is less then calculated damage output.<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i) Object destroyed.<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ii) Player maintains current momentum. <br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Object health is greater then calculated damage output.<br> 
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i) Player takes damage based on momentum.<br> 
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ii) Player's velocity and momentum is set to 0.<br>
