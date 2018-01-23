@@ -18,6 +18,6 @@ Normal Flow:
     4.Characters current attributes are changed to new forms attributes.
     5.Character is now transformed.
 
-Alternative Flows: 
-2a. User inputs the transformation button while animation is in progress. 
-	1. Transformation will not occur while transformation animation is being displayed.
+Alternative Flows:<br> 
+&nbsp;&nbsp;&nbsp;&nbsp;2a. User inputs the transformation button while animation is in progress.<br> 
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Transformation will not occur while transformation animation is being displayed.
