@@ -22,16 +22,16 @@ Normal Flow:
     8.Object hits target.
     9.Damage is calculated based on object momentum and applied to target.
 
-Alternative Flow: 
-2a. Player is in human form 
-	1. No object pickup is attempted.
+Alternative Flow:<br> 
+&nbsp;&nbsp;&nbsp;&nbsp;2a. Player is in human form<br> 
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. No object pickup is attempted.<br>
 
-4a. Player switches forms while possessing object. 
-	1. Object is dropped to the ground.
+&nbsp;&nbsp;&nbsp;&nbsp; 4a. Player switches forms while possessing object. <br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. Object is dropped to the ground.<br>
 
-8a. Object doesnt hit any target 
-	1. Object continues to decelerate until it stops.
+&nbsp;&nbsp;&nbsp;&nbsp; 8a. Object doesnt hit any target <br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. Object continues to decelerate until it stops.<br>
 
-9a. Target is resistant to thrown objects 
-	1. No damage is applied. 
-	2. Thrown objects bounce off enemy.
+&nbsp;&nbsp;&nbsp;&nbsp;9a. Target is resistant to thrown objects <br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. No damage is applied. <br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Thrown objects bounce off enemy.<br>
