@@ -21,10 +21,10 @@ Normal Flow:
 6. Engine applies acceleration the users character in the desired direction.
 7. Steps 2 through 6 are repeated until the user has stopped input the direction.
 
-Alternative Flow:
-4a. User's character is currently not touching any terrain.<br>
-	&nbsp;&nbsp;&nbsp;&nbsp; 1. A constant minimal acceleration is applied to the character that is in the direction of the input.
+Alternative Flow:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;4a. User's character is currently not touching any terrain.<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. A constant minimal acceleration is applied to the character that is in the direction of the input.
 	
-6a. User is accelerating into an object.<br>
-	&nbsp;&nbsp;&nbsp;&nbsp; 1. The character will accelerate towards the object but will their position will not change.
+&nbsp;&nbsp;&nbsp;&nbsp;6a. User is accelerating into an object.<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. The character will accelerate towards the object but will their position will not change.
 	
