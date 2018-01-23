@@ -19,5 +19,5 @@ Normal Flow:
 
 Alternative Flows:
 
-1a. Player passes checkpoint without passing through it. 
-	1. Respawn point will be at the start of the level.
+1a. Player passes checkpoint without passing through it.<br> 
+	&nbsp;&nbsp;&nbsp;&nbsp; 1. Respawn point will be at the start of the level.
