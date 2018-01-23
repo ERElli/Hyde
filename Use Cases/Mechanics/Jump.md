@@ -17,6 +17,6 @@ Normal Flow:
     3.Engine checks users current form.
     4.Engine applies upward acceleration to character
 
-Alternative Flows: 
-2a. Character is not in a jumpable state. 
-	1.No upward acceleration is applied to the character.
+Alternative Flows: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;2a. Character is not in a jumpable state.<br> 
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.No upward acceleration is applied to the character.
