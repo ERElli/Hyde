@@ -25,7 +25,7 @@ Alternative flow:
 2. The user is advised to try again.
 
 **Sign in:**
-![Sign in](https://github.com/markwindsorr/CS4770/blob/master/images/SignIn.png)
+![Sign in](https://github.com/markwindsorr/CS4770/blob/master/images/login.jpg)
 Description: the user signs in to his already existing account.
 
 Actor: User
