@@ -84,7 +84,7 @@ User choses to play his/her created levels, another level created by another use
     <li>Resume at step 3 of normal flow</li>
   </ol>
   
-  &nbsp;&nbsp;3.b) User selects "Back" on browse(Upload levels) menu
+  &nbsp;&nbsp;3.c) User selects "Back" on browse(Upload levels) menu
   
   <ol>
     <li>Resume at step 3 of normal flow</li>
