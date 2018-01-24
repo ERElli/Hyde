@@ -34,13 +34,15 @@ Triggers: the  player presses on “Sign in” in the login menu.
 
 Preconditions: user is viewing the login menu.
 
-Postconditions: the main menu game screen is displayed to the player.
+Postconditions: A new page is displayed for the player to enter his username & password.
 
 Normal flow: 
 
 1. Player enters his login information which is his username and password.
 
-2. The account gets signed in successfully.
+2. Player presses on "Sign In" button. 
+
+3. The account gets signed in successfully.
 
 Alternative flow:
 
