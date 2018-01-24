@@ -27,7 +27,7 @@ User decides that he/she wants to change the level background.
 
 <ol>
 <li>User selects "Change Background"</li>
-<li>System displays list of available backgrounds</li>
+<li>System displays list of available backgrounds (see EditorSelector.png for reference)</li>
 <li>User selects desired background</li>
 <li>System prompts user for the section of the level to which they want to apply the background</li>
 <li>User selects desired section</li>
