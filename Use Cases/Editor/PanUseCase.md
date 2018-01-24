@@ -43,7 +43,7 @@ User decides that he/she wants to move the camera.
   
 &nbsp;&nbsp;1b. User does not know how to pan
   <ol>
-    <li>User selects "Help"</li>
+    <li>User selects "Help" (see EditorMenu.png for reference)</li>
     <li>System displays help menu</li>
     <li>User selects "Camera Movement"</li>
     <li>System displays 2 graphics, 1 for each way to move the camera (mouse and keyboard)</li>
