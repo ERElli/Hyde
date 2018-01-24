@@ -1,4 +1,4 @@
-﻿<strong> Title: </strong> Add Enemy
+﻿<strong> Title: </strong> Add Boss
 
 <strong> Description: </strong> The User is currently using the level editor and wishes to add a boss to the level
 
