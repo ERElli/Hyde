@@ -26,7 +26,7 @@ User decides that he/she wants to change the level music.
 <strong> Normal Flow </strong>
 
 <ol>
-<li>User selects "Change Music"</li>
+<li>User selects "Change Music" (see EditorMain.png for reference)</li>
 <li>System displays list of available tracks</li>
 <li>User selects desired track</li>
 <li>System plays track (as a sample) and prompts user for the section of the level to which they want to apply the music</li>
