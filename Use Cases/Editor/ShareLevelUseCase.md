@@ -29,7 +29,7 @@ User decides that he/she wants to share the level they are currently editing.
 <strong> Normal Flow </strong>
 
 <ol>
-<li>User selects "Share Level"</li>
+<li>User selects "Share Level" (see EditorMain.png for reference)</li>
 <li>System ensures that the level includes necessary components (player starting point, level end, level name)</li>
 <li>System starts game on the level currently being edited (see separate use case for starting a game)</li>
 <li>User plays through the level (separate use case)</li>
@@ -44,11 +44,11 @@ User decides that he/she wants to share the level they are currently editing.
 
 &nbsp;&nbsp;2a. Level does not include player starting point
   <ol>
-    <li>User clicks "Add player"
+    <li>User clicks "Add player" (see EditorMain.png for reference)
     
   &nbsp;&nbsp;1a. User does not know how to add sprite
   <ol>
-      <li>User selects "Help"</li>
+      <li>User selects "Help" (see EditorMenu.png for reference)</li>
       <li>System displays help menu</li>
       <li>User selects "Adding entities"</li>
       <li>System displays information on how to add various entities, including player sprite (Open entity menu, click desired entity, click desired position)</li>
@@ -76,7 +76,7 @@ User decides that he/she wants to share the level they are currently editing.
  
  &nbsp;&nbsp;2c. Level has no name
   <ol>
-    <li>User opens Settings
+    <li>User opens Settings (See EditorMenu.png for reference)
     
   &nbsp;&nbsp;1a. User does not know how to name the level
   <ol>
