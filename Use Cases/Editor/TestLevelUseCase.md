@@ -27,7 +27,7 @@ User decides that he/she wants to test the level they are currently editing.
 
 <ol>
 <li>User moves the player sprite to the desired starting location for the test</li>
-<li>User selects "Test Level"</li>
+<li>User selects "Test Level" (see EditorMain.png for reference)</li>
 <li>System starts game on the level currently being edited (see separate use case for starting a game)</li>
 <li>User plays level until satisfied (see separate use cases for playing game)</li>
 <li>User selects "Stop Testing"</li>
@@ -42,7 +42,7 @@ User decides that he/she wants to test the level they are currently editing.
     
   &nbsp;&nbsp;1a. User does not know how to add sprite
   <ol>
-      <li>User selects "Help"</li>
+      <li>User selects "Help" (see EditorMenu.png for reference)</li>
       <li>System displays help menu</li>
       <li>User selects "Adding entities"</li>
       <li>System displays information on how to add various entities, including player sprite</li>
