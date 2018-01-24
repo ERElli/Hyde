@@ -26,7 +26,7 @@ User decides that he/she wants to move the camera.
 <strong> Normal Flow </strong>
 
 <ol>
-<li>User selects "Pan" option</li>
+<li>User selects "Pan" option (see EditorMain.png for reference)</li>
 <li>User clicks and drags in the desired direction</li>
 <li>System moves camera as appropriate (opposite direction of mouse)</li>
 <li>User reaches desired position, stops moving</li>
