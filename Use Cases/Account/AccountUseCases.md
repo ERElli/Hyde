@@ -14,7 +14,7 @@ Postconditions: a new page is displayed for the player to enter his name, passwo
 
 Normal flow: 
 
-1. Player enters his name, password, and email in the text boxes specified. 
+1. Player enters his username, password, and email in the text boxes specified. 
 2. Player presses  "Create Account" button. 
 3. The account gets created and saved in the database and the user can continue playing the game. 
 
