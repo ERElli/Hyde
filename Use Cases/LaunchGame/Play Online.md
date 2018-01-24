@@ -34,6 +34,7 @@ User choses to play his/her created levels, another level created by another use
 <li>Navigate to online menu where system presents four options. 3.a) Find levels, 3.b) My levels, 3.c)Upload level and 4.)Quit</li>
   
   &nbsp;&nbsp;3.a) User selects "Find Levels"
+  
   <ol>
     <li>User is presented with browse menu displaying all the most recently created levels from all users</li>
     <li>User selects desired level and begins to play</li>
@@ -63,6 +64,13 @@ User choses to play his/her created levels, another level created by another use
 </ol>
 
 <strong> Alternative Flows </strong>
+
+&nbsp;&nbsp;3.)Loses connection to server on any part of online play
+
+<ol>
+  <li>Display alert message with message saying you lost connection to internet.</li>
+  <li>User presses "OK" and navigates back to main starting menu</li>
+</ol>
 
 &nbsp;&nbsp;3.a) User selects "Back" browse(Users others users levels) menu
   
