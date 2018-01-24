@@ -50,7 +50,7 @@ Alternative flow:
 
 2. The user is prompted to try again.
 
-**Forget password:**
+**Forgot password:**
 
 Description: the user forgot his/her password and wants to reset his password. 
 
