@@ -31,4 +31,6 @@
 
 <strong> Alternative Flows </strong>
 	5a. User bring their mouse over a filled tile on the play area
-		<ol><li>System shows User a red X to indicate that the boss unit cannot be placed on that tile</li></ol>
+<ol>
+<li>System shows User a red X to indicate that the boss unit cannot be placed on that tile</li>
+<li>Resume at 5 of the regular flow</li></ol>
