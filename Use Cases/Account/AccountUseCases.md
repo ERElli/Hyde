@@ -1,6 +1,7 @@
 Account Use cases:
 
 **Create Account:**
+![Create Account](https://github.com/markwindsorr/CS4770/blob/master/images/CreateAccount.png)
 
 Description: the user creates an account if he doesn’t have one already in order to have a profile and save his progress.
 
@@ -24,7 +25,7 @@ Alternative flow:
 2. The user is advised to try again.
 
 **Sign in:**
-
+![Sign in](https://github.com/markwindsorr/CS4770/blob/master/images/SignIn.png)
 Description: the user signs in to his already existing account.
 
 Actor: User
