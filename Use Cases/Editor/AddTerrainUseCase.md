@@ -24,7 +24,7 @@
 <ol>
 <li> System presents User with different types of entities to add to the play area (see CS4770/images/editor/EditorMain.png for reference)</li>
 <li>User chooses to add terrain blocks to the play area</li>
-<li>System presents User with different options for terrain blocks</li>
+<li>System presents User with different options for terrain blocks (see CS4770/images/editor/EditorSelector.png for reference)</li>
 <li>User picks the specific terrain block that they wish to add to the play area</li>
 <li>User brings their mouse over an empty tile on the</li>
 <li>System shows User a preview of where the terrain block will be placed</li>
