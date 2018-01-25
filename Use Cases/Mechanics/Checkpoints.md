@@ -1,6 +1,7 @@
 Title: Trigger Checkpoint
 
 Description: When character passes through the checkpoint it will activate, allowing the player to respawn at their furthest checkpoint if they die. The checkpoint will indicate that it has been activated.
+![](https://github.com/markwindsorr/CS4770/blob/master/images/Mechanics/Checkpoint.jpg)
 
 Actors: User
 
