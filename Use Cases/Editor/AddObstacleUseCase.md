@@ -19,7 +19,7 @@
 
 <strong> Normal Flow </strong>
 <ol>
-<li>The system presents User with different types of entities to add to the play area</li>
+<li>The system presents User with different types of entities to add to the play area (see CS4770/images/editor/EditorMain.png for reference)</li>
 <li>User chooses to add obstacles to the play area</li>
 <li>System presents User with different types of obstacles</li>
 <li>User picks the specific obstacle that they wish to add to the play area</li>
