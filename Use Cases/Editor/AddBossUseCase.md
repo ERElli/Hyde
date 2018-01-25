@@ -21,12 +21,12 @@
 <ol>
 <li>The system presents User with different types of entities to add to the play area (see CS4770/images/editor/EditorMain.png for reference)</li>
 <li>User chooses to add a boss to the play area</li>
-<li>The system presents User with different types of boss units (see CS4770/images/editor/EditorSelector.png for reference)</li>
+<li>System presents User with different types of boss units (see CS4770/images/editor/EditorSelector.png for reference)</li>
 <li>User picks the specific boss unit that they wish to add to the play area</li>
 <li>User brings their mouse over an empty tile on the play area</li>
-<li>The system shows User a preview of where the boss unit will be placed</li>
+<li>System shows User a preview of where the boss unit will be placed</li>
 <li>User clicks on the tile of the play area where they wish to add the boss unit</li>
-<li>The system shows the placed boss unit on the play area</li>
+<li>System shows the placed boss unit on the play area</li>
 </ol>
 
 <strong> Alternative Flows </strong>
