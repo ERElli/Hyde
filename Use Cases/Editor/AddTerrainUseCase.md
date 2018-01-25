@@ -22,7 +22,7 @@
 <strong> Normal Flow </strong>
 
 <ol>
-<li> System presents User with different types of entities to add to the play area</li>
+<li> System presents User with different types of entities to add to the play area (see CS4770/images/editor/EditorMain.png for reference)</li>
 <li>User chooses to add terrain blocks to the play area</li>
 <li>System presents User with different options for terrain blocks</li>
 <li>User picks the specific terrain block that they wish to add to the play area</li>
