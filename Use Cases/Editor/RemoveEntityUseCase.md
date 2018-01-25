@@ -23,3 +23,9 @@
 <li>User right-clicks on an entity on the play area</li>
 <li>System removes the entity from the play area</li>
 </ol>
+
+<strong> Alternative Flows </strong>
+<ol>
+  <li>User holds right-click and drags the mouse cursor over entities on the play area</li>
+  <li>System removes all entities that User mouses over</li>
+</ol>
