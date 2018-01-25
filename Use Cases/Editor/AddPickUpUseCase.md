@@ -21,7 +21,7 @@
 <ol>
 <li>System presents User with different types of entities to add to the play area (see CS4770/images/editor/EditorMain.png for reference)</li>
 <li>User chooses to add pick-ups to the play area</li>
-<li>System presents User with different types of pick-ups</li>
+<li>System presents User with different types of pick-ups (see CS4770/images/editor/EditorSelector.png for reference)</li>
 <li>User picks the specific pick-up that they wish to add to the play area</li>
 <li>User brings their mouse over an empty tile on the play area</li>
 <li>System shows User a preview of where the pick-up will be placed</li>
