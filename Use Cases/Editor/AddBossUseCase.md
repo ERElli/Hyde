@@ -20,7 +20,7 @@
 <strong> Normal Flow </strong>
 <ol>
 <li>The system presents User with different types of entities to add to the play area</li>
-![https://github.com/markwindsorr/CS4770/blob/master/images/editor/EditorMain.png]()
+[https://github.com/markwindsorr/CS4770/blob/master/images/editor/EditorMain.png]
 <li>User chooses to add obstacles to the play area</li>
 <li>The system presents User with different types of boss units</li>
 <li>User picks the specific boss unit that they wish to add to the play area</li>
