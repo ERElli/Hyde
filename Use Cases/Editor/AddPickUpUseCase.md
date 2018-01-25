@@ -19,12 +19,12 @@
 
 <strong> Normal Flow </strong>
 <ol>
-<li>System presents User with different types of entities to add to the play area</li>
+<li>System presents User with different types of entities to add to the play area (see CS4770/images/editor/EditorMain.png for reference)</li>
 <li>User chooses to add pick-ups to the play area</li>
 <li>System presents User with different types of pick-ups</li>
 <li>User picks the specific pick-up that they wish to add to the play area</li>
 <li>User brings their mouse over an empty tile on the play area</li>
-<li>System shows User a preview of where the obstacle will be placed</li>
+<li>System shows User a preview of where the pick-up will be placed</li>
 <li>User clicks on the tile of the play area where they wish to add the pick-up</li>
 <li>System shows the placed pick-up on the play area</li>
 </ol>
