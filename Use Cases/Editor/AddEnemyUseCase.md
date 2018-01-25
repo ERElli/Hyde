@@ -19,7 +19,7 @@
 
 <strong> Normal Flow </strong>
 <ol>
-<li>System presents User with different types of entities to add to the play area</li>
+<li>System presents User with different types of entities to add to the play area (see CS4770/images/editor/EditorMain.png for reference)</li>
 <li>User chooses to add enemies to the play area</li>
 <li>System presents User with different types of enemy units</li>
 <li>User picks the specific enemy unit that they wish to add to the play area</li>
