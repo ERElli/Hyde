@@ -1,7 +1,7 @@
 Title: Throwing attack
 
 Description: Player picks up object and throws it.
-
+![](https://github.com/markwindsorr/CS4770/blob/master/images/Mechanics/ThrowAttack.jpg)
 Actors: User
 
 Triggers: Player is within range of a throwable object and presses object pick up input.
