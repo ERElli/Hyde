@@ -19,9 +19,9 @@
 
 <strong> Normal Flow </strong>
 <ol>
-<li>The system presents User with different types of entities to add to the play area</li>
-<li>User chooses to add obstacles to the play area</li>
-<li>The system presents User with different types of boss units</li>
+<li>The system presents User with different types of entities to add to the play area (see CS4770/images/editor/EditorMain.png for reference)</li>
+<li>User chooses to add a boss to the play area</li>
+<li>The system presents User with different types of boss units (see CS4770/images/editor/EditorSelector.png for reference)</li>
 <li>User picks the specific boss unit that they wish to add to the play area</li>
 <li>User brings their mouse over an empty tile on the play area</li>
 <li>The system shows User a preview of where the boss unit will be placed</li>
