@@ -21,7 +21,7 @@
 <ol>
 <li>The system presents User with different types of entities to add to the play area (see CS4770/images/editor/EditorMain.png for reference)</li>
 <li>User chooses to add obstacles to the play area</li>
-<li>System presents User with different types of obstacles</li>
+<li>System presents User with different types of obstacles (see CS4770/images/editor/EditorSelector.png for reference)</li>
 <li>User picks the specific obstacle that they wish to add to the play area</li>
 <li>User brings their mouse over an empty tile on the play area</li>
 <li>System shows User a preview of where the obstacle will be placed</li>
