@@ -1,0 +1,31 @@
+Entity
+	/humanoids
+		/enemies
+			/bosses
+			/standard
+				/ranged
+				/flying
+				/tank
+				/generic
+				/agileAggressive
+		/player
+	/specialSurfaces
+		/dynamic
+		/frictionModfiers
+		/traps		
+	/destructables
+		/walls
+		/floors
+		/objects
+	/projectiles
+	/Usables
+	/checkpoints
+	
+Gamestate
+Interface
+
+Database/server
+	-account
+LevelEditor
+	-level
+
