@@ -61,6 +61,7 @@ Database/server
 	- Size of databases 
 	- Checkpoint saving 
 	- Achievements/ Profile info saving and updating 
+	- Level editor level saving 
 --------------------------------------------------------------------------
 --Mark-- 
 LevelEditor
