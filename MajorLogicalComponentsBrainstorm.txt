@@ -63,6 +63,15 @@ Interface
 		/Ammo
 		/healthbar
 		/Momentum Bar
+	/modeling
+		/entityTextures
+		/Background
+		/Foreground
+	/shaders
+		/lighting
+		/shadows
+
+	
 --------------------------------------------------------------------------
 --Moe--
 Database/server
