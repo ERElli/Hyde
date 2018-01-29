@@ -62,6 +62,7 @@ Database/server
 	- Checkpoint saving 
 	- Achievements/ Profile info saving and updating 
 	- Level editor level saving 
+	- NodeJS setup
 --------------------------------------------------------------------------
 --Mark-- 
 LevelEditor
