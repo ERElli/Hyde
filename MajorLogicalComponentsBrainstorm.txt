@@ -1,3 +1,6 @@
+Major Logical Components
+--------------------------------------------------------------------------
+--Eric--
 Entity
 	/humanoids
 		/enemies
@@ -9,23 +12,54 @@ Entity
 				/generic
 				/agileAggressive
 		/player
+
 	/specialSurfaces
 		/dynamic
 		/frictionModfiers
-		/traps		
+		/traps
+--------------------------------------------------------------------------
+--Mark-- 		
 	/destructables
 		/walls
 		/floors
 		/objects
 	/projectiles
+		/bullets
+		/Throwables
+		*************/Shrapnel
+--------------------------------------------------------------------------
+--John--
 	/Usables
+		/healing/protective
+		/weapons
+		/MovementUpgrades
 	/checkpoints
-	
-Gamestate
-Interface
 
+Gamestate
+	/Terrain
+	/Walls
+--------------------------------------------------------------------------
+--Tyler-- 
+Interface
+	/drawLevel
+	/ScreenControl
+	/animations
+		/transformation
+		/destruction
+	/sound
+		/soundfx
+		/music
+	/HUD
+		/Ammo
+		/healthbar
+		/Momentum Bar
+	/
+--------------------------------------------------------------------------
+--Moe--
 Database/server
 	-account
+--------------------------------------------------------------------------
+--Mark-- 
 LevelEditor
 	-level
-
+--------------------------------------------------------------------------
