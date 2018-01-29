@@ -56,7 +56,11 @@ Interface
 --------------------------------------------------------------------------
 --Moe--
 Database/server
-	-account
+	- Account/login information (username + password)
+	- Number of databases 
+	- Size of databases 
+	- Checkpoint saving 
+	- Achievements/ Profile info saving and updating 
 --------------------------------------------------------------------------
 --Mark-- 
 LevelEditor
