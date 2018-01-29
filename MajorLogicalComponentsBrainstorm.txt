@@ -30,14 +30,24 @@ Entity
 --------------------------------------------------------------------------
 --John--
 	/Usables
-		/healing/protective
+		/powerUps
+			/healthPack
+			/shield
+			/speedBoost
+			/incendiaryAmmo
+			/refillAmmo
 		/weapons
-		/MovementUpgrades
-	/checkpoints
+			/pistol (default)
+			/shotgun
+			/sword
+			/assault rifle
+	/checkpoint
 
 Gamestate
 	/Terrain
+		/block
 	/Walls
+	/main (driver)
 --------------------------------------------------------------------------
 --Tyler-- 
 Interface
