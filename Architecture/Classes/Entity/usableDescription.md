@@ -3,5 +3,5 @@ All of these objects exist in the level, are always stationary, and affect the p
 
 Methods:
 <ul>
-  <li>modifyAttribute()</li>
+  <li>applyEffect()</li>
 </ul>
