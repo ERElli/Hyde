@@ -10,7 +10,7 @@ game is played.
 Attributes:
 <ul>
   <li>player</li>
-  <li>level (holds entities initially in level) </li>
+  <li>level (holds information about level) </li>
 </ul>
 
 Methods:
