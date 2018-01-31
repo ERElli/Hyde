@@ -5,5 +5,8 @@ by calling the changeWeapon method in the "player" class
 
 Attributes:
 <ul>
-  <li>modifyWeapon</li>
+  <li>firingRate</li>
+  <li>bulletSpeed</li>
+  <li>damage</li>
+  <li>pattern</li>
 </ul>
