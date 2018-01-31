@@ -1,0 +1,12 @@
+The "usable" class defines all those objects in the game that can be used by the player.
+All of these objects exist in the level, are always stationary, and affect the player when the player walks on them.
+
+Attributes:
+<ul>
+  <li>effected attribute</li>
+</ul>
+
+Methods:
+<ul>
+  <li>modifyAttribute()</li>
+</ul>
