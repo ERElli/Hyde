@@ -2,7 +2,7 @@ Interface Classes
 	DrawLevel: Class draws the static level components to the canvas
 		This class will:
 			-Precompute and Draw the static objects of the level before the player begins.
-			-Draw level background and foreground for the level.
+			-Draw background and foreground for the level.
 	ScreenControl: Class controls the users view of level
 		This class will:
 			-be responsible for players screen view
