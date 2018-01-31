@@ -6,4 +6,5 @@ by calling the modifyStat method in the "player" class
 Attributes:
 <ul>
   <li>increaseAmount</li>
+  <li>effectedStat</li>
 </ul>
