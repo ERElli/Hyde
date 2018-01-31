@@ -4,16 +4,13 @@ of physics that govern their interactions. Since it does not really define a con
 defined in other major components. For example, although it keeps track of all the entities currently in the game, it does 
 not include the code defining these entities, since that is done in the Entity logical component. It also interacts with the Interface 
 component, as it provides the information about the game world that the programs in the Interface component make visible to the 
-user.
+user. Finally, it interacts with the Level component to get the initial state of the level, that it will update as the 
+game is played.
 
 Attributes:
 <ul>
   <li>player</li>
-  <li>enemies</li>
-  <li>obstacles</li>
-  <li>projectiles</li>
-  <li>pick-ups</li>
-  <li>blocks (terrain)</li>
+  <li>level (holds entities initially in level) </li>
 </ul>
 
 Methods:
