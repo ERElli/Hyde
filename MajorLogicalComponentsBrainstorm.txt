@@ -29,18 +29,17 @@ Entity
 		*************/Shrapnel
 --------------------------------------------------------------------------
 --John--
-	/Usables
-		/powerUps
-			/healthPack
-			/shield
-			/speedBoost
-			/incendiaryAmmo
-			/refillAmmo
-		/weapons
-			/pistol (default)
-			/shotgun
-			/sword
-			/assault rifle
+	/powerUps
+		/healthPack
+		/shield
+		/speedBoost
+	/weapons
+		/pistol (default)
+		/shotgun
+		/sword
+		/assault rifle
+		/incendiaryAmmo
+		/refillAmmo
 	/checkpoint
 
 Gamestate
