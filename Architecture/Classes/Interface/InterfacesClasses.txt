@@ -1,4 +1,8 @@
-Interface Classes
+Interface Classes:
+	GUI: Class that is responsible for displaying canvas to player
+		This class will:
+			-Generates the canvas that will be drawn to
+			
 	LevelGUI: Class draws the static level components to the canvas
 		This class will:
 			-Precompute and Draw the static objects of the level before the player begins.
@@ -23,6 +27,11 @@ Interface Classes
 		This class will:
 			-display to the player the current weapon and the amount of ammo the character.
 			-displays a timer for the player to gauge their time.
-		 	-displays the players health and momentum bar
+		 	-displays the players health and momentum bar.
 			
-	
+	Menu: Class is responsible for the players navigation through the menu.
+		This class will: 
+			-Display login page when application opened
+			-Display all menus (Game Menu, Options, Account, Story mode, etc...)
+			-Connect all menus together so they work in the proper order.
+
