@@ -32,16 +32,19 @@ Entity
 	/usable
 		/powerUp
 			/healthPack
-			/shield
 			/speedBoost
+			/top-heavy (increased max momentum)
+			/experimental (decreased switching cooldown?)
+			/springheel (higher jumps)
 		/weapon
 			/pistol (default)
 			/shotgun
 			/sword
 			/assault rifle
-		/ammo
-			/incendiaryAmmo
-			/refillAmmo
+		/perks
+			/explosiveAmmo
+			/ammoRefill
+			/shield
 	/checkpoint
 
 Gamestate
