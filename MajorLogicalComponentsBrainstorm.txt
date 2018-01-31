@@ -81,6 +81,7 @@ Database/server
 	- Checkpoint saving 
 	- Achievements/ Profile info saving and updating 
 	- Level editor level saving 
+	- offline mode doesn't require database
 --------------------------------------------------------------------------
 --Mark-- 
 LevelEditor
