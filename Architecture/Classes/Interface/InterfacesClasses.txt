@@ -2,7 +2,7 @@ Interface Classes:
 	GUI: Class that is responsible for displaying canvas to player
 		This class will:
 			-Generates the canvas that will be drawn to
-			
+			-Inherits container from HTML index file
 	LevelGUI: Class draws the static level components to the canvas
 		This class will:
 			-Precompute and Draw the static objects of the level before the player begins.
