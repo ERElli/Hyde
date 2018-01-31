@@ -1,0 +1,28 @@
+Interface Classes
+	DrawLevel: Class draws the static level components to the canvas
+		This class will:
+			-Precompute and Draw the static objects of the level before the player begins.
+			-Draw level background and foreground for the level.
+	ScreenControl: Class controls the users view of level
+		This class will:
+			-be responsible for players screen view
+			-ensure player is always able to see nessicary information to play the game.
+			
+	Animations: Class is responsible for all game animations
+		This class will:
+			-display movement animations of the entities
+			-display transformation animations
+			-display weapon animations
+			-display object destruction animations
+			-display other animations(ie explosions, entity deaths, etc)
+	Sound: Class is responsible for in game sound
+		This class will:
+			-play sound effects when they are triggered
+			-plays appropriate music based on characters position
+	HUD: Class is responsible for displaying all character information to the player.
+		This class will:
+			-display to the player the current weapon and the amount of ammo the character.
+			-displays a timer for the player to gauge their time.
+		 	-displays the players health and momentum bar
+			
+	
