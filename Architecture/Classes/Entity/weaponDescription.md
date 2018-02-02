@@ -8,6 +8,8 @@ Attributes:
   <li>firingRate</li>
   <li>bulletSpeed</li>
   <li>damage</li>
+  <li>range</li>
+  <li>startAmmo</li>
 </ul>
 
 Methods:
