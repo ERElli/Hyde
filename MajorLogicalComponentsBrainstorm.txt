@@ -87,9 +87,12 @@ Database/server
 --Mark-- 
 LevelEditor
 	/level
-	/Terrain
-		/block
-			/buildingBlock
-			/iceBlock
-	/Walls
+		/background
+		/Terrain
+			/block
+				/buildingBlock
+				/iceBlock
+			/Walls
+				/breakable
+				/unbreakable
 --------------------------------------------------------------------------
