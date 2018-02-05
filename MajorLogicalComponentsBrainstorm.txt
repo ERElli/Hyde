@@ -89,5 +89,7 @@ LevelEditor
 	/level
 	/Terrain
 		/block
+			/buildingBlock
+			/iceBlock
 	/Walls
 --------------------------------------------------------------------------
