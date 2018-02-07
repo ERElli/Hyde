@@ -1,9 +1,9 @@
 <ol>
-<li>Launch Game</li>
-<li>Start Match</li>
-<li>Play Game</li>
-<li>Launch Editor</li>
-<li>Add Entity</li>
-<li>Upload Level</li>
-<li>Create Account</li>
+<li>Launch Game - John(done)</li>
+<li>Start Match - Tyler(done)</li>
+<li>Play Game - Tyler(done)</li>
+<li>Launch Editor - John(done)</li>
+<li>Add Entity - Eric</li>
+<li>Upload Level - Tyler</li>
+<li>Create Account - John</li>
 </ol>
