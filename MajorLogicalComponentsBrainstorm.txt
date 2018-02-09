@@ -89,7 +89,9 @@ LevelEditor
 	/level
 		/background
 		/Terrain
+			
 			/block
+				/sidewalkBlock
 				/buildingBlock
 				/iceBlock
 			/Walls
