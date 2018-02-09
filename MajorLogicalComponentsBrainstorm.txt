@@ -13,7 +13,7 @@ Entity
 				/agileAggressive
 		/player
 
-	/specialSurfaces
+	/specialSurfaces (This is just a directory)
 		/dynamic
 		/frictionModfiers
 		/traps
