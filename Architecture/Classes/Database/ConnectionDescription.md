@@ -8,9 +8,9 @@ Database Classes:
 
 ![](https://github.com/markwindsorr/CS4770/blob/master/images/createAccount%20copy.png)
 
+3. The Profile class contains information about the user and his/her progress and achievement in the game. The data is retrieved when the user is viewing their profile on the interface. The data stored is updated as the user progresses in the game. 
 
 
-3. SaveLevelDB: this class saves the level created by the user. 
 
 
 
