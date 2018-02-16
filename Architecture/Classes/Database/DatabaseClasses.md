@@ -6,9 +6,9 @@ Database Classes:
 ![](https://github.com/markwindsorr/CS4770/blob/master/images/Users.png)
 
 
-2. The Profile class contains information about the user and his/her progress and achievement in the game. The data is retrieved when the user is viewing their profile on the interface. The data stored is updated as the user progresses in the game. 
+2. The Account Progress class will update  the user's progress and achievement in the game and store it in the database. The  data is retrieved when the user is viewing their profile on the interface. The data stored is updated as the user progresses in the game. 
 
-![](https://github.com/markwindsorr/CS4770/blob/master/images/profile%20(1).png)
+![](https://github.com/markwindsorr/CS4770/blob/master/images/AccountProgress.png)
 
 3. The class for saving a created level simply stores the newly created level in the form of objects in the database to be retrieved and generated upon request by the engine when the user wants to play it. The saved data in the level allow for it to be generated. 
 
