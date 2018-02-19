@@ -118,10 +118,10 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, health, weapo
 	return self;
 }
 
-function SmallPlayer(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, acceleration,
+function SmallPlayer(id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, acceleration,
 						maxVelocity, maxHealth, transformTimer) {
 			
-	var self = Player(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, acceleration,
+	var self = Player("small player", id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, acceleration,
 						maxVelocity, maxHealth, transformTimer);
 	
 	
@@ -132,10 +132,10 @@ function SmallPlayer(type, id, x, y, vx, vy, width, height, img, color, health, 
 	return self;	
 }
 
-function LargePlayer(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, acceleration,
+function LargePlayer(id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, acceleration,
 						maxVelocity, maxHealth, transformTimer) {
 
-	var self = Player(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, accleration,
+	var self = Player("large player", id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, accleration,
 						maxVelocity, maxHealth, transformTimer);
 	
 	
@@ -175,8 +175,8 @@ function Enemy(type, id, x, y, vx, vy, width, height, img, color, health, weapon
 	return self;
 }
 
-function BasicEnemy(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, path, target) {
-	var self = Enemy(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, path, target);
+function BasicEnemy(id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, path, target) {
+	var self = Enemy("basic enemy", id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, path, target);
 	
 	
 	self.draw = function() {
@@ -184,8 +184,8 @@ function BasicEnemy(type, id, x, y, vx, vy, width, height, img, color, health, w
 	}
 }
 
-function FlyingEnemy(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, path, target) {
-	var self = Enemy(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, path, target);
+function FlyingEnemy(id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, path, target) {
+	var self = Enemy("flying enemy", id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, path, target);
 	
 	
 	self.draw = function() {
@@ -195,8 +195,8 @@ function FlyingEnemy(type, id, x, y, vx, vy, width, height, img, color, health, 
 	return self;
 }
 
-function TankEnemy(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, path, target) {
-	var self = Enemy(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, path, target);
+function TankEnemy(id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, path, target) {
+	var self = Enemy("tank enemy", id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, path, target);
 	
 	
 	self.block = function() {
@@ -212,8 +212,8 @@ function TankEnemy(type, id, x, y, vx, vy, width, height, img, color, health, we
 
 
 //GHOST --------------------------------------------------------------------------------------------------------------------------------------
-function Ghost(type, id, x, y, vx, vy, width, height, img, color) {
-	var self = Entity(type, id, x, y, vx, vy, width, height, img, color);
+function Ghost(id, x, y, vx, vy, width, height, img, color) {
+	var self = Entity("ghost", id, x, y, vx, vy, width, height, img, color);
 	
 	self.draw() {
 		
@@ -224,8 +224,8 @@ function Ghost(type, id, x, y, vx, vy, width, height, img, color) {
 
 
 //SPECIAL SURFACES --------------------------------------------------------------------------------------------------------------------------
-function MovingPlatform(type, id, x, y, vx, vy, width, height, img, color, path, delay) {
-	var self = Entity(type, id, x, y, vx, vy, width, height, img, color);
+function MovingPlatform(id, x, y, vx, vy, width, height, img, color, path, delay) {
+	var self = Entity("moving platform", id, x, y, vx, vy, width, height, img, color);
 	
 	
 	self.path = path;
@@ -247,8 +247,8 @@ function MovingPlatform(type, id, x, y, vx, vy, width, height, img, color, path,
 	return self;
 }
 
-function FrictionModifier(type, id, x, y, vx, vy, width, height, img, color, mu) { //mu is coefficient of kinetic friction
-	var self = Entity(type, id, x, y, vx, vy, width, height, img, color);
+function FrictionModifier(id, x, y, vx, vy, width, height, img, color, mu) { //mu is coefficient of kinetic friction
+	var self = Entity("friction modifier", id, x, y, vx, vy, width, height, img, color);
 
 	
 	self.mu = mu;
@@ -261,8 +261,8 @@ function FrictionModifier(type, id, x, y, vx, vy, width, height, img, color, mu)
 	return self;
 }
 
-function SpikeTrap(type, id, x, y, vx, vy, width, height, img, color, damage, orientation) {
-	var self = Entity(type, id, x, y, vx, vy, width, height, img, color);
+function SpikeTrap(id, x, y, vx, vy, width, height, img, color, damage, orientation) {
+	var self = Entity("spike trap", id, x, y, vx, vy, width, height, img, color);
 	
 	
 	self.damage = damage;
@@ -281,7 +281,7 @@ function SpikeTrap(type, id, x, y, vx, vy, width, height, img, color, damage, or
 }
 
 
-//USABLE
+//USABLE -----------------------------------------------------------------------------------------------------------------------------------
 function Usable(type, id, x, y, vx, vy, width, height, img, color) {
 	var self = Entity(type, id, x, y, vx, vy, width, height, img, color);
 	
@@ -344,8 +344,8 @@ function Weapon(type, id, x, y, vx, vy, width, height, img, color, firingRate, b
 	return self;
 }
 
-function Pistol(type, id, x, y, vx, vy, width, height, img, color) {
-	var self = Weapon(type, id, x, y, vx, vy, width, height, img, color, 5, 100, "normal", 100, 20);
+function Pistol(id, x, y, vx, vy, width, height, img, color) {
+	var self = Weapon("pistol", id, x, y, vx, vy, width, height, img, color, 5, 100, "normal", 100, 20);
 	
 	
 	self.fire() {
@@ -360,8 +360,8 @@ function Pistol(type, id, x, y, vx, vy, width, height, img, color) {
 	return self;
 }
 
-function Shotgun(type, id, x, y, vx, vy, width, height, img, color) {
-	var self = Weapon(type, id, x, y, vx, vy, width, height, img, color, 1, 300, "normal", 50, 10);
+function Shotgun(id, x, y, vx, vy, width, height, img, color) {
+	var self = Weapon("shotgun", id, x, y, vx, vy, width, height, img, color, 1, 300, "normal", 50, 10);
 	
 	
 	self.fire() {
@@ -376,8 +376,8 @@ function Shotgun(type, id, x, y, vx, vy, width, height, img, color) {
 	return self;
 }
 
-function Sword(type, id, x, y, vx, vy, width, height, img, color) {
-	var self = Weapon(type, id, x, y, vx, vy, width, height, img, color, 5, 300, "normal", 10, 10);
+function Sword(id, x, y, vx, vy, width, height, img, color) {
+	var self = Weapon("sword", id, x, y, vx, vy, width, height, img, color, 5, 300, "normal", 10, 10);
 	
 	
 	self.fire() {
@@ -392,8 +392,8 @@ function Sword(type, id, x, y, vx, vy, width, height, img, color) {
 	return self;
 }
 
-function AssaultRifle(type, id, x, y, vx, vy, width, height, img, color) {
-	var self = Weapon(type, id, x, y, vx, vy, width, height, img, color, 15, 300, "normal", 100, 50);
+function AssaultRifle(id, x, y, vx, vy, width, height, img, color) {
+	var self = Weapon("assault rifle", id, x, y, vx, vy, width, height, img, color, 15, 300, "normal", 100, 50);
 	
 	
 	self.fire() {
@@ -404,6 +404,22 @@ function AssaultRifle(type, id, x, y, vx, vy, width, height, img, color) {
 		
 	}
 	
+	
+	return self;
+}
+
+
+//PROJECTILE ------------------------------------------------------------------------------------------------------------------
+function Bullet(id, x, y, vx, vy, width, height, img, color) {
+	var self = Entity("bullet", id, x, y, vx, vy, width, height, img, color);
+	
+	
+	self.damage = 1;
+	
+	
+	self.draw = function() {
+		
+	}
 	
 	return self;
 }
