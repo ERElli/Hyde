@@ -97,7 +97,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, wea
 
 //PLAYER
 function Player(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, acceleration,
-						maxVelocity, maxHealth, transformTimer) {
+						maxVelocity, maxHealth, transformTimer, isBig) {
 	
 	var self = Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer);
 	
@@ -106,6 +106,13 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, health, weapo
 	self.maxHealth = maxHealth;
 	self.transformTimer = transformTimer;
 	
+	var smallMass = 10;
+	var smallWidth = 5;
+	var smallHeight = 5;
+	
+	var bigMass = 50;
+	var bigWidth = 15;
+	var bigHeight = 15;
 	
 	self.sprint = function() {
 		
@@ -113,11 +120,31 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, health, weapo
 	
 	self.transform = function() {
 		
+		px = self.vx*self.mass;
+		py = self.vy*self.mass;
+		
+		if (self.isBig) {
+			self.isBig = false;
+			self.mass = smallMass;
+		}
+		else {
+			self.isBig = true;
+			self.mass = largeMass;
+		}
+		
+		self.vx = px / self.mass;
+		self.vy = py / self.mass;
+		
+	}
+	
+	self.draw() {
+		
 	}
 	
 	return self;
 }
 
+/*
 function SmallPlayer(id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, acceleration,
 						maxVelocity, maxHealth, transformTimer) {
 			
@@ -139,9 +166,9 @@ function LargePlayer(id, x, y, vx, vy, width, height, img, color, health, weapon
 						maxVelocity, maxHealth, transformTimer);
 	
 	
-	self.chargeAttack = function() {
+	//self.chargeAttack = function() {
 		
-	}
+	//}
 	
 	self.draw = function() {
 		
@@ -149,6 +176,7 @@ function LargePlayer(id, x, y, vx, vy, width, height, img, color, health, weapon
 	
 	return self;	
 }
+*/
 
 
 //ENEMY
