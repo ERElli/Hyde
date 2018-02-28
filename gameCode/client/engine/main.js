@@ -8,9 +8,7 @@ var blocks;
 
 var charCodes = {65:"left", 87:"jump", 68:"right", 83:"crouch", 32:"transform", 27:"pause", };
 
-var pressing = {"left":0, "jump":0, "right":0, "crouch":0, "transform":0, "shoot":0, };
-
-var functions;
+var pressing = { "left": 0, "right":0, "jump":0, "crouch":0, "transform":0, "shoot":0, };
 
 document.onkeydown = function(event) {
 	pressing[charCodes[event.keyCode]] = 1;
@@ -28,15 +26,38 @@ document.onmouseup = function(mouse) {
 	pressing["shoot"] = 0;
 }
 
+var doPressedActions = function() {
+	
+	if (pressing['left']) {
+		
+	}
+	
+	if (pressing['right']) {
+		
+	}
+	
+	if (pressing['jump']) {
+		player.jump();
+	}
+	
+	if (pressing['crouch']) {
+		player.crouch();
+	}
+	
+	if (pressing['transform']) {
+		player.transform();
+	}
+	
+	if (pressing['shoot']) {
+		player.shoot();
+	}
+}
+
 var update = function() {
 	frameCount++;
 	player.attackCounter++;
 	
-	for (var key in pressing) {
-		if (pressing[key]) {
-			button_functions[key]();
-		}
-	}
+	doPressedActions();
 	
 	for (var key in bullets) {
 	
@@ -102,8 +123,6 @@ var testCollision = function(rect1, rect2) {
 var startGame = function(initial_level) {
 	level = initial_level;
 	player = level["player"];
-	button_functions = {"jump": player.jump, "transform": player.transform, "shoot": player.shoot, };
-	//player.draw();
 	//enemies = level["enemies"];
 	//bullets = level["bullets"];
 	//blocks = level["terrain"];
