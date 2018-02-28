@@ -96,7 +96,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, wea
 
 
 //PLAYER
-function Player(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, acceleration,
+function Player(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, acceleration, 
 						maxVelocity, maxHealth, transformTimer, isBig) {
 	
 	var self = Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer);
@@ -137,7 +137,7 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, health, weapo
 		
 	}
 	
-	self.draw() {
+	self.draw = function() {
 		
 	}
 	
@@ -243,7 +243,7 @@ function TankEnemy(id, x, y, vx, vy, width, height, img, color, health, weapon, 
 function Ghost(id, x, y, vx, vy, width, height, img, color) {
 	var self = Entity("ghost", id, x, y, vx, vy, width, height, img, color);
 	
-	self.draw() {
+	self.draw = function() {
 		
 	}
 	
@@ -282,7 +282,7 @@ function FrictionModifier(id, x, y, vx, vy, width, height, img, color, mu) { //m
 	self.mu = mu;
 	
 	
-	self.draw = function {
+	self.draw = function() {
 		
 	}
 	
@@ -301,7 +301,7 @@ function SpikeTrap(id, x, y, vx, vy, width, height, img, color, damage, orientat
 		
 	}
 	
-	self.draw() {
+	self.draw = function() {
 		
 	}
 	
@@ -314,7 +314,7 @@ function Usable(type, id, x, y, vx, vy, width, height, img, color) {
 	var self = Entity(type, id, x, y, vx, vy, width, height, img, color);
 	
 	
-	self.applyEffect() {
+	self.applyEffect = function() {
 		
 	}
 	
@@ -329,7 +329,7 @@ function PowerUp(type, id, x, y, vx, vy, width, height, img, color, increaseAmou
 	self.effectedStat = effectedStat;
 	
 	
-	self.applyEffect(target) {
+	self.applyEffect = function(target) {
 		
 	}
 	
@@ -343,7 +343,7 @@ function Perk(type, id, x, y, vx, vy, width, height, img, color, name) {
 	self.name = name;
 	
 	
-	self.applyEffect(target) {
+	self.applyEffect = function(target) {
 		
 	}
 	
@@ -361,11 +361,11 @@ function Weapon(type, id, x, y, vx, vy, width, height, img, color, firingRate, b
 	self.startAmmo = startAmmo;
 	
 	
-	self.applyEffect(target) {
+	self.applyEffect = function(target) {
 		
 	}
 	
-	self.fire() {
+	self.fire = function() {
 		
 	}
 	
@@ -376,11 +376,11 @@ function Pistol(id, x, y, vx, vy, width, height, img, color) {
 	var self = Weapon("pistol", id, x, y, vx, vy, width, height, img, color, 5, 100, "normal", 100, 20);
 	
 	
-	self.fire() {
+	self.fire = function() {
 		
 	}
 	
-	self.draw() {
+	self.draw = function() {
 		
 	}
 	
@@ -392,11 +392,11 @@ function Shotgun(id, x, y, vx, vy, width, height, img, color) {
 	var self = Weapon("shotgun", id, x, y, vx, vy, width, height, img, color, 1, 300, "normal", 50, 10);
 	
 	
-	self.fire() {
+	self.fire = function() {
 		
 	}
 	
-	self.draw() {
+	self.draw = function() {
 		
 	}
 	
@@ -408,11 +408,11 @@ function Sword(id, x, y, vx, vy, width, height, img, color) {
 	var self = Weapon("sword", id, x, y, vx, vy, width, height, img, color, 5, 300, "normal", 10, 10);
 	
 	
-	self.fire() {
+	self.fire = function() {
 		
 	}
 	
-	self.draw() {
+	self.draw = function() {
 		
 	}
 	
@@ -424,11 +424,11 @@ function AssaultRifle(id, x, y, vx, vy, width, height, img, color) {
 	var self = Weapon("assault rifle", id, x, y, vx, vy, width, height, img, color, 15, 300, "normal", 100, 50);
 	
 	
-	self.fire() {
+	self.fire = function() {
 		
 	}
 	
-	self.draw() {
+	self.draw = function() {
 		
 	}
 	
