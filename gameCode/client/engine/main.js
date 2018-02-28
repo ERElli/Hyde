@@ -10,12 +10,12 @@ var charCodes = {65:"left", 87:"up", 68:"right", 83:"down", 32:"transform", 27:"
 
 var pressing = {"left":0, "up":0, "right":0, "down":0, "transform":0, "shoot":0, };
 
-var functions = {"up": jump}
+var functions;
 
-document.onkeydown() {
-	
+document.onkeydown = function(event) {
 	pressing[charCodes[event.keyCode]] = 1;
-	
+	console.log(event.keyCode);
+	console.log(pressing)
 }
 
 
@@ -24,7 +24,7 @@ var update = function() {
 	
 	for (var key in pressing) {
 		if (pressing[key]) {
-			functions[key]();
+			//functions[key]();
 		}
 	}
 	
@@ -33,6 +33,7 @@ var update = function() {
 		var bullet = bullets[key];
 		
 		//if bullet near player
+		
 		//bullet.timer++;
 		bullet.update();
 		
@@ -64,17 +65,14 @@ var update = function() {
 		}
 	}
 	
-	for (var key in enemyList) {
+	for (var key in enemies) {
 		
-		var enemy = enemyList[key];
+		var enemy = enemies[key];
 		//if enemy near player:
 		
 		var isColliding = enemy.testCollision(player);
 		if (isColliding) {
-			
-			if (
-			player_momentum = player.vx * player.mass;
-			
+			//momentum check
 		}
 		
 	}
@@ -92,6 +90,7 @@ var testCollision = function(rect1, rect2) {
 var startGame = function(initial_level) {
 	level = initial_level;
 	player = level["player"];
+	functions = {"up": "player.jump", };
 	//player.draw();
 	//enemies = level["enemies"];
 	//bullets = level["bullets"];
