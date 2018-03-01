@@ -6,27 +6,58 @@ var enemies;
 var bullets = {};
 var blocks;
 
-var charCodes = {65:"left", 87:"up", 68:"right", 83:"down", 32:"transform", 27:"pause", };
+var charCodes = {65:"left", 87:"jump", 68:"right", 83:"crouch", 32:"transform", 27:"pause", };
 
-var pressing = {"left":0, "up":0, "right":0, "down":0, "transform":0, "shoot":0, };
-
-var functions;
+var pressing = { "left": 0, "right":0, "jump":0, "crouch":0, "transform":0, "shoot":0, };
 
 document.onkeydown = function(event) {
 	pressing[charCodes[event.keyCode]] = 1;
-	console.log(event.keyCode);
-	console.log(pressing)
 }
 
+document.onkeyup = function(event) {
+	pressing[charCodes[event.keyCode]] = 0;
+}
+
+document.onmousedown = function(mouse) {
+	pressing["shoot"] = 1;
+}
+
+document.onmouseup = function(mouse) {
+	pressing["shoot"] = 0;
+}
+
+var doPressedActions = function() {
+	
+	if (pressing['left']) {
+		
+	}
+	
+	if (pressing['right']) {
+		
+	}
+	
+	if (pressing['jump']) {
+		player.jump();
+	}
+	
+	if (pressing['crouch']) {
+		player.crouch();
+	}
+	
+	if (pressing['transform']) {
+		player.transform();
+	}
+	
+	if (pressing['shoot']) {
+		player.shoot();
+	}
+}
 
 var update = function() {
 	frameCount++;
+	player.attackCounter++;
 	
-	for (var key in pressing) {
-		if (pressing[key]) {
-			//functions[key]();
-		}
-	}
+	doPressedActions();
 	
 	for (var key in bullets) {
 	
@@ -70,6 +101,8 @@ var update = function() {
 		var enemy = enemies[key];
 		//if enemy near player:
 		
+		enemy.attackCounter++;
+		
 		var isColliding = enemy.testCollision(player);
 		if (isColliding) {
 			//momentum check
@@ -90,8 +123,6 @@ var testCollision = function(rect1, rect2) {
 var startGame = function(initial_level) {
 	level = initial_level;
 	player = level["player"];
-	functions = {"up": "player.jump", };
-	//player.draw();
 	//enemies = level["enemies"];
 	//bullets = level["bullets"];
 	//blocks = level["terrain"];

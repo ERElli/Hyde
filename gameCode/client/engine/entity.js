@@ -78,13 +78,17 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, wea
 	self.meleeDamage = meleeDamage;
 	self.meleeTimer = meleeTimer;
 	
+	self.attackCounter = 0;	
 	
 	self.jump = function() {
-		
+		console.log("Jumping");
 	}
 	
 	self.shoot = function() {
-		
+		if (self.attackCounter > 1/self.weapon.firingRate) {
+			console.log("Shooting");
+			self.attackCounter = 0;
+		}
 	}
 	
 	self.melee = function() {
@@ -120,6 +124,8 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, health, weapo
 	
 	self.transform = function() {
 		
+		console.log("Transforming");
+		
 		px = self.vx*self.mass;
 		py = self.vy*self.mass;
 		
@@ -129,7 +135,7 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, health, weapo
 		}
 		else {
 			self.isBig = true;
-			self.mass = largeMass;
+			self.mass = bigMass;
 		}
 		
 		self.vx = px / self.mass;
@@ -373,7 +379,7 @@ function Weapon(type, id, x, y, vx, vy, width, height, img, color, firingRate, b
 }
 
 function Pistol(id, x, y, vx, vy, width, height, img, color) {
-	var self = Weapon("pistol", id, x, y, vx, vy, width, height, img, color, 5, 100, "normal", 100, 20);
+	var self = Weapon("pistol", id, x, y, vx, vy, width, height, img, color, 0.33333, 100, "normal", 100, 20);
 	
 	
 	self.fire = function() {

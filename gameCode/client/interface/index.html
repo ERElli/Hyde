@@ -1,0 +1,58 @@
+<html>	
+	<body>
+		<br>
+		<br>
+		<div id="container">
+			<canvas id="bg" height="750" width="1250" style="position: absolute;"></canvas>
+			<canvas id="fg" height="750" width="1250" style="position: absolute;"></canvas>
+		<div id="results" style="positions:absolute; left: 511px;">
+			<table style="border:1px"></table>
+		</div>
+	</body>
+		<!--<script type="text/javascript" src="entity.js"></script>
+		<script type="text/javascript" src="main.js"></script>  -->
+		<script type="text/javascript" src="GUI.js"></script>
+		<script>
+		// construct the gui with the container and the map
+		var gui;
+		init = function() {
+			// get a reference to the container div in the page
+			var container = document.getElementById("container");
+			document.getElementById("results").position = 'absolute';
+			document.getElementById("results").style.left = container.width + 20;
+			gui=GUI(container)
+			gui.createCanvas(document.getElementById("bg").width,document.getElementById("bg").height);
+		}
+		var Img={};
+		var frameCount=0;
+		//var healthBar=Player.maxHealth();
+		var time=0;
+		var player;
+		var enemy;
+		var projectile;
+
+		//function to load level
+		level=function(levelId){
+			var self={
+				id:levelID,
+			}
+			//draws level
+			/*self.draw=function(){
+				var x = WIDTH/2 - player.x;
+				var y = HEIGHT/2 - player.y;
+				
+			}*/
+			return self;
+		}
+		init();
+		gui.draw(gui.fg_ctx);
+		//creates player object
+		//player=Player();
+		//creates level based upon given id
+		//level=level(id);
+		//starts the main game loop
+		//startGame(level);
+
+		</script>
+</html>
+
