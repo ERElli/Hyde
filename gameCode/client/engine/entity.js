@@ -52,8 +52,9 @@ function Entity(type, id, x, y, vx, vy, width, height, img, color) {
 		
 	}
 	self.updatePosition = function() {
+		console.log("Player vy: " + self.vy);
 		self.x += self.vx;
-		self.y += self.vy;
+		self.y -= self.vy;
 	}
 	
 	return self;
@@ -77,11 +78,17 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, wea
 	self.jumpForce = jumpForce;
 	self.meleeDamage = meleeDamage;
 	self.meleeTimer = meleeTimer;
-	
+		
 	self.attackCounter = 0;	
+	self.jumpTimer = 0;
+	self.isJumping = false;
+	self.isFalling = false;
 	
 	self.jump = function() {
 		console.log("Jumping");
+		self.vy = 5
+		self.isJumping = true;
+		self.jumpTimer = 0;
 	}
 	
 	self.shoot = function() {
@@ -143,9 +150,9 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, health, weapo
 		
 	}
 	
-	self.draw = function() {
+	//self.draw = function() {
 		
-	}
+	//}
 	
 	return self;
 }

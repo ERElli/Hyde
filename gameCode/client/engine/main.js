@@ -5,6 +5,7 @@ var player;
 var enemies;
 var bullets = {};
 var blocks;
+var sufaceMods;
 
 var charCodes = {65:"left", 87:"jump", 68:"right", 83:"crouch", 32:"transform", 27:"pause", };
 
@@ -26,18 +27,23 @@ document.onmouseup = function(mouse) {
 	pressing["shoot"] = 0;
 }
 
+
 var doPressedActions = function() {
 	
 	if (pressing['left']) {
-		
+		player.vx = -5;
 	}
-	
-	if (pressing['right']) {
-		
+	else if (pressing['right']) {
+		player.vx = 5;
+	}
+	else {
+		player.vx = 0;
 	}
 	
 	if (pressing['jump']) {
-		player.jump();
+		if (!player.isJumping) {
+			player.jump();
+		}
 	}
 	
 	if (pressing['crouch']) {
@@ -59,6 +65,27 @@ var update = function() {
 	
 	doPressedActions();
 	
+	if (player.isJumping) {
+		console.log("is jumping: " + player.jumpTimer);
+		player.jumpTimer++;
+		if (player.jumpTimer > 50 && !player.isFalling) {
+			player.vx = -5;
+			player.isFalling = true;
+			console.log("Starting fall");
+		}
+		if (player.jumpTimer >= 100) {
+			player.isFalling = false;
+			player.isJumping = false;
+			player.vy = 0;
+			console.log("Ending jump");
+		}
+	}
+	else if (!player.isFalling) {
+		player.vy = 0;
+	}
+	
+	
+	/*
 	for (var key in bullets) {
 	
 		var bullet = bullets[key];
@@ -109,7 +136,7 @@ var update = function() {
 		}
 		
 	}
-	
+	*/
 	player.update();
 }
 
@@ -126,6 +153,7 @@ var startGame = function(initial_level) {
 	//enemies = level["enemies"];
 	//bullets = level["bullets"];
 	//blocks = level["terrain"];
+	//surfaceMods = level["terrain"];
 	frameCount = 0;
 	
 	setInterval(update, 60)
