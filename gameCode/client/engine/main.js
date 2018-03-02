@@ -59,28 +59,30 @@ var doPressedActions = function() {
 	}
 }
 
+var onTerrain = function(x, y) {
+	console.log(y);
+	if (y >= 450) {
+		return true;
+	}
+}
+
 var update = function() {
 	frameCount++;
 	player.attackCounter++;
 	
 	doPressedActions();
-	
+
 	if (player.isJumping) {
-		console.log("is jumping: " + player.jumpTimer);
-		player.jumpTimer++;
-		if (player.jumpTimer > 50 && !player.isFalling) {
-			player.vx = -5;
-			player.isFalling = true;
-			console.log("Starting fall");
-		}
-		if (player.jumpTimer >= 100) {
-			player.isFalling = false;
+		player.applyJumpTimer++;
+		if (player.applyJumpTimer > 5) {
+			player.fy = -player.mass*9.81;
 			player.isJumping = false;
-			player.vy = 0;
-			console.log("Ending jump");
 		}
 	}
-	else if (!player.isFalling) {
+	
+	else if (onTerrain(player.x, player.y)) {
+		console.log("HERE");
+		player.fy = 0;
 		player.vy = 0;
 	}
 	

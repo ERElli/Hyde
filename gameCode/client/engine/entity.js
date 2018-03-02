@@ -51,10 +51,11 @@ function Entity(type, id, x, y, vx, vy, width, height, img, color) {
 		return testCollisionRectRect(rect1,rect2);
 		
 	}
+	
 	self.updatePosition = function() {
-		console.log("Player vy: " + self.vy);
 		self.x += self.vx;
 		self.y -= self.vy;
+	
 	}
 	
 	return self;
@@ -80,15 +81,41 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, wea
 	self.meleeTimer = meleeTimer;
 		
 	self.attackCounter = 0;	
-	self.jumpTimer = 0;
+	self.applyJumpTimer = 0; // keeps track of how long to apply upward force
 	self.isJumping = false;
 	self.isFalling = false;
 	
+	self.ax = 0;
+	self.ay = 0;
+	self.fx = 0;
+	self.fy = 0;
+	
+	
+	self.netForceY = function() {
+		
+	}
+	
+	self.updatePosition = function() {
+		
+		console.log(self.x, self.y, self.vx, self.vy, self.ax, self.ay, self.fx, self.fy);
+		
+		self.ax = -self.fx / self.mass;
+		self.ay = -self.fy / self.mass;
+		
+		self.vx += self.ax;
+		self.vy -= self.ay;
+		
+		self.x += self.vx;
+		self.y -= self.vy;
+		
+	
+	}	
+	
 	self.jump = function() {
 		console.log("Jumping");
-		self.vy = 5
+		self.fy = 500;
 		self.isJumping = true;
-		self.jumpTimer = 0;
+		self.applyJumpTimer = 0;
 	}
 	
 	self.shoot = function() {
