@@ -1,15 +1,20 @@
 <body style="margin:0px">
   <canvas id="background" width="496" height="310"  style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
-  <canvas id="foreground" width="496" height="310" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
-  <canvas id="grid" width="496" height="310" style="position: absolute; left:0; top: 0; z-index: 2;"></canvas>
+  <canvas id="levelground" width="496" height="310"  style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+  <canvas id="foreground" width="496" height="310" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
+  <canvas id="grid" width="496" height="310" style="position: absolute; left:0; top: 0; z-index: 3;"></canvas>
 </body>
 <script type="text/javascript" src="Rectangle.js"></script>
 <script>
+
 var bg = document.getElementById("background");
+var lg = document.getElementById("levelground");
 var fg = document.getElementById("foreground");
 var gr = document.getElementById("grid");
 
 var ctx_bg = bg.getContext("2d");
+
+var ctx_lg = lg.getContext("2d");
 var ctx_fg = fg.getContext("2d");
 var ctx_gr = gr.getContext("2d");
 
@@ -23,6 +28,38 @@ var timeWhenGameStarted = Date.now();	//return time in ms
 var frameCount = 0;
 var rectWIDTH = 31*2;
 var rectHEIGHT = 31*2;
+
+var backgroundImage = new Image();
+backgroundImage.src = "../../images/levelEditorBackground.png";
+
+var enemyButtonImage = new Image();
+enemyButtonImage.src = "../../images/enemiesButton.png";
+
+var musicButtonImage = new Image();
+musicButtonImage.src = "../../images/musicButton.png";
+
+var backgroundButtonImage = new Image();
+backgroundButtonImage.src = "../../images/backgroundButton.png";
+
+var checkPointButtonImage = new Image();
+checkPointButtonImage.src = "../../images/checkPointButton.png";
+
+var characterButtonImage = new Image();
+characterButtonImage.src = "../../images/characterButton.png";
+
+var terrainButtonImage = new Image();
+terrainButtonImage.src = "../../images/terrainButton.png";
+
+var weaponButtonImage = new Image();
+weaponButtonImage.src = "../../images/weaponButton.png";
+
+
+
+
+
+
+
+
 
 Rectangle.list = {};
 
@@ -76,6 +113,11 @@ document.onmousedown = function(mouse){
 }
 
 
+
+
+	
+
+
 drawGrid = function(){
 	ctx_gr.globalAlpha = 0.05;
 	ctx_gr.lineWidth = 2;
@@ -95,13 +137,29 @@ drawGrid = function(){
 	}
 }
 
+
+
 update = function() {
+	ctx_bg.drawImage(backgroundImage, 0, 0);
+	
+	ctx_bg.drawImage(enemyButtonImage, 31, 0);
+	ctx_bg.drawImage(musicButtonImage, 93, 0);
+	ctx_bg.drawImage(backgroundButtonImage, 155, 0);
+	ctx_bg.drawImage(checkPointButtonImage, 218, 0);
+	ctx_bg.drawImage(characterButtonImage, 281, 0);
+	ctx_bg.drawImage(terrainButtonImage, 344, 0);
+	ctx_bg.drawImage(weaponButtonImage, 406, 0);
 	Rectangle.update();
+
 }
 
 
-setInterval(update, 1000/20);
+
+
 drawGrid();
+setInterval(update, 1000/20);
+
+
 
 init = function() {
 	var container = document.getElementById("container");

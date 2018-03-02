@@ -12,8 +12,8 @@ Rectangle = function(id,x,y,width,height){
 	self.color = color;
 
 	self.draw = function() {
-		ctx_bg.fillStyle = self.color;
-		ctx_bg.fillRect(self.x,self.y,self.width, self.height);
+		ctx_lg.fillStyle = self.color;
+		ctx_lg.fillRect(self.x,self.y,self.width, self.height);
 	}
 
 	console.log(self);
