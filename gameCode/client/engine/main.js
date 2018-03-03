@@ -1,7 +1,3 @@
-//let fToS = 60;
-//let mToF = 50;
-//let g = -9.81*mToF / Math.pow(fToS, 2); //metres pre frame squared
-
 var framecount;
 
 var level;
@@ -29,6 +25,16 @@ document.onmousedown = function(mouse) {
 
 document.onmouseup = function(mouse) {
 	pressing["shoot"] = 0;
+}
+
+document.onmousemove = function(mouse){
+	var mouseX = mouse.clientX - document.getElementById('ctx').getBoundingClientRect().left;
+	var mouseY = mouse.clientY - document.getElementById('ctx').getBoundingClientRect().top;
+	
+	mouseX -= player.x;
+	mouseY -= player.y;
+	
+	player.aimAngle = Math.atan2(mouseY,mouseX) / Math.PI * 180;
 }
 
 
@@ -59,21 +65,29 @@ var doPressedActions = function() {
 	}
 	
 	if (pressing['shoot']) {
-		player.shoot();
+		newBullet = player.shoot();
+		//console.log(newBullet);
+		if (newBullet) {
+			bullets[newBullet.id] = newBullet;
+		}
 	}
 }
 
 var onTerrain = function(x, y) {
-	console.log(y);
 	if (y >= 450) {
 		return true;
 	}
 }
 
+var inRange = function(thing) {
+	len = Math.sqrt( Math.pow(thing.x - player.x, 2) + Math.pow(thing.y - player.y, 2) ) //sqrt(delta_x^2 + delta_y^2)
+	return len < gameWidth;
+}
+
 var update = function() {
 	frameCount++;
 	player.attackCounter++;
-	
+		
 	doPressedActions();
 
 	if (player.justJumped) {
@@ -81,18 +95,17 @@ var update = function() {
 		player.justJumped = false;
 	}
 	else if (onTerrain(player.x, player.y)) {
-		console.log("HERE");
 		player.ay = 0;
 		player.vy = 0;
 	}
 	
-	
-	/*
 	for (var key in bullets) {
 	
 		var bullet = bullets[key];
 		
-		//if bullet near player
+		if (!inRange(bullet)) {
+			continue;
+		}
 		
 		//bullet.timer++;
 		bullet.update();
@@ -120,7 +133,6 @@ var update = function() {
 		}
 		
 		if(toRemove){
-			bullet.remove();
 			delete bullets[key];
 		}
 	}
@@ -128,7 +140,10 @@ var update = function() {
 	for (var key in enemies) {
 		
 		var enemy = enemies[key];
-		//if enemy near player:
+		
+		if (!inRange(bullet)) {
+			continue;
+		}
 		
 		enemy.attackCounter++;
 		
@@ -138,7 +153,6 @@ var update = function() {
 		}
 		
 	}
-	*/
 	player.update();
 }
 
@@ -156,6 +170,7 @@ var startGame = function(initial_level) {
 	//bullets = level["bullets"];
 	//blocks = level["terrain"];
 	//surfaceMods = level["terrain"];
+	console.log(gameWidth);
 	frameCount = 0;
 	
 	setInterval(update, 1000/60)
