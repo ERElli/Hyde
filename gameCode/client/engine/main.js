@@ -27,14 +27,24 @@ document.onmouseup = function(mouse) {
 	pressing["shoot"] = 0;
 }
 
+document.onmousemove = function(mouse){
+	var mouseX = mouse.clientX - document.getElementById('ctx').getBoundingClientRect().left;
+	var mouseY = mouse.clientY - document.getElementById('ctx').getBoundingClientRect().top;
+	
+	mouseX -= player.x;
+	mouseY -= player.y;
+	
+	player.aimAngle = Math.atan2(mouseY,mouseX) / Math.PI * 180;
+}
+
 
 var doPressedActions = function() {
 	
 	if (pressing['left']) {
-		player.vx = -5;
+		player.vx = -2*50 / 60;
 	}
 	else if (pressing['right']) {
-		player.vx = 5;
+		player.vx = 2*50 / 60;
 	}
 	else {
 		player.vx = 0;
@@ -55,42 +65,47 @@ var doPressedActions = function() {
 	}
 	
 	if (pressing['shoot']) {
-		player.shoot();
+		newBullet = player.shoot();
+		//console.log(newBullet);
+		if (newBullet) {
+			bullets[newBullet.id] = newBullet;
+		}
 	}
+}
+
+var onTerrain = function(x, y) {
+	if (y >= 450) {
+		return true;
+	}
+}
+
+var inRange = function(thing) {
+	len = Math.sqrt( Math.pow(thing.x - player.x, 2) + Math.pow(thing.y - player.y, 2) ) //sqrt(delta_x^2 + delta_y^2)
+	return len < gameWidth;
 }
 
 var update = function() {
 	frameCount++;
 	player.attackCounter++;
-	
+		
 	doPressedActions();
-	
-	if (player.isJumping) {
-		console.log("is jumping: " + player.jumpTimer);
-		player.jumpTimer++;
-		if (player.jumpTimer > 50 && !player.isFalling) {
-			player.vx = -5;
-			player.isFalling = true;
-			console.log("Starting fall");
-		}
-		if (player.jumpTimer >= 100) {
-			player.isFalling = false;
-			player.isJumping = false;
-			player.vy = 0;
-			console.log("Ending jump");
-		}
+
+	if (player.justJumped) {
+		player.ay = g;
+		player.justJumped = false;
 	}
-	else if (!player.isFalling) {
+	else if (onTerrain(player.x, player.y)) {
+		player.ay = 0;
 		player.vy = 0;
 	}
 	
-	
-	/*
 	for (var key in bullets) {
 	
 		var bullet = bullets[key];
 		
-		//if bullet near player
+		if (!inRange(bullet)) {
+			continue;
+		}
 		
 		//bullet.timer++;
 		bullet.update();
@@ -118,7 +133,6 @@ var update = function() {
 		}
 		
 		if(toRemove){
-			bullet.remove();
 			delete bullets[key];
 		}
 	}
@@ -126,7 +140,10 @@ var update = function() {
 	for (var key in enemies) {
 		
 		var enemy = enemies[key];
-		//if enemy near player:
+		
+		if (!inRange(bullet)) {
+			continue;
+		}
 		
 		enemy.attackCounter++;
 		
@@ -136,7 +153,6 @@ var update = function() {
 		}
 		
 	}
-	*/
 	player.update();
 }
 
@@ -154,9 +170,10 @@ var startGame = function(initial_level) {
 	//bullets = level["bullets"];
 	//blocks = level["terrain"];
 	//surfaceMods = level["terrain"];
+	console.log(gameWidth);
 	frameCount = 0;
 	
-	setInterval(update, 60)
+	setInterval(update, 1000/60)
 }
 
 var endGame = function() {
