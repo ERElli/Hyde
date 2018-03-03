@@ -1,6 +1,10 @@
 var canvas = document.getElementById("ctx")
 var ctx = canvas.getContext('2d');
 
+let fToS = 60;
+let mToF = 50;
+let g = -9.81*mToF / Math.pow(fToS, 2); //metres pre frame squared
+
 //ENTITY
 function Entity(type, id, x, y, vx, vy, width, height, img, color) {
 	var self = {
@@ -70,40 +74,36 @@ var testCollisionRectRect = function(rect1,rect2){
 
 
 //HUMANOID ------------------------------------------------------------------------------------------------------------------------------------------
-function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer) {
+function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpSpeed, meleeDamage, meleeTimer) {
 	var self = Entity(type, id, x, y, vx, vy, width, height, img, color);
 	
 	self.health = health;
 	self.weapon = weapon;
 	self.mass = mass;
-	self.jumpForce = jumpForce;
+	self.jumpSpeed = jumpSpeed;
 	self.meleeDamage = meleeDamage;
 	self.meleeTimer = meleeTimer;
 		
-	self.attackCounter = 0;	
-	self.applyJumpTimer = 0; // keeps track of how long to apply upward force
-	self.isJumping = false;
-	self.isFalling = false;
+	self.attackCounter = 0;
+	
+	self.applyJumpTimer = 0;
+	self.jumpSpeed = 5*mToF / fToS; // metres per frame
+	self.justJumped = false;
 	
 	self.ax = 0;
 	self.ay = 0;
-	self.fx = 0;
-	self.fy = 0;
-	
-	
-	self.netForceY = function() {
-		
-	}
+	//self.fx = 0;
+	//self.fy = 0;
 	
 	self.updatePosition = function() {
 		
-		console.log(self.x, self.y, self.vx, self.vy, self.ax, self.ay, self.fx, self.fy);
+		console.log(self.x, self.y, self.vx, self.vy);
 		
-		self.ax = -self.fx / self.mass;
-		self.ay = -self.fy / self.mass;
+		//self.ax = -self.fx / self.mass;
+		//self.ay = -self.fy / self.mass;
 		
 		self.vx += self.ax;
-		self.vy -= self.ay;
+		self.vy += self.ay;
 		
 		self.x += self.vx;
 		self.y -= self.vy;
@@ -113,9 +113,8 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, wea
 	
 	self.jump = function() {
 		console.log("Jumping");
-		self.fy = 500;
-		self.isJumping = true;
-		self.applyJumpTimer = 0;
+		self.vy = self.jumpSpeed;
+		self.justJumped = true;
 	}
 	
 	self.shoot = function() {

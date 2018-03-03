@@ -1,3 +1,7 @@
+//let fToS = 60;
+//let mToF = 50;
+//let g = -9.81*mToF / Math.pow(fToS, 2); //metres pre frame squared
+
 var framecount;
 
 var level;
@@ -31,10 +35,10 @@ document.onmouseup = function(mouse) {
 var doPressedActions = function() {
 	
 	if (pressing['left']) {
-		player.vx = -5;
+		player.vx = -2*50 / 60;
 	}
 	else if (pressing['right']) {
-		player.vx = 5;
+		player.vx = 2*50 / 60;
 	}
 	else {
 		player.vx = 0;
@@ -72,17 +76,13 @@ var update = function() {
 	
 	doPressedActions();
 
-	if (player.isJumping) {
-		player.applyJumpTimer++;
-		if (player.applyJumpTimer > 5) {
-			player.fy = -player.mass*9.81;
-			player.isJumping = false;
-		}
+	if (player.justJumped) {
+		player.ay = g;
+		player.justJumped = false;
 	}
-	
 	else if (onTerrain(player.x, player.y)) {
 		console.log("HERE");
-		player.fy = 0;
+		player.ay = 0;
 		player.vy = 0;
 	}
 	
@@ -158,7 +158,7 @@ var startGame = function(initial_level) {
 	//surfaceMods = level["terrain"];
 	frameCount = 0;
 	
-	setInterval(update, 60)
+	setInterval(update, 1000/60)
 }
 
 var endGame = function() {
