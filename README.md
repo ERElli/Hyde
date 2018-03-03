@@ -14,5 +14,7 @@ npm install socket.io
 
 Install mongodb on [https://www.mongodb.com/download-center#atlas]()
 
+Go to the downloaded file for mongodb and open the mongod.exe file. 
+
 To start server, in the terminal change directory to the gameCode folder and type: node app.js
 Then on your browser, go to : localhost:2000
