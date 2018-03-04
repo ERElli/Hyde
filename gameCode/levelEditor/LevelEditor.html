@@ -1,33 +1,33 @@
-<body style="margin:0px">
+<body>
   <canvas id="background" width="496" height="310"  style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
-  <canvas id="levelground" width="496" height="310"  style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
-  <canvas id="foreground" width="496" height="310" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
+  <canvas id="entityPreview" width="496" height="310" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
   <canvas id="grid" width="496" height="310" style="position: absolute; left:0; top: 0; z-index: 3;"></canvas>
+  <canvas id="levelground" width="496" height="310"  style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
 </body>
+
 <script type="text/javascript" src="Rectangle.js"></script>
 <script>
-
 var bg = document.getElementById("background");
+var ep = document.getElementById("entityPreview");
 var lg = document.getElementById("levelground");
-var fg = document.getElementById("foreground");
 var gr = document.getElementById("grid");
 
 var ctx_bg = bg.getContext("2d");
 
 var ctx_lg = lg.getContext("2d");
-var ctx_fg = fg.getContext("2d");
+var ctx_ep = ep.getContext("2d");
 var ctx_gr = gr.getContext("2d");
 
-ctx_fg.globalAlpha = 0.3;
+ctx_ep.globalAlpha = 0.3;
 
 var TILE_HEIGHT = 31;
 var TILE_WIDTH = 31;
 var WIDTH = 496;
 var HEIGHT = 310;
-var timeWhenGameStarted = Date.now();	//return time in ms
 var frameCount = 0;
 var rectWIDTH = 31*2;
 var rectHEIGHT = 31*2;
+
 
 var backgroundImage = new Image();
 backgroundImage.src = "../../images/levelEditorBackground.png";
@@ -54,31 +54,29 @@ var weaponButtonImage = new Image();
 weaponButtonImage.src = "../../images/weaponButton.png";
 
 
-
-
-
-
-
-
-
-Rectangle.list = {};
-
 snapToGrid  = function(canvas,mouse){
 	var pos = getMousePosition(canvas,mouse);
 	var x = pos.x - (pos.x % TILE_HEIGHT);
 	var y = pos.y - (pos.y % TILE_WIDTH);
-	ctx_fg.fillStyle="#A4A4A4";
-	ctx_fg.fillRect(x, y, rectWIDTH, rectHEIGHT);
+	ctx_ep.fillStyle="#A4A4A4";
+	ctx_ep.fillRect(x, y, rectWIDTH, rectHEIGHT);
 	return {
 		x: x,
 		y: y,
 	};
 }
 
+
 document.onmousemove = function(mouse){
-	var pos = getMousePosition(fg,mouse);
-	ctx_fg.clearRect(0,0,WIDTH,HEIGHT);
-	snapToGrid(fg,mouse);
+	var pos = getMousePosition(ep,mouse);
+
+	var mouseBelowUpperBound = pos.x<WIDTH && pos.y<HEIGHT;
+	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
+
+	if(mouseBelowUpperBound && mouseAboveLowerBound){
+		ctx_ep.clearRect(0,0,WIDTH,HEIGHT);
+		snapToGrid(ep,mouse);
+	}
 }
 
 
@@ -90,6 +88,7 @@ getMousePosition = function(canvas,mouse){
 	};
 }
 
+
 document.onmousedown = function(mouse){
 	var pos = getMousePosition(bg,mouse);
 	var id = Math.random();
@@ -97,13 +96,10 @@ document.onmousedown = function(mouse){
 	var y = pos.y - (pos.y % TILE_WIDTH);
 
 	var mouseBelowUpperBound = pos.x<WIDTH && pos.y<HEIGHT;
-	var mouseAboveLowerBound = pos.x>0 && pos.y>0;
+	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
 
 	if(mouseBelowUpperBound && mouseAboveLowerBound){
 		if(((x+rectWIDTH) <= WIDTH) && ((y+rectHEIGHT) <= HEIGHT)){
-			console.log(pos);
-			console.log(x);
-			console.log(y);
 			Rectangle(id,x,y,rectWIDTH,rectHEIGHT);
 		}
 		else{
@@ -113,24 +109,20 @@ document.onmousedown = function(mouse){
 }
 
 
-
-
-	
-
-
 drawGrid = function(){
 	ctx_gr.globalAlpha = 0.05;
 	ctx_gr.lineWidth = 2;
 	ctx_gr.strokeStyle = "#ABABAB";
+
 	//Drawing vertical lines
 	for(x=TILE_WIDTH; x<=WIDTH; x+=TILE_WIDTH){
-		ctx_gr.moveTo(x,62);
+		ctx_gr.moveTo(x,TILE_HEIGHT*2);
 		ctx_gr.lineTo(x,HEIGHT);
 		ctx_gr.stroke();
 	}
 
 	//Drawing horizontal lines
-	for(y=TILE_HEIGHT; y<=HEIGHT; y+=TILE_HEIGHT){
+	for(y=TILE_HEIGHT*2; y<=HEIGHT; y+=TILE_HEIGHT){
 		ctx_gr.moveTo(0,y);
 		ctx_gr.lineTo(WIDTH,y);
 		ctx_gr.stroke();
@@ -138,36 +130,33 @@ drawGrid = function(){
 }
 
 
-
-update = function() {
-	ctx_bg.drawImage(backgroundImage, 0, 0);
-	
-	ctx_bg.drawImage(enemyButtonImage, 31, 0);
-	ctx_bg.drawImage(musicButtonImage, 93, 0);
-	ctx_bg.drawImage(backgroundButtonImage, 155, 0);
-	ctx_bg.drawImage(checkPointButtonImage, 218, 0);
-	ctx_bg.drawImage(characterButtonImage, 281, 0);
-	ctx_bg.drawImage(terrainButtonImage, 344, 0);
-	ctx_bg.drawImage(weaponButtonImage, 406, 0);
-	Rectangle.update();
-
+addButtonImages = function() {
+	ctx_lg.drawImage(enemyButtonImage, 31, 0);
+	ctx_lg.drawImage(musicButtonImage, 93, 0);
+	ctx_lg.drawImage(backgroundButtonImage, 155, 0);
+	ctx_lg.drawImage(checkPointButtonImage, 218, 0);
+	ctx_lg.drawImage(characterButtonImage, 281, 0);
+	ctx_lg.drawImage(terrainButtonImage, 344, 0);
+	ctx_lg.drawImage(weaponButtonImage, 406, 0);
 }
 
 
+update = function() {
+	ctx_bg.drawImage(backgroundImage, 0, 0);
+	Rectangle.update();
+}
 
-
-drawGrid();
+// Calling update 20 times a second
 setInterval(update, 1000/20);
-
-
 
 init = function() {
 	var container = document.getElementById("container");
-	
+	addButtonImages();
+	drawGrid();
+	Rectangle.list = {};
 }
 
 </script>
 <body onload = "init()">
 	<div id="container"></div>
-	<div id="messages"></div>
 </body>
