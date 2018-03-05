@@ -1,4 +1,4 @@
-var canvas = document.getElementById("ctx")
+var canvas = document.getElementById("fg")
 
 var framecount;
 
@@ -30,8 +30,8 @@ document.onmouseup = function(mouse) {
 }
 
 document.onmousemove = function(mouse){
-	var mouseX = mouse.clientX - document.getElementById('ctx').getBoundingClientRect().left;
-	var mouseY = mouse.clientY - document.getElementById('ctx').getBoundingClientRect().top;
+	var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
+	var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
 	
 	mouseX -= player.x;
 	mouseY -= player.y;
@@ -44,17 +44,15 @@ var doPressedActions = function() {
 	
 	if (pressing['left']) {
 		player.ax = -player.acceleration;
-		console.log(player.ax);
 	}
 	else if (pressing['right']) {
 		player.ax = player.acceleration;
 	}
 	else {
-		console.log(player.vx);
-		if (Math.abs(player.vx) <= 0.5) {
+		if (Math.abs(player.vx) < 1) {
 			player.vx = 0;
 		}
-		player.ax = -Math.sign(player.vx)*player.acceleration/2;
+		player.ax = -Math.sign(player.vx)*player.acceleration*0.75;
 	}
 	
 	if (pressing['jump']) {
@@ -96,7 +94,7 @@ var update = function() {
 	frameCount++;
 	player.attackCounter++;
 	player.transformCounter++;
-			
+
 	doPressedActions();
 
 	if (player.justJumped) {

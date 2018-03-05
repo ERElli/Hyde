@@ -1,4 +1,4 @@
-var canvas = document.getElementById("ctx")
+var canvas = document.getElementById("fg")
 var ctx = canvas.getContext('2d');
 
 let framesPerSecond = 60; //conversion factor for frames to seconds
@@ -192,7 +192,6 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, health, weapo
 	}
 	
 	self.transform = function() {
-		console.log(self.transformCounter);
 		if (self.transformCounter > 100) {
 		
 			console.log("isBig: " + self.isBig);
@@ -394,7 +393,7 @@ function Perk(type, id, x, y, vx, vy, width, height, img, color, name) {
 	return self;
 }
 
-function Weapon(type, id, x, y, vx, vy, width, height, img, color, firingRate, bulletSpeed, bulletType, range, startAmmo) {
+function Weapon(type, id, x, y, vx, vy, width, height, img, color, firingRate, bulletSpeed, bulletType, range, ammo) {
 	var self = Entity(type, id, x, y, vx, vy, width, height, img, color);
 	
 	
@@ -402,7 +401,7 @@ function Weapon(type, id, x, y, vx, vy, width, height, img, color, firingRate, b
 	self.bulletSpeed = bulletSpeed;
 	self.bulletType = bulletType;
 	self.range = range;
-	self.startAmmo = startAmmo;
+	self.ammo = ammo;
 	
 	
 	self.applyEffect = function(target) {
@@ -417,10 +416,11 @@ function Weapon(type, id, x, y, vx, vy, width, height, img, color, firingRate, b
 }
 
 function Pistol(id, x, y, vx, vy, width, height, img, color) {
-	var self = Weapon("pistol", id, x, y, vx, vy, width, height, img, color, 2, 100, "normal", 100, 20);
+	var self = Weapon("pistol", id, x, y, vx, vy, width, height, img, color, 2, 10, "normal", 100, 20);
 	
 	
 	self.fire = function(angle) {
+		self.ammo--;
 		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
 		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
 		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "black");
@@ -435,10 +435,11 @@ function Pistol(id, x, y, vx, vy, width, height, img, color) {
 }
 
 function Shotgun(id, x, y, vx, vy, width, height, img, color) {
-	var self = Weapon("shotgun", id, x, y, vx, vy, width, height, img, color, 1, 300, "normal", 50, 10);
+	var self = Weapon("shotgun", id, x, y, vx, vy, width, height, img, color, 1, 10, "normal", 50, 10);
 	
 	
 	self.fire = function(angle) {
+		self.ammo--;
 		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
 		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
 		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "black");
@@ -453,10 +454,11 @@ function Shotgun(id, x, y, vx, vy, width, height, img, color) {
 }
 
 function Sword(id, x, y, vx, vy, width, height, img, color) {
-	var self = Weapon("sword", id, x, y, vx, vy, width, height, img, color, 2, 300, "normal", 10, 10);
+	var self = Weapon("sword", id, x, y, vx, vy, width, height, img, color, 2, 1, "normal", 10, 10);
 	
 	
 	self.fire = function(angle) {
+		self.ammo--;
 		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
 		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
 		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "black");
@@ -471,14 +473,13 @@ function Sword(id, x, y, vx, vy, width, height, img, color) {
 }
 
 function AssaultRifle(id, x, y, vx, vy, width, height, img, color) {
-	var self = Weapon("assault rifle", id, x, y, vx, vy, width, height, img, color, 3, 10, "normal", 100, 50);
+	var self = Weapon("assault rifle", id, x, y, vx, vy, width, height, img, color, 5, 10, "normal", 100, 50);
 	
 	
 	self.fire = function(angle) {
+		self.ammo--;
 		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
-		console.log(spdX);
 		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
-		console.log(spdY);
 		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "black");
 	}
 	
