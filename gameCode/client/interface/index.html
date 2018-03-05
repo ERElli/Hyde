@@ -15,8 +15,13 @@
 		<script>
 		// construct the gui with the container and the map
 		var gui;
+		p= new Pistol("w1", 150, 450, 0, 0, 5, 5,'img','black');
+		e = new Player("player", "player", 150, 450, 1, 1, 5, 5, "imgur", "blue", 80, 'jf', 'md', 'mt', 'mh', false);
+		let gameWidth=500
 		//temp test vars ----------
-		var playerHP=50;
+		var pMaxHP=e.maxHealth;
+		var pHP=e.health;
+		var playerPercentHealth=(pMaxHP/pHP)*100;
 		var playerMomentum=100;
 		var ammo=17;
 
@@ -47,10 +52,8 @@
 		init();
 		//draws to the canvas
 		gui.bgDraw(gui.bg_ctx);
-		gui.fgDraw(gui.fg_ctx,playerHP,playerMomentum,ammo);
-		p= new Pistol("w1", 150, 450, 0, 0, 5, 5,'img','black');
-		e = new Player("player", "player", 150, 450, 1, 1, 5, 5, "imgur", "blue", 100, p, 80, 'jf', 'md', 'mt', 'mh', false);
-		let gameWidth=500
+		gui.fgDraw(gui.fg_ctx,playerPercentHealth,playerMomentum,ammo);
+	
 		startGame({'player':e});
 		</script>
 </html>
