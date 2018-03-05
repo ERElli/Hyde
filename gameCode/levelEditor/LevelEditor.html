@@ -5,7 +5,7 @@
   <canvas id="levelground" width="496" height="310"  style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
 </body>
 
-<script type="text/javascript" src="Rectangle.js"></script>
+<script type="text/javascript" src="Terrain.js"></script>
 <script>
 var bg = document.getElementById("background");
 var ep = document.getElementById("entityPreview");
@@ -25,8 +25,8 @@ var TILE_WIDTH = 31;
 var WIDTH = 496;
 var HEIGHT = 310;
 var frameCount = 0;
-var rectWIDTH = 31*2;
-var rectHEIGHT = 31*2;
+var rectWIDTH = 31*3;
+var rectHEIGHT = 31*6;
 
 
 var backgroundImage = new Image();
@@ -100,7 +100,7 @@ document.onmousedown = function(mouse){
 
 	if(mouseBelowUpperBound && mouseAboveLowerBound){
 		if(((x+rectWIDTH) <= WIDTH) && ((y+rectHEIGHT) <= HEIGHT)){
-			Rectangle(id,x,y,rectWIDTH,rectHEIGHT);
+			Terrain(id,x,y,rectWIDTH,rectHEIGHT);
 		}
 		else{
 			console.log("Can not place object there");
@@ -134,16 +134,16 @@ addButtonImages = function() {
 	ctx_lg.drawImage(enemyButtonImage, 31, 0);
 	ctx_lg.drawImage(musicButtonImage, 93, 0);
 	ctx_lg.drawImage(backgroundButtonImage, 155, 0);
-	ctx_lg.drawImage(checkPointButtonImage, 218, 0);
-	ctx_lg.drawImage(characterButtonImage, 281, 0);
-	ctx_lg.drawImage(terrainButtonImage, 344, 0);
-	ctx_lg.drawImage(weaponButtonImage, 406, 0);
+	ctx_lg.drawImage(checkPointButtonImage, 216, 0);
+	ctx_lg.drawImage(characterButtonImage, 277, 0);
+	ctx_lg.drawImage(terrainButtonImage, 339, 0);
+	ctx_lg.drawImage(weaponButtonImage, 401, 0);
 }
 
 
 update = function() {
 	ctx_bg.drawImage(backgroundImage, 0, 0);
-	Rectangle.update();
+	Terrain.update();
 }
 
 // Calling update 20 times a second
@@ -153,7 +153,7 @@ init = function() {
 	var container = document.getElementById("container");
 	addButtonImages();
 	drawGrid();
-	Rectangle.list = {};
+	Terrain.list = {};
 }
 
 </script>
