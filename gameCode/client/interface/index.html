@@ -9,12 +9,19 @@
 			<table style="border:1px"></table>
 		</div>
 	</body>
-		<!--<script type="text/javascript" src="entity.js"></script>
-		<script type="text/javascript" src="main.js"></script>  -->
+		<script type="text/javascript" src="../engine/entity.js"></script>
+		<script type="text/javascript" src="../engine/main.js"></script> 
 		<script type="text/javascript" src="GUI.js"></script>
 		<script>
 		// construct the gui with the container and the map
 		var gui;
+		//temp test vars ----------
+		var playerHP=50;
+		var playerMomentum=100;
+		var ammo=17;
+
+
+		//-----------
 		init = function() {
 			// get a reference to the container div in the page
 			var container = document.getElementById("container");
@@ -23,14 +30,6 @@
 			gui=GUI(container)
 			gui.createCanvas(document.getElementById("bg").width,document.getElementById("bg").height);
 		}
-		var Img={};
-		var frameCount=0;
-		//var healthBar=Player.maxHealth();
-		var time=0;
-		var player;
-		var enemy;
-		var projectile;
-
 		//function to load level
 		level=function(levelId){
 			var self={
@@ -44,15 +43,14 @@
 			}*/
 			return self;
 		}
+		//Creates background and foreground Canvases
 		init();
-		gui.draw(gui.fg_ctx);
-		//creates player object
-		//player=Player();
-		//creates level based upon given id
-		//level=level(id);
-		//starts the main game loop
-		//startGame(level);
-
+		//draws to the canvas
+		gui.bgDraw(gui.bg_ctx);
+		gui.fgDraw(gui.fg_ctx,playerHP,playerMomentum,ammo);
+		p= new Pistol("w1", 150, 450, 0, 0, 5, 5,'img','black');
+		e = new Player("player", "player", 150, 450, 1, 1, 5, 5, "imgur", "blue", 100, p, 80, 'jf', 'md', 'mt', 'mh', false);
+		let gameWidth=500
+		startGame({'player':e});
 		</script>
 </html>
-
