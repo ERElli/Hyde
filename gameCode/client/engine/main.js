@@ -179,7 +179,7 @@ var startGame = function(initial_level) {
 	//bullets = level["bullets"];
 	//blocks = level["terrain"];
 	//surfaceMods = level["terrain"];
-	console.log(player.x);
+	console.log(player.isBig);
 	frameCount = 0;
 	
 	setInterval(update, 1000/60)

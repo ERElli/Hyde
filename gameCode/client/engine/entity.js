@@ -140,20 +140,10 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, wea
 
 
 //PLAYER
-function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, mass, jumpForce, meleeDamage, meleeTimer,
+function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, jumpForce, meleeDamage, meleeTimer,
 						maxHealth, isBig) {
 	
 	var maxHealth = 100;
-	
-	var self = Humanoid(type, id, x, y, vx, vy, width, height, img, color, maxHealth, weapon, mass, jumpForce, meleeDamage, meleeTimer);
-	
-	self.maxHealth = maxHealth;
-	self.transformCounter = 0;
-	self.leftCounter = 0;
-	self.rightCounter = 0;
-	self.smallSpeed = 5;
-	self.isBig = isBig;
-	
 	
 	var smallMass = 80;
 	var smallWidth = 5;
@@ -166,6 +156,15 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, mass,
 	var bigHeight = 15;
 	var bigAcceleration = 5*mpsTOppf/framesPerSecond;
 	var bigMaxV = 5*mpsTOppf;
+	
+	var self = Humanoid(type, id, x, y, vx, vy, width, height, img, color, maxHealth, weapon, smallMass, jumpForce, meleeDamage, meleeTimer);
+	
+	self.maxHealth = maxHealth;
+	self.transformCounter = 0;
+	self.leftCounter = 0;
+	self.rightCounter = 0;
+	self.smallSpeed = 5;
+	self.isBig = isBig;	
 	
 	self.acceleration = isBig ? bigAcceleration:smallAcceleration;
 	self.maxVelocity = isBig ? bigMaxV:smallMaxV;

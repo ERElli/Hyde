@@ -16,7 +16,8 @@
 		// construct the gui with the container and the map
 		var gui;
 		p= new Pistol("w1", 150, 450, 0, 0, 5, 5,'img','black');
-		e = new Player("player", "player", 150, 450, 1, 1, 5, 5, "imgur", "blue", 80, 'jf', 'md', 'mt', 'mh', false);
+		//type, id, x, y, vx, vy, width, height, img, color, weapon, mass, jumpForce, meleeDamage, meleeTimer, maxHealth, isBig
+		e = new Player("player", "player", 150, 450, 1, 1, 5, 5, "imgur", "blue", p, 'jf', 'md', 'mt', 'mh', false);
 		let gameWidth=500
 		//temp test vars ----------
 		var pMaxHP=e.maxHealth;
