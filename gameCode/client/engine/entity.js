@@ -1,9 +1,11 @@
 var canvas = document.getElementById("ctx")
 var ctx = canvas.getContext('2d');
 
-let fToS = 60; //conversion factor for frames to seconds
-let mToF = 100;
-let g = -9.81*mToF / Math.pow(fToS, 2); //metres pre frame squared
+let framesPerSecond = 60; //conversion factor for frames to seconds
+let pixPerMetre = 70;
+let mpsTOppf = pixPerMetre/framesPerSecond;
+
+let g = -9.81*mpsTOppf/framesPerSecond; //metres pre frame squared
 
 //ENTITY
 function Entity(type, id, x, y, vx, vy, width, height, img, color) {
@@ -26,9 +28,8 @@ function Entity(type, id, x, y, vx, vy, width, height, img, color) {
 		self.draw();
 	}
 	
-	self.draw = function() {
+	self.draw = function() {		
 		ctx.save();
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		ctx.fillStyle = self.color;
 		ctx.fillRect(self.x-self.width/2,self.y-self.height/2,self.width,self.height);
 		ctx.restore();
@@ -88,7 +89,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, wea
 	self.aimAngle = 0;
 	
 	self.applyJumpTimer = 0;
-	self.jumpSpeed = 3*mToF / fToS; // metres per frame
+	self.jumpSpeed = 5*mpsTOppf; // pixels per frame
 	self.justJumped = false;
 	
 	self.ax = 0;
@@ -107,17 +108,19 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, wea
 		self.x += self.vx;
 		self.y -= self.vy;
 		
+		self.weapon.x = self.x;
+		self.weapon.y = self.y;
+		
 	
 	}	
 	
 	self.jump = function() {
-		console.log("Jumping");
 		self.vy = self.jumpSpeed;
 		self.justJumped = true;
 	}
 	
 	self.shoot = function() {
-		if (self.attackCounter > 1/(self.weapon.firingRate/fToS)) {
+		if (self.attackCounter > 1/(self.weapon.firingRate/framesPerSecond)) {
 			console.log("shooting");
 			self.attackCounter = 0;
 			return self.weapon.fire(self.aimAngle);
@@ -136,46 +139,83 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, wea
 
 
 //PLAYER
-function Player(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, acceleration, 
-						maxVelocity, maxHealth, transformTimer, isBig) {
+function Player(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer,
+						maxHealth, isBig) {
 	
 	var self = Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer);
 	
-	self.acceleration = acceleration;
-	self.maxVelocity = maxVelocity;
 	self.maxHealth = maxHealth;
-	self.transformTimer = transformTimer;
+	self.transformCounter = 0;
+	self.leftCounter = 0;
+	self.rightCounter = 0;
+	self.smallSpeed = 5;
+	self.isBig = isBig;
 	
-	var smallMass = 10;
+	
+	var smallMass = 80;
 	var smallWidth = 5;
 	var smallHeight = 5;
+	var smallAcceleration = 100*mpsTOppf/framesPerSecond;
+	var smallMaxV = 7*mpsTOppf;
 	
-	var bigMass = 50;
+	var bigMass = 500;
 	var bigWidth = 15;
 	var bigHeight = 15;
+	var bigAcceleration = 5*mpsTOppf/framesPerSecond;
+	var bigMaxV = 5*mpsTOppf;
+	
+	self.acceleration = isBig ? bigAcceleration:smallAcceleration;
+	self.maxVelocity = isBig ? bigMaxV:smallMaxV;
+
+	
+	
+	self.updatePosition = function() {
+		
+		self.vx += self.ax;	
+		self.vy += self.ay;
+		
+		if (Math.abs(self.vx) > self.maxVelocity) {
+			self.vx = Math.sign(self.vx)*self.maxVelocity;
+		}
+		
+		self.x += self.vx;
+		self.y -= self.vy;
+		
+		self.weapon.x = self.x;
+		self.weapon.y = self.y;
+		
+	
+	}	
 	
 	self.sprint = function() {
 		
 	}
 	
 	self.transform = function() {
+		console.log(self.transformCounter);
+		if (self.transformCounter > 100) {
 		
-		console.log("Transforming");
-		
-		px = self.vx*self.mass;
-		py = self.vy*self.mass;
-		
-		if (self.isBig) {
-			self.isBig = false;
-			self.mass = smallMass;
+			console.log("isBig: " + self.isBig);
+			self.transformCounter = 0;
+			
+			px = self.vx*self.mass;
+			py = self.vy*self.mass;
+			
+			if (self.isBig) {
+				self.isBig = false;
+				self.mass = smallMass;
+				self.acceleration = smallAcceleration;
+			}
+			else {
+				self.isBig = true;
+				self.mass = bigMass;
+				self.acceleration = bigAcceleration;
+			}
+			
+			self.vx = (px / self.mass) * mpsTOppf;
+			self.vy = (py / self.mass) * mpsTOppf;
 		}
-		else {
-			self.isBig = true;
-			self.mass = bigMass;
-		}
 		
-		self.vx = px / self.mass;
-		self.vy = py / self.mass;
 		
 	}
 	
@@ -381,9 +421,9 @@ function Pistol(id, x, y, vx, vy, width, height, img, color) {
 	
 	
 	self.fire = function(angle) {
-		var spdX = Math.cos(angle/180*Math.PI)*1;
-		var spdY = Math.sin(angle/180*Math.PI)*1;
-		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,15,15, "img", "black");
+		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
+		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
+		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "black");
 	}
 	
 	self.draw = function() {
@@ -398,8 +438,10 @@ function Shotgun(id, x, y, vx, vy, width, height, img, color) {
 	var self = Weapon("shotgun", id, x, y, vx, vy, width, height, img, color, 1, 300, "normal", 50, 10);
 	
 	
-	self.fire = function() {
-		
+	self.fire = function(angle) {
+		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
+		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
+		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "black");
 	}
 	
 	self.draw = function() {
@@ -414,8 +456,10 @@ function Sword(id, x, y, vx, vy, width, height, img, color) {
 	var self = Weapon("sword", id, x, y, vx, vy, width, height, img, color, 2, 300, "normal", 10, 10);
 	
 	
-	self.fire = function() {
-		
+	self.fire = function(angle) {
+		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
+		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
+		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "black");
 	}
 	
 	self.draw = function() {
@@ -427,11 +471,15 @@ function Sword(id, x, y, vx, vy, width, height, img, color) {
 }
 
 function AssaultRifle(id, x, y, vx, vy, width, height, img, color) {
-	var self = Weapon("assault rifle", id, x, y, vx, vy, width, height, img, color, 5, 300, "normal", 100, 50);
+	var self = Weapon("assault rifle", id, x, y, vx, vy, width, height, img, color, 3, 10, "normal", 100, 50);
 	
 	
-	self.fire = function() {
-		
+	self.fire = function(angle) {
+		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
+		console.log(spdX);
+		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
+		console.log(spdY);
+		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "black");
 	}
 	
 	self.draw = function() {

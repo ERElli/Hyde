@@ -1,3 +1,5 @@
+var canvas = document.getElementById("ctx")
+
 var framecount;
 
 var level;
@@ -34,20 +36,25 @@ document.onmousemove = function(mouse){
 	mouseX -= player.x;
 	mouseY -= player.y;
 	
-	player.aimAngle = Math.atan2(mouseY,mouseX) / Math.PI * 180;
+	player.aimAngle = Math.atan2(mouseY,mouseX) / Math.PI * -180;
 }
 
 
 var doPressedActions = function() {
 	
 	if (pressing['left']) {
-		player.vx = -2*50 / 60;
+		player.ax = -player.acceleration;
+		console.log(player.ax);
 	}
 	else if (pressing['right']) {
-		player.vx = 2*50 / 60;
+		player.ax = player.acceleration;
 	}
 	else {
-		player.vx = 0;
+		console.log(player.vx);
+		if (Math.abs(player.vx) <= 0.5) {
+			player.vx = 0;
+		}
+		player.ax = -Math.sign(player.vx)*player.acceleration/2;
 	}
 	
 	if (pressing['jump']) {
@@ -85,9 +92,11 @@ var inRange = function(thing) {
 }
 
 var update = function() {
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	frameCount++;
 	player.attackCounter++;
-		
+	player.transformCounter++;
+			
 	doPressedActions();
 
 	if (player.justJumped) {
@@ -125,12 +134,14 @@ var update = function() {
 			}	
 		}
 		
+		/*
 		var isColliding = bullet.testCollision(player);
 		if (isColliding) {
 			toRemove = true;
 			
 			//reduce player health
 		}
+		*/
 		
 		if(toRemove){
 			delete bullets[key];
@@ -170,7 +181,7 @@ var startGame = function(initial_level) {
 	//bullets = level["bullets"];
 	//blocks = level["terrain"];
 	//surfaceMods = level["terrain"];
-	console.log(gameWidth);
+	console.log(player.x);
 	frameCount = 0;
 	
 	setInterval(update, 1000/60)
