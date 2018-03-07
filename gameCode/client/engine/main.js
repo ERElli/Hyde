@@ -94,12 +94,16 @@ var update = function() {
 	frameCount++;
 	player.attackCounter++;
 	player.transformCounter++;
+	console.log(player.health);
+	gui.fgDraw(gui.fg_ctx,player.health/player.maxHealth*100,100,20);
+
 
 	doPressedActions();
 
 	if (player.justJumped) {
 		player.ay = g;
 		player.justJumped = false;
+		player.health--;
 	}
 	else if (onTerrain(player.x, player.y)) {
 		player.ay = 0;
@@ -183,6 +187,7 @@ var startGame = function(initial_level) {
 	frameCount = 0;
 	
 	console.log(mpsTOppf/framesPerSecond);
+	
 	
 	setInterval(update, 1000/60)
 }
