@@ -34,7 +34,7 @@ GUI = function(container){
 	}
 	self.bgDraw=function(bg_ctx,backgroundImg){
 		backgroundImg.onload = function () {
-    			bg_ctx.drawImage(backgroundImg,0,0,750,1250);
+    			bg_ctx.drawImage(backgroundImg,0,0,1250,750);
 		}
 			
 	};
@@ -48,7 +48,7 @@ GUI = function(container){
 		var weaponX=1150;
 		var weaponY=60;
 		//var weaponImg=image.jpeg;
-		
+		fg_ctx.save();
 		
 		fg_ctx.clearRect(0,0,self.fg.width,self.fg.height);
 		fg_ctx.font="18px Arial";
@@ -62,7 +62,7 @@ GUI = function(container){
 		fg_ctx.fillStyle="#0000FF";
 		fg_ctx.fillRect(momentX,momentY,playerMomentum,10);
 		//Colour Text
-		fg_ctx.fillStyle="#000000";
+		fg_ctx.fillStyle="#FFFFFF";
 		fg_ctx.fillText('Health:',healthX,healthY);
 		fg_ctx.fillText('Momentum:',momentX,momentY);
 
