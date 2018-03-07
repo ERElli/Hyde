@@ -8,6 +8,7 @@
 </div>
 <div id="gameDiv" style="width: 500px; height: 500;  background-color: blue; display:none;">
     <button id="level">level 1</button>
+    <h1> Game Here </h1>
 
 </div>
 
@@ -28,7 +29,7 @@
     signDivSignIn.onclick = function(){
       username = signDivUsername.value;
       password = signDivPassword.value;
-      
+
        socket.emit('signIn',{username:signDivUsername.value,password:signDivPassword.value});
    }
    signDivSignUp.onclick = function(){

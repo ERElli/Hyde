@@ -32,8 +32,10 @@ GUI = function(container){
 		self.bg_ctx = self.bg.getContext("2d");
 		self.fg_ctx = self.fg.getContext("2d");
 	}
-	self.bgDraw=function(bg_ctx){
-		
+	self.bgDraw=function(bg_ctx,backgroundImg){
+		backgroundImg.onload = function () {
+    			bg_ctx.drawImage(backgroundImg,0,0,750,1250);
+		}
 			
 	};
 	self.fgDraw=function(fg_ctx,playerHealth,playerMomentum,ammo){

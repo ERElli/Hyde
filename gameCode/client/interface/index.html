@@ -25,6 +25,11 @@
 		var playerPercentHealth=(pMaxHP/pHP)*100;
 		var playerMomentum=100;
 		var ammo=17;
+		var backgroundImg= new Image();
+		backgroundImg.onload = function () {
+    			gui.bg_ctx.drawImage(backgroundImg, 0, 0);
+		}
+		backgroundImg.src="img/worldTwoBackground.png";
 
 
 		//-----------
@@ -52,9 +57,8 @@
 		//Creates background and foreground Canvases
 		init();
 		//draws to the canvas
-		gui.bgDraw(gui.bg_ctx);
+		gui.bgDraw(gui.bg_ctx,backgroundImg);
 		gui.fgDraw(gui.fg_ctx,playerPercentHealth,playerMomentum,ammo);
-	
 		startGame({'player':e});
 		</script>
 </html>
