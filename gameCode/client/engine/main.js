@@ -49,10 +49,10 @@ var doPressedActions = function() {
 		player.ax = player.acceleration;
 	}
 	else {
-		if (Math.abs(player.vx) < 1) {
+		if (Math.abs(player.vx) < 2) {
 			player.vx = 0;
 		}
-		player.ax = -Math.sign(player.vx)*player.acceleration*0.75;
+		player.ax = -Math.sign(player.vx)*player.acceleration;
 	}
 	
 	if (pressing['jump']) {
@@ -111,7 +111,7 @@ var update = function() {
 		var bullet = bullets[key];
 		
 		if (!inRange(bullet)) {
-			continue;
+			delete bullets[key];
 		}
 		
 		//bullet.timer++;
@@ -179,8 +179,10 @@ var startGame = function(initial_level) {
 	//bullets = level["bullets"];
 	//blocks = level["terrain"];
 	//surfaceMods = level["terrain"];
-	console.log(player.x);
+	console.log(player.isBig);
 	frameCount = 0;
+	
+	console.log(mpsTOppf/framesPerSecond);
 	
 	setInterval(update, 1000/60)
 }

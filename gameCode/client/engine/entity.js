@@ -2,10 +2,10 @@ var canvas = document.getElementById("fg")
 var ctx = canvas.getContext('2d');
 
 let framesPerSecond = 60; //conversion factor for frames to seconds
-let pixPerMetre = 70;
+let pixPerMetre = 120;
 let mpsTOppf = pixPerMetre/framesPerSecond;
 
-let g = -9.81*mpsTOppf/framesPerSecond; //metres pre frame squared
+let g = Math.round(-9*mpsTOppf/framesPerSecond); //metres pre frame squared
 
 //ENTITY
 function Entity(type, id, x, y, vx, vy, width, height, img, color) {
@@ -90,7 +90,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, wea
 	self.aimAngle = 0;
 	
 	self.applyJumpTimer = 0;
-	self.jumpSpeed = 5*mpsTOppf; // pixels per frame
+	self.jumpSpeed = 4*mpsTOppf; // pixels per frame
 	self.justJumped = false;
 	
 	self.ax = 0;
@@ -140,20 +140,10 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, wea
 
 
 //PLAYER
-function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, mass, jumpForce, meleeDamage, meleeTimer,
+function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, jumpForce, meleeDamage, meleeTimer,
 						maxHealth, isBig) {
 	
 	var maxHealth = 100;
-	
-	var self = Humanoid(type, id, x, y, vx, vy, width, height, img, color, maxHealth, weapon, mass, jumpForce, meleeDamage, meleeTimer);
-	
-	self.maxHealth = maxHealth;
-	self.transformCounter = 0;
-	self.leftCounter = 0;
-	self.rightCounter = 0;
-	self.smallSpeed = 5;
-	self.isBig = isBig;
-	
 	
 	var smallMass = 80;
 	var smallWidth = 5;
@@ -165,14 +155,27 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, mass,
 	var bigWidth = 15;
 	var bigHeight = 15;
 	var bigAcceleration = 5*mpsTOppf/framesPerSecond;
-	var bigMaxV = 5*mpsTOppf;
+	var bigMaxV = 3*mpsTOppf;
+	
+	var self = Humanoid(type, id, x, y, vx, vy, width, height, img, color, maxHealth, weapon, smallMass, jumpForce, meleeDamage, meleeTimer);
+	
+	self.maxHealth = maxHealth;
+	self.transformCounter = 0;
+	self.leftCounter = 0;
+	self.rightCounter = 0;
+	self.smallSpeed = 5;
+	self.isBig = isBig;	
 	
 	self.acceleration = isBig ? bigAcceleration:smallAcceleration;
 	self.maxVelocity = isBig ? bigMaxV:smallMaxV;
 
-	
+	var biggestVx = 0;
 	
 	self.updatePosition = function() {
+		
+		if (Math.sign(self.vx) != Math.sign(self.ax)) {
+			self.ax = 2*self.ax;
+		}
 		
 		self.vx += self.ax;	
 		self.vy += self.ay;
@@ -181,8 +184,14 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, mass,
 			self.vx = Math.sign(self.vx)*self.maxVelocity;
 		}
 		
+		var xi = self.x;
+		
 		self.x += self.vx;
 		self.y -= self.vy;
+		
+		var xf = self.x;
+		
+		console.log(self.ax);
 		
 		self.weapon.x = self.x;
 		self.weapon.y = self.y;
@@ -207,11 +216,13 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, mass,
 				self.isBig = false;
 				self.mass = smallMass;
 				self.acceleration = smallAcceleration;
+				self.maxVelocity = smallMaxV;
 			}
 			else {
 				self.isBig = true;
 				self.mass = bigMass;
 				self.acceleration = bigAcceleration;
+				self.maxVelocity = bigMaxV;
 			}
 			
 			self.vx = (px / self.mass) * mpsTOppf;
