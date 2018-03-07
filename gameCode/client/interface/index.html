@@ -3,8 +3,10 @@
 		<br>
 		<br>
 		<div id="container">
-			<canvas id="bg" height="500" width="1250" style="position: absolute;"></canvas>
-			<canvas id="fg" height="500" width="1250" style="position: absolute;"></canvas>
+
+			<canvas id="bg" height="750" width="1250" style="position: absolute; z-index: 0;"></canvas>
+			<canvas id="fg" height="750" width="1250" style="position: absolute; z-index: 1"></canvas>
+
 		<div id="results" style="positions:absolute; left: 511px;">
 			<table style="border:1px"></table>
 		</div>
@@ -16,8 +18,10 @@
 		// construct the gui with the container and the map
 		var gui;
 		p= new Pistol("w1", 150, 450, 0, 0, 5, 5,'img','black');
+
 		//type, id, x, y, vx, vy, width, height, img, color, weapon, mass, jumpForce, meleeDamage, meleeTimer, maxHealth, isBig
 		e = new Player("player", "player", 150, 450, 1, 1, 25, 25, "imgur", "blue", p, 'jf', 'md', 'mt', 'mh', false);
+
 		let gameWidth=500
 		//temp test vars ----------
 		var pMaxHP=e.maxHealth;
@@ -26,9 +30,7 @@
 		var playerMomentum=100;
 		var ammo=17;
 		var backgroundImg= new Image();
-		backgroundImg.onload = function () {
-    			gui.bg_ctx.drawImage(backgroundImg, 0, 0);
-		}
+
 		backgroundImg.src="img/worldTwoBackground.png";
 
 
