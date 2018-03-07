@@ -20,7 +20,7 @@ Terrain = function(id,x,y,width,height){
 		 //ctx_lg.fillStyle = self.color;
 		 //ctx_lg.fillRect(self.x,self.y,self.width, self.height);
 
-		ctx_gr.drawImage(terrainImage, self.x, self.y);
+		ctx_lg.drawImage(terrainImage, self.x, self.y);
 	}
 
 	console.log(self);
