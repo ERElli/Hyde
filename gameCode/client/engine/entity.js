@@ -5,7 +5,7 @@ let framesPerSecond = 60; //conversion factor for frames to seconds
 let pixPerMetre = 120;
 let mpsTOppf = pixPerMetre/framesPerSecond;
 
-let g = Math.round(-9*mpsTOppf/framesPerSecond); //metres pre frame squared
+let g = -9*mpsTOppf/framesPerSecond; //metres pre frame squared
 
 //ENTITY
 function Entity(type, id, x, y, vx, vy, width, height, img, color) {

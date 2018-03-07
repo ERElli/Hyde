@@ -52,7 +52,7 @@ var doPressedActions = function() {
 		if (Math.abs(player.vx) < 2) {
 			player.vx = 0;
 		}
-		player.ax = -Math.sign(player.vx)*player.acceleration;
+		player.ax = -Math.sign(player.vx)*player.acceleration*0.5;
 	}
 	
 	if (pressing['jump']) {
