@@ -3,6 +3,11 @@
   <canvas id="entityPreview" width="496" height="310" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
   <canvas id="grid" width="496" height="310" style="position: absolute; left:0; top: 0; z-index: 3;"></canvas>
   <canvas id="levelground" width="496" height="310"  style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+
+ 
+</body>
+
+
 </body>
 
 <script type="text/javascript" src="Terrain.js"></script>
@@ -28,6 +33,13 @@ var frameCount = 0;
 var rectWIDTH = 31*3;
 var rectHEIGHT = 31*6;
 
+var backgroundButton = {
+	x:155,
+	y:0,
+	width:62,
+	heigth:62
+};
+
 
 var backgroundImage = new Image();
 backgroundImage.src = "../../images/levelEditorBackground.png";
@@ -52,6 +64,12 @@ terrainButtonImage.src = "../../images/terrainButton.png";
 
 var weaponButtonImage = new Image();
 weaponButtonImage.src = "../../images/weaponButton.png";
+
+/* Button Dropdowns */
+
+//canvas.addEventListener("mousemove", checkpos);
+//canvas.addEventListener("mouseup", checkClick); 
+
 
 
 snapToGrid  = function(canvas,mouse){
@@ -108,11 +126,15 @@ document.onmousedown = function(mouse){
 	}
 }
 
+function isInside(pos, rect){
+	return pos.x > rect.x && pos.x < rect.x+rect.width && pos.y < rect.y+rect.heigth && pos.y > rect.y
+}
+
 
 drawGrid = function(){
 	ctx_gr.globalAlpha = 0.05;
 	ctx_gr.lineWidth = 2;
-	ctx_gr.strokeStyle = "#ABABAB";
+	ctx_gr.strokeStyle = "#515151";
 
 	//Drawing vertical lines
 	for(x=TILE_WIDTH; x<=WIDTH; x+=TILE_WIDTH){
@@ -128,6 +150,19 @@ drawGrid = function(){
 		ctx_gr.stroke();
 	}
 }
+
+document.addEventListener('click', function(evt){
+
+	var mousePos = getMousePosition(bg, evt);
+
+	if(isInside(mousePos, backgroundButton)){
+		alert('clicked inside background button');
+	} else {
+		alert('clicked outside backgorund button');
+	}
+	
+
+}, false);
 
 
 addButtonImages = function() {
@@ -155,6 +190,10 @@ init = function() {
 	drawGrid();
 	Terrain.list = {};
 }
+
+
+
+
 
 </script>
 <body onload = "init()">
