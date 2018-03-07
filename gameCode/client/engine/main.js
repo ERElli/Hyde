@@ -94,7 +94,6 @@ var update = function() {
 	frameCount++;
 	player.attackCounter++;
 	player.transformCounter++;
-	console.log(player.health);
 	gui.fgDraw(gui.fg_ctx,player.health/player.maxHealth*100,100,20);
 
 

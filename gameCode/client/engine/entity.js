@@ -122,7 +122,6 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, wea
 	
 	self.shoot = function() {
 		if (self.attackCounter > 1/(self.weapon.firingRate/framesPerSecond)) {
-			console.log("shooting");
 			self.attackCounter = 0;
 			return self.weapon.fire(self.aimAngle);
 		}
@@ -190,9 +189,7 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, jumpF
 		self.y -= self.vy;
 		
 		var xf = self.x;
-		
-		console.log(self.ax);
-		
+				
 		self.weapon.x = self.x;
 		self.weapon.y = self.y;
 		
