@@ -1,16 +1,14 @@
 <body>
-  <canvas id="background" width="496" height="310"  style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
-  <canvas id="entityPreview" width="496" height="310" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
-  <canvas id="grid" width="496" height="310" style="position: absolute; left:0; top: 0; z-index: 3;"></canvas>
-  <canvas id="levelground" width="496" height="310"  style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
-
- 
-</body>
-
-
+  <canvas id="background" width="558" height="372"  style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
+  <canvas id="entityPreview" width="558" height="372" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
+  <canvas id="grid" width="558" height="372" style="position: absolute; left:0; top: 0; z-index: 3;"></canvas>
+  <canvas id="levelground" width="558" height="372"  style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
 </body>
 
 <script type="text/javascript" src="Terrain.js"></script>
+<script type="text/javascript" src="Map.js"></script>
+<script type="text/javascript" src="Rectangle.js"></script>
+	
 <script>
 var bg = document.getElementById("background");
 var ep = document.getElementById("entityPreview");
@@ -18,21 +16,21 @@ var lg = document.getElementById("levelground");
 var gr = document.getElementById("grid");
 
 var ctx_bg = bg.getContext("2d");
-
 var ctx_lg = lg.getContext("2d");
 var ctx_ep = ep.getContext("2d");
 var ctx_gr = gr.getContext("2d");
 
+//This makes the preview of the entity transparent
 ctx_ep.globalAlpha = 0.3;
 
-var TILE_HEIGHT = 31;
+//Initial values
+var WIDTH = 558;
+var HEIGHT = 372;
 var TILE_WIDTH = 31;
-var WIDTH = 496;
-var HEIGHT = 310;
+var TILE_HEIGHT = 31;
 var frameCount = 0;
-var rectWIDTH = 31*3;
-var rectHEIGHT = 31*6;
-
+var rectWIDTH = 31*2;
+var rectHEIGHT = 31*2;
 var backgroundButton = {
 	x:155,
 	y:0,
@@ -41,8 +39,9 @@ var backgroundButton = {
 };
 
 
+//Creating images
 var backgroundImage = new Image();
-backgroundImage.src = "../../images/levelEditorBackground.png";
+backgroundImage.src = "../../images/background.png";
 
 var enemyButtonImage = new Image();
 enemyButtonImage.src = "../../images/enemiesButton.png";
@@ -65,24 +64,23 @@ terrainButtonImage.src = "../../images/terrainButton.png";
 var weaponButtonImage = new Image();
 weaponButtonImage.src = "../../images/weaponButton.png";
 
-/* Button Dropdowns */
-
-//canvas.addEventListener("mousemove", checkpos);
-//canvas.addEventListener("mouseup", checkClick); 
-
-
+//Initializing the map
+var map = Map(WIDTH,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
 
 snapToGrid  = function(canvas,mouse){
 	var pos = getMousePosition(canvas,mouse);
 	var x = pos.x - (pos.x % TILE_HEIGHT);
 	var y = pos.y - (pos.y % TILE_WIDTH);
-	ctx_ep.fillStyle="#A4A4A4";
-	ctx_ep.fillRect(x, y, rectWIDTH, rectHEIGHT);
+
+	var previewImage = new Image();
+	previewImage.src = "../../images/buildingTerrain3x6.png";
+
+	ctx_ep.drawImage(previewImage,x, y, rectWIDTH, rectHEIGHT);
 	return {
 		x: x,
 		y: y,
 	};
-}
+};
 
 
 document.onmousemove = function(mouse){
@@ -95,7 +93,7 @@ document.onmousemove = function(mouse){
 		ctx_ep.clearRect(0,0,WIDTH,HEIGHT);
 		snapToGrid(ep,mouse);
 	}
-}
+};
 
 
 getMousePosition = function(canvas,mouse){
@@ -104,7 +102,7 @@ getMousePosition = function(canvas,mouse){
 		x: mouse.clientX - rect.left,
 		y: mouse.clientY - rect.top,
 	};
-}
+};
 
 
 document.onmousedown = function(mouse){
@@ -118,18 +116,20 @@ document.onmousedown = function(mouse){
 
 	if(mouseBelowUpperBound && mouseAboveLowerBound){
 		if(((x+rectWIDTH) <= WIDTH) && ((y+rectHEIGHT) <= HEIGHT)){
-			Terrain(id,x,y,rectWIDTH,rectHEIGHT);
+			var terrain = Terrain(id,x,y,rectWIDTH,rectHEIGHT);
+			// var rect = Rectangle(id,x,y,rectWIDTH,rectHEIGHT);
+			map.placeEntity(terrain);
 		}
 		else{
 			console.log("Can not place object there");
 		}
 	}
-}
+};
+
 
 function isInside(pos, rect){
 	return pos.x > rect.x && pos.x < rect.x+rect.width && pos.y < rect.y+rect.heigth && pos.y > rect.y
 }
-
 
 drawGrid = function(){
 	ctx_gr.globalAlpha = 0.05;
@@ -149,37 +149,36 @@ drawGrid = function(){
 		ctx_gr.lineTo(WIDTH,y);
 		ctx_gr.stroke();
 	}
-}
+};
+
 
 document.addEventListener('click', function(evt){
-
 	var mousePos = getMousePosition(bg, evt);
-
 	if(isInside(mousePos, backgroundButton)){
 		alert('clicked inside background button');
 	} else {
-		alert('clicked outside backgorund button');
+		alert('clicked outside background button');
 	}
 	
-
 }, false);
 
-
 addButtonImages = function() {
-	ctx_lg.drawImage(enemyButtonImage, 31, 0);
-	ctx_lg.drawImage(musicButtonImage, 93, 0);
-	ctx_lg.drawImage(backgroundButtonImage, 155, 0);
-	ctx_lg.drawImage(checkPointButtonImage, 216, 0);
-	ctx_lg.drawImage(characterButtonImage, 277, 0);
-	ctx_lg.drawImage(terrainButtonImage, 339, 0);
-	ctx_lg.drawImage(weaponButtonImage, 401, 0);
-}
+	var ButtonStart = TILE_WIDTH*2;
+	ctx_lg.drawImage(enemyButtonImage,ButtonStart, 0);
+	ctx_lg.drawImage(musicButtonImage, ButtonStart+ 2*TILE_WIDTH, 0);
+	ctx_lg.drawImage(backgroundButtonImage, ButtonStart+ 4*TILE_WIDTH, 0);
+	ctx_lg.drawImage(checkPointButtonImage, ButtonStart+ 6*TILE_WIDTH, 0);
+	ctx_lg.drawImage(characterButtonImage, ButtonStart+ 8*TILE_WIDTH, 0);
+	ctx_lg.drawImage(terrainButtonImage, ButtonStart+ 10*TILE_WIDTH, 0);
+	ctx_lg.drawImage(weaponButtonImage, ButtonStart+ 12*TILE_WIDTH, 0);
+};
 
 
 update = function() {
-	ctx_bg.drawImage(backgroundImage, 0, 0);
+	ctx_bg.drawImage(backgroundImage, 0, 0,WIDTH,HEIGHT);
+	// Rectangle.update();
 	Terrain.update();
-}
+};
 
 // Calling update 20 times a second
 setInterval(update, 1000/20);
@@ -188,12 +187,9 @@ init = function() {
 	var container = document.getElementById("container");
 	addButtonImages();
 	drawGrid();
+	Map.entityList = {};
 	Terrain.list = {};
-}
-
-
-
-
+};
 
 </script>
 <body onload = "init()">
