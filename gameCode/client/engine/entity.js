@@ -165,8 +165,8 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, jumpF
 	self.smallSpeed = 5;
 	self.isBig = isBig;	
 	
-	self.acceleration = isBig ? bigAcceleration:smallAcceleration;
-	self.maxVelocity = isBig ? bigMaxV:smallMaxV;
+	self.acceleration = self.isBig ? bigAcceleration:smallAcceleration;
+	self.maxVelocity = self.isBig ? bigMaxV:smallMaxV;
 
 	var biggestVx = 0;
 	
@@ -194,7 +194,25 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, jumpF
 		self.weapon.y = self.y;
 		
 	
-	}	
+	}
+	
+	self.setAirMotion = function() {
+		self.ay = g;
+		if (self.isBig) {
+			self.ax /= 2;
+		}
+		else {
+			self.ax /= 4;
+		}
+	}
+	
+	self.setGroundMotion = function() {
+		self.ay = 0;
+		self.vy = 0;
+		self.acceleration = self.isBig ? bigAcceleration:smallAcceleration;
+		console.log(self.acceleration);
+		self.maxVelocity = self.isBig ? bigMaxV:smallMaxV;
+	}
 	
 	self.sprint = function() {
 		

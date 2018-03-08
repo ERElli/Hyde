@@ -29,6 +29,9 @@ document.onmouseup = function(mouse) {
 	pressing["shoot"] = 0;
 }
 
+/*
+* Reset the player's aiming angle when they move the mouse
+*/
 document.onmousemove = function(mouse){
 	var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
 	var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
@@ -39,7 +42,9 @@ document.onmousemove = function(mouse){
 	player.aimAngle = Math.atan2(mouseY,mouseX) / Math.PI * -180;
 }
 
-
+/*
+* Do everything that is pressed, controlled by the 'pressing' dict
+*/
 var doPressedActions = function() {
 	
 	if (pressing['left']) {
@@ -78,17 +83,27 @@ var doPressedActions = function() {
 	}
 }
 
+/*
+* Return true if the player is standing on terrain, false otherwise
+*/
 var onTerrain = function(x, y) {
 	if (y >= 450) {
 		return true;
 	}
+	return false;
 }
 
+/*
+* Return true if the given entity is within the renderable radius
+*/
 var inRange = function(thing) {
 	len = Math.sqrt( Math.pow(thing.x - player.x, 2) + Math.pow(thing.y - player.y, 2) ) //sqrt(delta_x^2 + delta_y^2)
 	return len < gameWidth;
 }
 
+/*
+* Main game loop
+*/
 var update = function() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	frameCount++;
@@ -100,14 +115,21 @@ var update = function() {
 	doPressedActions();
 
 	if (player.justJumped) {
-		player.ay = g;
 		player.justJumped = false;
+		player.inAir = true;
 		player.health--;
 	}
 	else if (onTerrain(player.x, player.y)) {
-		player.ay = 0;
-		player.vy = 0;
+		player.inAir = false;
 	}
+	
+	if (player.inAir) {
+		player.setAirMotion();
+	}
+	else {
+		player.setGroundMotion();
+	}
+	
 	
 	for (var key in bullets) {
 	
