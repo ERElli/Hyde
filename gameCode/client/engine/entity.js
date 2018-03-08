@@ -183,6 +183,10 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, jumpF
 			self.vx = Math.sign(self.vx)*self.maxVelocity;
 		}
 		
+		if (Math.abs(self.vy) > self.maxVelocity) {
+			self.vy = Math.sign(self.vy)*self.maxVelocity;
+		}
+		
 		var xi = self.x;
 		
 		self.x += self.vx;
