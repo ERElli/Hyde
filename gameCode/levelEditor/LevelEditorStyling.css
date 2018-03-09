@@ -1,0 +1,369 @@
+
+
+/*Enemies Button*/
+
+.enemiesbtn {
+    background:transparent;
+    background-image: url(../../images/enemiesButton.png);
+    top: 0px;
+    position: fixed;
+    left: 62px;
+    
+    border: none;
+    cursor: pointer;
+    z-index: 4;
+    width: 62px;
+    height: 62px;
+}
+
+.enemiesbtn:hover, .dropbtn:focus {
+    
+    z-index:4;
+}
+
+.enemiesDropdown {
+    position: absolute;
+    display: inline-block;
+    z-index:4;
+
+}
+
+.enemies-content {
+    display: none;
+    position: fixed;
+    left: 186px;
+    top:62px;
+    min-width: 62px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);
+    z-index: 4;
+}
+
+.enemies-content a {
+    color: black;
+    padding: 31px 31px;
+    text-decoration: none;
+    display: block;
+    z-index: 4;
+    left:178px;
+}
+
+.dropdown a:hover {background-color: #ddd}
+
+.show {display:block;}       
+
+
+
+/*Music Button*/
+
+.musicbtn {
+    background:transparent;
+    background-image: url(../../images/musicButton.png);
+    top: 0px;
+    position: fixed;
+    left: 124px;
+    
+    border: none;
+    cursor: pointer;
+    z-index: 4;
+    width: 62px;
+    height: 62px;
+}
+
+.musicbtn:hover, .dropbtn:focus {
+    
+    z-index:4;
+}
+
+.musicDropdown {
+    position: absolute;
+    display: inline-block;
+    z-index:4;
+
+}
+
+.music-content {
+    display: none;
+    position: fixed;
+    left: 186px;
+    top:62px;
+    min-width: 62px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);
+    z-index: 4;
+}
+
+.music-content a {
+    color: black;
+    padding: 31px 31px;
+    text-decoration: none;
+    display: block;
+    z-index: 4;
+    left:124px;
+}
+
+.dropdown a:hover {background-color: #ddd}
+
+.show {display:block;}       
+
+
+
+/*Background Button*/
+
+.backgroundbtn {
+    background:transparent;
+    background-image: url(../../images/backgroundButton.png);
+    top: 0px;
+    position: fixed;
+    left: 186px;
+    
+    border: none;
+    cursor: pointer;
+    z-index: 4;
+    width: 62px;
+    height: 62px;
+}
+
+.backgroundbtn:hover, .dropbtn:focus {
+    
+    z-index:4;
+}
+
+.backgroundDropdown {
+    position: absolute;
+    display: inline-block;
+    z-index:4;
+
+}
+
+.background-content {
+    display: none;
+    position: fixed;
+    left: 186px;
+    top:62px;
+    min-width: 62px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);
+    z-index: 4;
+}
+
+.background-content a {
+    color: black;
+    padding: 31px 31px;
+    text-decoration: none;
+    display: block;
+    z-index: 4;
+    left:62px;
+}
+
+.dropdown a:hover {background-color: #ddd}
+
+.show {display:block;}      
+
+/*Checkpoint Button*/
+
+.checkpointbtn {
+    background:transparent;
+    background-image: url(../../images/checkpointButton.png);
+    top: 0px;
+    position: fixed;
+    left: 248px;
+    
+    border: none;
+    cursor: pointer;
+    z-index: 4;
+    width: 62px;
+    height: 62px;
+}
+
+.checkpoinbtn:hover, .dropbtn:focus {
+    
+    z-index:4;
+}
+
+.checkpointDropdown {
+    position: absolute;
+    display: inline-block;
+    z-index:4;
+
+}
+
+.checkpoint-content {
+    display: none;
+    position: fixed;
+    left: 186px;
+    top:62px;
+    min-width: 62px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);
+    z-index: 4;
+}
+
+.checkpoint-content a {
+    color: black;
+    padding: 31px 31px;
+    text-decoration: none;
+    display: block;
+    z-index: 4;
+    left:62px;
+}
+
+.dropdown a:hover {background-color: #ddd}
+
+.show {display:block;}      
+
+/*Character Button*/
+
+.characterbtn {
+    background:transparent;
+    background-image: url(../../images/characterButton.png);
+    top: 0px;
+    position: fixed;
+    left: 310px;
+    
+    border: none;
+    cursor: pointer;
+    z-index: 4;
+    width: 62px;
+    height: 62px;
+}
+
+.characterbtn:hover, .dropbtn:focus {
+    
+    z-index:4;
+}
+
+.characterDropdown {
+    position: absolute;
+    display: inline-block;
+    z-index:4;
+
+}
+
+.character-content {
+    display: none;
+    position: fixed;
+    left: 186px;
+    top:62px;
+    min-width: 62px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);
+    z-index: 4;
+}
+
+.character-content a {
+    color: black;
+    padding: 31px 31px;
+    text-decoration: none;
+    display: block;
+    z-index: 4;
+    left:62px;
+}
+
+.dropdown a:hover {background-color: #ddd}
+
+.show {display:block;}      
+
+/*Terrain Button*/
+
+.terrainbtn {
+    background:transparent;
+    background-image: url(../../images/terrainButton.png);
+    top: 0px;
+    position: fixed;
+    left: 374px;
+    
+    border: none;
+    cursor: pointer;
+    z-index: 4;
+    width: 62px;
+    height: 62px;
+}
+
+.terrainnbtn:hover, .dropbtn:focus {
+    
+    z-index:4;
+}
+
+.terrainDropdown {
+    position: absolute;
+    display: inline-block;
+    z-index:4;
+
+}
+
+.terrain-content {
+    display: none;
+    position: fixed;
+    left: 186px;
+    top:62px;
+    min-width: 62px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);
+    z-index: 4;
+}
+
+.terrain-content a {
+    color: black;
+    padding: 31px 31px;
+    text-decoration: none;
+    display: block;
+    z-index: 4;
+    left:62px;
+}
+
+.dropdown a:hover {background-color: #ddd}
+
+.show {display:block;}      
+
+/*Weapon Button*/
+
+.weaponbtn {
+    background:transparent;
+    background-image: url(../../images/weaponButton.png);
+    top: 0px;
+    position: fixed;
+    left: 438px;
+    
+    border: none;
+    cursor: pointer;
+    z-index: 4;
+    width: 62px;
+    height: 62px;
+}
+
+.weaponbtn:hover, .dropbtn:focus {
+    
+    z-index:4;
+}
+
+.weaponDropdown {
+    position: absolute;
+    display: inline-block;
+    z-index:4;
+
+}
+
+.weapon-content {
+    display: none;
+    position: fixed;
+    left: 186px;
+    top:62px;
+    min-width: 62px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);
+    z-index: 4;
+}
+
+.weapon-content a {
+    color: black;
+    padding: 31px 31px;
+    text-decoration: none;
+    display: block;
+    z-index: 4;
+    left:62px;
+}
+
+.dropdown a:hover {background-color: #ddd}
+
+.show {display:block;}       
