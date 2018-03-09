@@ -162,6 +162,8 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 	self.rightCounter = 0;
 	self.smallSpeed = 5;
 	self.isBig = isBig;	
+	self.isImmune = false;
+	self.immuneCounter = 0;
 	
 	self.acceleration = self.isBig ? bigAcceleration:smallAcceleration;
 	self.maxVelocityX = self.isBig ? bigMaxVX:smallMaxVX;
@@ -243,9 +245,13 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 			
 			self.vx = (px / self.mass) * mpsTOppf;
 			self.vy = (py / self.mass) * mpsTOppf;
-		}
-		
-		
+		}	
+	}
+	
+	self.takeDamage = function(amount) {
+		self.health -= amount;
+		self.isImmune = true;
+		self.immuneCounter = 0;
 	}
 	
 	//self.draw = function() {

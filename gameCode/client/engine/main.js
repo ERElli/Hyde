@@ -109,15 +109,18 @@ var update = function() {
 	frameCount++;
 	player.attackCounter++;
 	player.transformCounter++;
+	player.immuneCounter++;
 	gui.fgDraw(gui.fg_ctx,player.health/player.maxHealth*100,100,20);
 
-
+	if (player.isImmune && player.immuneCounter > 100) {
+		player.isImmune = false;
+	}
+	
 	doPressedActions();
 
 	if (player.justJumped) {
 		player.justJumped = false;
 		player.inAir = true;
-		player.health--;
 	}
 	else if (onTerrain(player.x, player.y)) {
 		player.inAir = false;
@@ -185,7 +188,9 @@ var update = function() {
 		
 		var isColliding = enemy.testCollision(player);
 		if (isColliding) {
-			//momentum check
+			if (!player.isImmune) {
+				player.takeDamage(enemy.meleeDamage);
+			}
 		}
 		
 	}
