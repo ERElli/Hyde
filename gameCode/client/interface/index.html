@@ -17,13 +17,13 @@
 		<script>
 		// construct the gui with the container and the map
 		var gui;
-		p= new Pistol("w1", 150, 450, 0, 0, 5, 5,'img','black');
+		p= new Pistol("w1", 150, 450, 0, 0, 5, 5,'img/weaponButton.png',null);
 
 		//type, id, x, y, vx, vy, width, height, img, color, weapon, meleeDamage, meleeTimer, maxHealth, isBig
-		e = new Player("player", "player", 150, 450, 0, 0, 25, 25, "imgur", "blue", p, 'md', 'mt', 'mh', false);
+		e = new Player("player", "player", 150, 450, 0, 0, 25, 25, "img/scientistMain.png", null, p, 'md', 'mt', 'mh', false);
 		
 		//id, x, y, vx, vy, img, color
-		enemy = new BasicEnemy("enemy1", 200, 450, 0, 0, 'img', 'red')
+		enemy = new BasicEnemy("enemy1", 200, 450, 0, 0, 'img/bigGuy.png', null)
 
 		let gameWidth=2000
 		//temp test vars ----------
@@ -64,6 +64,6 @@
 		//draws to the canvas
 		gui.bgDraw(gui.bg_ctx,backgroundImg);
 		//gui.fgDraw(gui.fg_ctx,playerPercentHealth,playerMomentum,ammo);
-		startGame({'player':e, 'enemies':{'enemy1':enemy}});
+		startGame({'player':e,'enemies':{'enemy1':enemy}});
 		</script>
 </html>
