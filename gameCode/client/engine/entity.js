@@ -22,7 +22,6 @@ function Entity(type, id, x, y, vx, vy, width, height, img, color) {
 		color:color,
 	};
 	
-	
 	self.update = function() {
 		self.updatePosition();
 		self.draw();
@@ -78,7 +77,6 @@ var testCollisionRectRect = function(rect1,rect2){
 function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpSpeed, meleeDamage, meleeTimer) {	
 	var self = Entity(type, id, x, y, vx, vy, width, height, img, color);
 	
-	
 	self.health = health;
 	self.weapon = weapon;
 	self.mass = mass;
@@ -90,7 +88,6 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, wea
 	self.aimAngle = 0;
 	
 	self.applyJumpTimer = 0;
-	self.jumpSpeed = 4*mpsTOppf; // pixels per frame
 	self.justJumped = false;
 	
 	self.ax = 0;
@@ -139,8 +136,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, wea
 
 
 //PLAYER
-function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, jumpForce, meleeDamage, meleeTimer,
-						maxHealth, isBig) {
+function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, meleeDamage, meleeTimer, maxHealth, isBig) {
 	
 	var maxHealth = 100;
 	
@@ -158,7 +154,7 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, jumpF
 	var bigMaxVX = 3*mpsTOppf;
 	var bigMaxVY = 20*mpsTOppf;
 	
-	var self = Humanoid(type, id, x, y, vx, vy, width, height, img, color, maxHealth, weapon, smallMass, jumpForce, meleeDamage, meleeTimer);
+	var self = Humanoid(type, id, x, y, vx, vy, width, height, img, color, maxHealth, weapon, smallMass, 4*mpsTOppf, meleeDamage, meleeTimer);
 	
 	self.maxHealth = maxHealth;
 	self.transformCounter = 0;
@@ -215,7 +211,6 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, jumpF
 		self.ay = 0;
 		self.vy = 0;
 		self.acceleration = self.isBig ? bigAcceleration:smallAcceleration;
-		console.log(self.acceleration);
 		self.maxVelocityX = self.isBig ? bigMaxVX:smallMaxVX;
 	}
 	
@@ -226,7 +221,6 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, jumpF
 	self.transform = function() {
 		if (self.transformCounter > 100) {
 		
-			console.log("isBig: " + self.isBig);
 			self.transformCounter = 0;
 			
 			px = self.vx*self.mass;
@@ -263,14 +257,13 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, jumpF
 
 
 //ENEMY
-function Enemy(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, path, target) {
-	var self = Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer);
+function Enemy(type, id, x, y, vx, vy, width, height, img, color, maxHealth, weapon, mass, jumpSpeed, meleeDamage, meleeTimer) {
 	
-	
-	self.path = path;
-	self.target = target;
+	console.log(x)
+	//type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpSpeed, meleeDamage, meleeTimer
+	var self = Humanoid(type, id, x, y, vx, vy, width, height, img, color, maxHealth, weapon, mass, jumpSpeed, meleeDamage, meleeTimer);
+	console.log("Enemy" + self.x)
 
-	
 	self.melee = function(direction) {
 		
 	}
@@ -282,13 +275,25 @@ function Enemy(type, id, x, y, vx, vy, width, height, img, color, health, weapon
 	return self;
 }
 
-function BasicEnemy(id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, path, target) {
-	var self = Enemy("basic enemy", id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, path, target);
+function BasicEnemy(id, x, y, vx, vy, img, color) {
 	
+	var basicWidth = 20;
+	var basicHeight = 20;
+	var basicMaxHP = 20;
+	var basicWeapon = new Pistol("w1", x, y, 0, 0, 5, 5,'img','black');
+	var basicMass = 50;
+	var basicJumpSpeed = 3*mpsTOppf;
+	var basicMeleeDamage = 5;
+	var basicMeleeTimer = 10;
 	
-	self.draw = function() {
+	var self = Enemy("basic enemy", id, x, y, vx, vy, basicWidth, basicHeight, img, color, basicMaxHP, basicWeapon, basicMass, basicJumpSpeed, basicMeleeDamage, basicMeleeTimer);
+	console.log("Basic " + self.x)
+	
+	//self.draw = function() {
 		
-	}
+	//}
+	
+	return self;
 }
 
 function FlyingEnemy(id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, path, target) {

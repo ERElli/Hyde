@@ -19,10 +19,13 @@
 		var gui;
 		p= new Pistol("w1", 150, 450, 0, 0, 5, 5,'img','black');
 
-		//type, id, x, y, vx, vy, width, height, img, color, weapon, mass, jumpForce, meleeDamage, meleeTimer, maxHealth, isBig
-		e = new Player("player", "player", 150, 450, 1, 1, 25, 25, "imgur", "blue", p, 'jf', 'md', 'mt', 'mh', false);
+		//type, id, x, y, vx, vy, width, height, img, color, weapon, meleeDamage, meleeTimer, maxHealth, isBig
+		e = new Player("player", "player", 150, 450, 0, 0, 25, 25, "imgur", "blue", p, 'md', 'mt', 'mh', false);
+		
+		//id, x, y, vx, vy, img, color
+		enemy = new BasicEnemy("enemy1", 200, 450, 0, 0, 'img', 'red')
 
-		let gameWidth=500
+		let gameWidth=2000
 		//temp test vars ----------
 		var pMaxHP=e.maxHealth;
 		var pHP=e.health;
@@ -61,6 +64,6 @@
 		//draws to the canvas
 		gui.bgDraw(gui.bg_ctx,backgroundImg);
 		//gui.fgDraw(gui.fg_ctx,playerPercentHealth,playerMomentum,ammo);
-		startGame({'player':e});
+		startGame({'player':e, 'enemies':{'enemy1':enemy}});
 		</script>
 </html>

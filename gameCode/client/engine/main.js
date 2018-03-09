@@ -174,12 +174,14 @@ var update = function() {
 	for (var key in enemies) {
 		
 		var enemy = enemies[key];
-		
-		if (!inRange(bullet)) {
+				
+		if (!inRange(enemy)) {
 			continue;
 		}
 		
-		enemy.attackCounter++;
+		enemy.update();
+		
+		//enemy.attackCounter++;
 		
 		var isColliding = enemy.testCollision(player);
 		if (isColliding) {
@@ -200,15 +202,12 @@ var testCollision = function(rect1, rect2) {
 var startGame = function(initial_level) {
 	level = initial_level;
 	player = level["player"];
-	//enemies = level["enemies"];
+	enemies = level["enemies"];
 	//bullets = level["bullets"];
 	//blocks = level["terrain"];
 	//surfaceMods = level["terrain"];
-	console.log(player.isBig);
 	frameCount = 0;
-	
-	console.log(mpsTOppf/framesPerSecond);
-	
+
 	
 	setInterval(update, 1000/60)
 }
