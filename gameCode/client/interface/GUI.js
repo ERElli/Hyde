@@ -40,9 +40,19 @@ GUI = function(container){
 	};
 	self.drawEntity=function(x,y,width,height,img,color){
 		gui.fg_ctx.save();
-		gui.fg_ctx.fillStyle=color;
-		gui.fg_ctx.fillRect(x-width/2,y-height/2,width,height);
-		gui.fg_ctx.restore();
+		
+		if(color==null){
+			image=new Image();
+			image.src=img;
+			image.onload=function(){
+				gui.fg_ctx.drawImage(image,x-width/2,y-height/2,width,height)
+			}
+		}
+		else if(img=="img"){
+			gui.fg_ctx.fillStyle=color;
+			gui.fg_ctx.fillRect(x-width/2,y-height/2,width,height);
+			gui.fg_ctx.restore();
+		}
 	};
 	self.fgDraw=function(fg_ctx,playerHealth,playerMomentum,ammo){
 		var healthX=0;
