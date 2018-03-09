@@ -31,13 +31,15 @@ var TILE_HEIGHT = 31;
 var frameCount = 0;
 var rectWIDTH = 31*2;
 var rectHEIGHT = 31*2;
-var backgroundButton = {
-	x:155,
-	y:0,
-	width:62,
-	heigth:62
-};
+var buttonStartingX = TILE_WIDTH*2;
 
+//Defining the bounds 
+var backgroundButtonBounds= {
+	x:buttonStartingX+ 4*TILE_WIDTH,
+	y:0,
+	width:TILE_HEIGHT*2,
+	heigth:TILE_HEIGHT*2,
+};
 
 //Creating images
 var backgroundImage = new Image();
@@ -67,6 +69,11 @@ weaponButtonImage.src = "../../images/weaponButton.png";
 //Initializing the map
 var map = Map(WIDTH,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
 
+var pressingMouseLeft = false;
+var pressingMouseRight = false;
+
+//Drawing a preview of the object to be placed on the level
+//and snapping the top right corner of the preview to the grid lines
 snapToGrid  = function(canvas,mouse){
 	var pos = getMousePosition(canvas,mouse);
 	var x = pos.x - (pos.x % TILE_HEIGHT);
@@ -106,29 +113,57 @@ getMousePosition = function(canvas,mouse){
 
 
 document.onmousedown = function(mouse){
+	if(mouse.which ===1){
+		pressingMouseLeft = true;
+	}
+	else{
+		pressingMouseRight = true;
+	}
+
 	var pos = getMousePosition(bg,mouse);
 	var id = Math.random();
 	var x = pos.x - (pos.x % TILE_HEIGHT);
 	var y = pos.y - (pos.y % TILE_WIDTH);
 
-	var mouseBelowUpperBound = pos.x<WIDTH && pos.y<HEIGHT;
-	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
+	if(pressingMouseLeft){
+		var mouseBelowUpperBound = pos.x<WIDTH && pos.y<HEIGHT;
+		var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
 
-	if(mouseBelowUpperBound && mouseAboveLowerBound){
-		if(((x+rectWIDTH) <= WIDTH) && ((y+rectHEIGHT) <= HEIGHT)){
-			var terrain = Terrain(id,x,y,rectWIDTH,rectHEIGHT);
-			// var rect = Rectangle(id,x,y,rectWIDTH,rectHEIGHT);
-			map.placeEntity(terrain);
+		if(mouseBelowUpperBound && mouseAboveLowerBound){
+			if(((x+rectWIDTH) <= WIDTH) && ((y+rectHEIGHT) <= HEIGHT)){
+				var terrain = Terrain(id,x,y,rectWIDTH,rectHEIGHT);
+				// var rect = Rectangle(id,x,y,rectWIDTH,rectHEIGHT);
+				map.placeEntity(terrain);
+			}
+			else{
+				console.log("Can not place object there");
+			}
 		}
-		else{
-			console.log("Can not place object there");
-		}
+	}
+
+	if(pressingMouseRight){
+		map.removeEntity(x,y);
 	}
 };
 
+document.onmouseup = function(mouse){
+	if(mouse.which ===1){
+		pressingMouseLeft = false;
+	}
+	else{
+		pressingMouseRight = false;
+	}
+};
 
+//Supressing context menu on right click
+document.oncontextmenu = function(mouse){
+	mouse.preventDefault();
+};
+
+
+//Checking if mouse is withing a specified area
 function isInside(pos, rect){
-	return pos.x > rect.x && pos.x < rect.x+rect.width && pos.y < rect.y+rect.heigth && pos.y > rect.y
+	return pos.x > rect.x && pos.x < rect.x+rect.width && pos.y < rect.y+rect.heigth && pos.y > rect.y;
 }
 
 drawGrid = function(){
@@ -154,34 +189,35 @@ drawGrid = function(){
 
 document.addEventListener('click', function(evt){
 	var mousePos = getMousePosition(bg, evt);
-	if(isInside(mousePos, backgroundButton)){
+	if(isInside(mousePos, backgroundButtonBounds)){
 		alert('clicked inside background button');
 	} else {
-		alert('clicked outside background button');
+		// alert('clicked outside background button');
 	}
 	
 }, false);
 
 addButtonImages = function() {
-	var ButtonStart = TILE_WIDTH*2;
-	ctx_lg.drawImage(enemyButtonImage,ButtonStart, 0);
-	ctx_lg.drawImage(musicButtonImage, ButtonStart+ 2*TILE_WIDTH, 0);
-	ctx_lg.drawImage(backgroundButtonImage, ButtonStart+ 4*TILE_WIDTH, 0);
-	ctx_lg.drawImage(checkPointButtonImage, ButtonStart+ 6*TILE_WIDTH, 0);
-	ctx_lg.drawImage(characterButtonImage, ButtonStart+ 8*TILE_WIDTH, 0);
-	ctx_lg.drawImage(terrainButtonImage, ButtonStart+ 10*TILE_WIDTH, 0);
-	ctx_lg.drawImage(weaponButtonImage, ButtonStart+ 12*TILE_WIDTH, 0);
+	ctx_lg.drawImage(enemyButtonImage,buttonStartingX, 0);
+	ctx_lg.drawImage(musicButtonImage, buttonStartingX+ 2*TILE_WIDTH, 0);
+	ctx_lg.drawImage(backgroundButtonImage, buttonStartingX+ 4*TILE_WIDTH, 0);
+	ctx_lg.drawImage(checkPointButtonImage, buttonStartingX+ 6*TILE_WIDTH, 0);
+	ctx_lg.drawImage(characterButtonImage, buttonStartingX+ 8*TILE_WIDTH, 0);
+	ctx_lg.drawImage(terrainButtonImage, buttonStartingX+ 10*TILE_WIDTH, 0);
+	ctx_lg.drawImage(weaponButtonImage, buttonStartingX+ 12*TILE_WIDTH, 0);
 };
 
 
 update = function() {
 	ctx_bg.drawImage(backgroundImage, 0, 0,WIDTH,HEIGHT);
+	ctx_lg.clearRect(0,0,WIDTH,HEIGHT);
+	addButtonImages();
 	// Rectangle.update();
 	Terrain.update();
 };
 
-// Calling update 20 times a second
-setInterval(update, 1000/20);
+// Calling update 60 times a second
+setInterval(update, 1000/60);
 
 init = function() {
 	var container = document.getElementById("container");
