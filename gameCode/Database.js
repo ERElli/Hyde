@@ -2,6 +2,7 @@ var USE_DB = true;
 var mongojs = USE_DB ? require("mongojs") : null;
 var db = USE_DB ? mongojs('localhost:27017/myGame', ['account','progress']) : null;
 
+
 Database = {};
 Database.isValidPassword = function(data,cb){
     if(!USE_DB)
@@ -35,6 +36,7 @@ Database.addUser = function(data,cb){
 Database.getPlayerProgress = function(username,cb){
     if(!USE_DB)
         return cb({items:[]});
+
 	db.progress.findOne({username:username},function(err,res){
 		cb({items:res.items});
 	});
@@ -45,3 +47,20 @@ Database.savePlayerProgress = function(data,cb){
         return cb();
     db.progress.update({username:data.username},data,{upsert:true},cb);
 }
+
+Database.levelUpdate = function(username,data){
+  db.progress.findOne({username:username},function(err,res){
+    if(res){
+      console.log("true "+ data.level);
+      db.progress.update({username:username},{  $addToSet: {items: {level : "level 1", time: 130} }});
+
+    }
+  });
+}
+
+/* db.progress.update({username: "aaa"}, { $set: { items: [{level: "level 1", time: 60}, {level:"level 2",time: 120}] } });
+db.progress.find();
+db.progress.findOne({username: "aaa", items: {level: "level 1"}} ) ;
+db.progress.update({username: "bbbb"}, { $set: { items: {level: "level 3", time: 140} } });
+db.progress.find( { items: {level : "level 2", time: 140} } );
+*/

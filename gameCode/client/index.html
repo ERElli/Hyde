@@ -9,6 +9,7 @@
 <div id="gameDiv" style="width: 500px; height: 500;  background-color: blue; display:none;">
     <button id="level">level 1</button>
     <h1> Game Here </h1>
+    <p id="text"> Your levels </p>
 
 </div>
 
@@ -18,17 +19,17 @@
     var socket = io();
 
     //sign
-    var username;
-    var passoword;
     var signDiv = document.getElementById('signDiv');
     var signDivUsername = document.getElementById('signDiv-username');
     var signDivSignIn = document.getElementById('signDiv-signIn');
     var signDivSignUp = document.getElementById('signDiv-signUp');
     var signDivPassword = document.getElementById('signDiv-password');
+    var level = document.getElementById('level');
+    var text = document.getElementById('text');
+
 
     signDivSignIn.onclick = function(){
-      username = signDivUsername.value;
-      password = signDivPassword.value;
+
 
        socket.emit('signIn',{username:signDivUsername.value,password:signDivPassword.value});
    }
@@ -38,8 +39,8 @@
    }
 
    level.onclick = function(){
-     console.log(username);
-       socket.emit('updateLevel',{username:username});
+
+       socket.emit('updateLevel', {level: level.textContent} );
    }
 
    socket.on('signInResponse',function(data){
@@ -57,10 +58,13 @@ socket.on('signUpResponse',function(data){
     } else
         alert("Sign up unsuccessul.");
 });
+socket.on('levels',function(progress){
+    text.textContent = "You have finished " + JSON.stringify(progress.items[0].level) + "in "+JSON.stringify(progress.items[0].time+ " seconds") ;
+});
 
 
 //game
-    socket.on('serverMsg',function(data){
+socket.on('serverMsg',function(data){
         console.log(data.msg);
     });
 
