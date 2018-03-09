@@ -6,7 +6,6 @@ Map = function(width, height,tile_width, tile_height) {
 	self.numTilesY = height/tile_height;
 	self.tiles = [];
 	
-
 	for(var i=0; i<self.numTilesX; i++){
 		self.tiles.push([]);
 		for(var j=0; j<self.numTilesY; j++){
@@ -50,12 +49,15 @@ Map = function(width, height,tile_width, tile_height) {
 
 				}
 			}
+			self.addEntity(e);
+		}
+	};
 
-			switch(e.type){
-				case "Terrain":
-					Terrain.add(e);
-					break;
-			}
+	self.addEntity = function(e){
+		switch(e.type){
+			case "Terrain":
+				Terrain.add(e);
+				break;
 		}
 	};
 
@@ -63,18 +65,15 @@ Map = function(width, height,tile_width, tile_height) {
 		var i = x/tile_width;
 		var j = (y/tile_height)-offset;
 
-		console.log("type",self.tiles[i][j].type);
-
 		switch(self.tiles[i][j].type){
 			case "Terrain":
 				toBeRemoved = Terrain.list[self.tiles[i][j].id];
 				Terrain.remove(toBeRemoved);
-				console.log(Terrain.list);
 				break;
 			default:
 				console.log("Nothing to remove");
 		}	
-
+		ctx_lg.clearRect(0,0,WIDTH,HEIGHT);
 		self.makeFreeSpace(toBeRemoved);
 	};
 
