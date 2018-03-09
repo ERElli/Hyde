@@ -107,8 +107,28 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, wea
 		self.x += self.vx;
 		self.y -= self.vy;
 		
-		self.weapon.x = self.x;
-		self.weapon.y = self.y;
+		var weaponOffsetX = 0;
+		var weaponOffsetY = 0;
+		
+		if (self.aimAngle >= -45 && self.aimAngle < 45) {
+			weaponOffsetX = self.width;
+			weaponOffsetY = 0;
+		}
+		else if (self.aimAngle >= 45 && self.aimAngle < 135) {
+			weaponOffsetX = 0;
+			weaponOffsetY = self.height;
+		}
+		else if (self.aimAngle < -45 && self.aimAngle > -135) {
+			weaponOffsetX = 0;
+			weaponOffsetY = -self.height;
+		}
+		else {
+			weaponOffsetX = -self.width;
+			weaponOffsetY = 0;
+		}
+		
+		self.weapon.x = self.x + weaponOffsetX;
+		self.weapon.y = self.y - weaponOffsetY;
 		
 	
 	}	
@@ -463,7 +483,7 @@ function Weapon(type, id, x, y, vx, vy, width, height, img, color, firingRate, b
 function Pistol(id, x, y, vx, vy, width, height, img, color) {
 	
 	var pistolRate = 2;
-	var pistolSpeed = 3;
+	var pistolSpeed = 5;
 	
 	var self = Weapon("pistol", id, x, y, vx, vy, width, height, img, color, pistolRate, pistolSpeed, "normal", 100, 20);
 	
@@ -472,6 +492,7 @@ function Pistol(id, x, y, vx, vy, width, height, img, color) {
 		self.ammo--;
 		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
 		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
+		console.log("Generating bullet at " + self.x + ", " + self.y + " at angle " + angle);
 		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "black");
 	}
 	
