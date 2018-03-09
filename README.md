@@ -18,3 +18,7 @@ Go to the downloaded file for mongodb and open the mongod.exe file.
 
 To start server, in the terminal change directory to the gameCode folder and type: node server.js
 Then on your browser, go to : localhost:2000
+
+Nodemon will automatically restart the node application when changes are made, it can be installed from the terminal and works globally, type: npm install -g nodemon
+
+After installing nodemon you can start the server as outlined above by using the command "nodemon server.js" instead of "node server.js"
