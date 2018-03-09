@@ -196,9 +196,7 @@ var update = function() {
 		if (newBullet) {
 			bullets[newBullet.id] = newBullet;
 		}
-		
-		//enemy.attackCounter++;
-		
+				
 		var isColliding = enemy.testCollision(player);
 		if (isColliding) {
 			if (!player.isImmune) {
