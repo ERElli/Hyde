@@ -86,11 +86,15 @@ var doPressedActions = function() {
 /*
 * Return true if the player is standing on terrain, false otherwise
 */
-var onTerrain = function(x, y) {
-	if (y >= 450) {
+var nearTerrain = function(x, y) {
+	if (Math.abs(y - 450) <= 5) {
 		return true;
 	}
 	return false;
+}
+
+var putOnTerrain = function(thing) {
+	thing.y = 450;
 }
 
 /*
@@ -111,6 +115,8 @@ var update = function() {
 	player.transformCounter++;
 	player.immuneCounter++;
 	gui.fgDraw(gui.fg_ctx,player.health/player.maxHealth*100,100,20);
+	
+	console.log(player.y);
 
 	if (player.isImmune && player.immuneCounter > 100) {
 		player.isImmune = false;
@@ -122,8 +128,10 @@ var update = function() {
 		player.justJumped = false;
 		player.inAir = true;
 	}
-	else if (onTerrain(player.x, player.y)) {
+	else if (nearTerrain(player.x, player.y)) {
 		player.inAir = false;
+		
+		putOnTerrain(player);
 	}
 	
 	if (player.inAir) {

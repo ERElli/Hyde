@@ -185,14 +185,10 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 		if (Math.abs(self.vy) > self.maxVelocityY) {
 			self.vy = Math.sign(self.vy)*self.maxVelocityX;
 		}
-		
-		var xi = self.x;
-		
+	
 		self.x += self.vx;
 		self.y -= self.vy;
-		
-		var xf = self.x;
-				
+
 		self.weapon.x = self.x;
 		self.weapon.y = self.y;
 		
