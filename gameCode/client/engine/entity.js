@@ -27,11 +27,12 @@ function Entity(type, id, x, y, vx, vy, width, height, img, color) {
 		self.draw();
 	}
 	
-	self.draw = function() {		
-		ctx.save();
+	self.draw = function() {
+		gui.drawEntity(self.x,self.y,self.width,self.height,self.img,self.color)		
+		/*ctx.save();
 		ctx.fillStyle = self.color;
 		ctx.fillRect(self.x-self.width/2,self.y-self.height/2,self.width,self.height);
-		ctx.restore();
+		ctx.restore();*/
 	}
 	self.getDistance = function(entity2) {	//return distance (number)
 		var dx = self.x - entity2.x;
