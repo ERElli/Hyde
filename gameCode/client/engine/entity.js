@@ -261,10 +261,8 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 //ENEMY
 function Enemy(type, id, x, y, vx, vy, width, height, img, color, maxHealth, weapon, mass, jumpSpeed, meleeDamage, meleeTimer) {
 	
-	console.log(x)
 	//type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpSpeed, meleeDamage, meleeTimer
 	var self = Humanoid(type, id, x, y, vx, vy, width, height, img, color, maxHealth, weapon, mass, jumpSpeed, meleeDamage, meleeTimer);
-	console.log("Enemy" + self.x)
 
 	self.melee = function(direction) {
 		
@@ -272,6 +270,10 @@ function Enemy(type, id, x, y, vx, vy, width, height, img, color, maxHealth, wea
 	
 	self.attack = function(target) {
 		
+	}
+	
+	self.updateAim = function(target) {
+		self.aimAngle = Math.atan2(target.y-self.y,target.x-self.x) / Math.PI * -180;
 	}
 	
 	return self;
@@ -289,7 +291,6 @@ function BasicEnemy(id, x, y, vx, vy, img, color) {
 	var basicMeleeTimer = 10;
 	
 	var self = Enemy("basic enemy", id, x, y, vx, vy, basicWidth, basicHeight, img, color, basicMaxHP, basicWeapon, basicMass, basicJumpSpeed, basicMeleeDamage, basicMeleeTimer);
-	console.log("Basic " + self.x)
 	
 	//self.draw = function() {
 		
@@ -459,7 +460,11 @@ function Weapon(type, id, x, y, vx, vy, width, height, img, color, firingRate, b
 }
 
 function Pistol(id, x, y, vx, vy, width, height, img, color) {
-	var self = Weapon("pistol", id, x, y, vx, vy, width, height, img, color, 2, 10, "normal", 100, 20);
+	
+	var pistolRate = 2;
+	var pistolSpeed = 3;
+	
+	var self = Weapon("pistol", id, x, y, vx, vy, width, height, img, color, pistolRate, pistolSpeed, "normal", 100, 20);
 	
 	
 	self.fire = function(angle) {

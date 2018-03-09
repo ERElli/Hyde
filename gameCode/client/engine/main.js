@@ -87,7 +87,7 @@ var doPressedActions = function() {
 * Return true if the player is standing on terrain, false otherwise
 */
 var nearTerrain = function(x, y) {
-	if (Math.abs(y - 450) <= 5) {
+	if (Math.abs(y - 450) <= 10) {
 		return true;
 	}
 	return false;
@@ -115,8 +115,6 @@ var update = function() {
 	player.transformCounter++;
 	player.immuneCounter++;
 	gui.fgDraw(gui.fg_ctx,player.health/player.maxHealth*100,100,20);
-	
-	console.log(player.y);
 
 	if (player.isImmune && player.immuneCounter > 100) {
 		player.isImmune = false;
@@ -164,6 +162,7 @@ var update = function() {
 				
 				//remove dead enemies when looping over them
 				delete enemies[key2];
+				console.log("HERE");
 				break;
 			}	
 		}
@@ -185,12 +184,18 @@ var update = function() {
 	for (var key in enemies) {
 		
 		var enemy = enemies[key];
-				
+		
 		if (!inRange(enemy)) {
 			continue;
 		}
 		
 		enemy.update();
+		enemy.updateAim(player);
+		enemy.attackCounter++;
+		newBullet = enemy.shoot();
+		if (newBullet) {
+			bullets[newBullet.id] = newBullet;
+		}
 		
 		//enemy.attackCounter++;
 		
