@@ -209,9 +209,29 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 	
 		self.x += self.vx;
 		self.y -= self.vy;
-
-		self.weapon.x = self.x;
-		self.weapon.y = self.y;
+		
+		var weaponOffsetX = 0;
+		var weaponOffsetY = 0;
+		
+		if (self.aimAngle >= -45 && self.aimAngle < 45) {
+			weaponOffsetX = self.width;
+			weaponOffsetY = 0;
+		}
+		else if (self.aimAngle >= 45 && self.aimAngle < 135) {
+			weaponOffsetX = 0;
+			weaponOffsetY = self.height;
+		}
+		else if (self.aimAngle < -45 && self.aimAngle > -135) {
+			weaponOffsetX = 0;
+			weaponOffsetY = -self.height;
+		}
+		else {
+			weaponOffsetX = -self.width;
+			weaponOffsetY = 0;
+		}
+		
+		self.weapon.x = self.x + weaponOffsetX;
+		self.weapon.y = self.y - weaponOffsetY;
 		
 	
 	}

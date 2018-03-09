@@ -167,14 +167,14 @@ var update = function() {
 			}	
 		}
 		
-		/*
+		
 		var isColliding = bullet.testCollision(player);
 		if (isColliding) {
 			toRemove = true;
-			
-			//reduce player health
+			console.log("Player at " + player.x + ", " + player.y);
+			player.takeDamage(bullet.damage);
 		}
-		*/
+		
 		
 		if(toRemove){
 			delete bullets[key];
