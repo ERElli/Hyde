@@ -1,9 +1,9 @@
 <body>
 	<div id ="container">
-  		<canvas id="background" width="1116" height="372"  style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
+  		<canvas id="background" width="558" height="372"  style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
  		 <canvas id="entityPreview" width="558" height="372" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
   		<canvas id="grid" width="558" height="372" style="position: absolute; left:0; top: 0; z-index: 3;"></canvas>
-  		<canvas id="levelground" width="1116" height="372"  style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+  		<canvas id="levelground" width="558" height="372"  style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
  	</div>
 </body>
 
@@ -27,7 +27,7 @@ var ctx_gr = gr.getContext("2d");
 ctx_ep.globalAlpha = 0.3;
 
 //Initial values
-var WIDTH = 558;
+var WIDTH = 558*2;
 var HEIGHT = 372;
 var TILE_WIDTH = 31;
 var TILE_HEIGHT = 31;
@@ -88,15 +88,19 @@ window.addEventListener("keydown",function(e){
 	switch(e.keyCode){
 		case 37:
 			controls.left = true;
+			e.preventDefault();
 			break;
 		case 38:
 			controls.up = true;
+			e.preventDefault();
 			break;
 		case 39:
 			controls.right = true;
+			e.preventDefault();
 			break;
 		case 40:
 			controls.down = true;
+			e.preventDefault();
 			break;
 	}
 });
@@ -116,6 +120,7 @@ window.addEventListener("keyup",function(e){
 			controls.down = false;
 			break;
 	}
+	e.preventDefault();
 });
 
 doPressedAction = function() {
@@ -123,9 +128,16 @@ doPressedAction = function() {
 		(offsetX===0)? offsetX = 0 : (offsetX -= TILE_WIDTH);	//if you are at leftmost position of the level do nothing, else decrement offset
 	}
 	if(controls.right){
-		(offsetX==(WIDTH-background.width))? (offsetX = WIDTH-background.width) : offsetX += TILE_WIDTH;	//if you are at the rightmost position of the level, do nothing else increment offset
+		(offsetX===(WIDTH-background.width))? (offsetX = WIDTH-background.width) : offsetX += TILE_WIDTH;	//if you are at the rightmost position of the level, do nothing else increment offset
 	}
-	console.log(offsetX);
+	if(pressingMouseLeft){
+		putEntity();
+	}
+	if(pressingMouseRight){
+		if(frameCount%3 === 0){
+			deleteEntity();
+		}
+	}
 };
 
 //Drawing a preview of the object to be placed on the level
@@ -145,8 +157,18 @@ snapToGrid  = function(canvas,mouse){
 	};
 };
 
+var pos;
+var id;
+var x;
+var y;
+
 document.onmousemove = function(mouse){
-	var pos = getMousePosition(ep,mouse);
+	// var pos = getMousePosition(ep,mouse);
+
+	pos = getMousePosition(bg,mouse);
+	id = Math.random();
+	x = pos.x - (pos.x % TILE_HEIGHT);
+	y = pos.y - (pos.y % TILE_WIDTH);
 
 	var mouseBelowUpperBound = pos.x<WIDTH && pos.y<HEIGHT;
 	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
@@ -165,6 +187,8 @@ getMousePosition = function(canvas,mouse){
 	};
 };
 
+
+
 document.onmousedown = function(mouse){
 	if(mouse.which ===1){
 		pressingMouseLeft = true;
@@ -173,31 +197,33 @@ document.onmousedown = function(mouse){
 		pressingMouseRight = true;
 	}
 
-	var pos = getMousePosition(bg,mouse);
-	var id = Math.random();
-	var x = pos.x - (pos.x % TILE_HEIGHT);
-	var y = pos.y - (pos.y % TILE_WIDTH);
+	pos = getMousePosition(bg,mouse);
+	id = Math.random();
+	x = pos.x - (pos.x % TILE_HEIGHT);
+	y = pos.y - (pos.y % TILE_WIDTH);
 
-	if(pressingMouseLeft){
-		var mouseBelowUpperBound = pos.x<WIDTH && pos.y<HEIGHT;
-		var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
+	
+};
 
-		if(mouseBelowUpperBound && mouseAboveLowerBound){
-			if(((x+rectWIDTH) <= WIDTH) && ((y+rectHEIGHT) <= HEIGHT)){
-				var terrain = Terrain(id,x,y,rectWIDTH,rectHEIGHT);
-				// var rect = Rectangle(id,x,y,rectWIDTH,rectHEIGHT);
-				map.placeEntity(terrain);
-			}
-			else{
-				console.log("Can not place object there");
-			}
+putEntity = function() {
+	var mouseBelowUpperBound = pos.x<WIDTH && pos.y<HEIGHT;
+	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
+
+	if(mouseBelowUpperBound && mouseAboveLowerBound){
+		if(((x+rectWIDTH) <= WIDTH) && ((y+rectHEIGHT) <= HEIGHT)){
+			var terrain = Terrain(id,x,y,rectWIDTH,rectHEIGHT);
+			// var rect = Rectangle(id,x,y,rectWIDTH,rectHEIGHT);
+			map.placeEntity(terrain);
+		}
+		else{
+			console.log("Can not place object there");
 		}
 	}
+}
 
-	if(pressingMouseRight){
-		map.removeEntity(x,y);
-	}
-};
+deleteEntity = function() {
+	map.removeEntity(x,y);
+}
 
 document.onmouseup = function(mouse){
 	if(mouse.which ===1){
@@ -266,7 +292,7 @@ update = function() {
 	addButtonImages();
 	// Rectangle.update();
 	Terrain.update();
-	if(frameCount%5 === 0){
+	if(frameCount%4 === 0){
 		doPressedAction();
 	}
 };
