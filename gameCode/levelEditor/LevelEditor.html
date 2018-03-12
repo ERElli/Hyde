@@ -1,16 +1,14 @@
 <body>
-  <canvas id="background" width="496" height="310"  style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
-  <canvas id="entityPreview" width="496" height="310" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
-  <canvas id="grid" width="496" height="310" style="position: absolute; left:0; top: 0; z-index: 3;"></canvas>
-  <canvas id="levelground" width="496" height="310"  style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
-
- 
-</body>
-
-
+  <canvas id="background" width="558" height="372"  style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
+  <canvas id="entityPreview" width="558" height="372" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
+  <canvas id="grid" width="558" height="372" style="position: absolute; left:0; top: 0; z-index: 3;"></canvas>
+  <canvas id="levelground" width="558" height="372"  style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
 </body>
 
 <script type="text/javascript" src="Terrain.js"></script>
+<script type="text/javascript" src="Map.js"></script>
+<script type="text/javascript" src="Rectangle.js"></script>
+	
 <script>
 var bg = document.getElementById("background");
 var ep = document.getElementById("entityPreview");
@@ -18,31 +16,34 @@ var lg = document.getElementById("levelground");
 var gr = document.getElementById("grid");
 
 var ctx_bg = bg.getContext("2d");
-
 var ctx_lg = lg.getContext("2d");
 var ctx_ep = ep.getContext("2d");
 var ctx_gr = gr.getContext("2d");
 
+//This makes the preview of the entity transparent
 ctx_ep.globalAlpha = 0.3;
 
-var TILE_HEIGHT = 31;
+//Initial values
+var WIDTH = 558;
+var HEIGHT = 372;
 var TILE_WIDTH = 31;
-var WIDTH = 496;
-var HEIGHT = 310;
+var TILE_HEIGHT = 31;
 var frameCount = 0;
-var rectWIDTH = 31*3;
-var rectHEIGHT = 31*6;
+var rectWIDTH = 31*2;
+var rectHEIGHT = 31*2;
+var buttonStartingX = TILE_WIDTH*2;
 
-var backgroundButton = {
-	x:155,
+//Defining the bounds 
+var backgroundButtonBounds= {
+	x:buttonStartingX+ 4*TILE_WIDTH,
 	y:0,
-	width:62,
-	heigth:62
+	width:TILE_HEIGHT*2,
+	heigth:TILE_HEIGHT*2,
 };
 
-
+//Creating images
 var backgroundImage = new Image();
-backgroundImage.src = "../../images/levelEditorBackground.png";
+backgroundImage.src = "../../images/background.png";
 
 var enemyButtonImage = new Image();
 enemyButtonImage.src = "../../images/enemiesButton.png";
@@ -65,24 +66,28 @@ terrainButtonImage.src = "../../images/terrainButton.png";
 var weaponButtonImage = new Image();
 weaponButtonImage.src = "../../images/weaponButton.png";
 
-/* Button Dropdowns */
+//Initializing the map
+var map = Map(WIDTH,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
 
-//canvas.addEventListener("mousemove", checkpos);
-//canvas.addEventListener("mouseup", checkClick); 
+var pressingMouseLeft = false;
+var pressingMouseRight = false;
 
-
-
+//Drawing a preview of the object to be placed on the level
+//and snapping the top right corner of the preview to the grid lines
 snapToGrid  = function(canvas,mouse){
 	var pos = getMousePosition(canvas,mouse);
 	var x = pos.x - (pos.x % TILE_HEIGHT);
 	var y = pos.y - (pos.y % TILE_WIDTH);
-	ctx_ep.fillStyle="#A4A4A4";
-	ctx_ep.fillRect(x, y, rectWIDTH, rectHEIGHT);
+
+	var previewImage = new Image();
+	previewImage.src = "../../images/buildingTerrain3x6.png";
+
+	ctx_ep.drawImage(previewImage,x, y, rectWIDTH, rectHEIGHT);
 	return {
 		x: x,
 		y: y,
 	};
-}
+};
 
 
 document.onmousemove = function(mouse){
@@ -95,7 +100,7 @@ document.onmousemove = function(mouse){
 		ctx_ep.clearRect(0,0,WIDTH,HEIGHT);
 		snapToGrid(ep,mouse);
 	}
-}
+};
 
 
 getMousePosition = function(canvas,mouse){
@@ -104,32 +109,62 @@ getMousePosition = function(canvas,mouse){
 		x: mouse.clientX - rect.left,
 		y: mouse.clientY - rect.top,
 	};
-}
+};
 
 
 document.onmousedown = function(mouse){
+	if(mouse.which ===1){
+		pressingMouseLeft = true;
+	}
+	else{
+		pressingMouseRight = true;
+	}
+
 	var pos = getMousePosition(bg,mouse);
 	var id = Math.random();
 	var x = pos.x - (pos.x % TILE_HEIGHT);
 	var y = pos.y - (pos.y % TILE_WIDTH);
 
-	var mouseBelowUpperBound = pos.x<WIDTH && pos.y<HEIGHT;
-	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
+	if(pressingMouseLeft){
+		var mouseBelowUpperBound = pos.x<WIDTH && pos.y<HEIGHT;
+		var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
 
-	if(mouseBelowUpperBound && mouseAboveLowerBound){
-		if(((x+rectWIDTH) <= WIDTH) && ((y+rectHEIGHT) <= HEIGHT)){
-			Terrain(id,x,y,rectWIDTH,rectHEIGHT);
-		}
-		else{
-			console.log("Can not place object there");
+		if(mouseBelowUpperBound && mouseAboveLowerBound){
+			if(((x+rectWIDTH) <= WIDTH) && ((y+rectHEIGHT) <= HEIGHT)){
+				var terrain = Terrain(id,x,y,rectWIDTH,rectHEIGHT);
+				// var rect = Rectangle(id,x,y,rectWIDTH,rectHEIGHT);
+				map.placeEntity(terrain);
+			}
+			else{
+				console.log("Can not place object there");
+			}
 		}
 	}
-}
 
+	if(pressingMouseRight){
+		map.removeEntity(x,y);
+	}
+};
+
+document.onmouseup = function(mouse){
+	if(mouse.which ===1){
+		pressingMouseLeft = false;
+	}
+	else{
+		pressingMouseRight = false;
+	}
+};
+
+//Supressing context menu on right click
+document.oncontextmenu = function(mouse){
+	mouse.preventDefault();
+};
+
+
+//Checking if mouse is withing a specified area
 function isInside(pos, rect){
-	return pos.x > rect.x && pos.x < rect.x+rect.width && pos.y < rect.y+rect.heigth && pos.y > rect.y
+	return pos.x > rect.x && pos.x < rect.x+rect.width && pos.y < rect.y+rect.heigth && pos.y > rect.y;
 }
-
 
 drawGrid = function(){
 	ctx_gr.globalAlpha = 0.05;
@@ -149,51 +184,48 @@ drawGrid = function(){
 		ctx_gr.lineTo(WIDTH,y);
 		ctx_gr.stroke();
 	}
-}
+};
+
 
 document.addEventListener('click', function(evt){
-
 	var mousePos = getMousePosition(bg, evt);
-
-	if(isInside(mousePos, backgroundButton)){
+	if(isInside(mousePos, backgroundButtonBounds)){
 		alert('clicked inside background button');
 	} else {
-		alert('clicked outside backgorund button');
+		// alert('clicked outside background button');
 	}
 	
-
 }, false);
 
-
 addButtonImages = function() {
-	ctx_lg.drawImage(enemyButtonImage, 31, 0);
-	ctx_lg.drawImage(musicButtonImage, 93, 0);
-	ctx_lg.drawImage(backgroundButtonImage, 155, 0);
-	ctx_lg.drawImage(checkPointButtonImage, 216, 0);
-	ctx_lg.drawImage(characterButtonImage, 277, 0);
-	ctx_lg.drawImage(terrainButtonImage, 339, 0);
-	ctx_lg.drawImage(weaponButtonImage, 401, 0);
-}
+	ctx_lg.drawImage(enemyButtonImage,buttonStartingX, 0);
+	ctx_lg.drawImage(musicButtonImage, buttonStartingX+ 2*TILE_WIDTH, 0);
+	ctx_lg.drawImage(backgroundButtonImage, buttonStartingX+ 4*TILE_WIDTH, 0);
+	ctx_lg.drawImage(checkPointButtonImage, buttonStartingX+ 6*TILE_WIDTH, 0);
+	ctx_lg.drawImage(characterButtonImage, buttonStartingX+ 8*TILE_WIDTH, 0);
+	ctx_lg.drawImage(terrainButtonImage, buttonStartingX+ 10*TILE_WIDTH, 0);
+	ctx_lg.drawImage(weaponButtonImage, buttonStartingX+ 12*TILE_WIDTH, 0);
+};
 
 
 update = function() {
-	ctx_bg.drawImage(backgroundImage, 0, 0);
+	ctx_bg.drawImage(backgroundImage, 0, 0,WIDTH,HEIGHT);
+	ctx_lg.clearRect(0,0,WIDTH,HEIGHT);
+	addButtonImages();
+	// Rectangle.update();
 	Terrain.update();
-}
+};
 
-// Calling update 20 times a second
-setInterval(update, 1000/20);
+// Calling update 60 times a second
+setInterval(update, 1000/60);
 
 init = function() {
 	var container = document.getElementById("container");
 	addButtonImages();
 	drawGrid();
+	Map.entityList = {};
 	Terrain.list = {};
-}
-
-
-
-
+};
 
 </script>
 <body onload = "init()">

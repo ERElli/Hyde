@@ -34,9 +34,25 @@ GUI = function(container){
 	}
 	self.bgDraw=function(bg_ctx,backgroundImg){
 		backgroundImg.onload = function () {
-    			bg_ctx.drawImage(backgroundImg,0,0,750,1250);
+    			bg_ctx.drawImage(backgroundImg,0,0,1250,750);
 		}
 			
+	};
+	self.drawEntity=function(x,y,width,height,img,color){
+		gui.fg_ctx.save();
+		
+		if(color==null){
+			image=new Image();
+			image.src=img;
+			image.onload=function(){
+				gui.fg_ctx.drawImage(image,x-width/2,y-height/2,width,height)
+			}
+		}
+		else if(img=="img"){
+			gui.fg_ctx.fillStyle=color;
+			gui.fg_ctx.fillRect(x-width/2,y-height/2,width,height);
+			gui.fg_ctx.restore();
+		}
 	};
 	self.fgDraw=function(fg_ctx,playerHealth,playerMomentum,ammo){
 		var healthX=0;
@@ -48,7 +64,7 @@ GUI = function(container){
 		var weaponX=1150;
 		var weaponY=60;
 		//var weaponImg=image.jpeg;
-		
+		fg_ctx.save();
 		
 		fg_ctx.clearRect(0,0,self.fg.width,self.fg.height);
 		fg_ctx.font="18px Arial";
@@ -62,7 +78,7 @@ GUI = function(container){
 		fg_ctx.fillStyle="#0000FF";
 		fg_ctx.fillRect(momentX,momentY,playerMomentum,10);
 		//Colour Text
-		fg_ctx.fillStyle="#000000";
+		fg_ctx.fillStyle="#FFFFFF";
 		fg_ctx.fillText('Health:',healthX,healthY);
 		fg_ctx.fillText('Momentum:',momentX,momentY);
 

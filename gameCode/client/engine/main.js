@@ -29,6 +29,9 @@ document.onmouseup = function(mouse) {
 	pressing["shoot"] = 0;
 }
 
+/*
+* Reset the player's aiming angle when they move the mouse
+*/
 document.onmousemove = function(mouse){
 	var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
 	var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
@@ -39,7 +42,9 @@ document.onmousemove = function(mouse){
 	player.aimAngle = Math.atan2(mouseY,mouseX) / Math.PI * -180;
 }
 
-
+/*
+* Do everything that is pressed, controlled by the 'pressing' dict
+*/
 var doPressedActions = function() {
 	
 	if (pressing['left']) {
@@ -49,10 +54,10 @@ var doPressedActions = function() {
 		player.ax = player.acceleration;
 	}
 	else {
-		if (Math.abs(player.vx) < 1) {
+		if (Math.abs(player.vx) < 2) {
 			player.vx = 0;
 		}
-		player.ax = -Math.sign(player.vx)*player.acceleration*0.75;
+		player.ax = -Math.sign(player.vx)*player.acceleration*0.5;
 	}
 	
 	if (pressing['jump']) {
@@ -78,40 +83,69 @@ var doPressedActions = function() {
 	}
 }
 
-var onTerrain = function(x, y) {
-	if (y >= 450) {
+/*
+* Return true if the player is standing on terrain, false otherwise
+*/
+var nearTerrain = function(x, y) {
+	if (Math.abs(y - 450) <= 10) {
 		return true;
 	}
+	return false;
 }
 
+var putOnTerrain = function(thing) {
+	thing.y = 450;
+}
+
+/*
+* Return true if the given entity is within the renderable radius
+*/
 var inRange = function(thing) {
 	len = Math.sqrt( Math.pow(thing.x - player.x, 2) + Math.pow(thing.y - player.y, 2) ) //sqrt(delta_x^2 + delta_y^2)
 	return len < gameWidth;
 }
 
+/*
+* Main game loop
+*/
 var update = function() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	frameCount++;
 	player.attackCounter++;
 	player.transformCounter++;
+	player.immuneCounter++;
+	gui.fgDraw(gui.fg_ctx,player.health/player.maxHealth*100,100,20);
 
+	if (player.isImmune && player.immuneCounter > 100) {
+		player.isImmune = false;
+	}
+	
 	doPressedActions();
 
 	if (player.justJumped) {
-		player.ay = g;
 		player.justJumped = false;
+		player.inAir = true;
 	}
-	else if (onTerrain(player.x, player.y)) {
-		player.ay = 0;
-		player.vy = 0;
+	else if (nearTerrain(player.x, player.y)) {
+		player.inAir = false;
+		
+		putOnTerrain(player);
 	}
+	
+	if (player.inAir) {
+		player.setAirMotion();
+	}
+	else {
+		player.setGroundMotion();
+	}
+	
 	
 	for (var key in bullets) {
 	
 		var bullet = bullets[key];
 		
 		if (!inRange(bullet)) {
-			continue;
+			delete bullets[key];
 		}
 		
 		//bullet.timer++;
@@ -128,18 +162,19 @@ var update = function() {
 				
 				//remove dead enemies when looping over them
 				delete enemies[key2];
+				console.log("HERE");
 				break;
 			}	
 		}
 		
-		/*
+		
 		var isColliding = bullet.testCollision(player);
 		if (isColliding) {
 			toRemove = true;
-			
-			//reduce player health
+			console.log("Player at " + player.x + ", " + player.y);
+			player.takeDamage(bullet.damage);
 		}
-		*/
+		
 		
 		if(toRemove){
 			delete bullets[key];
@@ -150,15 +185,23 @@ var update = function() {
 		
 		var enemy = enemies[key];
 		
-		if (!inRange(bullet)) {
+		if (!inRange(enemy)) {
 			continue;
 		}
 		
+		enemy.update();
+		enemy.updateAim(player);
 		enemy.attackCounter++;
-		
+		newBullet = enemy.shoot();
+		if (newBullet) {
+			bullets[newBullet.id] = newBullet;
+		}
+				
 		var isColliding = enemy.testCollision(player);
 		if (isColliding) {
-			//momentum check
+			if (!player.isImmune) {
+				player.takeDamage(enemy.meleeDamage);
+			}
 		}
 		
 	}
@@ -175,12 +218,12 @@ var testCollision = function(rect1, rect2) {
 var startGame = function(initial_level) {
 	level = initial_level;
 	player = level["player"];
-	//enemies = level["enemies"];
+	enemies = level["enemies"];
 	//bullets = level["bullets"];
 	//blocks = level["terrain"];
 	//surfaceMods = level["terrain"];
-	console.log(player.x);
 	frameCount = 0;
+
 	
 	setInterval(update, 1000/60)
 }
