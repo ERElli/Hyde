@@ -76,7 +76,6 @@ var doPressedActions = function() {
 	
 	if (pressing['shoot']) {
 		newBullet = player.shoot();
-		//console.log(newBullet);
 		if (newBullet) {
 			bullets[newBullet.id] = newBullet;
 		}
@@ -131,7 +130,6 @@ var update = function() {
 	}
 	else if (nearTerrain(player.x, player.y) && !player.justJumped) {
 		player.inAir = false;
-		
 		putOnTerrain(player);
 	}
 	
