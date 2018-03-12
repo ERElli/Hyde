@@ -61,7 +61,7 @@ var doPressedActions = function() {
 	}
 	
 	if (pressing['jump']) {
-		if (!player.isJumping) {
+		if (!player.inAir) {
 			player.jump();
 		}
 	}
@@ -123,10 +123,13 @@ var update = function() {
 	doPressedActions();
 
 	if (player.justJumped) {
-		player.justJumped = false;
 		player.inAir = true;
+		player.jumpBuffer++;
+		if (player.jumpBuffer > 10) {
+			player.justJumped = false;
+		}
 	}
-	else if (nearTerrain(player.x, player.y)) {
+	else if (nearTerrain(player.x, player.y) && !player.justJumped) {
 		player.inAir = false;
 		
 		putOnTerrain(player);
