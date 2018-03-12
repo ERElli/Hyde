@@ -1,3 +1,4 @@
+var socket = io();
 Map = function(width, height,tile_width, tile_height) {
 	var self = {};
 	self.width = width;
@@ -5,13 +6,14 @@ Map = function(width, height,tile_width, tile_height) {
 	self.numTilesX = width/tile_width;
 	self.numTilesY = height/tile_height;
 	self.tiles = [];
-	
+
 	for(var i=0; i<self.numTilesX; i++){
 		self.tiles.push([]);
 		for(var j=0; j<self.numTilesY; j++){
 				self.tiles[i].push({});
 		}
 	}
+	//socket.emit('saveLevel',{x:"u"});
 
 	var offset = 2; //The grid is shifted down 2 tile widths to make space for the buttons
 
@@ -32,7 +34,7 @@ Map = function(width, height,tile_width, tile_height) {
 					console.log("Cell: ",i,j);
 					console.log("Filled:", filled);
 					*/
-				
+
 			}
 			if(filled){
 				console.log(self.tiles[i][j].type,"already placed in this location");
@@ -50,6 +52,7 @@ Map = function(width, height,tile_width, tile_height) {
 				}
 			}
 			self.addEntity(e);
+			socket.emit('saveLevel',{x:x,y:y, w:w, h:h, id: e.id, type: e.type });
 		}
 	};
 
@@ -72,7 +75,7 @@ Map = function(width, height,tile_width, tile_height) {
 				break;
 			default:
 				console.log("Nothing to remove");
-		}	
+		}
 		ctx_lg.clearRect(0,0,WIDTH,HEIGHT);
 		self.makeFreeSpace(toBeRemoved);
 	};

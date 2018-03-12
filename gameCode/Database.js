@@ -4,6 +4,11 @@ var db = USE_DB ? mongojs('localhost:27017/myGame', ['account','progress']) : nu
 
 
 Database = {};
+Database.levelSave = function(data){
+  console.log(data.x, data.y, data.w, data.h, data.id, data.type);
+  db.saveLevel.insert({x:data.x, y: data.y, w: data.w,h: data.h,id: data.id,type: data.type })
+}
+
 Database.isValidPassword = function(data,cb){
     if(!USE_DB)
         return cb(true);

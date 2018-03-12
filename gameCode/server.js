@@ -9,8 +9,50 @@ var user ;
 app.get('/',function(req, res) {
     res.sendFile(__dirname + '/client/index.html');
 });
-app.use('/client',express.static(__dirname + '/client'));
 
+app.get('/levelEditor',function(req, res) {
+    res.sendFile(__dirname + '/levelEditor/levelEditor.html');
+});
+app.get('/gameCode/levelEditor/Map.js',function(req, res) {
+    res.sendFile(__dirname + '/levelEditor/Map.js');
+});
+app.get('/gameCode/levelEditor/Rectangle.js',function(req, res) {
+    res.sendFile(__dirname + '/levelEditor/Rectangle.js');
+});
+app.get('/gameCode/levelEditor/Terrain.js',function(req, res) {
+    res.sendFile(__dirname + '/levelEditor/Terrain.js');
+});
+
+app.get('/images/enemiesButton.png',function(req, res) {
+    res.sendFile(__dirname + '/images/enemiesButton.png');
+});
+app.get('/images/musicButton.png',function(req, res) {
+    res.sendFile(__dirname + '/images/musicButton.png');
+});
+app.get('/images/checkPointButton.png',function(req, res) {
+    res.sendFile(__dirname + '/images/checkPointButton.png');
+});
+app.get('/images/characterButton.png',function(req, res) {
+    res.sendFile(__dirname + '/images/characterButton.png');
+});
+
+app.get('/images/terrainButton.png',function(req, res) {
+    res.sendFile(__dirname + '/images/terrainButton.png');
+});
+app.get('/images/weaponButton.png',function(req, res) {
+    res.sendFile(__dirname + '/images/weaponButton.png');
+});
+app.get('/images/backgroundButton.png',function(req, res) {
+    res.sendFile(__dirname + '/images/backgroundButton.png');
+});
+app.get('/images/background.png',function(req, res) {
+    res.sendFile(__dirname + '/images/background.png');
+});
+app.get('/images/buildingTerrain3x6.png',function(req, res) {
+    res.sendFile(__dirname + '/images/buildingTerrain3x6.png');
+});
+app.use('/',express.static('CS4770'));
+//app.use('/levelEditor',express.static(__dirname + '/levelEditor'));
 serv.listen(2000);
 console.log("Server started.");
 
@@ -53,4 +95,11 @@ io.sockets.on('connection', function(socket){
    Database.levelUpdate(user, data);
   });
 
+  socket.on('saveLevel',function(data){
+   Database.levelSave(data);
+  });
+
 });
+
+
+// socket.emit('saveLevel',{username:signDivUsername.value,password:signDivPassword.value});

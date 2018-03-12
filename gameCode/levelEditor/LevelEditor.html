@@ -4,11 +4,11 @@
   <canvas id="grid" width="558" height="372" style="position: absolute; left:0; top: 0; z-index: 3;"></canvas>
   <canvas id="levelground" width="558" height="372"  style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
 </body>
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script type="text/javascript" src="/gameCode/levelEditor/Terrain.js"></script>
+<script type="text/javascript" src="/gameCode/levelEditor/Map.js"></script>
+<script type="text/javascript" src="/gameCode/levelEditor/Rectangle.js"></script>
 
-<script type="text/javascript" src="Terrain.js"></script>
-<script type="text/javascript" src="Map.js"></script>
-<script type="text/javascript" src="Rectangle.js"></script>
-	
 <script>
 var bg = document.getElementById("background");
 var ep = document.getElementById("entityPreview");
@@ -33,7 +33,7 @@ var rectWIDTH = 31*2;
 var rectHEIGHT = 31*2;
 var buttonStartingX = TILE_WIDTH*2;
 
-//Defining the bounds 
+//Defining the bounds
 var backgroundButtonBounds= {
 	x:buttonStartingX+ 4*TILE_WIDTH,
 	y:0,
@@ -43,28 +43,28 @@ var backgroundButtonBounds= {
 
 //Creating images
 var backgroundImage = new Image();
-backgroundImage.src = "../../images/background.png";
+backgroundImage.src = "/images/background.png";
 
 var enemyButtonImage = new Image();
-enemyButtonImage.src = "../../images/enemiesButton.png";
+enemyButtonImage.src = "/images/enemiesButton.png";
 
 var musicButtonImage = new Image();
-musicButtonImage.src = "../../images/musicButton.png";
+musicButtonImage.src = "/images/musicButton.png";
 
 var backgroundButtonImage = new Image();
-backgroundButtonImage.src = "../../images/backgroundButton.png";
+backgroundButtonImage.src = "/images/backgroundButton.png";
 
 var checkPointButtonImage = new Image();
-checkPointButtonImage.src = "../../images/checkPointButton.png";
+checkPointButtonImage.src = "/images/checkPointButton.png";
 
 var characterButtonImage = new Image();
-characterButtonImage.src = "../../images/characterButton.png";
+characterButtonImage.src = "/images/characterButton.png";
 
 var terrainButtonImage = new Image();
-terrainButtonImage.src = "../../images/terrainButton.png";
+terrainButtonImage.src = "/images/terrainButton.png";
 
 var weaponButtonImage = new Image();
-weaponButtonImage.src = "../../images/weaponButton.png";
+weaponButtonImage.src = "/images/weaponButton.png";
 
 //Initializing the map
 var map = Map(WIDTH,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
@@ -194,7 +194,7 @@ document.addEventListener('click', function(evt){
 	} else {
 		// alert('clicked outside background button');
 	}
-	
+
 }, false);
 
 addButtonImages = function() {
