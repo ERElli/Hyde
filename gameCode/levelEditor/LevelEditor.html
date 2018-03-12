@@ -1,7 +1,7 @@
 <body>
 	<div id ="container">
   		<canvas id="background" width="1116" height="372"  style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
- 		 <canvas id="entityPreview" width="1116" height="372" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
+ 		 <canvas id="entityPreview" width="558" height="372" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
   		<canvas id="grid" width="558" height="372" style="position: absolute; left:0; top: 0; z-index: 3;"></canvas>
   		<canvas id="levelground" width="1116" height="372"  style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
  	</div>
@@ -27,19 +27,19 @@ var ctx_gr = gr.getContext("2d");
 ctx_ep.globalAlpha = 0.3;
 
 //Initial values
-var WIDTH = 558*2;
+var WIDTH = 558;
 var HEIGHT = 372;
 var TILE_WIDTH = 31;
 var TILE_HEIGHT = 31;
 var frameCount = 0;
 var rectWIDTH = 31*2;
 var rectHEIGHT = 31*2;
-var fps = 60;
 var buttonStartingX = TILE_WIDTH*2;
 var pressingMouseLeft = false;
 var pressingMouseRight = false;
 var offsetX = 0;
 var offsetY = 0;
+var fps = 60;
 var controls = {
 	left: false,
 	up: false,
@@ -125,6 +125,7 @@ doPressedAction = function() {
 	if(controls.right){
 		(offsetX==(WIDTH-background.width))? (offsetX = WIDTH-background.width) : offsetX += TILE_WIDTH;	//if you are at the rightmost position of the level, do nothing else increment offset
 	}
+	console.log(offsetX);
 };
 
 //Drawing a preview of the object to be placed on the level
@@ -265,7 +266,7 @@ update = function() {
 	addButtonImages();
 	// Rectangle.update();
 	Terrain.update();
-	if(frameCount%4 === 0){
+	if(frameCount%5 === 0){
 		doPressedAction();
 	}
 };
@@ -274,7 +275,6 @@ update = function() {
 setInterval(update, 1000/fps);
 
 init = function() {
-	var frameCount = 0;
 	drawGrid();
 	addButtonImages();
 	Map.entityList = {};
