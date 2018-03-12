@@ -88,7 +88,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, wea
 	self.attackCounter = 0;
 	self.aimAngle = 0;
 	
-	self.applyJumpTimer = 0;
+	self.jumpBuffer = 0;
 	self.justJumped = false;
 	
 	self.ax = 0;
@@ -135,6 +135,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, health, wea
 	
 	self.jump = function() {
 		self.vy = self.jumpSpeed;
+		self.jumpBuffer = 0;
 		self.justJumped = true;
 	}
 	
@@ -165,8 +166,9 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 	var smallWidth = 5;
 	var smallHeight = 5;
 	var smallAcceleration = 100*mpsTOppf/framesPerSecond;
-	var smallMaxVX = 7*mpsTOppf;
+	var smallMaxVX = 5*mpsTOppf;
 	var smallMaxVY = 15*mpsTOppf;
+	var smallJumpSpeed = 3*mpsTOppf;
 	
 	var bigMass = 500;
 	var bigWidth = 15;
@@ -174,6 +176,7 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 	var bigAcceleration = 5*mpsTOppf/framesPerSecond;
 	var bigMaxVX = 3*mpsTOppf;
 	var bigMaxVY = 20*mpsTOppf;
+	var bigJumpSpeed = 2*mpsTOppf;
 	
 	var self = Humanoid(type, id, x, y, vx, vy, width, height, img, color, maxHealth, weapon, smallMass, 4*mpsTOppf, meleeDamage, meleeTimer);
 	
@@ -185,6 +188,7 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 	self.isBig = isBig;	
 	self.isImmune = false;
 	self.immuneCounter = 0;
+	self.doubleJumped = false;
 	
 	self.acceleration = self.isBig ? bigAcceleration:smallAcceleration;
 	self.maxVelocityX = self.isBig ? bigMaxVX:smallMaxVX;
@@ -270,7 +274,8 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 				self.mass = smallMass;
 				self.acceleration = smallAcceleration;
 				self.maxVelocityX = smallMaxVX;
-				self.maxVelocityY = bigMaxVY;
+				self.maxVelocityY = smallMaxVY;
+				self.jumpSpeed = smallJumpSpeed;
 			}
 			else {
 				self.isBig = true;
@@ -278,6 +283,7 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 				self.acceleration = bigAcceleration;
 				self.maxVelocityX = bigMaxVX;
 				self.maxVelocityY = bigMaxVY;
+				self.jumpSpeed = bigJumpSpeed;
 			}
 			
 			self.vx = (px / self.mass) * mpsTOppf;
@@ -512,7 +518,6 @@ function Pistol(id, x, y, vx, vy, width, height, img, color) {
 		self.ammo--;
 		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
 		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
-		console.log("Generating bullet at " + self.x + ", " + self.y + " at angle " + angle);
 		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "black");
 	}
 	
@@ -591,7 +596,6 @@ function Bullet(id, x, y, vx, vy, width, height, img, color) {
 	
 	
 	//self.draw = function() {
-	//	console.log("would draw bullet at " + self.x + ", " + self.y + " with width" + self.width + " and height" + self.height);
 	//}
 	
 	return self;
