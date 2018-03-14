@@ -61,7 +61,7 @@ var doPressedActions = function() {
 	}
 	
 	if (pressing['jump']) {
-		if (!player.isJumping) {
+		if (!player.inAir) {
 			player.jump();
 		}
 	}
@@ -76,7 +76,6 @@ var doPressedActions = function() {
 	
 	if (pressing['shoot']) {
 		newBullet = player.shoot();
-		//console.log(newBullet);
 		if (newBullet) {
 			bullets[newBullet.id] = newBullet;
 		}
@@ -123,12 +122,14 @@ var update = function() {
 	doPressedActions();
 
 	if (player.justJumped) {
-		player.justJumped = false;
 		player.inAir = true;
+		player.jumpBuffer++;
+		if (player.jumpBuffer > 10) {
+			player.justJumped = false;
+		}
 	}
-	else if (nearTerrain(player.x, player.y)) {
+	else if (nearTerrain(player.x, player.y) && !player.justJumped) {
 		player.inAir = false;
-		
 		putOnTerrain(player);
 	}
 	

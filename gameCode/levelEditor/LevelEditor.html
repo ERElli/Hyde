@@ -1,13 +1,16 @@
 <body>
-  <canvas id="background" width="558" height="372"  style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
-  <canvas id="entityPreview" width="558" height="372" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
-  <canvas id="grid" width="558" height="372" style="position: absolute; left:0; top: 0; z-index: 3;"></canvas>
-  <canvas id="levelground" width="558" height="372"  style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+	<div id ="container">
+  		<canvas id="background" width="558" height="372"  style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
+ 		 <canvas id="entityPreview" width="558" height="372" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
+  		<canvas id="grid" width="558" height="372" style="position: absolute; left:0; top: 0; z-index: 3;"></canvas>
+  		<canvas id="levelground" width="558" height="372"  style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+ 	</div>
 </body>
 
 <script type="text/javascript" src="Terrain.js"></script>
 <script type="text/javascript" src="Map.js"></script>
 <script type="text/javascript" src="Rectangle.js"></script>
+<script type="text/javascript" src="GUI.js"></script>
 	
 <script>
 var bg = document.getElementById("background");
@@ -24,7 +27,7 @@ var ctx_gr = gr.getContext("2d");
 ctx_ep.globalAlpha = 0.3;
 
 //Initial values
-var WIDTH = 558;
+var WIDTH = 558*2;
 var HEIGHT = 372;
 var TILE_WIDTH = 31;
 var TILE_HEIGHT = 31;
@@ -32,6 +35,17 @@ var frameCount = 0;
 var rectWIDTH = 31*2;
 var rectHEIGHT = 31*2;
 var buttonStartingX = TILE_WIDTH*2;
+var pressingMouseLeft = false;
+var pressingMouseRight = false;
+var offsetX = 0;
+var offsetY = 0;
+var fps = 60;
+var controls = {
+	left: false,
+	up: false,
+	right: false,
+	down: false,
+};
 
 //Defining the bounds 
 var backgroundButtonBounds= {
@@ -68,9 +82,63 @@ weaponButtonImage.src = "../../images/weaponButton.png";
 
 //Initializing the map
 var map = Map(WIDTH,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
+map.setBackgroundImage(backgroundImage.src);
 
-var pressingMouseLeft = false;
-var pressingMouseRight = false;
+window.addEventListener("keydown",function(e){
+	switch(e.keyCode){
+		case 37:
+			controls.left = true;
+			e.preventDefault();
+			break;
+		case 38:
+			controls.up = true;
+			e.preventDefault();
+			break;
+		case 39:
+			controls.right = true;
+			e.preventDefault();
+			break;
+		case 40:
+			controls.down = true;
+			e.preventDefault();
+			break;
+	}
+});
+
+window.addEventListener("keyup",function(e){
+	switch(e.keyCode){
+		case 37:
+			controls.left = false;
+			break;
+		case 38:
+			controls.up = false;
+			break;
+		case 39:
+			controls.right = false;
+			break;
+		case 40:
+			controls.down = false;
+			break;
+	}
+	e.preventDefault();
+});
+
+doPressedAction = function() {
+	if(controls.left){
+		(offsetX===0)? offsetX = 0 : (offsetX -= TILE_WIDTH);	//if you are at leftmost position of the level do nothing, else decrement offset
+	}
+	if(controls.right){
+		(offsetX===(WIDTH-background.width))? (offsetX = WIDTH-background.width) : offsetX += TILE_WIDTH;	//if you are at the rightmost position of the level, do nothing else increment offset
+	}
+	if(pressingMouseLeft){
+		putEntity();
+	}
+	if(pressingMouseRight){
+		if(frameCount%3 === 0){
+			deleteEntity();
+		}
+	}
+};
 
 //Drawing a preview of the object to be placed on the level
 //and snapping the top right corner of the preview to the grid lines
@@ -89,9 +157,18 @@ snapToGrid  = function(canvas,mouse){
 	};
 };
 
+var pos;
+var id;
+var x;
+var y;
 
 document.onmousemove = function(mouse){
-	var pos = getMousePosition(ep,mouse);
+	// var pos = getMousePosition(ep,mouse);
+
+	pos = getMousePosition(bg,mouse);
+	id = Math.random();
+	x = pos.x - (pos.x % TILE_HEIGHT);
+	y = pos.y - (pos.y % TILE_WIDTH);
 
 	var mouseBelowUpperBound = pos.x<WIDTH && pos.y<HEIGHT;
 	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
@@ -102,7 +179,6 @@ document.onmousemove = function(mouse){
 	}
 };
 
-
 getMousePosition = function(canvas,mouse){
 	var rect = canvas.getBoundingClientRect();
 	return {
@@ -110,6 +186,7 @@ getMousePosition = function(canvas,mouse){
 		y: mouse.clientY - rect.top,
 	};
 };
+
 
 
 document.onmousedown = function(mouse){
@@ -120,31 +197,33 @@ document.onmousedown = function(mouse){
 		pressingMouseRight = true;
 	}
 
-	var pos = getMousePosition(bg,mouse);
-	var id = Math.random();
-	var x = pos.x - (pos.x % TILE_HEIGHT);
-	var y = pos.y - (pos.y % TILE_WIDTH);
+	pos = getMousePosition(bg,mouse);
+	id = Math.random();
+	x = pos.x - (pos.x % TILE_HEIGHT);
+	y = pos.y - (pos.y % TILE_WIDTH);
 
-	if(pressingMouseLeft){
-		var mouseBelowUpperBound = pos.x<WIDTH && pos.y<HEIGHT;
-		var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
+	
+};
 
-		if(mouseBelowUpperBound && mouseAboveLowerBound){
-			if(((x+rectWIDTH) <= WIDTH) && ((y+rectHEIGHT) <= HEIGHT)){
-				var terrain = Terrain(id,x,y,rectWIDTH,rectHEIGHT);
-				// var rect = Rectangle(id,x,y,rectWIDTH,rectHEIGHT);
-				map.placeEntity(terrain);
-			}
-			else{
-				console.log("Can not place object there");
-			}
+putEntity = function() {
+	var mouseBelowUpperBound = pos.x<WIDTH && pos.y<HEIGHT;
+	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
+
+	if(mouseBelowUpperBound && mouseAboveLowerBound){
+		if(((x+rectWIDTH) <= WIDTH) && ((y+rectHEIGHT) <= HEIGHT)){
+			var terrain = Terrain(id,x,y,rectWIDTH,rectHEIGHT);
+			// var rect = Rectangle(id,x,y,rectWIDTH,rectHEIGHT);
+			map.placeEntity(terrain);
+		}
+		else{
+			console.log("Can not place object there");
 		}
 	}
+}
 
-	if(pressingMouseRight){
-		map.removeEntity(x,y);
-	}
-};
+deleteEntity = function() {
+	map.removeEntity(x,y);
+}
 
 document.onmouseup = function(mouse){
 	if(mouse.which ===1){
@@ -160,7 +239,6 @@ document.oncontextmenu = function(mouse){
 	mouse.preventDefault();
 };
 
-
 //Checking if mouse is withing a specified area
 function isInside(pos, rect){
 	return pos.x > rect.x && pos.x < rect.x+rect.width && pos.y < rect.y+rect.heigth && pos.y > rect.y;
@@ -172,25 +250,26 @@ drawGrid = function(){
 	ctx_gr.strokeStyle = "#515151";
 
 	//Drawing vertical lines
-	for(x=TILE_WIDTH; x<=WIDTH; x+=TILE_WIDTH){
-		ctx_gr.moveTo(x,TILE_HEIGHT*2);
+	for(x=TILE_WIDTH; x<=WIDTH*2; x+=TILE_WIDTH){
+		ctx_gr.moveTo(x,TILE_HEIGHT*2);	//The first 2 rows of the canvas are used by buttons
 		ctx_gr.lineTo(x,HEIGHT);
 		ctx_gr.stroke();
 	}
 
 	//Drawing horizontal lines
-	for(y=TILE_HEIGHT*2; y<=HEIGHT; y+=TILE_HEIGHT){
+	for(y=TILE_HEIGHT*2; y<=HEIGHT*2; y+=TILE_HEIGHT){
 		ctx_gr.moveTo(0,y);
 		ctx_gr.lineTo(WIDTH,y);
 		ctx_gr.stroke();
 	}
-};
 
+	ctx_gr.globalAlpha = 1;
+};
 
 document.addEventListener('click', function(evt){
 	var mousePos = getMousePosition(bg, evt);
 	if(isInside(mousePos, backgroundButtonBounds)){
-		alert('clicked inside background button');
+		console.log('clicked inside background button');
 	} else {
 		// alert('clicked outside background button');
 	}
@@ -198,31 +277,32 @@ document.addEventListener('click', function(evt){
 }, false);
 
 addButtonImages = function() {
-	ctx_lg.drawImage(enemyButtonImage,buttonStartingX, 0);
-	ctx_lg.drawImage(musicButtonImage, buttonStartingX+ 2*TILE_WIDTH, 0);
-	ctx_lg.drawImage(backgroundButtonImage, buttonStartingX+ 4*TILE_WIDTH, 0);
-	ctx_lg.drawImage(checkPointButtonImage, buttonStartingX+ 6*TILE_WIDTH, 0);
-	ctx_lg.drawImage(characterButtonImage, buttonStartingX+ 8*TILE_WIDTH, 0);
-	ctx_lg.drawImage(terrainButtonImage, buttonStartingX+ 10*TILE_WIDTH, 0);
-	ctx_lg.drawImage(weaponButtonImage, buttonStartingX+ 12*TILE_WIDTH, 0);
+	ctx_gr.drawImage(enemyButtonImage,buttonStartingX, 0);
+	ctx_gr.drawImage(musicButtonImage, buttonStartingX+ 2*TILE_WIDTH, 0);
+	ctx_gr.drawImage(backgroundButtonImage, buttonStartingX+ 4*TILE_WIDTH, 0);
+	ctx_gr.drawImage(checkPointButtonImage, buttonStartingX+ 6*TILE_WIDTH, 0);
+	ctx_gr.drawImage(characterButtonImage, buttonStartingX+ 8*TILE_WIDTH, 0);
+	ctx_gr.drawImage(terrainButtonImage, buttonStartingX+ 10*TILE_WIDTH, 0);
+	ctx_gr.drawImage(weaponButtonImage, buttonStartingX+ 12*TILE_WIDTH, 0);
 };
 
-
 update = function() {
-	ctx_bg.drawImage(backgroundImage, 0, 0,WIDTH,HEIGHT);
-	ctx_lg.clearRect(0,0,WIDTH,HEIGHT);
+	frameCount++;
+	ctx_bg.drawImage(backgroundImage, 0,0,backgroundImage.width,backgroundImage.height, 0, 0,WIDTH,HEIGHT);
 	addButtonImages();
 	// Rectangle.update();
 	Terrain.update();
+	if(frameCount%4 === 0){
+		doPressedAction();
+	}
 };
 
 // Calling update 60 times a second
-setInterval(update, 1000/60);
+setInterval(update, 1000/fps);
 
 init = function() {
-	var container = document.getElementById("container");
-	addButtonImages();
 	drawGrid();
+	addButtonImages();
 	Map.entityList = {};
 	Terrain.list = {};
 };
