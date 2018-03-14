@@ -219,7 +219,11 @@ putEntity = function() {
 };
 
 deleteEntity = function() {
-	map.removeEntity(x,y);
+	var mouseBelowUpperBound = pos.x<levelground.width && pos.y<levelground.height+(2*TILE_HEIGHT);
+	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
+	if(mouseBelowUpperBound && mouseAboveLowerBound){
+		map.removeEntity(x,y);
+	}
 };
 
 document.onmouseup = function(mouse){
