@@ -28,7 +28,7 @@ function Entity(type, id, x, y, vx, vy, width, height, img, color) {
 	}
 	
 	self.draw = function() {
-		gui.drawEntity(self.x,self.y,self.width,self.height,self.img,self.color)		
+		gui.drawEntity(self);		
 		/*ctx.save();
 		ctx.fillStyle = self.color;
 		ctx.fillRect(self.x-self.width/2,self.y-self.height/2,self.width,self.height);
@@ -568,7 +568,9 @@ function Pistol(id, x, y, vx, vy, width, height, img, color) {
 		self.ammo--;
 		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
 		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
+
 		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "gold");
+
 	}
 	
 	self.draw = function() {

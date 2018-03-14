@@ -1,7 +1,16 @@
 GUI = function(container){
 	var self={};
 	self.container=container;
-	
+	var Img = {};
+	var backgroundImg= new Image();
+	backgroundImg.src="img/worldTwoBackground.png";
+	Img.player = new Image();
+	Img.player.src = "img/scientistMain.png";
+	Img.basicEnemy=new Image();
+	Img.basicEnemy.src="img/bigGuy.png";
+	Img.pistol=new Image();
+	Img.pistol.src="img/weaponButton.png";
+
 	self.create= function(type, id, left, top, width, height){
 		var element= document.createElement(type);
 		element.id=id;
@@ -32,28 +41,84 @@ GUI = function(container){
 		self.bg_ctx = self.bg.getContext("2d");
 		self.fg_ctx = self.fg.getContext("2d");
 	}
-	self.bgDraw=function(bg_ctx,backgroundImg){
+	self.bgDraw=function(bg_ctx){
 		backgroundImg.onload = function () {
     			bg_ctx.drawImage(backgroundImg,0,0,1250,750);
 		}
 			
 	};
-	self.drawEntity=function(x,y,width,height,img,color){
+	//draws Entities
+	self.drawEntity=function(entity){
 		gui.fg_ctx.save();
-		
-		if(color==null){
-			image=new Image();
-			image.src=img;
-			image.onload=function(){
-				gui.fg_ctx.drawImage(image,x-width/2,y-height/2,width,height)
+			//Drawing humanoids
+			if(entity.type=="player"){
+				//console.log(Img.player);
+				gui.fg_ctx.drawImage(Img.player,entity.x,entity.y,entity.width,entity.height);
+				Img.player.onload=function(){
+					//gui.fg_ctx.drawImage(Img.player,entity.x,entity.y,entity.width,entity.height);
+				}			
 			}
-		}
-		else if(img=="img"){
-			gui.fg_ctx.fillStyle=color;
-			gui.fg_ctx.fillRect(x-width/2,y-height/2,width,height);
-			gui.fg_ctx.restore();
-		}
+			else if(entity.type=="basic enemy"){
+				gui.fg_ctx.drawImage(Img.basicEnemy,entity.x,entity.y,entity.width,entity.height);				
+				entity.img.onload=function(){
+					//gui.fg_ctx.drawImage(Img.basicEnemy,entity.x,entity.y,entity.width,entity.height);
+				}
+			}
+			else if(entity.type=="flying enemy"){
+				gui.fg_ctx.drawImage(img,x-width/2,y-height/2);
+		
+			}
+			else if(entity.type=="tank enemy"){
+				gui.fg_ctx.drawImage(img,x-width/2,y-height/2);
+		
+			}
+			else if(entity.type=="ghost"){
+				gui.fg_ctx.drawImage(img,x-width/2,y-height/2);
+		
+			}
+			//Drawing special terrain
+			else if(entity.type=="moving plaform"){
+				gui.fg_ctx.fillStyle=color;
+				gui.fg_ctx.fillRect(x-width/2,y-height/2,width,height);
+				gui.fg_ctx.restore();
+			}
+			else if(entity.type=="friction modifier"){
+				gui.fg_ctx.fillStyle=color;
+				gui.fg_ctx.fillRect(x-width/2,y-height/2,width,height);
+				gui.fg_ctx.restore();
+			}
+			else if(entity.type=="spike trap"){
+				gui.fg_ctx.drawImage(img,x-width/2,y-height/2);
+			}
+			//Drawing Useables
+			else if(entity.type=="pistol"){
+				gui.fg_ctx.drawImage(Img.pistol,x-width/2,y-height/2);
+		
+			}
+			else if(entity.type=="shotgun"){
+				gui.fg_ctx.drawImage(img,x-width/2,y-height/2);
+		
+			}
+			else if(entity.type=="sword"){
+				gui.fg_ctx.drawImage(img,x-width/2,y-height/2);
+		
+			}
+			else if(entity.type=="assault rifle"){
+				gui.fg_ctx.drawImage(img,x-width/2,y-height/2);
+		
+			}
+			//Draw projectiles
+			else if(entity.type=="bullet"){
+				gui.fg_ctx.fillStyle=self.color;
+				gui.fg_ctx.fillRect(self.x,self.y,self.width,self.height);
+				gui.fg_ctx.restore();
+			}
+			else{
+			
+			}
+			gui.fg_ctx.restore();		
 	};
+	
 	self.fgDraw=function(fg_ctx,playerHealth,playerMomentum,ammo){
 		var healthX=0;
 		var healthY=30;
@@ -81,7 +146,6 @@ GUI = function(container){
 		fg_ctx.fillStyle="#FFFFFF";
 		fg_ctx.fillText('Health:',healthX,healthY);
 		fg_ctx.fillText('Momentum:',momentX,momentY);
-
 		//draw ammo
 		fg_ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
 		fg_ctx.fillText('Weapon: '/*+weaponImg*/,weaponX,weaponY); 	

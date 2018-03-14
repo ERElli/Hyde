@@ -172,7 +172,7 @@ var update = function() {
 		var isColliding = bullet.testCollision(player);
 		if (isColliding) {
 			toRemove = true;
-			console.log("Player at " + player.x + ", " + player.y);
+			//console.log("Player at " + player.x + ", " + player.y);
 			player.takeDamage(bullet.damage);
 		}
 		
