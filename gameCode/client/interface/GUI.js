@@ -10,6 +10,8 @@ GUI = function(container){
 	Img.basicEnemy.src="img/bigGuy.png";
 	Img.pistol=new Image();
 	Img.pistol.src="img/weaponButton.png";
+	Img.bullet=new Image();
+	Img.bullet.src="img/bullet.png";
 
 	self.create= function(type, id, left, top, width, height){
 		var element= document.createElement(type);
@@ -53,15 +55,15 @@ GUI = function(container){
 			//Drawing humanoids
 			if(entity.type=="player"){
 				//console.log(Img.player);
-				gui.fg_ctx.drawImage(Img.player,entity.x,entity.y,entity.width,entity.height);
+				gui.fg_ctx.drawImage(Img.player,entity.x-entity.width/2,entity.y-entity.height,entity.width,entity.height);
 				Img.player.onload=function(){
-					//gui.fg_ctx.drawImage(Img.player,entity.x,entity.y,entity.width,entity.height);
+
 				}			
 			}
 			else if(entity.type=="basic enemy"){
-				gui.fg_ctx.drawImage(Img.basicEnemy,entity.x,entity.y,entity.width,entity.height);				
+				gui.fg_ctx.drawImage(Img.basicEnemy,entity.x-entity.width/2,entity.y-entity.height,entity.width,entity.height);				
 				entity.img.onload=function(){
-					//gui.fg_ctx.drawImage(Img.basicEnemy,entity.x,entity.y,entity.width,entity.height);
+
 				}
 			}
 			else if(entity.type=="flying enemy"){
@@ -109,10 +111,9 @@ GUI = function(container){
 			}
 			//Draw projectiles
 			else if(entity.type=="bullet"){
-				gui.fg_ctx.fillStyle=self.color;
-				gui.fg_ctx.fillRect(self.x,self.y,self.width,self.height);
-				gui.fg_ctx.restore();
-			}
+				gui.fg_ctx.drawImage(Img.bullet,entity.x+entity.width/2,entity.y-entity.height,entity.width,entity.height);
+				Img.bullet.onload=function(){}
+			}			
 			else{
 			
 			}
