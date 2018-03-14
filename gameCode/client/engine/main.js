@@ -224,7 +224,7 @@ var startGame = function(initial_level) {
 	//blocks = level["terrain"];
 	//surfaceMods = level["terrain"];
 	frameCount = 0;
-
+	
 	
 	setInterval(update, 1000/60)
 }
