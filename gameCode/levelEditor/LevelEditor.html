@@ -25,8 +25,8 @@ var ctx_gr = gr.getContext("2d");
 ctx_ep.globalAlpha = 0.3;
 
 //Initial values
-var WIDTH = 558*2;
-var HEIGHT = 372*2;
+var WIDTH = 558*3;
+var HEIGHT = 372*3;
 var TILE_WIDTH = 31;
 var TILE_HEIGHT = 31;
 var frameCount = 0;
@@ -170,7 +170,6 @@ var y;
 
 document.onmousemove = function(mouse){
 	pos = getMousePosition(bg,mouse);
-	id = Math.random();
 	x = pos.x - (pos.x % TILE_HEIGHT) - offsetX;
 	y = pos.y - (pos.y % TILE_WIDTH) - offsetY;
 
@@ -200,15 +199,14 @@ document.onmousedown = function(mouse){
 	}
 
 	pos = getMousePosition(bg,mouse);
-	id = Math.random();
 	x = pos.x - (pos.x % TILE_HEIGHT) - offsetX;
 	y = pos.y - (pos.y % TILE_WIDTH) - offsetY;
 };
 
 putEntity = function() {
-	var mouseBelowUpperBound = pos.x<levelground.width && pos.y<levelground.height;
+	var mouseBelowUpperBound = pos.x<levelground.width && pos.y<levelground.height+(2*TILE_HEIGHT);
 	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
-
+	var id = Math.random();
 	if(mouseBelowUpperBound && mouseAboveLowerBound){
 		if(((x+rectWIDTH) <= WIDTH) && ((y+rectHEIGHT) <= HEIGHT)){
 			var terrain = Terrain(id,x,y,rectWIDTH,rectHEIGHT);
