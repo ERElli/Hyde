@@ -67,7 +67,7 @@ GUI = function(container){
 				}		
 			}	
 			else if(entity.type=="basic enemy"){
-				gui.fg_ctx.drawImage(Img.basicEnemy,entity.x-entity.width/2,entity.y-entity.height,entity.width,entity.height);				
+				gui.fg_ctx.drawImage(Img.basicEnemy,entity.x-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);				
 				entity.img.onload=function(){
 
 				}
