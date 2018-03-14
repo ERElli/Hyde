@@ -58,11 +58,11 @@ GUI = function(container){
 			if(entity.type=="player"){
 				//console.log(Img.player);
 				if(entity.isBig==true){
-					gui.fg_ctx.drawImage(Img.playerBig,entity.x-entity.width/2,entity.y-entity.height,entity.width,entity.height);
+					gui.fg_ctx.drawImage(Img.playerBig,entity.x-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);
 					Img.playerBig.onload=function(){}	
 				}
 				else{
-					gui.fg_ctx.drawImage(Img.playerSmall,entity.x-entity.width/2,entity.y-entity.height,entity.width,entity.height);
+					gui.fg_ctx.drawImage(Img.playerSmall,entity.x-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);
 					Img.playerSmall.onload=function(){}	
 				}		
 			}	
