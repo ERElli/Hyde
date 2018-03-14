@@ -280,6 +280,8 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 			px = self.vx*self.mass;
 			py = self.vy*self.mass;
 			
+			var oldHeight = self.height;
+			
 			if (self.isBig) {
 				self.isBig = false;
 				self.mass = smallMass;
@@ -301,6 +303,7 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 				self.jumpSpeed = bigJumpSpeed;
 			}
 			
+			self.y -= (self.height - oldHeight)/2;
 			self.vx = (px / self.mass) * mpsTOppf;
 			self.vy = (py / self.mass) * mpsTOppf;
 		}	
