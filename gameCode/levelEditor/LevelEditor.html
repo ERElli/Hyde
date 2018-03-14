@@ -1,7 +1,7 @@
 <body>
 	<div id ="container">
   		<canvas id="background" width="558" height="372"  style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
- 		 <canvas id="entityPreview" width="558" height="372" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
+ 		<canvas id="entityPreview" width="558" height="372" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
   		<canvas id="grid" width="558" height="372" style="position: absolute; left:0; top: 0; z-index: 3;"></canvas>
   		<canvas id="levelground" width="558" height="372"  style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
  	</div>
@@ -9,7 +9,6 @@
 
 <script type="text/javascript" src="Terrain.js"></script>
 <script type="text/javascript" src="Map.js"></script>
-<script type="text/javascript" src="Rectangle.js"></script>
 <script type="text/javascript" src="GUI.js"></script>
 	
 <script>
@@ -28,15 +27,15 @@ ctx_ep.globalAlpha = 0.3;
 
 //Initial values
 var WIDTH = 558*2;
-var HEIGHT = 372;
+var HEIGHT = 372*2;
 var TILE_WIDTH = 31;
 var TILE_HEIGHT = 31;
 var frameCount = 0;
 var rectWIDTH = 31*2;
 var rectHEIGHT = 31*2;
 var buttonStartingX = TILE_WIDTH*2;
-var pressingMouseLeft = false;
-var pressingMouseRight = false;
+var mouseLeft = false;
+var mouseRight = false;
 var offsetX = 0;
 var offsetY = 0;
 var fps = 60;
@@ -125,18 +124,30 @@ window.addEventListener("keyup",function(e){
 
 doPressedAction = function() {
 	if(controls.left){
-		(offsetX===0)? offsetX = 0 : (offsetX -= TILE_WIDTH);	//if you are at leftmost position of the level do nothing, else decrement offset
+		ctx_lg.translate(-offsetX,-offsetY);
+		(offsetX===0)? offsetX = 0 : (offsetX += TILE_WIDTH);
+		ctx_lg.translate(offsetX,offsetY);
 	}
 	if(controls.right){
-		(offsetX===(WIDTH-background.width))? (offsetX = WIDTH-background.width) : offsetX += TILE_WIDTH;	//if you are at the rightmost position of the level, do nothing else increment offset
+		ctx_lg.translate(-offsetX,-offsetY);
+		(offsetX===(background.width-WIDTH))? (offsetX = background.width-WIDTH) : offsetX -= TILE_WIDTH;
+		ctx_lg.translate(offsetX,offsetY);
 	}
-	if(pressingMouseLeft){
+	if(controls.up){
+		ctx_lg.translate(-offsetX,-offsetY);
+		(offsetY===0)? offsetY = 0 : (offsetY += TILE_HEIGHT);
+		ctx_lg.translate(offsetX,offsetY);
+	}
+	if(controls.down){
+		ctx_lg.translate(-offsetX,-offsetY);
+		(offsetY===(background.height-HEIGHT))? (offsetY = background.height-HEIGHT) : offsetY -= TILE_HEIGHT;
+		ctx_lg.translate(offsetX,offsetY);
+	}
+	if(mouseLeft){
 		putEntity();
 	}
-	if(pressingMouseRight){
-		if(frameCount%3 === 0){
-			deleteEntity();
-		}
+	if(mouseRight){
+		deleteEntity();
 	}
 };
 
@@ -144,17 +155,13 @@ doPressedAction = function() {
 //and snapping the top right corner of the preview to the grid lines
 snapToGrid  = function(canvas,mouse){
 	var pos = getMousePosition(canvas,mouse);
-	var x = pos.x - (pos.x % TILE_HEIGHT);
-	var y = pos.y - (pos.y % TILE_WIDTH);
+	var prev_x = pos.x - (pos.x % TILE_HEIGHT);
+	var prev_y = pos.y - (pos.y % TILE_WIDTH);
 
 	var previewImage = new Image();
 	previewImage.src = "../../images/buildingTerrain3x6.png";
 
-	ctx_ep.drawImage(previewImage,x, y, rectWIDTH, rectHEIGHT);
-	return {
-		x: x,
-		y: y,
-	};
+	ctx_ep.drawImage(previewImage,prev_x, prev_y, rectWIDTH, rectHEIGHT);
 };
 
 var pos;
@@ -163,12 +170,10 @@ var x;
 var y;
 
 document.onmousemove = function(mouse){
-	// var pos = getMousePosition(ep,mouse);
-
 	pos = getMousePosition(bg,mouse);
 	id = Math.random();
-	x = pos.x - (pos.x % TILE_HEIGHT);
-	y = pos.y - (pos.y % TILE_WIDTH);
+	x = pos.x - (pos.x % TILE_HEIGHT) - offsetX;
+	y = pos.y - (pos.y % TILE_WIDTH) - offsetY;
 
 	var mouseBelowUpperBound = pos.x<WIDTH && pos.y<HEIGHT;
 	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
@@ -187,50 +192,45 @@ getMousePosition = function(canvas,mouse){
 	};
 };
 
-
-
 document.onmousedown = function(mouse){
 	if(mouse.which ===1){
-		pressingMouseLeft = true;
+		mouseLeft = true;
 	}
 	else{
-		pressingMouseRight = true;
+		mouseRight = true;
 	}
 
 	pos = getMousePosition(bg,mouse);
 	id = Math.random();
-	x = pos.x - (pos.x % TILE_HEIGHT);
-	y = pos.y - (pos.y % TILE_WIDTH);
-
-	
+	x = pos.x - (pos.x % TILE_HEIGHT) - offsetX;
+	y = pos.y - (pos.y % TILE_WIDTH) - offsetY;
 };
 
 putEntity = function() {
-	var mouseBelowUpperBound = pos.x<WIDTH && pos.y<HEIGHT;
+	var mouseBelowUpperBound = pos.x<levelground.width && pos.y<levelground.height;
 	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
 
 	if(mouseBelowUpperBound && mouseAboveLowerBound){
 		if(((x+rectWIDTH) <= WIDTH) && ((y+rectHEIGHT) <= HEIGHT)){
 			var terrain = Terrain(id,x,y,rectWIDTH,rectHEIGHT);
-			// var rect = Rectangle(id,x,y,rectWIDTH,rectHEIGHT);
 			map.placeEntity(terrain);
 		}
 		else{
 			console.log("Can not place object there");
 		}
 	}
-}
+};
 
 deleteEntity = function() {
 	map.removeEntity(x,y);
-}
+};
 
 document.onmouseup = function(mouse){
 	if(mouse.which ===1){
-		pressingMouseLeft = false;
+		mouseLeft = false;
 	}
 	else{
-		pressingMouseRight = false;
+		mouseRight = false;
 	}
 };
 
@@ -288,10 +288,10 @@ addButtonImages = function() {
 
 update = function() {
 	frameCount++;
-	ctx_bg.drawImage(backgroundImage, 0,0,backgroundImage.width,backgroundImage.height, 0, 0,WIDTH,HEIGHT);
+	ctx_lg.clearRect(0,0,WIDTH,HEIGHT);
+	ctx_bg.drawImage(backgroundImage, 0,0,backgroundImage.width,backgroundImage.height, offsetX,offsetY,WIDTH,HEIGHT);
 	addButtonImages();
-	// Rectangle.update();
-	Terrain.update();
+	Map.update();
 	if(frameCount%4 === 0){
 		doPressedAction();
 	}
@@ -303,7 +303,6 @@ setInterval(update, 1000/fps);
 init = function() {
 	drawGrid();
 	addButtonImages();
-	Map.entityList = {};
 	Terrain.list = {};
 };
 
