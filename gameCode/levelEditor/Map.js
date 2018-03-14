@@ -15,16 +15,19 @@ Map = function(width, height,tile_width, tile_height) {
 
 	var gridShiftDown = 2; //The grid is shifted down 2 tile widths to make space for the buttons
 
+	self.isFilled = function(x,y){
+		return !(Object.keys(self.tiles[x][y]).length === 0 && self.tiles[x][y].constructor === Object);
+	}
+
 	self.placeEntity = function(e){
 		var x = e.x/tile_width;
 		var y = (e.y/tile_height) - gridShiftDown;
 		var w = x + (e.width/tile_width);
 		var h = y + (e.height/tile_height);
 
-
 		for(var i=x; i<w; i++){
 			for(var j=y; j<h; j++){
-				filled = !(Object.keys(self.tiles[i][j]).length === 0 && self.tiles[i][j].constructor === Object);
+				filled = self.isFilled(i,j);
 				if(filled){
 					break;
 				}
@@ -64,17 +67,19 @@ Map = function(width, height,tile_width, tile_height) {
 	self.removeEntity = function(x,y){
 		var i = x/tile_width;
 		var j = (y/tile_height)-gridShiftDown;
-
-		switch(self.tiles[i][j].type){
-			case "Terrain":
-				var toBeRemoved = Terrain.list[self.tiles[i][j].id];
-				Terrain.remove(toBeRemoved);
-				break;
-			default:
-				console.log("Nothing to remove");
-		}	
-		ctx_lg.clearRect(0,0,WIDTH,HEIGHT);
-		self.makeFreeSpace(toBeRemoved);
+		if(self.isFilled(i,j)){
+			switch(self.tiles[i][j].type){
+				case "Terrain":
+					var toBeRemoved = Terrain.list[self.tiles[i][j].id];
+					Terrain.remove(toBeRemoved);
+					break;
+				default:
+					console.log("Nothing to remove");
+			}
+			ctx_lg.clearRect(x,y,toBeRemoved.width,toBeRemoved.height);
+			self.makeFreeSpace(toBeRemoved);
+		}
+			
 	};
 
 	self.setBackgroundImage = function(imageName){
