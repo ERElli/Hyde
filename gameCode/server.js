@@ -99,6 +99,10 @@ io.sockets.on('connection', function(socket){
    Database.levelSave(data);
   });
 
+  socket.on('deleteLevelItem',function(data){
+   Database.deleteLevelItem(data);
+  });
+
 });
 
 

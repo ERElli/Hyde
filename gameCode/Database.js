@@ -6,7 +6,16 @@ var db = USE_DB ? mongojs('localhost:27017/myGame', ['account','progress']) : nu
 Database = {};
 Database.levelSave = function(data){
   console.log(data.x, data.y, data.w, data.h, data.id, data.type);
-  db.saveLevel.insert({x:data.x, y: data.y, w: data.w,h: data.h,id: data.id,type: data.type })
+  db.saveLevel.update({id:data.rand}, { $addToSet:{ items: {x:data.x, y: data.y, w: data.w,h: data.h,id: data.id,type: data.type} } }, {upsert: true});
+  //db.saveLevel.update({username:username},{  $addToSet: {items: {level : "level 1", time: 130} }});
+}
+Database.deleteLevelItem = function(data, cb){
+
+  //console.log("nice"+data.x, data.y, data.w, data.h, data.id, data.type);
+  //db.saveLevel.remove({id:data.rand}, { $addToSet:{ items: {x:data.x, y: data.y, w: data.w,h: data.h,id: data.id,type: data.type} } }, {upsert: true});
+  db.saveLevel.update({id:data.rand},  { $pull: { "items" : { id: data.id } } } );
+  
+
 }
 
 Database.isValidPassword = function(data,cb){
@@ -68,4 +77,7 @@ db.progress.find();
 db.progress.findOne({username: "aaa", items: {level: "level 1"}} ) ;
 db.progress.update({username: "bbbb"}, { $set: { items: {level: "level 3", time: 140} } });
 db.progress.find( { items: {level : "level 2", time: 140} } );
+db.saveLevel.find({id: 0.7325131413466066, item});
+db.saveLevel.remove({});
+
 */

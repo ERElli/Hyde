@@ -1,5 +1,6 @@
 var socket = io();
 Map = function(width, height,tile_width, tile_height) {
+	var rand = Math.random();
 	var self = {};
 	self.width = width;
 	self.height = height;
@@ -52,7 +53,7 @@ Map = function(width, height,tile_width, tile_height) {
 				}
 			}
 			self.addEntity(e);
-			socket.emit('saveLevel',{x:x,y:y, w:w, h:h, id: e.id, type: e.type });
+			socket.emit('saveLevel',{x:x,y:y, w:w, h:h, id: e.id, type: e.type, rand: rand });
 		}
 	};
 
@@ -91,6 +92,7 @@ Map = function(width, height,tile_width, tile_height) {
 				self.tiles[i][j] = {};
 			}
 		}
+		socket.emit('deleteLevelItem',{x:x,y:y, w:w, h:h, id: e.id, type: e.type, rand: rand });
 	};
 
 	return self;
