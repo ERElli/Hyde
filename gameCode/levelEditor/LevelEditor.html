@@ -9,7 +9,6 @@
 
 <script type="text/javascript" src="Terrain.js"></script>
 <script type="text/javascript" src="Map.js"></script>
-<script type="text/javascript" src="GUI.js"></script>
 	
 <script>
 var bg = document.getElementById("background");
@@ -291,10 +290,7 @@ update = function() {
 	ctx_lg.clearRect(0,0,WIDTH,HEIGHT);
 	ctx_bg.drawImage(backgroundImage, 0,0,backgroundImage.width,backgroundImage.height, offsetX,offsetY,WIDTH,HEIGHT);
 	addButtonImages();
-	Map.update();
-	if(frameCount%4 === 0){
-		doPressedAction();
-	}
+	Map.update();doPressedAction();
 };
 
 // Calling update 60 times a second
