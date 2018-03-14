@@ -13,11 +13,11 @@ Map = function(width, height,tile_width, tile_height) {
 		}
 	}
 
-	var offset = 2; //The grid is shifted down 2 tile widths to make space for the buttons
+	var gridShiftDown = 2; //The grid is shifted down 2 tile widths to make space for the buttons
 
 	self.placeEntity = function(e){
 		var x = e.x/tile_width;
-		var y = (e.y/tile_height) - offset;
+		var y = (e.y/tile_height) - gridShiftDown;
 		var w = x + (e.width/tile_width);
 		var h = y + (e.height/tile_height);
 
@@ -63,11 +63,11 @@ Map = function(width, height,tile_width, tile_height) {
 
 	self.removeEntity = function(x,y){
 		var i = x/tile_width;
-		var j = (y/tile_height)-offset;
+		var j = (y/tile_height)-gridShiftDown;
 
 		switch(self.tiles[i][j].type){
 			case "Terrain":
-				toBeRemoved = Terrain.list[self.tiles[i][j].id];
+				var toBeRemoved = Terrain.list[self.tiles[i][j].id];
 				Terrain.remove(toBeRemoved);
 				break;
 			default:
@@ -77,9 +77,14 @@ Map = function(width, height,tile_width, tile_height) {
 		self.makeFreeSpace(toBeRemoved);
 	};
 
+	self.setBackgroundImage = function(imageName){
+		self.backgroundImg = new Image();
+		self.backgroundImg.src = imageName;
+	};
+
 	self.makeFreeSpace = function(e){
 		var x = e.x/tile_width;
-		var y = (e.y/tile_height) - offset;
+		var y = (e.y/tile_height) - gridShiftDown;
 		var w = x + (e.width/tile_width);
 		var h = y + (e.height/tile_height);
 
@@ -91,4 +96,8 @@ Map = function(width, height,tile_width, tile_height) {
 	};
 
 	return self;
+};
+
+Map.update = function(){
+	Terrain.update();
 };
