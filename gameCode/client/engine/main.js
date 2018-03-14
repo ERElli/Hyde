@@ -93,7 +93,7 @@ var nearTerrain = function(x, y) {
 }
 
 var putOnTerrain = function(thing) {
-	thing.y = 450;
+	thing.y = 450-thing.height/2;
 }
 
 /*
@@ -128,7 +128,7 @@ var update = function() {
 			player.justJumped = false;
 		}
 	}
-	else if (nearTerrain(player.x, player.y) && !player.justJumped) {
+	else if (nearTerrain(player.x, player.y+player.height/2) && !player.justJumped) {
 		player.inAir = false;
 		putOnTerrain(player);
 	}
