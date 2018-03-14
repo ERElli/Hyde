@@ -4,8 +4,10 @@ GUI = function(container){
 	var Img = {};
 	var backgroundImg= new Image();
 	backgroundImg.src="img/worldTwoBackground.png";
-	Img.player = new Image();
-	Img.player.src = "img/scientistMain.png";
+	Img.playerSmall = new Image();
+	Img.playerSmall.src = "img/scientistMain.png";
+	Img.playerBig = new Image();
+	Img.playerBig.src = "img/bigGuy.png";
 	Img.basicEnemy=new Image();
 	Img.basicEnemy.src="img/bigGuy.png";
 	Img.pistol=new Image();
@@ -55,11 +57,15 @@ GUI = function(container){
 			//Drawing humanoids
 			if(entity.type=="player"){
 				//console.log(Img.player);
-				gui.fg_ctx.drawImage(Img.player,entity.x-entity.width/2,entity.y-entity.height,entity.width,entity.height);
-				Img.player.onload=function(){
-
-				}			
-			}
+				if(entity.isBig==true){
+					gui.fg_ctx.drawImage(Img.playerBig,entity.x-entity.width/2,entity.y-entity.height,entity.width,entity.height);
+					Img.playerBig.onload=function(){}	
+				}
+				else{
+					gui.fg_ctx.drawImage(Img.playerSmall,entity.x-entity.width/2,entity.y-entity.height,entity.width,entity.height);
+					Img.playerSmall.onload=function(){}	
+				}		
+			}	
 			else if(entity.type=="basic enemy"){
 				gui.fg_ctx.drawImage(Img.basicEnemy,entity.x-entity.width/2,entity.y-entity.height,entity.width,entity.height);				
 				entity.img.onload=function(){
