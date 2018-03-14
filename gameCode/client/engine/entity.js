@@ -174,22 +174,22 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 	var maxHealth = 100;
 	
 	var smallMass = 80;
-	var smallWidth = 5;
-	var smallHeight = 5;
+	var smallWidth = 50;
+	var smallHeight = 50;
 	var smallAcceleration = 100*mpsTOppf/framesPerSecond;
 	var smallMaxVX = 5*mpsTOppf;
 	var smallMaxVY = 15*mpsTOppf;
 	var smallJumpSpeed = 3*mpsTOppf;
 	
 	var bigMass = 500;
-	var bigWidth = 15;
-	var bigHeight = 15;
+	var bigWidth = 100;
+	var bigHeight = 100;
 	var bigAcceleration = 5*mpsTOppf/framesPerSecond;
 	var bigMaxVX = 3*mpsTOppf;
 	var bigMaxVY = 20*mpsTOppf;
 	var bigJumpSpeed = 2*mpsTOppf;
 	
-	var self = Humanoid(type, id, x, y, vx, vy, width, height, img, color, 0, 0, 0, maxHealth, weapon, smallMass, 4*mpsTOppf, meleeDamage, meleeTimer);
+	var self = Humanoid(type, id, x, y, vx, vy, smallWidth, smallHeight, img, color, 0, 0, 0, maxHealth, weapon, smallMass, 4*mpsTOppf, meleeDamage, meleeTimer);
 	
 	self.maxHealth = maxHealth;
 	self.transformCounter = 0;
@@ -283,6 +283,8 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 			if (self.isBig) {
 				self.isBig = false;
 				self.mass = smallMass;
+				self.width = smallWidth;
+				self.height = smallHeight;
 				self.acceleration = smallAcceleration;
 				self.maxVelocityX = smallMaxVX;
 				self.maxVelocityY = smallMaxVY;
@@ -291,6 +293,8 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 			else {
 				self.isBig = true;
 				self.mass = bigMass;
+				self.width = bigWidth;
+				self.height = bigHeight;
 				self.acceleration = bigAcceleration;
 				self.maxVelocityX = bigMaxVX;
 				self.maxVelocityY = bigMaxVY;
@@ -317,12 +321,16 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 
 
 //ENEMY
-function Enemy(type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, maxHealth, weapon, mass, jumpSpeed, meleeDamage, meleeTimer, patrolRange) {
+function Enemy(type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, maxHealth, weapon, mass, jumpSpeed, meleeDamage, meleeTimer, patrolRange, target) {
 	
 	//type, id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpSpeed, meleeDamage, meleeTimer
 	var self = Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, maxHealth, weapon, mass, jumpSpeed, meleeDamage, meleeTimer);
 
 	self.zeroPoint = x;
+	self.patrolRange = patrolRange;
+	self.target = target;
+	self.maxForward = self.zeroPoint + self.patrolRange;
+	self.maxBackward = self.zeroPoint - self.patrolRange;
 	console.log(self.zeroPoint);
 	
 	self.melee = function(direction) {
@@ -340,7 +348,7 @@ function Enemy(type, id, x, y, vx, vy, width, height, img, color, acceleration, 
 	return self;
 }
 
-function BasicEnemy(id, x, y, vx, vy, img, color) {
+function BasicEnemy(id, x, y, vx, vy, img, color, target) {
 	
 	var basicWidth = 20;
 	var basicHeight = 20;
@@ -356,7 +364,7 @@ function BasicEnemy(id, x, y, vx, vy, img, color) {
 	var basicPatrolRange = 100;
 	
 	var self = Enemy("basic enemy", id, x, y, vx, vy, basicWidth, basicHeight, img, color, basicAcceleration, basicMaxVX, basicMaxVY, basicMaxHP, basicWeapon, basicMass,
-					basicJumpSpeed, basicMeleeDamage, basicMeleeTimer, basicPatrolRange);
+					basicJumpSpeed, basicMeleeDamage, basicMeleeTimer, basicPatrolRange, target);
 	
 	console.log(self.zeroPoint + basicPatrolRange);
 	
@@ -365,6 +373,19 @@ function BasicEnemy(id, x, y, vx, vy, img, color) {
 		
 		superUpdatePos();
 		
+		if (self.x < target.x) {
+			self.ax = self.acceleration;
+		}
+		else {
+			self.ax = -self.acceleration;
+		}
+		
+		if (self.x >= self.maxForward) {
+			self.x = self.maxForward
+		}
+		else if (self.x <= self.maxBackward) {
+			self.x = self.maxBackward;
+		}
 		
 	}
 	
