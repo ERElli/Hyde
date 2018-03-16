@@ -36,8 +36,10 @@ document.onmousemove = function(mouse){
 	var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
 	var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
 	
-	mouseX -= player.x;
+	mouseX -= gui.fg.width/2;
 	mouseY -= player.y;
+	console.log(mouseX);
+	console.log(mouseY);
 	
 	player.aimAngle = Math.atan2(mouseY,mouseX) / Math.PI * -180;
 }
@@ -117,6 +119,7 @@ var update = function() {
 	player.immuneCounter++;
 	
 	//Draw bars
+	gui.drawMap();
 	gui.fgDraw(gui.fg_ctx,player.health/player.maxHealth*100,100,20);
 
 	//Manage player damage immunity

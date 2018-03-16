@@ -569,7 +569,7 @@ function Weapon(type, id, x, y, vx, vy, width, height, img, color, firingRate, b
 function Pistol(id, x, y, vx, vy, width, height, img, color) {
 	
 	var pistolRate = 2;
-	var pistolSpeed = 5;
+	var pistolSpeed = 7;
 	
 	var self = Weapon("pistol", id, x, y, vx, vy, width, height, img, color, pistolRate, pistolSpeed, "normal", 100, 20);
 	
