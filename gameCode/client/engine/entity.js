@@ -360,8 +360,8 @@ function Enemy(type, id, x, y, vx, vy, width, height, img, color, acceleration, 
 
 function BasicEnemy(id, x, y, vx, vy, img, color, target) {
 	
-	var basicWidth = 20;
-	var basicHeight = 20;
+	var basicWidth = 40;
+	var basicHeight = 40;
 	var basicAcceleration = 100*mpsTOppf/framesPerSecond;
 	var basicMaxVX = 5;
 	var basicMaxVY = 20;

@@ -13,6 +13,7 @@ var charCodes = {65:"left", 87:"jump", 68:"right", 83:"crouch", 32:"transform", 
 
 var pressing = { "left": 0, "right":0, "jump":0, "crouch":0, "transform":0, "shoot":0, };
 
+
 document.onkeydown = function(event) {
 	pressing[charCodes[event.keyCode]] = 1;
 }
@@ -27,6 +28,10 @@ document.onmousedown = function(mouse) {
 
 document.onmouseup = function(mouse) {
 	pressing["shoot"] = 0;
+}
+
+document.oncontextmenu = function(mouse) {	
+	mouse.preventDefault();	
 }
 
 /*
@@ -111,6 +116,7 @@ var inRange = function(thing) {
 */
 var update = function() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
+
 	
 	//Update counters
 	frameCount++;
@@ -189,19 +195,19 @@ var update = function() {
 			}	
 		}
 		
-		
 		var isColliding = bullet.testCollision(player);
 		if (isColliding) {
 			toRemove = true;
 			player.takeDamage(bullet.damage);
 		}
 		
-		
 		if(toRemove){
 			delete bullets[key];
 		}
 	}
 	
+	
+	//Manage all the enemies
 	for (var key in enemies) {
 		
 		var enemy = enemies[key];
