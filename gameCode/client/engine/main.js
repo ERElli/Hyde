@@ -192,6 +192,7 @@ var update = function() {
 		
 		enemy.update();
 		enemy.updateAim(player);
+		putOnTerrain(enemy);
 		enemy.attackCounter++;
 		newBullet = enemy.shoot();
 		if (newBullet) {
