@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<link rel="stylesheet" type="text/css" href="LevelEditorStyling.css">
+<!-- <script src="jquery-3.3.1.min.js"></script> -->
+
+</head>
+
+<body>
+  <canvas id="background" width="558" height="372"  style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
+  <canvas id="levelground" width="558" height="372"  style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+  <canvas id="entityPreview" width="558" height="372" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
+  <canvas id="grid" width="558" height="372" style="position: absolute; left:0; top: 0; z-index: 3;"></canvas>
+  
+<div class="enemiesDropdown">
+<button onclick="enemiesTapped()" class="enemiesbtn"></button>
+  
+  <div id="myEnemiesDropdown" class="enemies-content">
+
+  <button style="background-image: url(../../images/enemy1Drop.png)" onclick="enemy1Tapped()" class="enemy1btn"></button>
+
+  <button style="background-image: url(../../images/enemy2Drop.png)" onclick="enemy2Tapped()" class="enemy2btn"></button>
+
+  <button style="background-image: url(../../images/enemy3Drop.png)" onclick="enemy3Tapped()" class="enemy3btn"></button>
+
+
+
+
+  </div>
+</div>
+
+<div class="musicDropdown">
+<button onclick="musicTapped()" class="musicbtn"></button>
+  <div id="myMusicDropdown" class="music-content">
+    
+
+    <button style="background-image: url(../../images/music1Drop.png)" onclick="self.music1Tapped()" class="music1btn"></button>
+
+   <button style="background-image: url(../../images/music2Drop.png)" onclick="self.music2Tapped()" class="music2btn"></button>
+
+  <button style="background-image: url(../../images/music3Drop.png)" onclick="self.music3Tapped()" class="music3btn"></button>
+  
+  </div>
+</div>
+  
+
+<div class="backgroundDropdown">
+<button onclick="backgroundTapped()" class="backgroundbtn"></button>
+  <div id="myBackgroundDropdown" class="background-content">
+
+    <button style="background-image: url(../../images/world1Drop.png)" onclick="world1Tapped()" class="world1btn"></button>
+
+   <button style="background-image: url(../../images/world2Drop.png)" onclick="world2Tapped()" class="world2btn"></button>
+
+  <button style="background-image: url(../../images/world3Drop.png)" onclick="world3Tapped()" class="world3btn"></button>
+
+
+
+  </div>
+</div>
+
+<div class="checkpointDropdown">
+<button onclick="checkpointTapped()" class="checkpointbtn"></button>
+  <div id="checkpointDropdown" class="checkpoint-content">
+    <a href="#World1">World 1</a>
+    <a href="#World2">World 2</a>
+    <a href="#World3">World 3</a>
+  </div>
+</div>
+
+<div class="characterDropdown">
+<button onclick="characterTapped()" class="characterbtn"></button>
+  <div id="characterDropdown" class="character-content">
+    <a href="#World1">World 1</a>
+    <a href="#World2">World 2</a>
+    <a href="#World3">World 3</a>
+  </div>
+</div>
+
+<div class="terrainDropdown">
+<button onclick="terrainTapped()" class="terrainbtn"></button>
+  <div id="myTerrainDropdown" class="terrain-content">
+  
+  <button style="background-image: url(../../images/3x2Drop.png)" onclick="terrain1Tapped()" class="terrain1btn"></button> 
+  <button style="background-image: url(../../images/3x2BDrop.png)" onclick="terrain2Tapped()" class="terrain2btn"></button>
+  <button style="background-image: url(../../images/3x4Drop.png)" onclick="terrain3Tapped()" class="terrain3btn"></button>
+  <button style="background-image: url(../../images/3x4BDrop.png)" onclick="terrain4Tapped()" class="terrain4btn"></button> 
+  <button style="background-image: url(../../images/3x6Drop.png)" onclick="terrain5Tapped()" class="terrain5btn"></button>
+  <button style="background-image: url(../../images/3x6BDrop.png)" onclick="terrain6Tapped()" class="terrain6btn"></button>
+  
+  </div>
+</div>
+
+<div class="weaponDropdown">
+<button onclick="weaponTapped()" class="weaponbtn"></button>
+  <div id="weaponDropdown" class="weapon-content">
+    <a href="#World1">World 1</a>
+    <a href="#World2">World 2</a>
+    <a href="#World3">World 3</a>
+  </div>
+</div>
+
+
+
+</body>
+
+<script type="text/javascript" src="Enemy.js"></script>
+<script type="text/javascript" src="Terrain.js"></script>
+<script type="text/javascript" src="Map.js"></script>
+<script type="text/javascript" src="Rectangle.js"></script>
+	
+<script>
+
+
+var bg = document.getElementById("background");
+var ep = document.getElementById("entityPreview");
+var lg = document.getElementById("levelground");
+var gr = document.getElementById("grid");
+
+var ctx_bg = bg.getContext("2d");
+var ctx_lg = lg.getContext("2d");
+var ctx_ep = ep.getContext("2d");
+var ctx_gr = gr.getContext("2d");
+
+//This makes the preview of the entity transparent
+ctx_ep.globalAlpha = 0.5;
+
+//Initial values
+var WIDTH = 558;
+var HEIGHT = 372;
+var TILE_WIDTH = 31;
+var TILE_HEIGHT = 31;
+var frameCount = 0;
+var rectWIDTH = 31*2;
+var rectHEIGHT = 31*2;
+
+self.selectedButton = null;
+
+self.selectedEnemy = null;
+self.selectedBackground = null;
+self.selectedCharacter = null;
+self.selectedTerrain = null;
+self.selectedWeapon = null;
+
+
+
+
+//Creating images
+var backgroundImage = new Image();
+backgroundImage.src = "../../images/levelEditorBackground.png";
+
+var worldOneBackgroundImage = new Image();
+worldOneBackgroundImage.src = "../../images/worldOneBackground.png";
+
+var worldTwoBackgroundImage = new Image();
+worldTwoBackgroundImage.src = "../../images/worldTwoBackground.png";
+
+var worldThreeBackgroundImage = new Image();
+worldThreeBackgroundImage.src = "../../images/worldThreeBackground.png"
+
+var enemyButtonImage = new Image();
+enemyButtonImage.src = "../../images/enemiesButton.png";
+
+var musicButtonImage = new Image();
+musicButtonImage.src = "../../images/musicButton.png";
+
+var backgroundButtonImage = new Image();
+backgroundButtonImage.src = "../../images/backgroundButton.png";
+
+var checkPointButtonImage = new Image();
+checkPointButtonImage.src = "../../images/checkPointButton.png";
+
+var characterButtonImage = new Image();
+characterButtonImage.src = "../../images/characterButton.png";
+
+var terrainButtonImage = new Image();
+terrainButtonImage.src = "../../images/terrainButton.png";
+
+var weaponButtonImage = new Image();
+weaponButtonImage.src = "../../images/weaponButton.png";
+
+//Initializing the map
+var map = Map(WIDTH,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
+
+
+/***********************
+
+DROP DOWN FUNCTIONALITY
+
+***********************/
+
+
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function enemiesTapped() {
+
+    self.selectedButton = "enemies";
+    document.getElementById("myEnemiesDropdown").classList.toggle("show");
+    
+}
+
+self.enemy1Tapped = function(){
+  self.selectedEnemy = "enemy1";
+}
+
+self.enemy2Tapped = function(){
+  self.selectedEnemy = "enemy2";
+}
+
+self.enemy3Tapped = function(){
+  self.selectedEnemy = "enemy3";
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+
+  if (!event.target.matches('.enemiesbtn')) {
+
+
+
+    var dropdowns = document.getElementsByClassName("enemies-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function musicTapped() {
+
+    self.selectedButton = "music";
+    document.getElementById("myMusicDropdown").classList.toggle("show");
+    
+}
+
+self.music1Tapped = function(){
+  self.selectedMusic = "music1";
+}
+
+self.music2Tapped = function(){
+  self.selectedMusic = "music2";
+}
+
+self.enemy3Tapped = function(){
+  self.selectedMusic = "music3";
+}
+
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+
+
+  if (!event.target.matches('.musicbtn')) {
+
+    var dropdowns = document.getElementsByClassName("music-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function backgroundTapped() {
+    document.getElementById("myBackgroundDropdown").classList.toggle("show");
+    
+}
+
+self.world1Tapped = function(){
+  self.selectedBackground = "world1";
+  updateBackground();
+}
+
+self.world2Tapped = function(){
+  self.selectedBackground = "world2";
+  updateBackground();
+}
+
+self.world3Tapped = function(){
+  self.selectedBackground = "world3";
+  updateBackground();
+
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+
+ 
+
+  if (!event.target.matches('.backgroundbtn')) {
+
+    var dropdowns = document.getElementsByClassName("background-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function checkpointTapped() {
+    document.getElementById("myCheckpointDropdown").classList.toggle("show");
+    
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.checkpointbtn')) {
+
+    self.selectedButton = "checkpoint";
+
+    var dropdowns = document.getElementsByClassName("checkpoint-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function terrainTapped() {
+
+    self.selectedButton = "terrain";
+    document.getElementById("myTerrainDropdown").classList.toggle("show");
+    
+}
+
+self.terrain1Tapped = function(){
+
+    self.selectedTerrain = "terrain1";
+}
+
+self.terrain2Tapped = function(){
+
+    self.selectedTerrain = "terrain2";
+}
+
+
+self.terrain3Tapped = function(){
+
+    self.selectedTerrain = "terrain3";
+}
+
+
+self.terrain4Tapped = function(){
+
+    self.selectedTerrain = "terrain4";
+}
+
+
+self.terrain5Tapped = function(){
+
+    self.selectedTerrain = "terrain5";
+}
+
+
+self.terrain6Tapped = function(){
+
+    self.selectedTerrain = "terrain6";
+}
+
+
+
+
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.terrainbtn')) {
+
+    var dropdowns = document.getElementsByClassName("terrain-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function weaponTapped() {
+    document.getElementById("myWeaponDropdown").classList.toggle("show");
+    
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.weaponbtn')) {
+
+    var dropdowns = document.getElementsByClassName("weapon-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function characterTapped() {
+    document.getElementById("myCharacterDropdown").classList.toggle("show");
+    
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.characterbtn')) {
+
+    var dropdowns = document.getElementsByClassName("character-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+
+/*******************************************************/
+
+snapToGrid  = function(canvas,mouse){
+	var pos = getMousePosition(canvas,mouse);
+	var x = pos.x - (pos.x % TILE_HEIGHT);
+	var y = pos.y - (pos.y % TILE_WIDTH);
+
+	var previewImage = new Image();
+
+  if(self.selectedButton === "enemies"){
+
+    if(self.selectedEnemy === "enemy1"){
+        previewImage.src = "../../images/enemy1.png";
+        ctx_ep.drawImage(previewImage, x, y, 31, 31);
+    
+    } else if(self.selectedEnemy === "enemy2"){
+        previewImage.src = "../../images/enemy2.png";
+        ctx_ep.drawImage(previewImage, x, y, 31, 31);
+   
+    } else if(self.selectedEnemy === "enemy3"){
+        previewImage.src = "../../images/enemy3.png";
+        ctx_ep.drawImage(previewImage, x, y, 31, 31);
+    }
+  }
+
+  else if(self.selectedButton === "checkpoint"){
+    previewImage.src = "../../images/placeCheckpoint.png";
+    ctx_ep.drawImage(previewImage, x, y, 31, 31);
+  } 
+
+  else if(self.selectedButton === "music"){
+    previewImage.src = "../../images/placeCheckpoint.png";
+    ctx_ep.drawImage(previewImage, x, y, 31, 31);
+  
+  } else if(self.selectedButton === "terrain"){
+
+      if(self.selectedTerrain === "terrain1"){
+        previewImage.src = "../../images/terrain3x2.png";
+        ctx_ep.drawImage(previewImage, x, y, 93, 62);
+      
+      } else if(self.selectedTerrain === "terrain2"){
+        previewImage.src = "../../images/breakableTerrain3x2.png";
+        ctx_ep.drawImage(previewImage, x, y, 93, 62);
+
+       } else if(self.selectedTerrain === "terrain3"){
+        previewImage.src = "../../images/terrain3x4.png";
+        ctx_ep.drawImage(previewImage, x, y, 93, 124);
+
+      }  else if(self.selectedTerrain === "terrain4"){
+        previewImage.src = "../../images/breakableTerrain3x4.png";
+        ctx_ep.drawImage(previewImage, x, y, 93, 124);
+
+      } else if(self.selectedTerrain === "terrain5"){
+        previewImage.src = "../../images/terrain3x6.png";
+        ctx_ep.drawImage(previewImage, x, y, 93, 186);
+
+      } else if(self.selectedTerrain === "terrain6"){
+        previewImage.src = "../../images/breakableTerrain3x6.png";
+        ctx_ep.drawImage(previewImage, x, y, 93, 186);
+
+      }  
+
+
+
+
+  }
+
+  else {
+     previewImage.src = "../../images/enemy2.png";
+     ctx_ep.drawImage(previewImage, x, y, 62, 62);
+  }
+
+	return {
+		x: x,
+		y: y,
+	};
+};
+
+
+
+
+document.onmousemove = function(mouse){
+	var pos = getMousePosition(ep,mouse);
+
+	var mouseBelowUpperBound = pos.x<WIDTH && pos.y<HEIGHT;
+	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
+
+	if(mouseBelowUpperBound && mouseAboveLowerBound){
+		ctx_ep.clearRect(0,0,WIDTH,HEIGHT);
+		snapToGrid(ep,mouse);
+	}
+};
+
+
+getMousePosition = function(canvas,mouse){
+	var rect = canvas.getBoundingClientRect();
+	return {
+		x: mouse.clientX - rect.left,
+		y: mouse.clientY - rect.top,
+	};
+};
+
+
+document.onmousedown = function(mouse){
+	var pos = getMousePosition(bg,mouse);
+	var id = Math.random();
+	var x = pos.x - (pos.x % TILE_HEIGHT);
+	var y = pos.y - (pos.y % TILE_WIDTH);
+
+	var mouseBelowUpperBound = pos.x<WIDTH && pos.y<HEIGHT;
+	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
+
+	if(mouseBelowUpperBound && mouseAboveLowerBound){
+		if(((x+rectWIDTH) <= WIDTH) && ((y+rectHEIGHT) <= HEIGHT)){
+			 
+      if(self.selectedButton === "enemies"){
+          
+          if(self.selectedEnemy === "enemy1"){
+
+              var enemy = Enemy(id, "enemy1", x, y, 31, 31);
+              map.placeEntity(enemy);
+
+          } else if(self.selectedEnemy === "enemy2"){
+
+              var enemy2 = Enemy(id, "enemy2", x, y, 31, 31);
+              map.placeEntity(enemy2);
+
+          } else if(self.selectedEnemy === "enemy3"){
+
+              var enemy3 = Enemy(id, "enemy3", x, y, 31, 31);
+              map.placeEntity(enemy3);
+
+          } else {
+
+              console.log("enemy error");
+
+          }
+      }
+
+
+
+
+
+   //    var terrain = Terrain(id,x,y,rectWIDTH,rectHEIGHT);
+		
+			// map.placeEntity(terrain);
+		}
+		else{
+			console.log("Can not place object there");
+		}
+	}
+};
+
+
+
+drawGrid = function(){
+	ctx_gr.globalAlpha = 0.05;
+	ctx_gr.lineWidth = 2;
+	ctx_gr.strokeStyle = "#515151";
+
+	//Drawing vertical lines
+	for(x=TILE_WIDTH; x<=WIDTH; x+=TILE_WIDTH){
+		ctx_gr.moveTo(x,TILE_HEIGHT*2);
+		ctx_gr.lineTo(x,HEIGHT);
+		ctx_gr.stroke();
+	}
+
+	//Drawing horizontal lines
+	for(y=TILE_HEIGHT*2; y<=HEIGHT; y+=TILE_HEIGHT){
+		ctx_gr.moveTo(0,y);
+		ctx_gr.lineTo(WIDTH,y);
+		ctx_gr.stroke();
+	}
+};
+
+self.updateBackground = function(){
+
+  if(self.selectedBackground === "world1"){
+      ctx_bg.drawImage(worldOneBackgroundImage, 0, 0, WIDTH, HEIGHT);
+
+  } else if(self.selectedBackground === "world2"){
+     ctx_bg.drawImage(worldTwoBackgroundImage, 0, 0, WIDTH, HEIGHT);
+
+  } else if(self.selectedBackground === "world3"){
+     ctx_bg.drawImage(worldThreeBackgroundImage, 0, 0, WIDTH, HEIGHT);
+
+  } else {
+
+      ctx_bg.drawImage(backgroundImage, 0, 0, WIDTH, HEIGHT);
+
+  }
+
+};
+
+setInterval(updateBackground, 1000/20);
+
+
+
+update = function() {
+	//ctx_bg.drawImage(backgroundImage, 0, 0,WIDTH,HEIGHT);
+	// Rectangle.update();
+	Terrain.update();
+};
+
+// Calling update 20 times a second
+setInterval(update, 1000/20);
+
+init = function() {
+	var container = document.getElementById("container");
+	
+	drawGrid();
+	Map.entityList = {};
+	Terrain.list = {};
+};
+
+</script>
+<body onload = "init()">
+	<div id="container"></div>
+</body>
+</html>
