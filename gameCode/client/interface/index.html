@@ -17,15 +17,6 @@
 		<script>
 		// construct the gui with the container and the map
 		var gui;
-		//var Img = {};
-		//var backgroundImg= new Image();
-		//backgroundImg.src="img/worldTwoBackground.png";
-		//Img.player = new Image();
-		//Img.player.src = "img/scientistMain.png";
-		//Img.basicEnemy=new Image();
-		//Img.basicEnemy.src="img/bigGuy.png";
-		//Img.pistol=new Image();
-		//Img.pistol.src="img/weaponButton.png";
 		
 		p= new Pistol("w1", 150, 450-25, 0, 0, 5, 5,"pistol_image",null);
 
@@ -64,7 +55,7 @@
 		//Creates background and foreground Canvases
 		init();
 
-		gui.bgDraw(gui.bg_ctx);
+		gui.drawMap();
 		//gui.fgDraw(gui.fg_ctx,playerPercentHealth,playerMomentum,ammo);
 		startGame({'player':e,'enemies':{'enemy1':enemy}});
 		
