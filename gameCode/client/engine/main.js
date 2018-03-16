@@ -43,8 +43,6 @@ document.onmousemove = function(mouse){
 	
 	mouseX -= gui.fg.width/2;
 	mouseY -= player.y;
-	console.log(mouseX);
-	console.log(mouseY);
 	
 	player.aimAngle = Math.atan2(mouseY,mouseX) / Math.PI * -180;
 }
@@ -123,8 +121,10 @@ var update = function() {
 	player.attackCounter++;
 	player.transformCounter++;
 	player.immuneCounter++;
+
 	
 	//Draw bars
+	//draws background
 	gui.drawMap();
 	gui.fgDraw(gui.fg_ctx,player.health/player.maxHealth*100,100,20);
 
