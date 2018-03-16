@@ -91,6 +91,9 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	self.attackCounter = 0;
 	self.aimAngle = 0;
 	
+	self.isImmune = false;
+	self.immuneCounter = 0;
+	
 	self.jumpBuffer = 0;
 	self.justJumped = false;
 	
@@ -164,6 +167,12 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		
 	}
 	
+	self.takeDamage = function(amount) {
+		self.health -= amount;
+		self.isImmune = true;
+		self.immuneCounter = 0;
+	}
+	
 	return self;
 }
 
@@ -197,8 +206,6 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 	self.rightCounter = 0;
 	self.smallSpeed = 5;
 	self.isBig = isBig;	
-	self.isImmune = false;
-	self.immuneCounter = 0;
 	self.doubleJumped = false;
 	
 	self.acceleration = self.isBig ? bigAcceleration:smallAcceleration;
@@ -309,12 +316,6 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 		}	
 	}
 	
-	self.takeDamage = function(amount) {
-		self.health -= amount;
-		self.isImmune = true;
-		self.immuneCounter = 0;
-	}
-	
 	//self.draw = function() {
 		
 	//}
@@ -348,13 +349,19 @@ function Enemy(type, id, x, y, vx, vy, width, height, img, color, acceleration, 
 		self.aimAngle = Math.atan2(target.y-self.y,target.x-self.x) / Math.PI * -180;
 	}
 	
+	self.takeDamage = function(amount) {
+		self.health -= amount;
+		self.isImmune = true;
+		self.immuneCounter = 0;
+	}
+	
 	return self;
 }
 
 function BasicEnemy(id, x, y, vx, vy, img, color, target) {
 	
-	var basicWidth = 20;
-	var basicHeight = 20;
+	var basicWidth = 40;
+	var basicHeight = 40;
 	var basicAcceleration = 100*mpsTOppf/framesPerSecond;
 	var basicMaxVX = 5;
 	var basicMaxVY = 20;
