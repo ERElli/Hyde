@@ -23,6 +23,8 @@ GUI = function(container){
 	Img.bullet=new Image();
 	Img.bullet.src="img/bullet.png";
 
+	var backgroundPositionCounter=0;
+	
 	self.create= function(type, id, left, top, width, height){
 		var element= document.createElement(type);
 		element.id=id;
@@ -65,15 +67,24 @@ GUI = function(container){
 		//!!!!!!!!!!!e.x will need to be changed once level object is used!!!!!!!!!!!
 		//
 		//n is number of canvas distance the player has travelled
-		//n=1
+		n=backgroundPositionCounter;
 		x=self.bg.width-e.x;
 		y=0;
-		Img.background1.onload=function(){	
-		}	
-		gui.bg_ctx.drawImage(Img.background1,x,y,self.bg.width,self.bg.height);
-		/*gui.bg_ctx.drawImage(Img.background1,x+self.bg.width*n,y,self.bg.width,self.bg.height)
-		if(x>=self.bg.width){	
-		}*/
+		Img.background2.onload=function(){	
+		}
+
+
+		//continuously loops backgrounds	
+		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
+		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*n,y,self.bg.width,self.bg.height);
+		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height)	
+
+		if(x<self.bg.width-self.bg.width*n){
+			backgroundPositionCounter++;
+		}
+		else if(x>-self.bg.width*n){
+			backgroundPositionCounter--;
+		}
 	}
 	//draws Entities
 	self.drawEntity=function(entity){
@@ -101,11 +112,11 @@ GUI = function(container){
 				}
 			}
 			else if(entity.type=="flying enemy"){
-				gui.fg_ctx.drawImage(img,x-width/2,y-height/2);
+				gui.fg_ctx.drawImage(img,(entity.x-entity.width/2)-playX,y-height/2);
 		
 			}
 			else if(entity.type=="tank enemy"){
-				gui.fg_ctx.drawImage(img,x-width/2,y-height/2);
+				gui.fg_ctx.drawImage(img,(entity.x-entity.width/2)-playX,y-height/2);
 		
 			}
 			else if(entity.type=="ghost"){
