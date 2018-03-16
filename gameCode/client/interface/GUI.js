@@ -2,14 +2,22 @@ GUI = function(container){
 	var self={};
 	self.container=container;
 	var Img = {};
-	var backgroundImg= new Image();
-	backgroundImg.src="img/worldTwoBackground.png";
+	Img.background1= new Image();
+	Img.background1.src="img/worldOneBackground.png";
+	Img.background2= new Image();
+	Img.background2.src="img/worldTwoBackground.png";
+	Img.background3= new Image();
+	Img.background3.src="img/worldThreeBackground.png";	
 	Img.playerSmall = new Image();
 	Img.playerSmall.src = "img/scientistMain.png";
 	Img.playerBig = new Image();
 	Img.playerBig.src = "img/bigGuy.png";
-	Img.basicEnemy=new Image();
-	Img.basicEnemy.src="img/bigGuy.png";
+	Img.basicEnemy1=new Image();
+	Img.basicEnemy1.src="img/enemy1.png";
+	Img.basicEnemy2=new Image();
+	Img.basicEnemy2.src="img/enemy2.png";
+	Img.basicEnemy3=new Image();
+	Img.basicEnemy3.src="img/enemy3.png";
 	Img.pistol=new Image();
 	Img.pistol.src="img/weaponButton.png";
 	Img.bullet=new Image();
@@ -45,29 +53,49 @@ GUI = function(container){
 		self.bg_ctx = self.bg.getContext("2d");
 		self.fg_ctx = self.fg.getContext("2d");
 	}
-	self.bgDraw=function(bg_ctx){
+	/*self.bgDraw=function(bg_ctx){
 		backgroundImg.onload = function () {
     			bg_ctx.drawImage(backgroundImg,0,0,1250,750);
 		}
 			
-	};
+	};*/
+	self.drawMap=function(){
+		self.bg_ctx.clearRect(0,0,self.bg.width,self.bg.height);
+		//
+		//!!!!!!!!!!!e.x will need to be changed once level object is used!!!!!!!!!!!
+		//
+		//n is number of canvas distance the player has travelled
+		//n=1
+		x=self.bg.width-e.x;
+		y=0;
+		Img.background1.onload=function(){	
+		}	
+		gui.bg_ctx.drawImage(Img.background1,x,y,self.bg.width,self.bg.height);
+		/*gui.bg_ctx.drawImage(Img.background1,x+self.bg.width*n,y,self.bg.width,self.bg.height)
+		if(x>=self.bg.width){	
+		}*/
+	}
 	//draws Entities
 	self.drawEntity=function(entity){
 		gui.fg_ctx.save();
+		//
+		//!!!!!!!!!!!e.x will need to be changed once level object is used!!!!!!!!!!!
+		//
+		playX=e.x-self.fg.width/2;
 			//Drawing humanoids
 			if(entity.type=="player"){
 				//console.log(Img.player);
 				if(entity.isBig==true){
-					gui.fg_ctx.drawImage(Img.playerBig,entity.x-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);
+					gui.fg_ctx.drawImage(Img.playerBig,self.fg.width/2,entity.y-entity.height/2,entity.width,entity.height);
 					Img.playerBig.onload=function(){}	
 				}
 				else{
-					gui.fg_ctx.drawImage(Img.playerSmall,entity.x-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);
+					gui.fg_ctx.drawImage(Img.playerSmall,self.fg.width/2,entity.y-entity.height/2,entity.width,entity.height);
 					Img.playerSmall.onload=function(){}	
 				}		
 			}	
 			else if(entity.type=="basic enemy"){
-				gui.fg_ctx.drawImage(Img.basicEnemy,entity.x-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);				
+				gui.fg_ctx.drawImage(Img.basicEnemy1,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);				
 				entity.img.onload=function(){
 
 				}
@@ -100,7 +128,7 @@ GUI = function(container){
 			}
 			//Drawing Useables
 			else if(entity.type=="pistol"){
-				gui.fg_ctx.drawImage(Img.pistol,x-width/2,y-height/2);
+				gui.fg_ctx.drawImage(Img.pistol,(x-width/2)-playX,y-height/2);
 		
 			}
 			else if(entity.type=="shotgun"){
@@ -117,7 +145,7 @@ GUI = function(container){
 			}
 			//Draw projectiles
 			else if(entity.type=="bullet"){
-				gui.fg_ctx.drawImage(Img.bullet,entity.x+entity.width/2,entity.y-entity.height,entity.width,entity.height);
+				gui.fg_ctx.drawImage(Img.bullet,(entity.x-entity.width/2)-playX,entity.y-entity.height,entity.width,entity.height);
 				Img.bullet.onload=function(){}
 			}			
 			else{
