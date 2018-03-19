@@ -1,6 +1,6 @@
 var canvas = document.getElementById("fg")
 
-var framecount;
+var frameCount;
 
 var level;
 var player;
