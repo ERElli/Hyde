@@ -55,12 +55,7 @@ GUI = function(container){
 		self.bg_ctx = self.bg.getContext("2d");
 		self.fg_ctx = self.fg.getContext("2d");
 	}
-	/*self.bgDraw=function(bg_ctx){
-		backgroundImg.onload = function () {
-    			bg_ctx.drawImage(backgroundImg,0,0,1250,750);
-		}
-			
-	};*/
+
 	self.drawMap=function(){
 		self.bg_ctx.clearRect(0,0,self.bg.width,self.bg.height);
 		//
@@ -111,7 +106,7 @@ GUI = function(container){
 						}
 					}
 					//gui.fg_ctx.drawImage(Img.playerSmall,self.fg.width/2,entity.y-entity.height/2,entity.width,entity.height);
-					gui.fg_ctx.drawImage(Img.playerSmall,smallPlayerAnimation*frameWidth,0,frameWidth,frameHeight,self.fg.width/2-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);
+					gui.fg_ctx.drawImage(Img.playerSmall,smallPlayerAnimation*frameWidth,0,frameWidth,frameHeight,self.fg.width/2,entity.y-entity.height/2,entity.width,entity.height);
 					Img.playerSmall.onload=function(){}	
 				}		
 			}	
