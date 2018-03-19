@@ -1,3 +1,7 @@
+/*
+Coordinates are bottom-left corner of entities
+*/
+
 var canvas = document.getElementById("fg")
 var ctx = canvas.getContext('2d');
 
@@ -29,10 +33,12 @@ function Entity(type, id, x, y, vx, vy, width, height, img, color) {
 	
 	self.draw = function() {
 		gui.drawEntity(self);		
-		/*ctx.save();
+		/*
+		ctx.save();
 		ctx.fillStyle = self.color;
 		ctx.fillRect(self.x-self.width/2,self.y-self.height/2,self.width,self.height);
-		ctx.restore();*/
+		ctx.restore();
+		*/
 	}
 	self.getDistance = function(entity2) {	//return distance (number)
 		var dx = self.x - entity2.x;
@@ -42,16 +48,19 @@ function Entity(type, id, x, y, vx, vy, width, height, img, color) {
 
 	self.testCollision = function(entity2) {	//return if colliding (true/false)
 		var rect1 = {
-			x:self.x-self.width/2,
-			y:self.y-self.height/2,
+			x:self.x,
+			y:self.y,
 			width:self.width,
 			height:self.height,
 		}
 		var rect2 = {
-			x:entity2.x-entity2.width/2,
-			y:entity2.y-entity2.height/2,
+			x:entity2.x,
+			y:entity2.y,
 			width:entity2.width,
 			height:entity2.height,
+		}
+		if (testCollisionRectRect(rect1, rect2)) {
+			console.log("Hit")
 		}
 		return testCollisionRectRect(rect1,rect2);
 		
@@ -67,10 +76,18 @@ function Entity(type, id, x, y, vx, vy, width, height, img, color) {
 };
 
 var testCollisionRectRect = function(rect1,rect2){
+	
+	return (rect1.x - (rect2.x+rect2.width)) <= 0.1
+			&& (rect2.x - (rect1.x+rect1.width)) <= 0.1
+			&& (rect1.y - (rect2.y+rect2.height)) <= 0.1
+			&& (rect1.y - (rect2.y+rect2.height)) <= 0.1
+			&& (rect2.y - (rect1.y+rect1.height)) <= 0.1
+	/*
 	return rect1.x <= rect2.x+rect2.width 
 		&& rect2.x <= rect1.x+rect1.width
 		&& rect1.y <= rect2.y + rect2.height
 		&& rect2.y <= rect1.y + rect1.height;
+	*/
 };
 
 
@@ -335,7 +352,6 @@ function Enemy(type, id, x, y, vx, vy, width, height, img, color, acceleration, 
 	self.target = target;
 	self.maxForward = self.zeroPoint + self.patrolRange;
 	self.maxBackward = self.zeroPoint - self.patrolRange;
-	console.log(self.zeroPoint);
 	
 	self.melee = function(direction) {
 		
@@ -376,7 +392,6 @@ function BasicEnemy(id, x, y, vx, vy, img, color, target) {
 	var self = Enemy("basic enemy", id, x, y, vx, vy, basicWidth, basicHeight, img, color, basicAcceleration, basicMaxVX, basicMaxVY, basicMaxHP, basicWeapon, basicMass,
 					basicJumpSpeed, basicMeleeDamage, basicMeleeTimer, basicPatrolRange, target);
 	
-	console.log(self.zeroPoint + basicPatrolRange);
 	
 	var superUpdatePos = self.updatePosition;
 	self.updatePosition = function() {
