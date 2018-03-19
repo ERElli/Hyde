@@ -130,11 +130,11 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		}
 		else if (self.aimAngle >= 45 && self.aimAngle < 135) {
 			weaponOffsetX = 0;
-			weaponOffsetY = self.height;
+			weaponOffsetY = self.height/2;
 		}
 		else if (self.aimAngle < -45 && self.aimAngle > -135) {
 			weaponOffsetX = 0;
-			weaponOffsetY = -self.height;
+			weaponOffsetY = -self.height/2;
 		}
 		else {
 			weaponOffsetX = -self.width;
@@ -236,19 +236,19 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 		var weaponOffsetY = 0;
 		
 		if (self.aimAngle >= -45 && self.aimAngle < 45) {
-			weaponOffsetX = self.width;
+			weaponOffsetX = self.width/2;
 			weaponOffsetY = 0;
 		}
 		else if (self.aimAngle >= 45 && self.aimAngle < 135) {
 			weaponOffsetX = 0;
-			weaponOffsetY = self.height;
+			weaponOffsetY = self.height/2;
 		}
 		else if (self.aimAngle < -45 && self.aimAngle > -135) {
 			weaponOffsetX = 0;
-			weaponOffsetY = -self.height;
+			weaponOffsetY = -self.height/2;
 		}
 		else {
-			weaponOffsetX = -self.width;
+			weaponOffsetX = -self.width/2;
 			weaponOffsetY = 0;
 		}
 		
@@ -653,7 +653,8 @@ function AssaultRifle(id, x, y, vx, vy, width, height, img, color) {
 function Bullet(id, x, y, vx, vy, width, height, img, color) {
 	var self = Entity("bullet", id, x, y, vx, vy, width, height, img, color);
 	
-	
+	self.width = 10;
+	self.height = 10;
 	self.damage = 5;
 	
 	
