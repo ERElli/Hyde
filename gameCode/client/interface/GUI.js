@@ -70,14 +70,14 @@ GUI = function(container){
 		n=backgroundPositionCounter;
 		x=self.bg.width-e.x;
 		y=0;
-		Img.background2.onload=function(){	
+		Img.background1.onload=function(){	
 		}
 
 
 		//continuously loops backgrounds	
-		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
-		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*n,y,self.bg.width,self.bg.height);
-		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height)	
+		gui.bg_ctx.drawImage(Img.background1,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
+		gui.bg_ctx.drawImage(Img.background1,x+self.bg.width*n,y,self.bg.width,self.bg.height);
+		gui.bg_ctx.drawImage(Img.background1,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height)	
 
 		if(x<self.bg.width-self.bg.width*n){
 			backgroundPositionCounter++;
@@ -109,7 +109,6 @@ GUI = function(container){
 						if(smallPlayerAnimation==5){
 							smallPlayerAnimation=0;
 						}
-						console.log(smallPlayerAnimation);
 					}
 					//gui.fg_ctx.drawImage(Img.playerSmall,self.fg.width/2,entity.y-entity.height/2,entity.width,entity.height);
 					gui.fg_ctx.drawImage(Img.playerSmall,smallPlayerAnimation*frameWidth,0,frameWidth,frameHeight,self.fg.width/2-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);
