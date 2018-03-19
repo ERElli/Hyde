@@ -9,7 +9,7 @@ GUI = function(container){
 	Img.background3= new Image();
 	Img.background3.src="img/worldThreeBackground.png";	
 	Img.playerSmall = new Image();
-	Img.playerSmall.src = "img/scientistMain.png";
+	Img.playerSmall.src = "img/character1MovingTest.png";
 	Img.playerBig = new Image();
 	Img.playerBig.src = "img/bigGuy.png";
 	Img.basicEnemy1=new Image();
@@ -22,9 +22,9 @@ GUI = function(container){
 	Img.pistol.src="img/weaponButton.png";
 	Img.bullet=new Image();
 	Img.bullet.src="img/bullet.png";
+	var smallPlayerAnimation=0;
 
 	var backgroundPositionCounter=0;
-	
 	self.create= function(type, id, left, top, width, height){
 		var element= document.createElement(type);
 		element.id=id;
@@ -82,7 +82,7 @@ GUI = function(container){
 		if(x<self.bg.width-self.bg.width*n){
 			backgroundPositionCounter++;
 		}
-		else if(x>-self.bg.width*n){
+		else if(x>(-self.bg.width)*n){
 			backgroundPositionCounter--;
 		}
 	}
@@ -101,7 +101,18 @@ GUI = function(container){
 					Img.playerBig.onload=function(){}	
 				}
 				else{
-					gui.fg_ctx.drawImage(Img.playerSmall,self.fg.width/2,entity.y-entity.height/2,entity.width,entity.height);
+					var frameWidth=Img.playerSmall.width/5;
+					var frameHeight=Img.playerSmall.height;
+					
+					if(frameCount%5==0){
+						smallPlayerAnimation++;
+						if(smallPlayerAnimation==5){
+							smallPlayerAnimation=0;
+						}
+						console.log(smallPlayerAnimation);
+					}
+					//gui.fg_ctx.drawImage(Img.playerSmall,self.fg.width/2,entity.y-entity.height/2,entity.width,entity.height);
+					gui.fg_ctx.drawImage(Img.playerSmall,smallPlayerAnimation*frameWidth,0,frameWidth,frameHeight,self.fg.width/2-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);
 					Img.playerSmall.onload=function(){}	
 				}		
 			}	
