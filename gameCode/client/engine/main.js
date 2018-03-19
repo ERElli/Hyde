@@ -220,10 +220,10 @@ var update = function() {
 		enemy.updateAim(player);
 		putOnTerrain(enemy);
 		enemy.attackCounter++;
-		newBullet = enemy.shoot();
-		if (newBullet) {
-			bullets[newBullet.id] = newBullet;
-		}
+		//newBullet = enemy.shoot();
+		//if (newBullet) {
+		//	bullets[newBullet.id] = newBullet;
+		//}
 				
 		var isColliding = enemy.testCollision(player);
 		if (isColliding) {
