@@ -100,12 +100,13 @@ GUI = function(container){
 					var frameHeight=Img.playerSmall.height/2;
 					playerDirection=self.getImageDirection(entity);
 					//updates player animation every 5th frame
-					if(frameCount%5==0){
+					smallPlayerAnimation=self.updateEntityMovement(entity,smallPlayerAnimation,5);				
+					/*if(frameCount%5==0){
 						smallPlayerAnimation++;
 						if(smallPlayerAnimation==5){
 							smallPlayerAnimation=0;
 						}
-					}
+					}*/
 					//Draws player object.
 					gui.fg_ctx.drawImage(Img.playerSmall,smallPlayerAnimation*frameWidth,playerDirection*frameHeight,frameWidth,frameHeight,self.fg.width/2-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);
 
@@ -179,6 +180,20 @@ GUI = function(container){
 			return 1;
 		}
 	}
+
+	self.updateEntityMovement=function(entity,animationCounter,numAnimations){
+		if(entity.vx==0){
+			return 0;
+		}
+		if(frameCount%5==0){
+			animationCounter++;
+				if(animationCounter==numAnimations){
+					animationCounter=0;
+				}
+		}
+		return animationCounter;
+	}
+
 	self.fgDraw=function(fg_ctx,playerHealth,playerMomentum,ammo){
 		var healthX=0;
 		var healthY=30;
