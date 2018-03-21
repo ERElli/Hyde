@@ -9,7 +9,7 @@ GUI = function(container){
 	Img.background3= new Image();
 	Img.background3.src="img/worldThreeBackground.png";	
 	Img.playerSmall = new Image();
-	Img.playerSmall.src = "img/character1MovingTest.png";
+	Img.playerSmall.src = "img/movingCharacter.png";
 	Img.playerBig = new Image();
 	Img.playerBig.src = "img/bigGuy.png";
 	Img.basicEnemy1=new Image();
@@ -57,7 +57,7 @@ GUI = function(container){
 	}
 
 	self.drawMap=function(){
-		self.bg_ctx.clearRect(0,0,self.bg.width,self.bg.height);
+		gui.bg_ctx.clearRect(0,0,self.bg.width,self.bg.height);
 		//
 		//!!!!!!!!!!!e.x will need to be changed once level object is used!!!!!!!!!!!
 		//
@@ -72,7 +72,7 @@ GUI = function(container){
 		//continuously loops backgrounds	
 		gui.bg_ctx.drawImage(Img.background1,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background1,x+self.bg.width*n,y,self.bg.width,self.bg.height);
-		gui.bg_ctx.drawImage(Img.background1,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height)	
+		gui.bg_ctx.drawImage(Img.background1,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
 
 		if(x<self.bg.width-self.bg.width*n){
 			backgroundPositionCounter++;
@@ -97,16 +97,17 @@ GUI = function(container){
 				}
 				else{
 					var frameWidth=Img.playerSmall.width/5;
-					var frameHeight=Img.playerSmall.height;
-					
+					var frameHeight=Img.playerSmall.height/2;
+					playerDirection=self.getImageDirection(entity);
 					if(frameCount%5==0){
 						smallPlayerAnimation++;
 						if(smallPlayerAnimation==5){
 							smallPlayerAnimation=0;
 						}
 					}
-					//gui.fg_ctx.drawImage(Img.playerSmall,self.fg.width/2,entity.y-entity.height/2,entity.width,entity.height);
-					gui.fg_ctx.drawImage(Img.playerSmall,smallPlayerAnimation*frameWidth,0,frameWidth,frameHeight,self.fg.width/2,entity.y-entity.height/2,entity.width,entity.height);
+					
+					gui.fg_ctx.drawImage(Img.playerSmall,smallPlayerAnimation*frameWidth,playerDirection*frameHeight,frameWidth,frameHeight,self.fg.width/2,entity.y-entity.height/2,entity.width,entity.height);
+
 					Img.playerSmall.onload=function(){}	
 				}		
 			}	
@@ -169,7 +170,14 @@ GUI = function(container){
 			}
 			gui.fg_ctx.restore();		
 	};
-	
+	self.getImageDirection=function(entity){
+		if(entity.aimAngle<=90 && entity.aimAngle>-90){
+			return 0;
+		} 
+		else{
+			return 1;
+		}
+	}
 	self.fgDraw=function(fg_ctx,playerHealth,playerMomentum,ammo){
 		var healthX=0;
 		var healthY=30;
