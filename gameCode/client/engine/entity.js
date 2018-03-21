@@ -77,11 +77,10 @@ function Entity(type, id, x, y, vx, vy, width, height, img, color) {
 
 var testCollisionRectRect = function(rect1,rect2){
 	
-	return (rect1.x - (rect2.x+rect2.width)) <= 0.1
-			&& (rect2.x - (rect1.x+rect1.width)) <= 0.1
-			&& (rect1.y - (rect2.y+rect2.height)) <= 0.1
-			&& (rect1.y - (rect2.y+rect2.height)) <= 0.1
-			&& (rect2.y - (rect1.y+rect1.height)) <= 0.1
+	return (rect1.x - (rect2.x+rect2.width)) <= -0.1
+			&& (rect2.x - (rect1.x+rect1.width)) <= -0.1
+			&& (rect1.y - (rect2.y+rect2.height)) <= -0.1
+			&& (rect2.y - (rect1.y+rect1.height)) <= -0.1
 	/*
 	return rect1.x <= rect2.x+rect2.width 
 		&& rect2.x <= rect1.x+rect1.width
