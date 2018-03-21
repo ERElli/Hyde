@@ -183,7 +183,7 @@ var update = function() {
 		for (var key2 in enemies) {
 			
 			var isColliding = bullet.testCollision(enemies[key2]);
-			if (isColliding) {
+			if (isColliding && bullet.ownerID != enemies[key2].id) {
 				toRemove = true;
 				
 				//Enemy takes damage, maybe apply effect (like knockback)
@@ -195,10 +195,12 @@ var update = function() {
 			}	
 		}
 		
-		var isColliding = bullet.testCollision(player);
-		if (isColliding) {
-			toRemove = true;
-			player.takeDamage(bullet.damage);
+		if (bullet.ownerID != player.id) {
+			var isColliding = bullet.testCollision(player);
+			if (isColliding) {
+				toRemove = true;
+				player.takeDamage(bullet.damage);
+			}
 		}
 		
 		if(toRemove){
@@ -220,10 +222,10 @@ var update = function() {
 		enemy.updateAim(player);
 		putOnTerrain(enemy);
 		enemy.attackCounter++;
-		newBullet = enemy.shoot();
-		if (newBullet) {
-			bullets[newBullet.id] = newBullet;
-		}
+		//newBullet = enemy.shoot();
+		//if (newBullet) {
+		//	bullets[newBullet.id] = newBullet;
+		//}
 				
 		var isColliding = enemy.testCollision(player);
 		if (isColliding) {

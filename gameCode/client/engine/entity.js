@@ -138,12 +138,14 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		self.x += self.vx;
 		self.y -= self.vy;
 		
-		self.offsetWeapon();
+		self.weapon.x = self.x
+		self.weapon.y = self.y
+		//self.offsetWeapon();
 		
 	
 	}
 	
-	
+	/*
 	self.offsetWeapon = function() {
 		var weaponOffsetX = 0;
 		var weaponOffsetY = 0;
@@ -167,13 +169,13 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		
 		//Aiming up
 		else if (self.aimAngle >= 60 && self.aimAngle < 120) {
-			weaponOffsetX = 0;
+			weaponOffsetX = offXPlus/2;
 			weaponOffsetY = offYPlus;
 		}
 		
 		//Aiming diagonal (up-left)
 		else if (self.aimAngle >= 120 && self.aimAngle < 150) {
-			weaponOffsetX = offXNeg;
+			weaponOffsetX = 0;
 			weaponOffsetY = offYPlus;
 		}
 		
@@ -187,13 +189,13 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		
 		//Aiming diagonal (down-left)
 		else if (self.aimAngle >= -150 && self.aimAngle < -120) {
-			weaponOffsetX = offXNeg;
+			weaponOffsetX = 0;
 			weaponOffsetY = offYNeg;
 		}
 		
 		//Aiming down
 		else if (self.aimAngle >= -120 && self.aimAngle < -60) {
-			weaponOffsetX = 0;
+			weaponOffsetX = offXPlus/2;
 			weaponOffsetY = offYNeg;
 		}
 		
@@ -206,6 +208,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		self.weapon.x = self.x + weaponOffsetX;
 		self.weapon.y = self.y - weaponOffsetY;
 	}
+	*/
 	
 	self.jump = function() {
 		self.vy = self.jumpSpeed;
@@ -294,7 +297,10 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 		self.x += self.vx;
 		self.y -= self.vy;
 		
-		self.offsetWeapon();
+		self.weapon.x = self.x;
+		self.weapon.y = self.y;
+		
+		//self.offsetWeapon();
 	
 	}
 	
@@ -406,7 +412,7 @@ function BasicEnemy(id, x, y, vx, vy, img, color, target) {
 	var basicMaxVX = 5;
 	var basicMaxVY = 20;
 	var basicMaxHP = 20;
-	var basicWeapon = new Pistol("w1", x, y, 0, 0, 5, 5,'img','black');
+	var basicWeapon = new Pistol("w1", x, y, 0, 0, 5, 5,'img','black', id);
 	var basicMass = 50;
 	var basicJumpSpeed = 3*mpsTOppf;
 	var basicMeleeDamage = 5;
@@ -605,7 +611,7 @@ function Weapon(type, id, x, y, vx, vy, width, height, img, color, firingRate, b
 	return self;
 }
 
-function Pistol(id, x, y, vx, vy, width, height, img, color) {
+function Pistol(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	
 	var pistolRate = 2;
 	var pistolSpeed = 7;
@@ -618,7 +624,7 @@ function Pistol(id, x, y, vx, vy, width, height, img, color) {
 		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
 		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
 
-		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "gold");
+		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "gold", ownerID);
 
 	}
 	
@@ -689,12 +695,14 @@ function AssaultRifle(id, x, y, vx, vy, width, height, img, color) {
 
 
 //PROJECTILE ------------------------------------------------------------------------------------------------------------------
-function Bullet(id, x, y, vx, vy, width, height, img, color) {
+function Bullet(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	var self = Entity("bullet", id, x, y, vx, vy, width, height, img, color);
 	
 	self.width = 10;
 	self.height = 10;
 	self.damage = 5;
+	
+	self.ownerID = ownerID;
 	
 	
 	//self.draw = function() {
