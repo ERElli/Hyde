@@ -99,14 +99,15 @@ GUI = function(container){
 					var frameWidth=Img.playerSmall.width/5;
 					var frameHeight=Img.playerSmall.height/2;
 					playerDirection=self.getImageDirection(entity);
+					//updates player animation every 5th frame
 					if(frameCount%5==0){
 						smallPlayerAnimation++;
 						if(smallPlayerAnimation==5){
 							smallPlayerAnimation=0;
 						}
 					}
-					
-					gui.fg_ctx.drawImage(Img.playerSmall,smallPlayerAnimation*frameWidth,playerDirection*frameHeight,frameWidth,frameHeight,self.fg.width/2,entity.y-entity.height/2,entity.width,entity.height);
+					//Draws player object.
+					gui.fg_ctx.drawImage(Img.playerSmall,smallPlayerAnimation*frameWidth,playerDirection*frameHeight,frameWidth,frameHeight,self.fg.width/2-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);
 
 					Img.playerSmall.onload=function(){}	
 				}		
