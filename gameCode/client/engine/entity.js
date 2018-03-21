@@ -36,7 +36,7 @@ function Entity(type, id, x, y, vx, vy, width, height, img, color) {
 		/*
 		ctx.save();
 		ctx.fillStyle = self.color;
-		ctx.fillRect(self.x-self.width/2,self.y-self.height/2,self.width,self.height);
+		ctx.fillRect(self.x,self.y-self.height,self.width,self.height);
 		ctx.restore();
 		*/
 	}
@@ -138,31 +138,74 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		self.x += self.vx;
 		self.y -= self.vy;
 		
+		self.offsetWeapon();
+		
+	
+	}
+	
+	
+	self.offsetWeapon = function() {
 		var weaponOffsetX = 0;
 		var weaponOffsetY = 0;
 		
-		if (self.aimAngle >= -45 && self.aimAngle < 45) {
-			weaponOffsetX = self.width*2;
+		var offXPlus = self.width*3/4;
+		var offYPlus = self.height/2
+		var offXNeg = -self.width/4;
+		var offYNeg = -self.height*3/4;
+		
+		//Aiming right
+		if (self.aimAngle >= -30 && self.aimAngle < 30) {
+			weaponOffsetX = offXPlus;
 			weaponOffsetY = 0;
 		}
-		else if (self.aimAngle >= 45 && self.aimAngle < 135) {
-			weaponOffsetX = 0;
-			weaponOffsetY = self.height*2;
+		
+		//Aiming diagonal (up-right)
+		else if (self.aimAngle >= 30 && self.aimAngle < 60) {
+			weaponOffsetX = offXPlus;
+			weaponOffsetY = offYPlus;
 		}
-		else if (self.aimAngle < -45 && self.aimAngle > -135) {
+		
+		//Aiming up
+		else if (self.aimAngle >= 60 && self.aimAngle < 120) {
 			weaponOffsetX = 0;
-			weaponOffsetY = -self.height/2;
+			weaponOffsetY = offYPlus;
 		}
+		
+		//Aiming diagonal (up-left)
+		else if (self.aimAngle >= 120 && self.aimAngle < 150) {
+			weaponOffsetX = offXNeg;
+			weaponOffsetY = offYPlus;
+		}
+		
+		//Start using negatives, different conceptually
+		
+		//Aiming left
+		else if (self.aimAngle >= 150 || self.aimAngle < -150) {
+			weaponOffsetX = offXNeg;
+			weaponOffsetY = 0;
+		}
+		
+		//Aiming diagonal (down-left)
+		else if (self.aimAngle >= -150 && self.aimAngle < -120) {
+			weaponOffsetX = offXNeg;
+			weaponOffsetY = offYNeg;
+		}
+		
+		//Aiming down
+		else if (self.aimAngle >= -120 && self.aimAngle < -60) {
+			weaponOffsetX = 0;
+			weaponOffsetY = offYNeg;
+		}
+		
+		//Aiming diagonal (down-right)
 		else {
-			weaponOffsetX = -self.width/2;
-			weaponOffsetY = 0;
+			weaponOffsetX = offXPlus;
+			weaponOffsetY = offYNeg;
 		}
 		
 		self.weapon.x = self.x + weaponOffsetX;
 		self.weapon.y = self.y - weaponOffsetY;
-		
-	
-	}	
+	}
 	
 	self.jump = function() {
 		self.vy = self.jumpSpeed;
@@ -189,6 +232,8 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		self.isImmune = true;
 		self.immuneCounter = 0;
 	}
+	
+	
 	
 	return self;
 }
@@ -249,29 +294,7 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 		self.x += self.vx;
 		self.y -= self.vy;
 		
-		var weaponOffsetX = 0;
-		var weaponOffsetY = 0;
-		
-		if (self.aimAngle >= -45 && self.aimAngle < 45) {
-			weaponOffsetX = self.width*3/4;
-			weaponOffsetY = 0;
-		}
-		else if (self.aimAngle >= 45 && self.aimAngle < 135) {
-			weaponOffsetX = 0;
-			weaponOffsetY = self.height/2;
-		}
-		else if (self.aimAngle < -45 && self.aimAngle > -135) {
-			weaponOffsetX = 0;
-			weaponOffsetY = -self.height/2;
-		}
-		else {
-			weaponOffsetX = -self.width/2;
-			weaponOffsetY = 0;
-		}
-		
-		self.weapon.x = self.x + weaponOffsetX;
-		self.weapon.y = self.y - weaponOffsetY;
-		
+		self.offsetWeapon();
 	
 	}
 	
@@ -336,6 +359,7 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 	//self.draw = function() {
 		
 	//}
+
 	
 	return self;
 }
