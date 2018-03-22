@@ -72,15 +72,6 @@ function Entity(type, id, x, y, vx, vy, width, height, img, color) {
 	return self;
 };
 
-/*
-var testCollisionRectRect = function(rect1,rect2){
-	return (rect1.x - (rect2.x+rect2.width)) <= -0.1
-			&& (rect2.x - (rect1.x+rect1.width)) <= -0.1
-			&& (rect1.y - (rect2.y+rect2.height)) <= -0.1
-			&& (rect2.y - (rect1.y+rect1.height)) <= -0.1	
-};
-*/
-
 var testCollisionRectRect = function(rect1,rect2){
 	return rect1.x <= rect2.x+rect2.width 
 		&& rect2.x <= rect1.x+rect1.width
@@ -137,76 +128,9 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		self.y -= self.vy;
 		
 		self.weapon.x = self.x
-		self.weapon.y = self.y
-		//self.offsetWeapon();
-		
+		self.weapon.y = self.y		
 	
 	}
-	
-	/*
-	self.offsetWeapon = function() {
-		var weaponOffsetX = 0;
-		var weaponOffsetY = 0;
-		
-		var offXPlus = self.width*3/4;
-		var offYPlus = self.height/2
-		var offXNeg = -self.width/4;
-		var offYNeg = -self.height*3/4;
-		
-		//Aiming right
-		if (self.aimAngle >= -30 && self.aimAngle < 30) {
-			weaponOffsetX = offXPlus;
-			weaponOffsetY = 0;
-		}
-		
-		//Aiming diagonal (up-right)
-		else if (self.aimAngle >= 30 && self.aimAngle < 60) {
-			weaponOffsetX = offXPlus;
-			weaponOffsetY = offYPlus;
-		}
-		
-		//Aiming up
-		else if (self.aimAngle >= 60 && self.aimAngle < 120) {
-			weaponOffsetX = offXPlus/2;
-			weaponOffsetY = offYPlus;
-		}
-		
-		//Aiming diagonal (up-left)
-		else if (self.aimAngle >= 120 && self.aimAngle < 150) {
-			weaponOffsetX = 0;
-			weaponOffsetY = offYPlus;
-		}
-		
-		//Start using negatives, different conceptually
-		
-		//Aiming left
-		else if (self.aimAngle >= 150 || self.aimAngle < -150) {
-			weaponOffsetX = offXNeg;
-			weaponOffsetY = 0;
-		}
-		
-		//Aiming diagonal (down-left)
-		else if (self.aimAngle >= -150 && self.aimAngle < -120) {
-			weaponOffsetX = 0;
-			weaponOffsetY = offYNeg;
-		}
-		
-		//Aiming down
-		else if (self.aimAngle >= -120 && self.aimAngle < -60) {
-			weaponOffsetX = offXPlus/2;
-			weaponOffsetY = offYNeg;
-		}
-		
-		//Aiming diagonal (down-right)
-		else {
-			weaponOffsetX = offXPlus;
-			weaponOffsetY = offYNeg;
-		}
-		
-		self.weapon.x = self.x + weaponOffsetX;
-		self.weapon.y = self.y - weaponOffsetY;
-	}
-	*/
 	
 	self.jump = function() {
 		self.vy = self.jumpSpeed;
@@ -252,14 +176,16 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 	var smallMaxVX = 5*mpsTOppf;
 	var smallMaxVY = 15*mpsTOppf;
 	var smallJumpSpeed = 3*mpsTOppf;
+	var smallSlowDown = 2;
 	
 	var bigMass = 500;
 	var bigWidth = 100;
 	var bigHeight = 100;
-	var bigAcceleration = 5*mpsTOppf/framesPerSecond;
-	var bigMaxVX = 3*mpsTOppf;
+	var bigAcceleration = 2*mpsTOppf/framesPerSecond;
+	var bigMaxVX = 12*mpsTOppf;
 	var bigMaxVY = 20*mpsTOppf;
 	var bigJumpSpeed = 2*mpsTOppf;
+	var bigSlowDown = 4;
 	
 	var self = Humanoid(type, id, x, y, vx, vy, smallWidth, smallHeight, img, color, 0, 0, 0, maxHealth, weapon, smallMass, 4*mpsTOppf, meleeDamage, meleeTimer);
 	
@@ -274,11 +200,12 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 	self.acceleration = self.isBig ? bigAcceleration:smallAcceleration;
 	self.maxVelocityX = self.isBig ? bigMaxVX:smallMaxVX;
 	self.maxVelocityY = self.isBig ? bigMaxVY:smallMaxVY;
+	self.slowDownFactor = self.isBig ? bigSlowDown:smallSlowDown;
 	
 	self.updatePosition = function() {
 		
 		if (Math.sign(self.vx) != Math.sign(self.ax)) {
-			self.ax = 2*self.ax;
+			self.ax = self.slowDownFactor*self.ax;
 		}
 		
 		self.vx += self.ax;	
@@ -300,6 +227,13 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 		
 		//self.offsetWeapon();
 	
+	}
+	
+	self.updateAim = function(mouseX, mouseY) {
+		mouseX -= gui.fg.width/2;
+		mouseY -= self.y;
+	
+		self.aimAngle = Math.atan2(mouseY,mouseX) / Math.PI * -180;
 	}
 	
 	self.setAirMotion = function() {
@@ -342,6 +276,7 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 				self.maxVelocityX = smallMaxVX;
 				self.maxVelocityY = smallMaxVY;
 				self.jumpSpeed = smallJumpSpeed;
+				self.slowDownFactor = smallSlowDown;
 			}
 			else {
 				self.isBig = true;
@@ -352,6 +287,7 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 				self.maxVelocityX = bigMaxVX;
 				self.maxVelocityY = bigMaxVY;
 				self.jumpSpeed = bigJumpSpeed;
+				self.slowDownFactor = bigSlowDown;
 			}
 			
 			self.y -= (self.height - oldHeight)/2;
