@@ -24,10 +24,10 @@
 		//id, x, y, vx, vy, width, height, img, color, ownerID
 		p= new Pistol("w1", 150, 450-25, 0, 0, 5, 5,"pistol_image",null, 'player');
 
-		//type, id, x, y, vx, vy, width, height, img, color, weapon, meleeDamage, meleeTimer, maxHealth, isBig
-		e = new Player("player", "player", 150, 450-25, 0, 0, 25, 25, "Img.player", null, p, 'md', 'mt', 'mh', false);
+		//id, x, y, vx, vy, img, weapon, isBig
+		e = new Player("player", 150, 450-25, 0, 0, "Img.player", p, false);
 		
-		//id, x, y, vx, vy, img, color
+		//id, x, y, vx, vy, img, color, target
 
 		enemy = new BasicEnemy("enemy1", 1000, 450, 0, 0, "Img.basicEnemy", null, e);
 		enemy2 = new BasicEnemy("enemy2", 2200, 450, 0, 0, "Img.basicEnemy", null, e)

@@ -1,7 +1,8 @@
 //PLAYER
-function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, meleeDamage, meleeTimer, maxHealth, isBig) {
+function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	
 	var maxHealth = 100;
+	var meleeDamage = 5;
 	
 	var smallMass = 80;
 	var smallWidth = 50;
@@ -21,7 +22,8 @@ function Player(type, id, x, y, vx, vy, width, height, img, color, weapon, melee
 	var bigJumpSpeed = 3*mpsTOppf;
 	var bigSlowDown = 4;
 	
-	var self = Humanoid(type, id, x, y, vx, vy, smallWidth, smallHeight, img, color, 0, 0, 0, maxHealth, weapon, smallMass, 3*mpsTOppf, meleeDamage, meleeTimer);
+	var self = Humanoid('player', id, x, y, vx, vy, smallWidth, smallHeight, img, 'red', smallAcceleration, smallMaxVX, smallMaxVY,
+						maxHealth, weapon, smallMass, smallJumpSpeed, meleeDamage);
 	
 	self.maxHealth = maxHealth;
 	self.transformCounter = 0;

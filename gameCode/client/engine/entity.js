@@ -81,7 +81,8 @@ var testCollisionRectRect = function(rect1,rect2){
 
 
 //HUMANOID ------------------------------------------------------------------------------------------------------------------------------------------
-function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, health, weapon, mass, jumpSpeed, meleeDamage, meleeTimer) {	
+function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, health, weapon, mass, jumpSpeed, meleeDamage) {
+	
 	var self = Entity(type, id, x, y, vx, vy, width, height, img, color);
 	
 	self.acceleration = acceleration;
@@ -92,7 +93,6 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	self.mass = mass;
 	self.jumpSpeed = jumpSpeed;
 	self.meleeDamage = meleeDamage;
-	self.meleeTimer = meleeTimer;
 		
 	self.attackCounter = 0;
 	self.aimAngle = 0;
