@@ -9,6 +9,8 @@ var bullets = {};
 var blocks;
 var sufaceMods;
 
+var hasReleasedJump = false;
+
 var charCodes = {65:"left", 87:"jump", 68:"right", 83:"crouch", 32:"transform", 27:"pause", };
 
 var pressing = { "left": 0, "right":0, "jump":0, "crouch":0, "transform":0, "shoot":0, };
@@ -19,10 +21,18 @@ document.onkeydown = function(event) {
 }
 
 document.onkeyup = function(event) {
+	if (charCodes[event.keyCode] == "jump") {
+		hasReleasedJump = true;
+	}
 	pressing[charCodes[event.keyCode]] = 0;
 }
 
 document.onmousedown = function(mouse) {
+	var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
+	var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
+	
+	player.updateAim(mouseX, mouseY);
+	
 	pressing["shoot"] = 1;
 }
 
@@ -41,10 +51,7 @@ document.onmousemove = function(mouse){
 	var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
 	var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
 	
-	mouseX -= gui.fg.width/2;
-	mouseY -= player.y;
-	
-	player.aimAngle = Math.atan2(mouseY,mouseX) / Math.PI * -180;
+	player.updateAim(mouseX, mouseY);
 }
 
 /*
@@ -68,6 +75,11 @@ var doPressedActions = function() {
 	if (pressing['jump']) {
 		if (!player.inAir) {
 			player.jump();
+			hasReleasedJump = false;
+		}
+		else if (player.jumpBuffer > 10 && !player.doubleJumped && hasReleasedJump) {
+			player.jump();
+			player.doubleJumped = true;
 		}
 	}
 	
@@ -151,6 +163,7 @@ var update = function() {
 	//If they didn't just jump, and they are near terrain, put them on that terrain
 	else if (nearTerrain(player.x, player.y+player.height/2)) {
 		player.inAir = false;
+		player.doubleJumped = false;
 		putOnTerrain(player);
 	}
 	
