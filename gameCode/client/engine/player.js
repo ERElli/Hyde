@@ -11,7 +11,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	var smallMaxVX = 5*mpsTOppf;
 	var smallMaxVY = 15*mpsTOppf;
 	var smallJumpSpeed = 5*mpsTOppf;
-	var smallSlowDown = 2;
+	var smallSlowDown = 3;
 	
 	var bigMass = 500;
 	var bigWidth = 100;
@@ -24,7 +24,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	
 	//type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, health, weapon, mass, jumpSpeed, meleeDamage
 	var self = Humanoid('player', id, x, y, vx, vy, smallWidth, smallHeight, img, 'red', smallAcceleration, smallMaxVX, smallMaxVY,
-						maxHealth, weapon, smallMass, smallJumpSpeed, meleeDamage);
+						maxHealth, weapon, smallMass, smallJumpSpeed, meleeDamage, smallSlowDown);
 						
 	console.log(self.width);
 	
@@ -45,11 +45,12 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	var oldUpdate = self.updatePosition;
 	self.updatePosition = function() {
 		
-		oldUpdate();
-		
 		if (Math.sign(self.vx) != Math.sign(self.ax)) {
 			self.ax = self.slowDownFactor*self.ax;
 		}	
+		
+		oldUpdate();
+		
 	}
 	
 	self.updateAim = function(mouseX, mouseY) {

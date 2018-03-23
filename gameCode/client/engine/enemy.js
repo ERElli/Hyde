@@ -1,5 +1,7 @@
 //ENEMY
-function Enemy(type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, maxHealth, weapon, mass, jumpSpeed, meleeDamage, patrolRange, target) {
+function Enemy(type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, maxHealth, weapon, mass, jumpSpeed, meleeDamage, patrolRange, slowDown, target) {
+	
+	console.log("in enemy: " + target.x);
 	
 	var self = Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, maxHealth, weapon, mass, jumpSpeed, meleeDamage);
 
@@ -8,6 +10,32 @@ function Enemy(type, id, x, y, vx, vy, width, height, img, color, acceleration, 
 	self.target = target;
 	self.maxForward = self.zeroPoint + self.patrolRange;
 	self.maxBackward = self.zeroPoint - self.patrolRange;
+	
+	
+	var superUpdatePos = self.updatePosition;
+	self.updatePosition = function() {
+		
+		//console.log(target.x);
+		
+		if (self.x < target.x) {
+			self.ax = self.acceleration;
+			console.log("Player on right");
+		}
+		else {
+			self.ax = -self.acceleration;
+		}
+		
+		if (self.x >= self.maxForward) {
+			self.x = self.maxForward
+		}
+		else if (self.x <= self.maxBackward) {
+			self.x = self.maxBackward;
+		}
+		
+		superUpdatePos();
+
+		
+	}
 	
 	self.melee = function(direction) {
 		
@@ -35,40 +63,22 @@ function BasicEnemy(id, x, y, vx, vy, img, color, target) {
 	var basicWidth = 40;
 	var basicHeight = 40;
 	var basicAcceleration = 100*mpsTOppf/framesPerSecond;
-	var basicMaxVX = 5*mpsTOppf;
+	var basicMaxVX = 3*mpsTOppf;
 	var basicMaxVY = 20*mpsTOppf;
 	var basicMaxHP = 20;
 	var basicWeapon = new Pistol("w1", x, y, 0, 0, 5, 5,'img','black', id);
 	var basicMass = 50;
 	var basicJumpSpeed = 3*mpsTOppf;
 	var basicMeleeDamage = 5;
-	var basicMeleeTimer = 10;
-	var basicPatrolRange = 100;
+	var basicPatrolRange = 200;
+	var basicSlowDown = 3;
 	
+	console.log("in basic: " + target.x);
+	
+	//type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, maxHealth, weapon, mass, jumpSpeed, meleeDamage, patrolRange, slowDown, target
 	var self = Enemy("basic enemy", id, x, y, vx, vy, basicWidth, basicHeight, img, color, basicAcceleration, basicMaxVX, basicMaxVY, basicMaxHP, basicWeapon, basicMass,
-					basicJumpSpeed, basicMeleeDamage, basicMeleeTimer, basicPatrolRange, target);
+					basicJumpSpeed, basicMeleeDamage, basicPatrolRange, basicSlowDown, target);
 	
-	
-	var superUpdatePos = self.updatePosition;
-	self.updatePosition = function() {
-		
-		superUpdatePos();
-		
-		if (self.x < target.x) {
-			self.ax = self.acceleration;
-		}
-		else {
-			self.ax = -self.acceleration;
-		}
-		
-		if (self.x >= self.maxForward) {
-			self.x = self.maxForward
-		}
-		else if (self.x <= self.maxBackward) {
-			self.x = self.maxBackward;
-		}
-		
-	}
 	
 	//self.draw = function() {
 		
@@ -90,32 +100,10 @@ function FlyingEnemy(id, x, y, vx, vy, img, color, target) {
 	var basicJumpSpeed = 3*mpsTOppf;
 	var basicMeleeDamage = 5;
 	var basicMeleeTimer = 10;
-	var basicPatrolRange = 100;
+	var basicPatrolRange = 1000;
 	
 	var self = Enemy("flying enemy", id, x, y, vx, vy, basicWidth, basicHeight, img, color, basicAcceleration, basicMaxVX, basicMaxVY, basicMaxHP, basicWeapon, basicMass,
-					basicJumpSpeed, basicMeleeDamage, basicMeleeTimer, basicPatrolRange, target);
-	
-	
-	var superUpdatePos = self.updatePosition;
-	self.updatePosition = function() {
-		
-		superUpdatePos();
-		
-		if (self.x < target.x) {
-			self.ax = self.acceleration;
-		}
-		else {
-			self.ax = -self.acceleration;
-		}
-		
-		if (self.x >= self.maxForward) {
-			self.x = self.maxForward
-		}
-		else if (self.x <= self.maxBackward) {
-			self.x = self.maxBackward;
-		}
-		
-	}
+					basicJumpSpeed, basicMeleeDamage, basicPatrolRange, target);
 	
 	/*
 	self.draw = function() {
@@ -142,33 +130,11 @@ function TankEnemy(id, x, y, vx, vy, img, color, target) {
 	var tankMass = 500;
 	var tankJumpSpeed = 2*mpsTOppf;
 	var tankMeleeDamage = 10;
-	var tankMeleeTimer = 10;
-	var tankPatrolRange = 500;
+	var tankPatrolRange = 1000;
+	var tankSlowDown = 3;
 	
 	var self = Enemy("tank enemy", id, x, y, vx, vy, tankWidth, tankHeight, img, color, tankAcceleration, tankMaxVX, tankMaxVY, tankMaxHP, tankWeapon, tankMass,
-					tankJumpSpeed, tankMeleeDamage, tankMeleeTimer, tankPatrolRange, target);
-	
-	
-	var superUpdatePos = self.updatePosition;
-	self.updatePosition = function() {
-		
-		superUpdatePos();
-		
-		if (self.x < target.x) {
-			self.ax = self.acceleration;
-		}
-		else {
-			self.ax = -self.acceleration;
-		}
-		
-		if (self.x >= self.maxForward) {
-			self.x = self.maxForward
-		}
-		else if (self.x <= self.maxBackward) {
-			self.x = self.maxBackward;
-		}
-		
-	}
+					tankJumpSpeed, tankMeleeDamage, tankPatrolRange, tankSlowDown, target);
 	
 	
 	self.block = function() {
