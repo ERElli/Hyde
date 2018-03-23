@@ -34,6 +34,8 @@ Map = function(width, height,tile_width, tile_height) {
 
 		var list = self.EntityList[type];
 		list[id] = entity;
+		console.log("Adding "+type+": ", entity);
+		console.log("Updated EntityList",self.EntityList);
 	};
 
 	//Function to check if the entity, e, can be placed in the spot where the user clicks
@@ -53,7 +55,6 @@ Map = function(width, height,tile_width, tile_height) {
 					console.log("Cell: ",i,j);
 					console.log("Filled:", filled);
 					*/
-				
 			}
 			if(filled){
 				console.log(self.tiles[i][j].type,"already placed in this location");
@@ -62,7 +63,6 @@ Map = function(width, height,tile_width, tile_height) {
 		}
 
 		if(!filled){
-			// Terrain.add(e);
 			for(var k=x; k<w; k++){
 				for(var l=y; l<h; l++){
 					self.tiles[k][l].id = e.id;
@@ -70,24 +70,7 @@ Map = function(width, height,tile_width, tile_height) {
 
 				}
 			}
-			self.addEntity(e);
-		}
-	};
-
-	self.addEntity = function(e){
-		switch(e.type){
-			case "Terrain":
-				self.addToEntityList(e);
-				break;
-			case "enemy1":
-				self.addToEntityList(e);
-				break;
-			case "enemy2":
-				self.addToEntityList(e);
-				break;
-			case "enemy3":
-				self.addToEntityList(e);
-				break;
+			self.addToEntityList(e);
 		}
 	};
 
@@ -100,6 +83,8 @@ Map = function(width, height,tile_width, tile_height) {
 			delete self.EntityList[toBeRemoved.type][toBeRemoved.id];
 			ctx_lg.clearRect(x,y,toBeRemoved.width,toBeRemoved.height);
 			self.makeFreeSpace(toBeRemoved);
+			console.log("Removing Entity:",toBeRemoved);
+			console.log("Updated EntityList:",self.EntityList);
 		}			
 	};
 
