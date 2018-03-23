@@ -35,8 +35,8 @@ function BasicEnemy(id, x, y, vx, vy, img, color, target) {
 	var basicWidth = 40;
 	var basicHeight = 40;
 	var basicAcceleration = 100*mpsTOppf/framesPerSecond;
-	var basicMaxVX = 5;
-	var basicMaxVY = 20;
+	var basicMaxVX = 5*mpsTOppf;
+	var basicMaxVY = 20*mpsTOppf;
 	var basicMaxHP = 20;
 	var basicWeapon = new Pistol("w1", x, y, 0, 0, 5, 5,'img','black', id);
 	var basicMass = 50;
@@ -130,23 +130,23 @@ function FlyingEnemy(id, x, y, vx, vy, img, color, target) {
 	
 }
 
-function TankEnemy(id, x, y, vx, vy, width, height, img, color, health, weapon, mass, jumpForce, meleeDamage, meleeTimer, path, target) {
+function TankEnemy(id, x, y, vx, vy, img, color, target) {
 
-	var basicWidth = 40;
-	var basicHeight = 40;
-	var basicAcceleration = 100*mpsTOppf/framesPerSecond;
-	var basicMaxVX = 5;
-	var basicMaxVY = 20;
-	var basicMaxHP = 20;
-	var basicWeapon = new Pistol("w1", x, y, 0, 0, 5, 5,'img','black', id);
-	var basicMass = 50;
-	var basicJumpSpeed = 3*mpsTOppf;
-	var basicMeleeDamage = 5;
-	var basicMeleeTimer = 10;
-	var basicPatrolRange = 100;
+	var tankWidth = 70;
+	var tankHeight = 70;
+	var tankAcceleration = 3*mpsTOppf/framesPerSecond;
+	var tankMaxVX = 9*mpsTOppf;
+	var tankMaxVY = 20*mpsTOppf;
+	var tankMaxHP = 20;
+	var tankWeapon = new Pistol("w1", x, y, 0, 0, 5, 5,'img','black', id);
+	var tankMass = 500;
+	var tankJumpSpeed = 2*mpsTOppf;
+	var tankMeleeDamage = 10;
+	var tankMeleeTimer = 10;
+	var tankPatrolRange = 500;
 	
-	var self = Enemy("tank enemy", id, x, y, vx, vy, basicWidth, basicHeight, img, color, basicAcceleration, basicMaxVX, basicMaxVY, basicMaxHP, basicWeapon, basicMass,
-					basicJumpSpeed, basicMeleeDamage, basicMeleeTimer, basicPatrolRange, target);
+	var self = Enemy("tank enemy", id, x, y, vx, vy, tankWidth, tankHeight, img, color, tankAcceleration, tankMaxVX, tankMaxVY, tankMaxHP, tankWeapon, tankMass,
+					tankJumpSpeed, tankMeleeDamage, tankMeleeTimer, tankPatrolRange, target);
 	
 	
 	var superUpdatePos = self.updatePosition;
