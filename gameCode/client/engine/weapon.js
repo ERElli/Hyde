@@ -37,9 +37,9 @@ function Pistol(id, x, y, vx, vy, width, height, img, color, ownerID) {
 
 	}
 	
-	self.draw = function() {
+	//self.draw = function() {
 		
-	}
+	//}
 	
 	
 	return self;
@@ -56,9 +56,9 @@ function Shotgun(id, x, y, vx, vy, width, height, img, color) {
 		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "black");
 	}
 	
-	self.draw = function() {
+	//self.draw = function() {
 		
-	}
+	//}
 	
 	
 	return self;
@@ -75,9 +75,9 @@ function Sword(id, x, y, vx, vy, width, height, img, color) {
 		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "black");
 	}
 	
-	self.draw = function() {
+	//self.draw = function() {
 		
-	}
+	//}
 	
 	
 	return self;
@@ -94,9 +94,9 @@ function AssaultRifle(id, x, y, vx, vy, width, height, img, color) {
 		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "black");
 	}
 	
-	self.draw = function() {
+	//self.draw = function() {
 		
-	}
+	//}
 	
 	
 	return self;
