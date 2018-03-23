@@ -5,7 +5,16 @@ Map = function(width, height,tile_width, tile_height) {
 	self.numTilesX = width/tile_width;
 	self.numTilesY = height/tile_height;
 	self.tiles = [];
+	//self.tiles is only used to make sure that no two entities are placed in the same position
+	self.EntityList = {
+		terrain: {},
+		enemy1: {},
+		enemy2: {},
+	};
+	//self.objects is list of list of entities. There will be list for terrain, one for enemies, one for weapons, etc.
+	//The format of this list is still flexible
 	
+	//Filling tiles with empty objects
 	for(var i=0; i<self.numTilesX; i++){
 		self.tiles.push([]);
 		for(var j=0; j<self.numTilesY; j++){
@@ -17,9 +26,18 @@ Map = function(width, height,tile_width, tile_height) {
 
 	self.isFilled = function(x,y){
 		return !(Object.keys(self.tiles[x][y]).length === 0 && self.tiles[x][y].constructor === Object);
-	}
+	};
 
-	self.placeEntity = function(e){
+	self.addToEntityList = function(entity){
+		var type = entity.type;
+		var id = entity.id;
+
+		var list = self.EntityList[type];
+		list[id] = entity;
+	};
+
+	//Function to check if the entity, e, can be placed in the spot where the user clicks
+	self.tryToPlaceEntity = function(e){
 		var x = e.x/tile_width;
 		var y = (e.y/tile_height) - gridShiftDown;
 		var w = x + (e.width/tile_width);
@@ -59,7 +77,16 @@ Map = function(width, height,tile_width, tile_height) {
 	self.addEntity = function(e){
 		switch(e.type){
 			case "Terrain":
-				Terrain.add(e);
+				self.addToEntityList(e);
+				break;
+			case "enemy1":
+				self.addToEntityList(e);
+				break;
+			case "enemy2":
+				self.addToEntityList(e);
+				break;
+			case "enemy3":
+				self.addToEntityList(e);
 				break;
 		}
 	};
@@ -67,19 +94,13 @@ Map = function(width, height,tile_width, tile_height) {
 	self.removeEntity = function(x,y){
 		var i = x/tile_width;
 		var j = (y/tile_height)-gridShiftDown;
+
 		if(self.isFilled(i,j)){
-			switch(self.tiles[i][j].type){
-				case "Terrain":
-					var toBeRemoved = Terrain.list[self.tiles[i][j].id];
-					Terrain.remove(toBeRemoved);
-					break;
-				default:
-					console.log("Nothing to remove");
-			}
+			var toBeRemoved = self.EntityList[self.tiles[i][j].type][self.tiles[i][j].id];
+			delete self.EntityList[toBeRemoved.type][toBeRemoved.id];
 			ctx_lg.clearRect(x,y,toBeRemoved.width,toBeRemoved.height);
 			self.makeFreeSpace(toBeRemoved);
-		}
-			
+		}			
 	};
 
 	self.setBackgroundImage = function(imageName){
@@ -100,9 +121,17 @@ Map = function(width, height,tile_width, tile_height) {
 		}
 	};
 
-	return self;
-};
+	self.update = function(){
+		for(var type in self.EntityList){
+			for(var id in self.EntityList[type]){
+				self.EntityList[type][id].draw();
+			}
+		}
+	};
 
-Map.update = function(){
-	Terrain.update();
+	self.remove = function(e){
+		delete self.EntityList[e.type][e.id];
+	};
+
+	return self;
 };
