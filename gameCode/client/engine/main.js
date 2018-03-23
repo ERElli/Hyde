@@ -126,6 +126,8 @@ var inRange = function(thing) {
 */
 var update = function() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	
+	//console.log(player.weapon.vx);
 
 	
 	//Update counters

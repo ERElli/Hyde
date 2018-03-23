@@ -42,31 +42,14 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	self.maxVelocityY = self.isBig ? bigMaxVY:smallMaxVY;
 	self.slowDownFactor = self.isBig ? bigSlowDown:smallSlowDown;
 	
+	var oldUpdate = self.updatePosition;
 	self.updatePosition = function() {
+		
+		oldUpdate();
 		
 		if (Math.sign(self.vx) != Math.sign(self.ax)) {
 			self.ax = self.slowDownFactor*self.ax;
-		}
-		
-		self.vx += self.ax;	
-		self.vy += self.ay;
-		
-		if (Math.abs(self.vx) > self.maxVelocityX) {
-			self.vx = Math.sign(self.vx)*self.maxVelocityX;
-		}
-		
-		if (Math.abs(self.vy) > self.maxVelocityY) {
-			self.vy = Math.sign(self.vy)*self.maxVelocityX;
-		}
-	
-		self.x += self.vx;
-		self.y -= self.vy;
-		
-		self.weapon.x = self.x;
-		self.weapon.y = self.y;
-		
-		//self.offsetWeapon();
-	
+		}	
 	}
 	
 	self.updateAim = function(mouseX, mouseY) {
