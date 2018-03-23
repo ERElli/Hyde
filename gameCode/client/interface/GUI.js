@@ -123,8 +123,10 @@ GUI = function(container){
 		
 			}
 			else if(entity.type=="tank enemy"){
-				gui.fg_ctx.drawImage(img,(entity.x-entity.width/2)-playX,y-height/2);
-		
+				gui.fg_ctx.drawImage(Img.basicEnemy3,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);				
+				entity.img.onload=function(){
+
+				}
 			}
 			else if(entity.type=="ghost"){
 				gui.fg_ctx.drawImage(img,x-width/2,y-height/2);
