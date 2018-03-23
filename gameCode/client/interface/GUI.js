@@ -21,9 +21,9 @@ GUI = function(container){
 	Img.pistol=new Image();
 	Img.pistol.src="img/pistolWeapon.png";
 	Img.assaultWeapon=new Image();
-	Img.assaultWeapon.src="assaultWeapon.png";
+	Img.assaultWeapon.src="img/assaultWeapon.png";
 	Img.swordWeapon=new Image();
-	Img.swordWeapon.src="swordWeapon.png";
+	Img.swordWeapon.src="img/swordWeapon.png";
 	Img.bullet=new Image();
 	Img.bullet.src="img/bullet.png";
 	var smallPlayerAnimation=0;
@@ -148,8 +148,11 @@ GUI = function(container){
 			}
 			//Drawing Useables
 			else if(entity.type=="pistol"){
-				gui.fg_ctx.drawImage(Img.pistol,(x-width/2)-playX,y-height/2);
-		
+				gui.fg_ctx.rotate(e.aimAngle*Math.pi/180);
+				gui.fg_ctx.drawImage(Img.pistol,(entity.x-entity.width/2)-playX+30,entity.y-entity.height/2,entity.width,entity.height);
+				
+				entity.img.onload=function(){
+				}
 			}
 			else if(entity.type=="shotgun"){
 				gui.fg_ctx.drawImage(img,x-width/2,y-height/2);
@@ -194,6 +197,7 @@ GUI = function(container){
 		}
 		return animationCounter;
 	}
+
 
 	self.fgDraw=function(fg_ctx,playerHealth,playerMomentum,ammo){
 		var healthX=0;

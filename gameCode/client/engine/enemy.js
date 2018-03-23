@@ -19,7 +19,7 @@ function Enemy(type, id, x, y, vx, vy, width, height, img, color, acceleration, 
 		
 		if (self.x < target.x) {
 			self.ax = self.acceleration;
-			console.log("Player on right");
+//			console.log("Player on right");
 		}
 		else {
 			self.ax = -self.acceleration;
