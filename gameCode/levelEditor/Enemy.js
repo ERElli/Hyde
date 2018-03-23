@@ -40,18 +40,5 @@ Enemy = function(id, type, x, y, width, height){
 		
 	
 	}
-
-	console.log(self);
 	return self;
-}
-
-Enemy.add = function(enemy) {
-	Enemy.list[enemy.id] = enemy;
-	console.log("Adding an enemy: ", enemy);
-}
-
-Enemy.update = function() {
-	for (var key in Enemy.list){
-		var rect = Enemy.list[key];
-		rect.draw();
-	}
+};
