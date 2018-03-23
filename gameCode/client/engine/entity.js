@@ -65,8 +65,7 @@ function Entity(type, id, x, y, vx, vy, width, height, img, color) {
 	
 	self.updatePosition = function() {
 		self.x += self.vx;
-		self.y -= self.vy;
-	
+		self.y -= self.vy;	
 	}
 	
 	return self;
@@ -127,8 +126,12 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		self.x += self.vx;
 		self.y -= self.vy;
 		
-		self.weapon.x = self.x
-		self.weapon.y = self.y		
+		self.weapon.x = self.x;
+		self.weapon.y = self.y;
+		self.weapon.vx = self.vx;
+		self.weapon.vy = self.vy;
+		self.weapon.updatePosition();
+		
 	
 	}
 	

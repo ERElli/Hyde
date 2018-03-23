@@ -117,9 +117,14 @@ function FlyingEnemy(id, x, y, vx, vy, img, color, target) {
 		
 	}
 	
-	//self.draw = function() {
-		
-	//}
+	/*
+	self.draw = function() {
+		ctx.save();
+		ctx.fillStyle = self.color;
+		ctx.fillRect(gui.bg.//SOMETHING self.x,self.y-self.height,self.width,self.height);
+		ctx.restore();
+	}
+	*/
 	
 	return self;
 	
