@@ -19,7 +19,11 @@ GUI = function(container){
 	Img.basicEnemy3=new Image();
 	Img.basicEnemy3.src="img/enemy3.png";
 	Img.pistol=new Image();
-	Img.pistol.src="img/weaponButton.png";
+	Img.pistol.src="img/pistolWeapon.png";
+	Img.assaultWeapon=new Image();
+	Img.assaultWeapon.src="assaultWeapon.png";
+	Img.swordWeapon=new Image();
+	Img.swordWeapon.src="swordWeapon.png";
 	Img.bullet=new Image();
 	Img.bullet.src="img/bullet.png";
 	var smallPlayerAnimation=0;
@@ -68,7 +72,6 @@ GUI = function(container){
 		Img.background1.onload=function(){	
 		}
 
-
 		//continuously loops backgrounds	
 		gui.bg_ctx.drawImage(Img.background1,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background1,x+self.bg.width*n,y,self.bg.width,self.bg.height);
@@ -100,14 +103,7 @@ GUI = function(container){
 					var frameHeight=Img.playerSmall.height/2;
 					playerDirection=self.getImageDirection(entity);
 					//updates player animation every 5th frame
-					smallPlayerAnimation=self.updateEntityMovement(entity,smallPlayerAnimation,5);				
-					/*if(frameCount%5==0){
-						smallPlayerAnimation++;
-						if(smallPlayerAnimation==5){
-							smallPlayerAnimation=0;
-						}
-					}*/
-					//Draws player object.
+					smallPlayerAnimation=self.updateEntityAnimation(entity,smallPlayerAnimation,5);				
 					gui.fg_ctx.drawImage(Img.playerSmall,smallPlayerAnimation*frameWidth,playerDirection*frameHeight,frameWidth,frameHeight,self.fg.width/2-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);
 
 					Img.playerSmall.onload=function(){}	
@@ -180,8 +176,8 @@ GUI = function(container){
 			return 1;
 		}
 	}
-
-	self.updateEntityMovement=function(entity,animationCounter,numAnimations){
+	//Function to update the entitys Animations
+	self.updateEntityAnimation=function(entity,animationCounter,numAnimations){
 		if(entity.vx==0){
 			return 0;
 		}
@@ -199,11 +195,12 @@ GUI = function(container){
 		var healthY=30;
 		var momentX=0;
 		var momentY=60;
-		var ammoX=1150;
+		var ammoX=1050;
 		var ammoY=30;
-		var weaponX=1150;
+		var weaponX=1050;
 		var weaponY=60;
-		//var weaponImg=image.jpeg;
+		var weaponImgX=1125;
+		var weaponImgY=50;
 		fg_ctx.save();
 		
 		fg_ctx.clearRect(0,0,self.fg.width,self.fg.height);
@@ -223,7 +220,11 @@ GUI = function(container){
 		fg_ctx.fillText('Momentum:',momentX,momentY);
 		//draw ammo
 		fg_ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
-		fg_ctx.fillText('Weapon: '/*+weaponImg*/,weaponX,weaponY); 	
+		fg_ctx.fillText('Weapon: '/*+weaponImg*/,weaponX,weaponY);
+		//draw current weapon image
+ 		gui.fg_ctx.drawImage(Img.pistol,weaponImgX,weaponImgY,Img.pistol.width,Img.pistol.height);
+		Img.pistol.onload=function(){}
+			
 	};
 	return self;
 }
