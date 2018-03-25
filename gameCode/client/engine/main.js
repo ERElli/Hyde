@@ -132,6 +132,10 @@ var update = function() {
 	
 	//Update counters
 	frameCount++;
+	if (frameCount % 10 == 0) {
+		everyTenCount++;
+	}
+	
 	player.attackCounter++;
 	player.transformCounter++;
 	player.immuneCounter++;
@@ -235,7 +239,11 @@ var update = function() {
 		
 		enemy.update();
 		enemy.updateAim(player);
-		putOnTerrain(enemy);
+		
+		if (nearTerrain(enemy.x, enemy.y+enemy.height/2)) {
+			putOnTerrain(enemy);
+		}
+		
 		enemy.attackCounter++;
 		newBullet = enemy.shoot();
 		if (newBullet) {
@@ -268,6 +276,7 @@ var startGame = function(initial_level) {
 	//blocks = level["terrain"];
 	//surfaceMods = level["terrain"];
 	frameCount = 0;
+	everyTenCount = 0;
 	
 	setInterval(update, 1000/60)
 }
