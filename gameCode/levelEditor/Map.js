@@ -95,9 +95,28 @@ Map = function(width, height,tile_width, tile_height) {
 		var i = x/tile_width;
 		var j = (y/tile_height)-gridShiftDown;
 
+		var type = self.tiles[i][j].type;
+		var id = self.tiles[i][j].id;
+		var toBeRemoved;
+
 		if(self.isFilled(i,j)){
-			var toBeRemoved = self.EntityList[self.tiles[i][j].type][self.tiles[i][j].id];
-			delete self.EntityList[toBeRemoved.type][toBeRemoved.id];
+
+			//Regex patterns to place objects in their correct lists
+			var terrainPattern = new RegExp("Terrain");
+			var enemyPattern = new RegExp("enemy");
+
+			//Checking if type matches any of the RegexPatterns
+			if(terrainPattern.test(type)){
+				toBeRemoved = self.EntityList['terrain'][id];
+				delete self.EntityList['terrain'][id];
+			}else if(enemyPattern.test(type)){
+				toBeRemoved = self.EntityList['enemies'][id];
+				delete self.EntityList['enemies'][id];
+			}
+
+			// delete toBeRemoved;
+			// var toBeRemoved = self.EntityList[self.tiles[i][j].type][self.tiles[i][j].id];
+			// delete self.EntityList[toBeRemoved.type][toBeRemoved.id];
 			ctx_lg.clearRect(x,y,toBeRemoved.width,toBeRemoved.height);
 			self.makeFreeSpace(toBeRemoved);
 			console.log("Removing Entity:",toBeRemoved);
@@ -128,12 +147,14 @@ Map = function(width, height,tile_width, tile_height) {
 
 	//function to draw all entities in EntityList
 	self.update = function(){
-		for(var type in self.EntityList){
-			for(var id in self.EntityList[type]){
-				self.EntityList[type][id].draw();
+		for(let type in self.EntityList){
+			for(let id in self.EntityList[type]){
+				let entity = self.EntityList[type][id];
+				entity.draw();
 			}
 		}
 	};
+
 	console.log(self.EntityList);
 	return self;
 };
