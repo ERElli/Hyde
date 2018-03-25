@@ -108,7 +108,7 @@ function FlyingEnemy(id, x, y, vx, vy, img, color, target) {
 					flyingJumpSpeed, flyingMeleeDamage, flyingPatrolRange, flyingSlowDown, target);
 	
 	
-	var vertPatrolRange = 300;
+	var vertPatrolRange = 300; //metres
 	self.maxUp = self.y-vertPatrolRange;
 	self.maxDown = self.y+vertPatrolRange;
 	
@@ -120,13 +120,18 @@ function FlyingEnemy(id, x, y, vx, vy, img, color, target) {
 		//vertical position should be sinusoidal, y(t) = A*sin(omega*t) + offset
 		//so v(t) = A*omega*cos(omega*t), a(t) = -A*omega^2 * sin(omega*t)
 		
-		omega = 1;
-		t = (frameCount%360-180)*Math.PI/180;
-		amplitude = vertPatrolRange/2;
+		T = 5; //seconds per oscillation
+		omega = 2*Math.PI/T;
+		t = frameCount / framesPerSecond; //current time in seconds
+		omegat = omega*t;
+		omegat = (omegat%(2*Math.PI)-Math.PI);
+		amplitude = vertPatrolRange/2; //metres
 	
-		self.y = amplitude*Math.sin(omega*t) + y;
+		//self.y = (amplitude*Math.sin(omegat)) + y;
+		self.vy = amplitude*omega*Math.cos(omegat)/framesPerSecond;
 		
 		superUpdate();
+		
 		
 		if (self.y >= self.maxDown) {
 			self.y = self.maxDown;
