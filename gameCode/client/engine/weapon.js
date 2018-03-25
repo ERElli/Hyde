@@ -37,66 +37,66 @@ function Pistol(id, x, y, vx, vy, width, height, img, color, ownerID) {
 
 	}
 	
-	//self.draw = function() {
-		
-	//}
-	
-	
 	return self;
 }
 
 function Shotgun(id, x, y, vx, vy, width, height, img, color) {
-	var self = Weapon("shotgun", id, x, y, vx, vy, width, height, img, color, 1, 10, "normal", 50, 10);
+	
+	var shotgunRate = 2;
+	var shotgunSpeed = 12;
+	
+	var self = Weapon("shotgun", id, x, y, vx, vy, width, height, img, color, shotgunRate, shotgunSpeed, "normal", 100, 20);
 	
 	
 	self.fire = function(angle) {
 		self.ammo--;
-		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
-		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
-		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "black");
+		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf// + self.vx;
+		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf// + self.vy;
+
+		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "gold", ownerID);
+
 	}
-	
-	//self.draw = function() {
-		
-	//}
 	
 	
 	return self;
 }
 
 function Sword(id, x, y, vx, vy, width, height, img, color) {
-	var self = Weapon("sword", id, x, y, vx, vy, width, height, img, color, 2, 1, "normal", 10, 10);
+	
+	var swordRate = 2;
+	var swordSpeed = 12;
+	
+	var self = Weapon("sword", id, x, y, vx, vy, width, height, img, color, swordRate, swordSpeed, "normal", 100, 20);
 	
 	
 	self.fire = function(angle) {
 		self.ammo--;
-		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
-		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
-		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "black");
+		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf// + self.vx;
+		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf// + self.vy;
+
+		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "gold", ownerID);
+
 	}
-	
-	//self.draw = function() {
-		
-	//}
-	
 	
 	return self;
 }
 
 function AssaultRifle(id, x, y, vx, vy, width, height, img, color) {
-	var self = Weapon("assault rifle", id, x, y, vx, vy, width, height, img, color, 5, 10, "normal", 100, 50);
+	
+	var rifleRate = 2;
+	var rifleSpeed = 12;
+	
+	var self = Weapon("pistol", id, x, y, vx, vy, width, height, img, color, rifleRate, rifleSpeed, "normal", 100, 20);
 	
 	
 	self.fire = function(angle) {
 		self.ammo--;
-		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
-		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;
-		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "black");
+		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf// + self.vx;
+		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf// + self.vy;
+
+		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "gold", ownerID);
+
 	}
-	
-	//self.draw = function() {
-		
-	//}
 	
 	
 	return self;
