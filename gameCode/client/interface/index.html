@@ -30,8 +30,8 @@
 			
 		//id, x, y, vx, vy, img, color, target
 
-		enemy = new FlyingEnemy("enemy1", 1000, 100, 0, 0, "Img.basicEnemy", null, e);
-		enemy2 = new BasicEnemy("enemy2", 2200, 450, 0, 0, "Img.basicEnemy", null, e)
+		enemy = new FlyingEnemy("enemy1", 500, 150, 0, 0, "Img.basicEnemy", null, e);
+		enemy2 = new TankEnemy("enemy2", 3000, 450, 0, 0, "Img.basicEnemy", null, e)
 		enemy3 = new BasicEnemy("enemy3", 4200, 450, 0, 0, "Img.basicEnemy", null, e)
 		enemy4 = new BasicEnemy("enemy4", 6200, 450, 0, 0, "Img.basicEnemy", null, e)
 
@@ -65,7 +65,7 @@
 
 		gui.drawMap();
 		//gui.fgDraw(gui.fg_ctx,playerPercentHealth,playerMomentum,ammo);
-		startGame({'player':e,'enemies':{'enemy1':enemy,}})//'enemy2':enemy2, 'enemy3':enemy3, 'enemy4':enemy4}});
+		startGame({'player':e,'enemies':{'enemy1':enemy}})//,'enemy2':enemy2, 'enemy3':enemy3, 'enemy4':enemy4}});
 		
 		</script>
 </html>

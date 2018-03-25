@@ -227,20 +227,21 @@ var update = function() {
 		}
 	}
 	
-	
 	//Manage all the enemies
 	for (var key in enemies) {
 		
 		var enemy = enemies[key];
-		
+				
 		if (!inRange(enemy)) {
+			console.log("skipping " + enemy.id);
 			continue;
 		}
 		
 		enemy.update();
 		enemy.updateAim(player);
 		
-		if (nearTerrain(enemy.x, enemy.y+enemy.height/2)) {
+		if (nearTerrain(enemy.x, enemy.y)) {
+			console.log(enemy.id)
 			putOnTerrain(enemy);
 		}
 		
@@ -277,6 +278,8 @@ var startGame = function(initial_level) {
 	//surfaceMods = level["terrain"];
 	frameCount = 0;
 	everyTenCount = 0;
+	console.log(enemies['enemy2']);
+
 	
 	setInterval(update, 1000/60)
 }
