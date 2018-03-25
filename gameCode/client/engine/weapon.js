@@ -23,15 +23,15 @@ function Weapon(type, id, x, y, vx, vy, width, height, img, color, firingRate, b
 function Pistol(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	
 	var pistolRate = 2;
-	var pistolSpeed = 7;
+	var pistolSpeed = 12;
 	
 	var self = Weapon("pistol", id, x, y, vx, vy, width, height, img, color, pistolRate, pistolSpeed, "normal", 100, 20);
 	
 	
 	self.fire = function(angle) {
 		self.ammo--;
-		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;// + self.vx;
-		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf;// + self.vy;
+		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf// + self.vx;
+		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf// + self.vy;
 
 		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "gold", ownerID);
 

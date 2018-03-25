@@ -89,33 +89,58 @@ function BasicEnemy(id, x, y, vx, vy, img, color, target) {
 
 function FlyingEnemy(id, x, y, vx, vy, img, color, target) {
 	
-	var basicWidth = 40;
-	var basicHeight = 40;
-	var basicAcceleration = 100*mpsTOppf/framesPerSecond;
-	var basicMaxVX = 5;
-	var basicMaxVY = 20;
-	var basicMaxHP = 20;
-	var basicWeapon = new Pistol("w1", x, y, 0, 0, 5, 5,'img','black', id);
-	var basicMass = 50;
-	var basicJumpSpeed = 3*mpsTOppf;
-	var basicMeleeDamage = 5;
-	var basicMeleeTimer = 10;
-	var basicPatrolRange = 1000;
+	var flyingWidth = 30;
+	var flyingHeight = 30;
+	var flyingAcceleration = 5*mpsTOppf/framesPerSecond;
+	var flyingMaxVX = 7*mpsTOppf;
+	var flyingMaxVY = 10*mpsTOppf;
+	var flyingMaxHP = 20;
+	var flyingWeapon = new Pistol("w1", x, y, 0, 0, 5, 5,'img','black', id);
+	var flyingMass = 20;
+	var flyingJumpSpeed = 3*mpsTOppf;
+	var flyingMeleeDamage = 5;
+	var flyingPatrolRange = 2000;
+	var flyingSlowDown = 3;
 	
-	var self = Enemy("flying enemy", id, x, y, vx, vy, basicWidth, basicHeight, img, color, basicAcceleration, basicMaxVX, basicMaxVY, basicMaxHP, basicWeapon, basicMass,
-					basicJumpSpeed, basicMeleeDamage, basicPatrolRange, target);
 	
-	/*
-	self.draw = function() {
-		ctx.save();
-		ctx.fillStyle = self.color;
-		ctx.fillRect(gui.bg.//SOMETHING self.x,self.y-self.height,self.width,self.height);
-		ctx.restore();
+	//type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, maxHealth, weapon, mass, jumpSpeed, meleeDamage, patrolRange, slowDown, target
+	var self = Enemy("flying enemy", id, x, y, vx, vy, flyingWidth, flyingHeight, img, color, flyingAcceleration, flyingMaxVX, flyingMaxVY, flyingMaxHP, flyingWeapon, flyingMass,
+					flyingJumpSpeed, flyingMeleeDamage, flyingPatrolRange, flyingSlowDown, target);
+	
+	
+	var vertPatrolRange = 300;
+	self.maxUp = self.y-vertPatrolRange;
+	self.maxDown = self.y+vertPatrolRange;
+	
+	var accSum = 0;
+	
+	var superUpdate = self.updatePosition;
+	self.updatePosition = function() {
+
+		//vertical position should be sinusoidal, y(t) = A*sin(omega*t) + offset
+		//so v(t) = A*omega*cos(omega*t), a(t) = -A*omega^2 * sin(omega*t)
+		
+		omega = 1;
+		t = (frameCount%360-180)*Math.PI/180;
+		amplitude = vertPatrolRange/2;
+	
+		self.y = amplitude*Math.sin(omega*t) + y;
+		
+		superUpdate();
+		
+		if (self.y >= self.maxDown) {
+			self.y = self.maxDown;
+		}
+		else if (self.y <= self.maxUp) {
+			self.y = self.maxUp;
+		}
+		
+		
+		
 	}
-	*/
+	
 	
 	return self;
-	
 }
 
 function TankEnemy(id, x, y, vx, vy, img, color, target) {
@@ -125,7 +150,7 @@ function TankEnemy(id, x, y, vx, vy, img, color, target) {
 	var tankAcceleration = 3*mpsTOppf/framesPerSecond;
 	var tankMaxVX = 9*mpsTOppf;
 	var tankMaxVY = 20*mpsTOppf;
-	var tankMaxHP = 20;
+	var tankMaxHP = 50;
 	var tankWeapon = new Pistol("w1", x, y, 0, 0, 5, 5,'img','black', id);
 	var tankMass = 500;
 	var tankJumpSpeed = 2*mpsTOppf;
