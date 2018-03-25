@@ -6,10 +6,14 @@ Map = function(width, height,tile_width, tile_height) {
 	self.numTilesY = height/tile_height;
 	self.tiles = [];
 	//self.tiles is only used to make sure that no two entities are placed in the same position
+
 	self.EntityList = {
+		enemies: {},
 		terrain: {},
-		enemy1: {},
-		enemy2: {},
+		player: {},
+		checkpoints: {},
+		weapons: {},
+		music: {},
 	};
 	//self.objects is list of list of entities. There will be list for terrain, one for enemies, one for weapons, etc.
 	//The format of this list is still flexible
@@ -32,8 +36,20 @@ Map = function(width, height,tile_width, tile_height) {
 		var type = entity.type;
 		var id = entity.id;
 
-		var list = self.EntityList[type];
-		list[id] = entity;
+		//Regex patterns to place objects in their correct lists
+		var terrainPattern = new RegExp("Terrain");
+		var enemyPattern = new RegExp("enemy");
+
+		//Checking if type matches any of the RegexPatterns
+		//Is there a way to use a switch case instead
+		//Regex may not be the best way to do this either
+		//Maybe switchcase fall-through is better
+		if(terrainPattern.test(type)){
+			self.EntityList['terrain'][id] = entity;
+		}else if(enemyPattern.test(type)){
+			self.EntityList['enemies'][id] = entity;
+		}
+		
 		console.log("Adding "+type+": ", entity);
 		console.log("Updated EntityList",self.EntityList);
 	};
@@ -44,7 +60,7 @@ Map = function(width, height,tile_width, tile_height) {
 		var y = (e.y/tile_height) - gridShiftDown;
 		var w = x + (e.width/tile_width);
 		var h = y + (e.height/tile_height);
-
+		var filled;
 		for(var i=x; i<w; i++){
 			for(var j=y; j<h; j++){
 				filled = self.isFilled(i,j);
@@ -74,6 +90,7 @@ Map = function(width, height,tile_width, tile_height) {
 		}
 	};
 
+	//Function to 
 	self.removeEntity = function(x,y){
 		var i = x/tile_width;
 		var j = (y/tile_height)-gridShiftDown;
@@ -85,6 +102,8 @@ Map = function(width, height,tile_width, tile_height) {
 			self.makeFreeSpace(toBeRemoved);
 			console.log("Removing Entity:",toBeRemoved);
 			console.log("Updated EntityList:",self.EntityList);
+		}else {
+			console.log("Nothing to remove!");
 		}			
 	};
 
@@ -93,6 +112,7 @@ Map = function(width, height,tile_width, tile_height) {
 		self.backgroundImg.src = imageName;
 	};
 
+	//Function to clear spaces on the tile array
 	self.makeFreeSpace = function(e){
 		var x = e.x/tile_width;
 		var y = (e.y/tile_height) - gridShiftDown;
@@ -106,6 +126,7 @@ Map = function(width, height,tile_width, tile_height) {
 		}
 	};
 
+	//function to draw all entities in EntityList
 	self.update = function(){
 		for(var type in self.EntityList){
 			for(var id in self.EntityList[type]){
@@ -113,10 +134,6 @@ Map = function(width, height,tile_width, tile_height) {
 			}
 		}
 	};
-
-	self.remove = function(e){
-		delete self.EntityList[e.type][e.id];
-	};
-
+	console.log(self.EntityList);
 	return self;
 };
