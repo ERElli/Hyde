@@ -1,7 +1,7 @@
 //ENEMY
 function Enemy(type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, maxHealth, weapon, mass, jumpSpeed, meleeDamage, patrolRange, slowDown, target) {
 	
-	console.log("in enemy: " + target.x);
+	console.log("creating enemy: " + id + " at (" + x + ", " + y);
 	
 	var self = Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, maxHealth, weapon, mass, jumpSpeed, meleeDamage);
 
@@ -73,7 +73,6 @@ function BasicEnemy(id, x, y, vx, vy, img, color, target) {
 	var basicPatrolRange = 200;
 	var basicSlowDown = 3;
 	
-	console.log("in basic: " + target.x);
 	
 	//type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, maxHealth, weapon, mass, jumpSpeed, meleeDamage, patrolRange, slowDown, target
 	var self = Enemy("basic enemy", id, x, y, vx, vy, basicWidth, basicHeight, img, color, basicAcceleration, basicMaxVX, basicMaxVY, basicMaxHP, basicWeapon, basicMass,
@@ -94,7 +93,7 @@ function FlyingEnemy(id, x, y, vx, vy, img, color, target) {
 	var flyingAcceleration = 5*mpsTOppf/framesPerSecond;
 	var flyingMaxVX = 7*mpsTOppf;
 	var flyingMaxVY = 10*mpsTOppf;
-	var flyingMaxHP = 20;
+	var flyingMaxHP = 1;
 	var flyingWeapon = new Pistol("w1", x, y, 0, 0, 5, 5,'img','black', id);
 	var flyingMass = 20;
 	var flyingJumpSpeed = 3*mpsTOppf;
