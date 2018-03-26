@@ -297,3 +297,20 @@ function Bullet(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	
 	return self;
 }
+
+
+function MeleeBullet(id, x, y, vx, vy, width, height, img, color, ownerID) {
+	var self = Entity("meleeBullet", id, x, y, vx, vy, width, height, img, color);
+
+	self.damage = 20;
+	self.timer = 0;
+	
+	self.ownerID = ownerID;
+	
+	
+	//self.draw = function() {
+	
+	//}
+	
+	return self;
+}

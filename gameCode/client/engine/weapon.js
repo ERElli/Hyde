@@ -74,19 +74,21 @@ function Shotgun(id, x, y, vx, vy, width, height, img, color, ownerID) {
 
 function Sword(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	
-	var swordRate = 2;
+	var swordRate = 0.5;
 	var swordSpeed = 12;
 	
 	var self = Weapon("sword", id, x, y, vx, vy, width, height, img, color, swordRate, swordSpeed, "normal", 100, 20);
-	
-	
+		
 	self.fire = function(angle) {
-		self.ammo--;
-		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf + self.vx;
-		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf + self.vy;
+		
+		
 
-		return [new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "gold", ownerID)];
+		return [new MeleeBullet(Math.random(),self.x,self.y,self.vx,self.vy,200,200, "img", "gold", ownerID)];
 
+	}
+	
+	self.draw = function() {
+		
 	}
 	
 	return self;

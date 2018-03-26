@@ -26,7 +26,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	var self = Humanoid('player', id, x, y, vx, vy, smallWidth, smallHeight, img, 'red', smallAcceleration, smallMaxVX, smallMaxVY,
 						maxHealth, weapon, smallMass, smallJumpSpeed, meleeDamage, smallSlowDown);
 						
-	console.log(self.width);
+	//console.log(self.width);
 	
 	self.maxHealth = maxHealth;
 	self.transformCounter = 0;
@@ -41,6 +41,8 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	self.maxVelocityX = self.isBig ? bigMaxVX:smallMaxVX;
 	self.maxVelocityY = self.isBig ? bigMaxVY:smallMaxVY;
 	self.slowDownFactor = self.isBig ? bigSlowDown:smallSlowDown;
+	
+	self.meleeRadius = 15;
 	
 	var oldUpdate = self.updatePosition;
 	self.updatePosition = function() {
