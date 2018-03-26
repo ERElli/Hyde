@@ -1,0 +1,70 @@
+/*Game Menu Styling*/
+
+#mainMenu{
+	
+}
+
+#levelSelectMenu{
+	top:20px;
+	left:149px;
+}
+
+.playStory{
+	
+	background:transparent;
+	background-image: url(images/playStory.png);
+	background-size: 100%;
+
+	outline: none;
+
+	position: fixed;
+	border: none;
+
+	left: 155px;
+	top: 100px;
+
+	width: 194px;
+	height: 31px;
+
+}
+
+
+.playOnline{
+
+
+	background:transparent;
+	background-image: url(images/playOnline.png);
+	background-size: 100%;
+
+	outline: none;
+
+	position: fixed;
+	border: none;
+
+	left: 155px;
+	top: 145px;
+
+	width: 194px;
+	height: 31px;
+
+}
+
+
+.playLevelEditor{
+
+	background:transparent;
+	background-image: url(images/levelEditor.png);
+	background-size: 100%;
+
+	outline: none;
+
+	position: fixed;
+	border: none;
+
+	left: 155px;
+	top: 190px;
+
+	width: 194px;
+	height: 31px;
+}
+
