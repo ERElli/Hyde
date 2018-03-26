@@ -307,6 +307,13 @@ function MeleeBullet(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	
 	self.ownerID = ownerID;
 	
+	self.updatePosition = function() {
+		self.x = player.x;
+		self.y = player.y;
+		self.vx = player.vx;
+		self.vy = player.vy;
+	}
+	
 	
 	//self.draw = function() {
 	
