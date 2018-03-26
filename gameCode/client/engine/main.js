@@ -92,9 +92,13 @@ var doPressedActions = function() {
 	}
 	
 	if (pressing['shoot']) {
-		newBullet = player.shoot();
-		if (newBullet) {
-			bullets[newBullet.id] = newBullet;
+		
+		newBullets = player.shoot();
+		for (i in newBullets) {
+			newBullet = newBullets[i];
+			if (newBullet) {				
+				bullets[newBullet.id] = newBullet;
+			}
 		}
 	}
 }
@@ -222,6 +226,17 @@ var update = function() {
 			}
 		}
 		
+		if (bullet.type == 'meleeBullet') {
+			
+			console.log("Position: " + bullet.x + ", " + bullet.y);
+			
+			bullet.timer++;
+			console.log(bullet.timer);
+			if (bullet.timer > 50) {
+				toRemove = true;
+			}
+		}
+		
 		if(toRemove){
 			delete bullets[key];
 		}
@@ -241,14 +256,19 @@ var update = function() {
 		enemy.updateAim(player);
 		
 		if (nearTerrain(enemy.x, enemy.y)) {
-			console.log(enemy.id)
+			//console.log(enemy.id)
 			putOnTerrain(enemy);
 		}
 		
 		enemy.attackCounter++;
-		newBullet = enemy.shoot();
-		if (newBullet) {
-			bullets[newBullet.id] = newBullet;
+		newBullets = enemy.shoot();
+		//console.log(newBullets);
+		for (i in newBullets) {
+			newBullet = newBullets[i];
+			//console.log(newBullet);
+			if (newBullet) {
+				bullets[newBullet.id] = newBullet;
+			}
 		}
 				
 		var isColliding = enemy.testCollision(player);
@@ -278,7 +298,7 @@ var startGame = function(initial_level) {
 	//surfaceMods = level["terrain"];
 	frameCount = 0;
 	everyTenCount = 0;
-	console.log(enemies['enemy2']);
+	//console.log(enemies['enemy2']);
 
 	
 	setInterval(update, 1000/60)
