@@ -24,9 +24,11 @@ GUI = function(container){
 	Img.assaultWeapon.src="img/assaultWeapon.png";
 	Img.swordWeapon=new Image();
 	Img.swordWeapon.src="img/swordWeapon.png";
+	Img.shotgun=new Image();
+	Img.shotgun.src="img/shotgun.png";
 	Img.bullet=new Image();
 	Img.bullet.src="img/bullet.png";
-	var smallPlayerAnimation=0;
+	var sPAnimation=0;
 
 	var backgroundPositionCounter=0;
 	self.create= function(type, id, left, top, width, height){
@@ -101,12 +103,12 @@ GUI = function(container){
 					Img.playerBig.onload=function(){}	
 				}
 				else{
-					var frameWidth=Img.playerSmall.width/5;
-					var frameHeight=Img.playerSmall.height/2;
-					playerDirection=self.getImageDirection(entity);
+					var fW=Img.playerSmall.width/5;
+					var fH=Img.playerSmall.height/2;
+					playDir=self.getImageDirection(entity);
 					//updates player animation every 5th frame
-					smallPlayerAnimation=self.updateEntityAnimation(entity,smallPlayerAnimation,5);				
-					ctx.drawImage(Img.playerSmall,smallPlayerAnimation*frameWidth,playerDirection*frameHeight,frameWidth,frameHeight,self.fg.width/2-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);
+					sPAnimation=self.updateEntityAnimation(entity,sPAnimation,5);				
+					ctx.drawImage(Img.playerSmall,sPAnimation*fW,playDir*fH,fW,fH,self.fg.width/2-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);
 
 					Img.playerSmall.onload=function(){}	
 				}		
@@ -114,25 +116,21 @@ GUI = function(container){
 			else if(entity.type=="basic enemy"){
 				ctx.drawImage(Img.basicEnemy1,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);				
 				entity.img.onload=function(){
-
 				}
 			}
 			else if(entity.type=="flying enemy"){
 				ctx.drawImage(Img.basicEnemy2,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);				
 				entity.img.onload=function(){
-
 				}
 		
 			}
 			else if(entity.type=="tank enemy"){
 				ctx.drawImage(Img.basicEnemy3,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);				
 				entity.img.onload=function(){
-
 				}
 			}
 			else if(entity.type=="ghost"){
 				ctx.drawImage(img,x-width/2,y-height/2);
-		
 			}
 			//Drawing special terrain
 			else if(entity.type=="moving plaform"){
@@ -150,17 +148,13 @@ GUI = function(container){
 			}
 			//Drawing Useables
 			else if(entity.type=="pistol"){
-
-				ctx.save();
-				ctx.translate((entity.x-entity.width/2)-playX,entity.y);
-				ctx.rotate(-e.aimAngle*Math.PI/180);
-				
+				//ctx.save();
+				//ctx.translate((entity.x-entity.width/2)-playX,entity.y);
+				//ctx.rotate(-e.aimAngle*Math.PI/180);	
 				ctx.drawImage(Img.pistol,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
-				ctx.restore();
-			
+				//ctx.restore();
 				entity.img.onload=function(){
 				}
-
 			}
 			else if(entity.type=="shotgun"){
 				ctx.drawImage(Img.shotgun,(entity.x-entity.width/2)-playX+30,entity.y-entity.height/2,entity.width,entity.height);
@@ -169,7 +163,7 @@ GUI = function(container){
 				}
 			}
 			else if(entity.type=="sword"){
-				ctx.drawImage(Img.pistol,(entity.x-entity.width/2)-playX+30,entity.y-entity.height/2,entity.width,entity.height);
+				ctx.drawImage(Img.swordWeapon,(entity.x-entity.width/2)-playX+30,entity.y-entity.height/2,entity.width,entity.height);
 				
 				entity.img.onload=function(){
 				}
@@ -190,6 +184,14 @@ GUI = function(container){
 			}
 			ctx.restore();		
 	};
+	//draws terrain
+	self.drawTerrain=function(terrain,ctx){
+		ctx.save();
+	
+		ctx.restore();
+	};
+
+	
 	self.getImageDirection=function(entity){
 		if(entity.aimAngle<=90 && entity.aimAngle>-90){
 			return 0;
@@ -197,7 +199,7 @@ GUI = function(container){
 		else{
 			return 1;
 		}
-	}
+	};
 	//Function to update the entitys Animations
 	self.updateEntityAnimation=function(entity,animationCounter,numAnimations){
 		if(entity.vx==0){
@@ -210,7 +212,7 @@ GUI = function(container){
 				}
 		}
 		return animationCounter;
-	}
+	};
 
 
 	self.fgDraw=function(fg_ctx,playerHealth,playerMomentum,ammo){
