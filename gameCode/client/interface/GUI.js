@@ -151,7 +151,7 @@ GUI = function(container){
 				//ctx.save();
 				//ctx.translate((entity.x-entity.width/2)-playX,entity.y);
 				//ctx.rotate(-e.aimAngle*Math.PI/180);	
-				ctx.drawImage(Img.pistol,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
+				ctx.drawImage(Img.pistol,(entity.x-entity.width/2)-playX+30,entity.y-entity.height/2,entity.width,entity.height);
 				//ctx.restore();
 				entity.img.onload=function(){
 				}
@@ -176,11 +176,11 @@ GUI = function(container){
 			}
 			//Draw projectiles
 			else if(entity.type=="bullet"){
-				ctx.drawImage(Img.bullet,(entity.x-entity.width/2)-playX,entity.y-entity.height,entity.width,entity.height);
+				ctx.drawImage(Img.bullet,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
 				Img.bullet.onload=function(){}
 			}
 			else if(entity.type=="meleeBullet"){
-				ctx.drawImage(Img.bullet,(entity.x-entity.width/2)-playX,entity.y-entity.height,entity.width,entity.height);
+				ctx.drawImage(Img.bullet,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
 				Img.bullet.onload=function(){}
 			}			
 			else{

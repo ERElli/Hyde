@@ -64,10 +64,7 @@ function Shotgun(id, x, y, vx, vy, width, height, img, color, ownerID) {
 				new Bullet(Math.random(),self.x,self.y,spdX3,spdY3,5,5, "img", "gold", ownerID)];
 
 	}
-	
-	self.draw = function() {
-		
-	}
+
 	
 	return self;
 }
@@ -85,11 +82,7 @@ function Sword(id, x, y, vx, vy, width, height, img, color, ownerID) {
 
 		return [new MeleeBullet(Math.random(),self.x,self.y,self.vx,self.vy,200,200, "img", "gold", ownerID)];
 
-	}
-	
-	self.draw = function() {
-		
-	}
+	}	
 	
 	return self;
 }
