@@ -168,7 +168,7 @@ GUI = function(container){
 				entity.img.onload=function(){
 				}
 			}
-			else if(entity.type=="assault rifle"){
+			else if(entity.type=="assaultRifle"){
 				ctx.drawImage(Img.assaultWeapon,(entity.x-entity.width/2)-playX+30,entity.y-entity.height/2,entity.width,entity.height);
 				
 				entity.img.onload=function(){
@@ -176,6 +176,10 @@ GUI = function(container){
 			}
 			//Draw projectiles
 			else if(entity.type=="bullet"){
+				ctx.drawImage(Img.bullet,(entity.x-entity.width/2)-playX,entity.y-entity.height,entity.width,entity.height);
+				Img.bullet.onload=function(){}
+			}
+			else if(entity.type=="meleeBullet"){
 				ctx.drawImage(Img.bullet,(entity.x-entity.width/2)-playX,entity.y-entity.height,entity.width,entity.height);
 				Img.bullet.onload=function(){}
 			}			
