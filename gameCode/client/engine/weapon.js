@@ -30,8 +30,8 @@ function Pistol(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	
 	self.fire = function(angle) {
 		self.ammo--;
-		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf// + self.vx;
-		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf// + self.vy;
+		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf + self.vx;
+		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf + self.vy;
 
 		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "gold", ownerID);
 
@@ -91,8 +91,8 @@ function AssaultRifle(id, x, y, vx, vy, width, height, img, color) {
 	
 	self.fire = function(angle) {
 		self.ammo--;
-		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf// + self.vx;
-		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf// + self.vy;
+		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf + self.vx;
+		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf + self.vy;
 
 		return new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "gold", ownerID);
 
