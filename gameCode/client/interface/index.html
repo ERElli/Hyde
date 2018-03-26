@@ -11,19 +11,29 @@
 			<table style="border:1px"></table>
 		</div>
 	</body>
+		<script type="text/javascript" src="../engine/main.js"></script>
 		<script type="text/javascript" src="../engine/entity.js"></script>
-		<script type="text/javascript" src="../engine/main.js"></script> 
+		<script type="text/javascript" src="../engine/player.js"></script>
+		<script type="text/javascript" src="../engine/enemy.js"></script>
+		<script type="text/javascript" src="../engine/weapon.js"></script>
 		<script type="text/javascript" src="GUI.js"></script>
 		<script>
 		// construct the gui with the container and the map
 		var gui;
-		p= new Pistol("w1", 150, 450, 0, 0, 5, 5,'img/weaponButton.png',null);
-
-		//type, id, x, y, vx, vy, width, height, img, color, weapon, meleeDamage, meleeTimer, maxHealth, isBig
-		e = new Player("player", "player", 150, 450, 0, 0, 25, 25, "img/scientistMain.png", null, p, 'md', 'mt', 'mh', false);
 		
-		//id, x, y, vx, vy, img, color
-		enemy = new BasicEnemy("enemy1", 200, 450, 0, 0, 'img/bigGuy.png', null)
+		//id, x, y, vx, vy, width, height, img, color, ownerID
+		p= new Pistol("w1", 150, 450-25, 0, 0, 25, 25,"pistol_image",null, 'player');
+
+		//id, x, y, vx, vy, img, weapon, isBig
+		e = new Player("player", 150, 450-25, 0, 0, "Img.player", p, false);
+			
+			
+		//id, x, y, vx, vy, img, color, target
+
+		enemy = new FlyingEnemy("enemy1", 500, 150, 0, 0, "Img.basicEnemy", null, e);
+		enemy2 = new TankEnemy("enemy2", 3000, 450, 0, 0, "Img.basicEnemy", null, e)
+		enemy3 = new BasicEnemy("enemy3", 4200, 450, 0, 0, "Img.basicEnemy", null, e)
+		enemy4 = new BasicEnemy("enemy4", 6200, 450, 0, 0, "Img.basicEnemy", null, e)
 
 		let gameWidth=2000
 		//temp test vars ----------
@@ -32,10 +42,6 @@
 		var playerPercentHealth=(pMaxHP/pHP)*100;
 		var playerMomentum=100;
 		var ammo=17;
-		var backgroundImg= new Image();
-
-		backgroundImg.src="img/worldTwoBackground.png";
-
 
 		//-----------
 		init = function() {
@@ -51,19 +57,15 @@
 			var self={
 				id:levelID,
 			}
-			//draws level
-			/*self.draw=function(){
-				var x = WIDTH/2 - player.x;
-				var y = HEIGHT/2 - player.y;
-				
-			}*/
+
 			return self;
 		}
 		//Creates background and foreground Canvases
 		init();
-		//draws to the canvas
-		gui.bgDraw(gui.bg_ctx,backgroundImg);
+
+		gui.drawMap();
 		//gui.fgDraw(gui.fg_ctx,playerPercentHealth,playerMomentum,ammo);
-		startGame({'player':e,'enemies':{'enemy1':enemy}});
+		startGame({'player':e,'enemies':{'enemy1':enemy}})//,'enemy2':enemy2, 'enemy3':enemy3, 'enemy4':enemy4}});
+		
 		</script>
 </html>

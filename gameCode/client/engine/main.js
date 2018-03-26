@@ -1,6 +1,6 @@
 var canvas = document.getElementById("fg")
 
-var framecount;
+var frameCount;
 
 var level;
 var player;
@@ -9,24 +9,39 @@ var bullets = {};
 var blocks;
 var sufaceMods;
 
+var hasReleasedJump = false;
+
 var charCodes = {65:"left", 87:"jump", 68:"right", 83:"crouch", 32:"transform", 27:"pause", };
 
 var pressing = { "left": 0, "right":0, "jump":0, "crouch":0, "transform":0, "shoot":0, };
+
 
 document.onkeydown = function(event) {
 	pressing[charCodes[event.keyCode]] = 1;
 }
 
 document.onkeyup = function(event) {
+	if (charCodes[event.keyCode] == "jump") {
+		hasReleasedJump = true;
+	}
 	pressing[charCodes[event.keyCode]] = 0;
 }
 
 document.onmousedown = function(mouse) {
+	var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
+	var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
+	
+	player.updateAim(mouseX, mouseY);
+	
 	pressing["shoot"] = 1;
 }
 
 document.onmouseup = function(mouse) {
 	pressing["shoot"] = 0;
+}
+
+document.oncontextmenu = function(mouse) {	
+	mouse.preventDefault();	
 }
 
 /*
@@ -36,10 +51,7 @@ document.onmousemove = function(mouse){
 	var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
 	var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
 	
-	mouseX -= player.x;
-	mouseY -= player.y;
-	
-	player.aimAngle = Math.atan2(mouseY,mouseX) / Math.PI * -180;
+	player.updateAim(mouseX, mouseY);
 }
 
 /*
@@ -61,8 +73,13 @@ var doPressedActions = function() {
 	}
 	
 	if (pressing['jump']) {
-		if (!player.isJumping) {
+		if (!player.inAir) {
 			player.jump();
+			hasReleasedJump = false;
+		}
+		else if (player.jumpBuffer > 10 && !player.doubleJumped && hasReleasedJump) {
+			player.jump();
+			player.doubleJumped = true;
 		}
 	}
 	
@@ -76,7 +93,6 @@ var doPressedActions = function() {
 	
 	if (pressing['shoot']) {
 		newBullet = player.shoot();
-		//console.log(newBullet);
 		if (newBullet) {
 			bullets[newBullet.id] = newBullet;
 		}
@@ -94,7 +110,7 @@ var nearTerrain = function(x, y) {
 }
 
 var putOnTerrain = function(thing) {
-	thing.y = 450;
+	thing.y = 450-thing.height/2;
 }
 
 /*
@@ -110,87 +126,125 @@ var inRange = function(thing) {
 */
 var update = function() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	
+	//console.log(player.weapon.vx);
+
+	
+	//Update counters
 	frameCount++;
+	if (frameCount % 10 == 0) {
+		everyTenCount++;
+	}
+	
 	player.attackCounter++;
 	player.transformCounter++;
 	player.immuneCounter++;
+
+	
+	//Draw bars
+	//draws background
+	gui.drawMap();
 	gui.fgDraw(gui.fg_ctx,player.health/player.maxHealth*100,100,20);
 
+	//Manage player damage immunity
 	if (player.isImmune && player.immuneCounter > 100) {
 		player.isImmune = false;
 	}
 	
+	//Do things according to player input (shoot, jump, etc.)
 	doPressedActions();
 
+	
+	//Manage whether or not player is in the air------------------------------------------------
+	
+	//Don't put player on the ground if they just jumped (even though they are near terrain)
 	if (player.justJumped) {
-		player.justJumped = false;
 		player.inAir = true;
+		player.jumpBuffer++;
+		if (player.jumpBuffer > 10) {
+			player.justJumped = false;
+		}
 	}
-	else if (nearTerrain(player.x, player.y)) {
+	
+	//If they didn't just jump, and they are near terrain, put them on that terrain
+	else if (nearTerrain(player.x, player.y+player.height/2)) {
 		player.inAir = false;
-		
+		player.doubleJumped = false;
 		putOnTerrain(player);
 	}
 	
+	//Manage motion type
 	if (player.inAir) {
 		player.setAirMotion();
 	}
 	else {
 		player.setGroundMotion();
 	}
+	//--------------------------------------------------------------------------------------------
 	
 	
+	//Manage all the bullets
 	for (var key in bullets) {
 	
 		var bullet = bullets[key];
 		
+		//If the bullet is very far away from the player, just delete it
 		if (!inRange(bullet)) {
 			delete bullets[key];
 		}
 		
-		//bullet.timer++;
+		//Update the bullet's position, and re-draw it
 		bullet.update();
 		
+		//Check if the bullet has hit a humanoid. If so, remove it, and damage the humanoid
 		toRemove = false;
-	
+		
 		for (var key2 in enemies) {
+			
 			var isColliding = bullet.testCollision(enemies[key2]);
-			if (isColliding) {
+			if (isColliding && bullet.ownerID != enemies[key2].id) {
 				toRemove = true;
 				
-				//reduce enemy health, maybe apply effect (like knockback)
-				
-				//remove dead enemies when looping over them
-				delete enemies[key2];
-				console.log("HERE");
+				//Enemy takes damage, maybe apply effect (like knockback)
+				enemies[key2].takeDamage(bullet.damage);
+				if (enemies[key2].health <= 0) {
+					delete enemies[key2]; //Remove dead enemies
+				}
 				break;
 			}	
 		}
 		
-		
-		var isColliding = bullet.testCollision(player);
-		if (isColliding) {
-			toRemove = true;
-			console.log("Player at " + player.x + ", " + player.y);
-			player.takeDamage(bullet.damage);
+		if (bullet.ownerID != player.id) {
+			var isColliding = bullet.testCollision(player);
+			if (isColliding) {
+				toRemove = true;
+				player.takeDamage(bullet.damage);
+			}
 		}
-		
 		
 		if(toRemove){
 			delete bullets[key];
 		}
 	}
 	
+	//Manage all the enemies
 	for (var key in enemies) {
 		
 		var enemy = enemies[key];
-		
+				
 		if (!inRange(enemy)) {
+			console.log("skipping " + enemy.id);
 			continue;
 		}
 		
 		enemy.update();
 		enemy.updateAim(player);
+		
+		if (nearTerrain(enemy.x, enemy.y)) {
+			console.log(enemy.id)
+			putOnTerrain(enemy);
+		}
+		
 		enemy.attackCounter++;
 		newBullet = enemy.shoot();
 		if (newBullet) {
@@ -223,6 +277,8 @@ var startGame = function(initial_level) {
 	//blocks = level["terrain"];
 	//surfaceMods = level["terrain"];
 	frameCount = 0;
+	everyTenCount = 0;
+	console.log(enemies['enemy2']);
 
 	
 	setInterval(update, 1000/60)

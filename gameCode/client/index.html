@@ -1,10 +1,10 @@
 
-
+<body background="../../images/Background.png" style="margin-left:50px; background-repeat: no-repeat; ">
 <div id="signDiv">
-    Username: <input id="signDiv-username" type="text"></input><br>
-    Password: <input id="signDiv-password" type="password"></input>
+    Username: <input id="signDiv-username" type="text"></input><br><br>
+    Password: <input id="signDiv-password" type="password"></input><br><br>
     <button id="signDiv-signIn">Sign In</button>
-    <button id="signDiv-signUp">Sign Up</button>
+    <button id="signDiv-signUp">Sign Up</button><br><br>
 </div>
 <div id="gameDiv" style="width: 500px; height: 500;  background-color: blue; display:none;">
     <button id="level">level 1</button>
@@ -46,7 +46,8 @@
    socket.on('signInResponse',function(data){
     if(data.success){
         signDiv.style.display = 'none';
-        gameDiv.style.display = 'inline-block';
+        location.href = "/client/gameMenu.html";
+        //gameDiv.style.display = 'inline-block';
 
 
     } else
@@ -70,3 +71,5 @@ socket.on('serverMsg',function(data){
 
 
 </script>
+
+</body>

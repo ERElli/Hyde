@@ -10,6 +10,10 @@ app.get('/',function(req, res) {
     res.sendFile(__dirname + '/client/index.html');
 });
 
+app.get('/client/gameMenu.html',function(req, res) {
+    res.sendFile(__dirname + '/client/gameMenu.html');
+});
+
 app.get('/levelEditor',function(req, res) {
     res.sendFile(__dirname + '/levelEditor/levelEditor.html');
 });
@@ -39,6 +43,26 @@ app.get('/images/characterButton.png',function(req, res) {
 app.get('/images/terrainButton.png',function(req, res) {
     res.sendFile(__dirname + '/images/terrainButton.png');
 });
+
+app.get('/images/scientistMain.png',function(req, res) {
+    res.sendFile(__dirname + '/images/scientistMain.png');
+});
+
+app.get('/images/playStory.png',function(req, res) {
+    res.sendFile(__dirname + '/images/playStory.png');
+});
+
+app.get('/images/playOnline.png',function(req, res) {
+    res.sendFile(__dirname + '/images/playOnline.png');
+});
+app.get('/images/levelEditor.png',function(req, res) {
+    res.sendFile(__dirname + '/images/levelEditor.png');
+});
+
+app.get('/images/achievements.png',function(req, res) {
+    res.sendFile(__dirname + '/images/achievements.png');
+});
+
 app.get('/images/weaponButton.png',function(req, res) {
     res.sendFile(__dirname + '/images/weaponButton.png');
 });
