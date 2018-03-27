@@ -18,8 +18,8 @@ function Terrain1x1(id, x, y){
 	var image = new Image();
 	image.src = self.img;
 
-	self.draw = function(){
-		ctx_lg.drawImage(image, 0, 0, image.width, image.height, self.x, self.y, self.width, self.height);
+	self.draw = function(ctx){
+		ctx.drawImage(image, 0, 0, image.width, image.height, self.x, self.y, self.width, self.height);
 		//this is just a temp function until we have art for 1x1 terrain
 	};
 
@@ -36,11 +36,10 @@ function Terrain1x1Breakable(id, x, y){
 	var image = new Image();
 	image.src = self.img;
 
-	self.draw = function(){
-		ctx_lg.drawImage(image, 0, 0,image.width,image.height,self.x,self.y, self.width, self.height);
+	self.draw = function(ctx){
+		ctx.drawImage(image, 0, 0,image.width,image.height,self.x,self.y, self.width, self.height);
 		//this is just a temp function until we have art for 1x1 terrain
 	};
-
 	return self;
 }
 
@@ -54,12 +53,8 @@ function Terrain3x2(id, x, y){
 	var image = new Image();
 	image.src = self.img;
 
-	self.draw = function(){
-		ctx_lg.drawImage(image,self.x,self.y, self.width, self.height);
-	};
-
-	self.drawPreview = function() {
-		ctx_ep.drawImage(image,self.x,self.y, self.width, self.height);
+	self.draw = function(context){
+		context.drawImage(image,self.x,self.y, self.width, self.height);
 	};
 
 	return self;
@@ -75,12 +70,8 @@ function Terrain3x2Breakable(id, x, y){
 	var image = new Image();
 	image.src = self.img;
 
-	self.draw = function(){
-		ctx_lg.drawImage(image,self.x,self.y, self.width, self.height);
-	};
-
-	self.drawPreview = function() {
-		ctx_ep.drawImage(image,self.x,self.y, self.width, self.height);
+	self.draw = function(ctx){
+		ctx.drawImage(image,self.x,self.y, self.width, self.height);
 	};
 
 	return self;
@@ -96,12 +87,8 @@ function Terrain3x4(id, x, y){
 	var image = new Image();
 	image.src = self.img;
 
-	self.draw = function(){
-		ctx_lg.drawImage(image,self.x,self.y, self.width, self.height);
-	};
-
-	self.drawPreview = function() {
-		ctx_ep.drawImage(image,self.x,self.y, self.width, self.height);
+	self.draw = function(ctx){
+		ctx.drawImage(image,self.x,self.y, self.width, self.height);
 	};
 
 	return self;
@@ -117,12 +104,8 @@ function Terrain3x4Breakable(id, x, y){
 	var image = new Image();
 	image.src = self.img;
 
-	self.draw = function(){
-		ctx_lg.drawImage(image,self.x,self.y, self.width, self.height);
-	};
-
-	self.drawPreview = function() {
-		ctx_ep.drawImage(image,self.x,self.y, self.width, self.height);
+	self.draw = function(ctx){
+		ctx.drawImage(image,self.x,self.y, self.width, self.height);
 	};
 
 	return self;
@@ -138,12 +121,8 @@ function Terrain3x6(id, x, y){
 	var image = new Image();
 	image.src = self.img;
 
-	self.draw = function(){
-		ctx_lg.drawImage(image,self.x,self.y, self.width, self.height);
-	};
-
-	self.drawPreview = function() {
-		ctx_ep.drawImage(image,self.x,self.y, self.width, self.height);
+	self.draw = function(ctx){
+		ctx.drawImage(image,self.x,self.y, self.width, self.height);
 	};
 
 	return self;
@@ -159,12 +138,8 @@ function Terrain3x6Breakable(id, x, y){
 	var image = new Image();
 	image.src = self.img;
 
-	self.draw = function(){
-		ctx_lg.drawImage(image,self.x,self.y, self.width, self.height);
-	};
-
-	self.drawPreview = function() {
-		ctx_ep.drawImage(image,self.x,self.y, self.width, self.height);
+	self.draw = function(ctx){
+		ctx.drawImage(image,self.x,self.y, self.width, self.height);
 	};
 
 	return self;
