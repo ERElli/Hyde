@@ -21,6 +21,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	var bigMaxVY = 20*mpsTOppf;
 	var bigJumpSpeed = 3*mpsTOppf;
 	var bigSlowDown = 4;
+
 	
 	//type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, health, weapon, mass, jumpSpeed, meleeDamage
 	var self = Humanoid('player', id, x, y, vx, vy, smallWidth, smallHeight, img, 'red', smallAcceleration, smallMaxVX, smallMaxVY,
@@ -44,10 +45,15 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	
 	self.meleeRadius = 15;
 	
+	self.isLaunched = false;
+	
 	var oldUpdate = self.updatePosition;
 	self.updatePosition = function() {
 		
-		if (Math.sign(self.vx) != Math.sign(self.ax)) {
+		//console.log(self.vx);
+		
+		if (Math.sign(self.vx) != Math.sign(self.ax) && !self.isLaunched) {
+			//console.log("Slowing");
 			self.ax = self.slowDownFactor*self.ax;
 		}	
 		
@@ -77,6 +83,12 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 		self.vy = 0;
 		self.acceleration = self.isBig ? bigAcceleration:smallAcceleration;
 		self.maxVelocityX = self.isBig ? bigMaxVX:smallMaxVX;
+	}
+	
+	self.launch = function(vx) {
+		self.vx = vx;
+		self.isLaunched = true;
+		self.launchTimer = 0;
 	}
 	
 	self.sprint = function() {
@@ -122,6 +134,18 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 		}	
 	}
 	
+	self.takeDamage = function(amount) {
+		if (!self.isBig) {
+			self.health -= amount;
+			self.isImmune = true;
+			self.immuneCounter = 0;
+		}
+		else {
+			self.health -= amount/2;
+			self.isImmune = true;
+			self.immuneCounter = 0;
+		}
+	}
 	//self.draw = function() {
 		
 	//}
