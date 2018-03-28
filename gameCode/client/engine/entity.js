@@ -116,7 +116,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		self.vx += self.ax;
 		self.vy += self.ay;
 		
-		if (Math.abs(self.vx) > self.maxVelocityX) {
+		if (Math.abs(self.vx) > self.maxVelocityX && !self.isLaunched) {
 			self.vx = Math.sign(self.vx)*self.maxVelocityX;
 		}
 		

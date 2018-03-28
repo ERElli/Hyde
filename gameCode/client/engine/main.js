@@ -66,7 +66,8 @@ var doPressedActions = function() {
 		player.ax = player.acceleration;
 	}
 	else {
-		if (Math.abs(player.vx) < 2) {
+		if (Math.abs(player.vx) < 2 && !player.isLaunched) {
+			//console.log("Stopping");
 			player.vx = 0;
 		}
 		player.ax = -Math.sign(player.vx)*player.acceleration*0.5;
@@ -143,7 +144,14 @@ var update = function() {
 	player.attackCounter++;
 	player.transformCounter++;
 	player.immuneCounter++;
-
+	
+	if (player.isLaunched) {
+		console.log("Launched");
+		player.launchTimer++;
+		if (player.launchTimer > 50) {
+			player.isLaunched = false;
+		}
+	}
 	
 	//Draw bars
 	//draws background
@@ -228,10 +236,10 @@ var update = function() {
 		
 		if (bullet.type == 'meleeBullet') {
 			
-			console.log("Position: " + bullet.x + ", " + bullet.y);
+			//console.log("Position: " + bullet.x + ", " + bullet.y);
 			
 			bullet.timer++;
-			console.log(bullet.timer);
+			//console.log(bullet.timer);
 			if (bullet.timer > 50) {
 				toRemove = true;
 			}
@@ -248,7 +256,7 @@ var update = function() {
 		var enemy = enemies[key];
 				
 		if (!inRange(enemy)) {
-			console.log("skipping " + enemy.id);
+			//console.log("skipping " + enemy.id);
 			continue;
 		}
 		
@@ -261,6 +269,8 @@ var update = function() {
 		}
 		
 		enemy.attackCounter++;
+		
+		/*
 		newBullets = enemy.shoot();
 		//console.log(newBullets);
 		for (i in newBullets) {
@@ -270,11 +280,38 @@ var update = function() {
 				bullets[newBullet.id] = newBullet;
 			}
 		}
+		*/
 				
 		var isColliding = enemy.testCollision(player);
+		
 		if (isColliding) {
 			if (!player.isImmune) {
+				
+				
+				player_p = Math.abs(player.vx*player.mass);
+				enemy_p = Math.abs(enemy.vx*enemy.mass);
+				
+				//console.log("Player: " + player_p)
+				//console.log("Enemy: " + enemy_p)
+				
+				delta_p = Math.abs(player_p - enemy_p);
+				
+				if (player_p > enemy_p) {
+					enemy.vx = Math.sign(player.vx)*delta_p/enemy.mass;
+					//player.vx = 0;
+				}
+				else if (enemy_p > player_p) {
+					player.launch(Math.sign(enemy.vx)*delta_p/player.mass);
+					console.log(player.vx);
+					//enemy.vx = 0;
+				}
+				else {
+					//player.vx
+				}
 				player.takeDamage(enemy.meleeDamage);
+				
+				console.log("Launched: " + player.isLaunched);
+
 			}
 		}
 		
