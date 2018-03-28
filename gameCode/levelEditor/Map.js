@@ -1,4 +1,4 @@
-var socket = io();
+//var socket = io();
 Map = function(width, height,tile_width, tile_height) {
 	var rand = Math.random();
 	var self = {};
@@ -147,7 +147,7 @@ Map = function(width, height,tile_width, tile_height) {
 				self.tiles[i][j] = {};
 			}
 		}
-		socket.emit('deleteLevelItem',{x:x,y:y, w:w, h:h, id: e.id, type: e.type, rand: rand });
+	//	socket.emit('deleteLevelItem',{x:x,y:y, w:w, h:h, id: e.id, type: e.type, rand: rand });
 	};
 
 	//function to draw all entities in EntityList

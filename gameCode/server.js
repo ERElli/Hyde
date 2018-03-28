@@ -13,7 +13,84 @@ app.get('/',function(req, res) {
 app.get('/client/gameMenu.html',function(req, res) {
     res.sendFile(__dirname + '/client/gameMenu.html');
 });
+//for interface
+app.get('/client/interface/index.html',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/index.html');
+});
 
+app.get('/client/engine/entity.js',function(req, res) {
+    res.sendFile(__dirname + '/client/engine/entity.js');
+});
+app.get('/client/engine/main.js',function(req, res) {
+    res.sendFile(__dirname + '/client/engine/main.js');
+});
+app.get('/client/engine/enemy.js',function(req, res) {
+    res.sendFile(__dirname + '/client/engine/enemy.js');
+});
+app.get('/client/engine/weapon.js',function(req, res) {
+    res.sendFile(__dirname + '/client/engine/weapon.js');
+});
+app.get('/client/engine/player.js',function(req, res) {
+    res.sendFile(__dirname + '/client/engine/player.js');
+});
+app.get('/client/interface/GUI.js',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/GUI.js');
+});
+
+app.get('/client/interface/img/worldOneBackground.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/worldOneBackground.png');
+});
+
+app.get('/client/interface/img/worldTwoBackground.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/worldTwoBackground.png');
+});
+
+app.get('/client/interface/img/worldThreeBackground.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/worldThreeBackground.png');
+});
+
+app.get('/client/interface/img/ovingCharacter.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/ovingCharacter.png');
+});
+
+app.get('/client/interface/img/bigGuy.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/bigGuy.png');
+});
+
+app.get('/client/interface/img/enemy1.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/enemy1.png');
+});
+
+app.get('/client/interface/img/enemy2.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/enemy2.png');
+});
+
+app.get('/client/interface/img/enemy3.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/enemy3.png');
+});
+
+app.get('/client/interface/img/pistolWeapon.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/pistolWeapon.png');
+});
+
+app.get('/client/interface/img/assaultWeapon.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/assaultWeapon.png');
+});
+
+app.get('/client/interface/img/swordWeapon.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/swordWeapon.png');
+});
+
+app.get('/client/interface/img/bullet.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/bullet.png');
+});
+
+app.get('/client/interface/img/movingCharacter.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/movingCharacter.png');
+});
+////////////////
+
+//for level editor
 app.get('/levelEditor',function(req, res) {
     res.sendFile(__dirname + '/levelEditor/levelEditor.html');
 });
@@ -26,6 +103,9 @@ app.get('/gameCode/levelEditor/Rectangle.js',function(req, res) {
 app.get('/gameCode/levelEditor/Terrain.js',function(req, res) {
     res.sendFile(__dirname + '/levelEditor/Terrain.js');
 });
+
+///////////////
+
 
 app.get('/images/enemiesButton.png',function(req, res) {
     res.sendFile(__dirname + '/images/enemiesButton.png');
@@ -114,6 +194,20 @@ io.sockets.on('connection', function(socket){
 			}
 		});
 	});
+
+  socket.on('forgotPassword',function(data){
+   Database.isUsernameTaken(data,function(res){
+    if(res){
+      console.log("true");
+    //  Database.checkAnswer(data,function(){
+      //  socket.emit('signUpResponse',{success:false});
+    //  });
+    }
+    else {
+
+    }
+  });
+});
 
   socket.on('updateLevel',function(data){
    Database.levelUpdate(user, data);

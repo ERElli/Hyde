@@ -1,5 +1,7 @@
 GUI = function(container){
 	var self={};
+	
+
 	self.container=container;
 	var Img = {};
 	Img.background1= new Image();
@@ -7,7 +9,7 @@ GUI = function(container){
 	Img.background2= new Image();
 	Img.background2.src="img/worldTwoBackground.png";
 	Img.background3= new Image();
-	Img.background3.src="img/worldThreeBackground.png";	
+	Img.background3.src="img/worldThreeBackground.png";
 	Img.playerSmall = new Image();
 	Img.playerSmall.src = "img/movingCharacter.png";
 	Img.playerBig = new Image();
@@ -40,7 +42,7 @@ GUI = function(container){
 				element.height=height;
 			}else{
 				element.style.height=height;
-			}				
+			}
 		}
 		if(width!=0){
 			if(type=='canvas'){
@@ -69,10 +71,10 @@ GUI = function(container){
 		n=backgroundPositionCounter;
 		x=self.bg.width-e.x;
 		y=0;
-		Img.background1.onload=function(){	
+		Img.background1.onload=function(){
 		}
 
-		//continuously loops backgrounds	
+		//continuously loops backgrounds
 		gui.bg_ctx.drawImage(Img.background1,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background1,x+self.bg.width*n,y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background1,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
@@ -85,6 +87,7 @@ GUI = function(container){
 		}
 	}
 	//draws Entities
+
 	self.drawEntity=function(entity){
 		gui.fg_ctx.save();
 		//
@@ -96,41 +99,41 @@ GUI = function(container){
 				//console.log(Img.player);
 				if(entity.isBig==true){
 					gui.fg_ctx.drawImage(Img.playerBig,self.fg.width/2,entity.y-entity.height/2,entity.width,entity.height);
-					Img.playerBig.onload=function(){}	
+					Img.playerBig.onload=function(){}
 				}
 				else{
 					var frameWidth=Img.playerSmall.width/5;
 					var frameHeight=Img.playerSmall.height/2;
 					playerDirection=self.getImageDirection(entity);
 					//updates player animation every 5th frame
-					smallPlayerAnimation=self.updateEntityAnimation(entity,smallPlayerAnimation,5);				
+					smallPlayerAnimation=self.updateEntityAnimation(entity,smallPlayerAnimation,5);
 					gui.fg_ctx.drawImage(Img.playerSmall,smallPlayerAnimation*frameWidth,playerDirection*frameHeight,frameWidth,frameHeight,self.fg.width/2-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);
 
-					Img.playerSmall.onload=function(){}	
-				}		
-			}	
+					Img.playerSmall.onload=function(){}
+				}
+			}
 			else if(entity.type=="basic enemy"){
-				gui.fg_ctx.drawImage(Img.basicEnemy1,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);				
+				gui.fg_ctx.drawImage(Img.basicEnemy1,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
 				entity.img.onload=function(){
 
 				}
 			}
 			else if(entity.type=="flying enemy"){
-				gui.fg_ctx.drawImage(Img.basicEnemy2,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);				
+				gui.fg_ctx.drawImage(Img.basicEnemy2,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
 				entity.img.onload=function(){
 
 				}
-		
+
 			}
 			else if(entity.type=="tank enemy"){
-				gui.fg_ctx.drawImage(Img.basicEnemy3,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);				
+				gui.fg_ctx.drawImage(Img.basicEnemy3,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
 				entity.img.onload=function(){
 
 				}
 			}
 			else if(entity.type=="ghost"){
 				gui.fg_ctx.drawImage(img,x-width/2,y-height/2);
-		
+
 			}
 			//Drawing special terrain
 			else if(entity.type=="moving plaform"){
@@ -150,41 +153,43 @@ GUI = function(container){
 			else if(entity.type=="pistol"){
 				gui.fg_ctx.rotate(e.aimAngle*Math.pi/180);
 				gui.fg_ctx.drawImage(Img.pistol,(entity.x-entity.width/2)-playX+30,entity.y-entity.height/2,entity.width,entity.height);
-				
+
 				entity.img.onload=function(){
 				}
 			}
 			else if(entity.type=="shotgun"){
 				gui.fg_ctx.drawImage(img,x-width/2,y-height/2);
-		
+
 			}
 			else if(entity.type=="sword"){
 				gui.fg_ctx.drawImage(img,x-width/2,y-height/2);
-		
+
 			}
 			else if(entity.type=="assault rifle"){
 				gui.fg_ctx.drawImage(img,x-width/2,y-height/2);
-		
+
 			}
 			//Draw projectiles
 			else if(entity.type=="bullet"){
 				gui.fg_ctx.drawImage(Img.bullet,(entity.x-entity.width/2)-playX,entity.y-entity.height,entity.width,entity.height);
 				Img.bullet.onload=function(){}
-			}			
-			else{
-			
 			}
-			gui.fg_ctx.restore();		
+			else{
+
+			}
+			gui.fg_ctx.restore();
 	};
+
 	self.getImageDirection=function(entity){
 		if(entity.aimAngle<=90 && entity.aimAngle>-90){
 			return 0;
-		} 
+		}
 		else{
 			return 1;
 		}
 	}
 	//Function to update the entitys Animations
+
 	self.updateEntityAnimation=function(entity,animationCounter,numAnimations){
 		if(entity.vx==0){
 			return 0;
@@ -199,6 +204,8 @@ GUI = function(container){
 	}
 
 
+
+
 	self.fgDraw=function(fg_ctx,playerHealth,playerMomentum,ammo){
 		var healthX=0;
 		var healthY=30;
@@ -211,14 +218,14 @@ GUI = function(container){
 		var weaponImgX=1125;
 		var weaponImgY=50;
 		fg_ctx.save();
-		
+
 		fg_ctx.clearRect(0,0,self.fg.width,self.fg.height);
 		fg_ctx.font="18px Arial";
 		//draw bar outlines
 		fg_ctx.strokeRect(healthX,healthY,100,10);
-		fg_ctx.strokeRect(momentX,momentY,100,10);		
+		fg_ctx.strokeRect(momentX,momentY,100,10);
 		//draw Healthbar
-		fg_ctx.fillStyle="#FF0000";		
+		fg_ctx.fillStyle="#FF0000";
 		fg_ctx.fillRect(healthX,healthY,playerHealth,10);
 		//draw Momentumbar
 		fg_ctx.fillStyle="#0000FF";
@@ -233,7 +240,7 @@ GUI = function(container){
 		//draw current weapon image
  		gui.fg_ctx.drawImage(Img.pistol,weaponImgX,weaponImgY,Img.pistol.width,Img.pistol.height);
 		Img.pistol.onload=function(){}
-			
+
 	};
 	return self;
 }

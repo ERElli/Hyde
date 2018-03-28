@@ -1,11 +1,52 @@
 
 <body background="../../images/Background.png" style="margin-left:50px; background-repeat: no-repeat; ">
-<div id="signDiv">
+<div id="signDiv"  style=" background-image:url("../../images/logintemplate.png"); display:none;">
     Username: <input id="signDiv-username" type="text"></input><br><br>
     Password: <input id="signDiv-password" type="password"></input><br><br>
     <button id="signDiv-signIn">Sign In</button>
     <button id="signDiv-signUp">Sign Up</button><br><br>
+      <button id="forgotButton">Forgot Password</button><br><br>
+
 </div>
+
+<div id="main" >
+  <br><br><br>
+  <button id="signInButton">Sign In</button>
+  <button id="signUpButton">Sign Up</button><br><br>
+</div>
+
+<div id="signUp" style=" display:none;" >
+  Choose a Username: <input id="signDiv-user" type="text"></input><br><br>
+  Choose a Password: <input id="signDiv-pass" type="password"></input><br><br>
+  Answer these Security Questions for account recovery: <br> <br>
+  What is the first name of the person you first kissed? <br>
+  <input id="q1" type="text"></input><br><br>
+
+  What is your pet’s name? <br>
+  <input id="q2" type="text"></input><br><br>
+
+  What is your favorite sport? <br>
+  <input id="q3" type="text"></input><br><br>
+
+  <button id="signUpB">Sign Up</button><br><br>
+</div>
+
+<div id="forgotDiv" style=" display:none;" >
+
+  Username you are trying to recover: <input id="usernameField" type="text"></input><br><br>
+  Answer these Security Questions correctly to recover your account: <br> <br>
+  What is the first name of the person you first kissed? <br>
+  <input id="a1" type="text"></input><br><br>
+
+  What is your pet’s name? <br>
+  <input id="a2" type="text"></input><br><br>
+
+  What is your favorite sport? <br>
+  <input id="a3" type="text"></input><br><br>
+
+  <button id="recoverButton">Recover</button><br><br>
+</div>
+
 <div id="gameDiv" style="width: 500px; height: 500;  background-color: blue; display:none;">
     <button id="level">level 1</button>
     <h1> Game Here </h1>
@@ -20,16 +61,56 @@
 
     //sign
     var signDiv = document.getElementById('signDiv');
+    var main = document.getElementById('main');
+    var signUp = document.getElementById('signUp');
     var signDivUsername = document.getElementById('signDiv-username');
     var signDivSignIn = document.getElementById('signDiv-signIn');
     var signDivSignUp = document.getElementById('signDiv-signUp');
+    var signInButton = document.getElementById('signInButton');
+    var signUpButton  =  document.getElementById('signUpButton');
     var signDivPassword = document.getElementById('signDiv-password');
     var level = document.getElementById('level');
     var text = document.getElementById('text');
 
+    var signDivUser= document.getElementById('signDiv-user');
+    var signDivPass = document.getElementById('signDiv-pass');
+    var q1 = document.getElementById('q1');
+    var q2 = document.getElementById('q2');
+    var q3 = document.getElementById('q3');
+    var signUpB = document.getElementById('signUpB');
+
+    var forgotButton = document.getElementById('forgotButton');
+    var forgotDiv = document.getElementById('forgotDiv');
+    var usernameField = document.getElementById('usernameField');
+    var a1 = document.getElementById('a1');
+    var a2 = document.getElementById('a2');
+    var a3 = document.getElementById('a3');
+
+
+    var signDivUser= document.getElementById('signDiv-user');
+
+    forgotButton.onclick = function(){
+      signDiv.style.display = 'none';
+      forgotDiv.style.display = 'inline-block';
+         //socket.emit('forgotPassword',{username:usernameField.value,a1: a1.value, a2: a2.value, a3: a3.value});
+
+    }
+
+    signInButton.onclick = function(){
+      main.style.display = 'none';
+      signDiv.style.display = 'inline-block';
+    }
+    signUpButton.onclick = function(){
+      main.style.display = 'none';
+      signUp.style.display = 'inline-block';
+    }
+
+    signUpB.onclick = function(){
+
+      socket.emit('signUp',{username:signDivUser.value,password:signDivPass.value, q1:q1.value,q2:q2.value,q3:q3.value});
+    }
 
     signDivSignIn.onclick = function(){
-
 
        socket.emit('signIn',{username:signDivUsername.value,password:signDivPassword.value});
    }
@@ -56,6 +137,7 @@
 socket.on('signUpResponse',function(data){
     if(data.success){
         alert("Sign up successul.");
+          location.href = "/client/gameMenu.html";
     } else
         alert("Sign up unsuccessul.");
 });

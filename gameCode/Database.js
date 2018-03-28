@@ -14,7 +14,7 @@ Database.deleteLevelItem = function(data, cb){
   //console.log("nice"+data.x, data.y, data.w, data.h, data.id, data.type);
   //db.saveLevel.remove({id:data.rand}, { $addToSet:{ items: {x:data.x, y: data.y, w: data.w,h: data.h,id: data.id,type: data.type} } }, {upsert: true});
   db.saveLevel.update({id:data.rand},  { $pull: { "items" : { id: data.id } } } );
-  
+
 
 }
 
@@ -38,10 +38,19 @@ Database.isUsernameTaken = function(data,cb){
 			cb(false);
 	});
 }
+
+Database.checkAnswer = function(data,cb){
+    if(!USE_DB)
+        return cb(false);
+	db.account.findOne({username:data.username},function(err,res){
+      cb({a1: res.q1, a2: res.q2, a3:res.q3});
+    });
+}
+
 Database.addUser = function(data,cb){
     if(!USE_DB)
         return cb();
-	db.account.insert({username:data.username,password:data.password},function(err){
+	db.account.insert({username:data.username,password:data.password, q1:data.q1, q2:data.q2, q3:data.q3},function(err){
         Database.savePlayerProgress({username:data.username,items:[]},function(){
             cb();
         })
@@ -79,5 +88,6 @@ db.progress.update({username: "bbbb"}, { $set: { items: {level: "level 3", time:
 db.progress.find( { items: {level : "level 2", time: 140} } );
 db.saveLevel.find({id: 0.7325131413466066, item});
 db.saveLevel.remove({});
+db.account.remove({});
 
 */
