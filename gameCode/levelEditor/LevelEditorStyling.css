@@ -1,10 +1,9 @@
-
-
 /*Enemies Button*/
 
 .enemiesbtn {
     background:transparent;
     background-image: url(../../images/enemiesButton.png);
+    background-size: 100%;
     top: 0px;
     position: fixed;
     left: 62px;
@@ -16,13 +15,15 @@
     height: 62px;
 }
 
-.enemiesbtn:hover, .dropbtn:focus {
-    
+.enemiesbtn:hover, .enemiesbtn:focus {
+    outline:0;
     z-index:4;
 }
 
+
+
 .enemiesDropdown {
-    position: absolute;
+    position: fixed;
     display: inline-block;
     z-index:4;
 
@@ -31,34 +32,35 @@
 .enemies-content {
     display: none;
     position: fixed;
-    left: 186px;
+    left: 62px;
     top:62px;
     min-width: 62px;
     overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);
+    
     z-index: 4;
 }
 
-.enemies-content a {
+.enemies-content button {
+    background:transparent;
+    border: none;
     color: black;
-    padding: 31px 31px;
-    text-decoration: none;
+    width: 62px;
+    height: 62px;
     display: block;
+    background-size: 100%;
     z-index: 4;
-    left:178px;
 }
 
-.dropdown a:hover {background-color: #ddd}
+.enemies-content button:hover {background-color: #ddd}
 
-.show {display:block;}       
-
-
+.show {display:block;}
 
 /*Music Button*/
 
 .musicbtn {
     background:transparent;
     background-image: url(../../images/musicButton.png);
+    background-size: 100%;
     top: 0px;
     position: fixed;
     left: 124px;
@@ -70,13 +72,13 @@
     height: 62px;
 }
 
-.musicbtn:hover, .dropbtn:focus {
-    
+.musicbtn:hover, .musicbtn:focus {
+    outline:0;
     z-index:4;
 }
 
 .musicDropdown {
-    position: absolute;
+    position: fixed;
     display: inline-block;
     z-index:4;
 
@@ -85,34 +87,34 @@
 .music-content {
     display: none;
     position: fixed;
-    left: 186px;
+    left: 124px;
     top:62px;
     min-width: 62px;
     overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);
+    
     z-index: 4;
 }
 
-.music-content a {
+.music-content button {
+    background:transparent;
+    border: none;
     color: black;
-    padding: 31px 31px;
-    text-decoration: none;
+    width: 62px;
+    height: 62px;
     display: block;
     z-index: 4;
-    left:124px;
 }
 
-.dropdown a:hover {background-color: #ddd}
+.music-content button:hover {background-color: #ddd}
 
-.show {display:block;}       
-
-
+.show {display:block;}
 
 /*Background Button*/
 
 .backgroundbtn {
     background:transparent;
     background-image: url(../../images/backgroundButton.png);
+    background-size: 100%;
     top: 0px;
     position: fixed;
     left: 186px;
@@ -124,15 +126,16 @@
     height: 62px;
 }
 
-.backgroundbtn:hover, .dropbtn:focus {
-    
+.backgroundbtn:hover, .backgroundbtn:focus {
+    outline:0;
     z-index:4;
 }
 
 .backgroundDropdown {
-    position: absolute;
+    position: relative;
     display: inline-block;
     z-index:4;
+
 
 }
 
@@ -143,28 +146,31 @@
     top:62px;
     min-width: 62px;
     overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);
+    
     z-index: 4;
 }
 
-.background-content a {
+.background-content button {
+    background:transparent;
+    border: none;
     color: black;
-    padding: 31px 31px;
-    text-decoration: none;
+    width: 62px;
+    height: 62px;
     display: block;
     z-index: 4;
-    left:62px;
 }
 
-.dropdown a:hover {background-color: #ddd}
 
-.show {display:block;}      
+.background-content button:hover {background-color: #ddd}
+
+.show {display:block;}
 
 /*Checkpoint Button*/
 
 .checkpointbtn {
     background:transparent;
     background-image: url(../../images/checkpointButton.png);
+    background-size: 100%;
     top: 0px;
     position: fixed;
     left: 248px;
@@ -191,7 +197,7 @@
 .checkpoint-content {
     display: none;
     position: fixed;
-    left: 186px;
+    left: 248px;
     top:62px;
     min-width: 62px;
     overflow: auto;
@@ -217,6 +223,7 @@
 .characterbtn {
     background:transparent;
     background-image: url(../../images/characterButton.png);
+    background-size: 100%;
     top: 0px;
     position: fixed;
     left: 310px;
@@ -269,9 +276,10 @@
 .terrainbtn {
     background:transparent;
     background-image: url(../../images/terrainButton.png);
+    background-size: 100%;
     top: 0px;
     position: fixed;
-    left: 374px;
+    left: 372px;
     
     border: none;
     cursor: pointer;
@@ -280,13 +288,13 @@
     height: 62px;
 }
 
-.terrainnbtn:hover, .dropbtn:focus {
-    
+.terrainbtn:hover, .terrainbtn:focus {
+    outline:0;
     z-index:4;
 }
 
 .terrainDropdown {
-    position: absolute;
+    position: fixed;
     display: inline-block;
     z-index:4;
 
@@ -295,35 +303,38 @@
 .terrain-content {
     display: none;
     position: fixed;
-    left: 186px;
+    left: 372px;
     top:62px;
     min-width: 62px;
     overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);
+    
     z-index: 4;
 }
 
-.terrain-content a {
+.terrain-content button {
+    background:transparent;
+    border: none;
     color: black;
-    padding: 31px 31px;
-    text-decoration: none;
+    width: 62px;
+    height: 31px;
     display: block;
     z-index: 4;
-    left:62px;
 }
 
-.dropdown a:hover {background-color: #ddd}
+.terrain-content button:hover {background-color: #ddd}
 
-.show {display:block;}      
+.show {display:block;}       
+
 
 /*Weapon Button*/
 
 .weaponbtn {
     background:transparent;
     background-image: url(../../images/weaponButton.png);
+    background-size: 100%;
     top: 0px;
     position: fixed;
-    left: 438px;
+    left: 434px;
     
     border: none;
     cursor: pointer;
@@ -332,13 +343,13 @@
     height: 62px;
 }
 
-.weaponbtn:hover, .dropbtn:focus {
-    
+.weaponbtn:hover, .weaponbtn:focus {
+    outline:0;
     z-index:4;
 }
 
 .weaponDropdown {
-    position: absolute;
+    position: fixed;
     display: inline-block;
     z-index:4;
 
@@ -347,23 +358,74 @@
 .weapon-content {
     display: none;
     position: fixed;
-    left: 186px;
+    left: 434px;
     top:62px;
     min-width: 62px;
     overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);
+    
     z-index: 4;
 }
 
-.weapon-content a {
+.weapon-content button {
+    background:transparent;
+    border: none;
     color: black;
-    padding: 31px 31px;
-    text-decoration: none;
+    width: 62px;
+    height: 62px;
+    background-size: 100%;
     display: block;
     z-index: 4;
-    left:62px;
 }
 
-.dropdown a:hover {background-color: #ddd}
+.weapon-content button:hover {background-color: #ddd}
 
-.show {display:block;}       
+.show {display:block;}
+
+
+/*Check Button */
+
+
+.checkbtn {
+    background:transparent;
+    background-image: url(../../images/checkButton.png);
+    background-size: 100%;
+    top: 0px;
+    position: fixed;
+    left: 496px;
+    background-size: 100%;
+    
+  
+    border: none;
+    cursor: pointer;
+    z-index: 4;
+    width: 62px;
+    height: 62px;
+}
+
+.checkbtn:hover, .checkbtn:focus {
+    outline:0;
+    z-index:4;
+}
+
+/*Exit Button */ 
+
+.exitbtn {
+    background:transparent;
+    background-image: url(../../images/exitButton.png);
+    background-size: 100%;
+    top: 0px;
+    position: fixed;
+    left: 0px;
+    background-size: 100%;
+    
+    border: none;
+    cursor: pointer;
+    z-index: 4;
+    width: 62px;
+    height: 62px;
+}
+
+.exitbtn:hover, .exitbtn:focus {
+    outline:0;
+    z-index:4;
+}
