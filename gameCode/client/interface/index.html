@@ -17,12 +17,18 @@
 		<script type="text/javascript" src="../engine/enemy.js"></script>
 		<script type="text/javascript" src="../engine/weapon.js"></script>
 		<script type="text/javascript" src="GUI.js"></script>
+		
+		<script type="text/javascript" src="level.json"></script>
+		<script type="text/javascript" src="jsonTest.js"></script>
+
+
+		
 		<script>
 		// construct the gui with the container and the map
 		var gui;
 		
 		//id, x, y, vx, vy, width, height, img, color, ownerID
-		p= new Sword("w1", 150, 450-25, 0, 0, 100, 100,"pistol_image",null, 'player');
+		p= new Shotgun("w1", 150, 450-25, 0, 0, 50, 50,"pistol_image",null, 'player');
 
 		//id, x, y, vx, vy, img, weapon, isBig
 		e = new Player("player", 150, 450-25, 0, 0, "Img.player", p, false);
@@ -30,7 +36,7 @@
 			
 		//id, x, y, vx, vy, img, color, target
 
-		enemy = new BasicEnemy("enemy1", 500, 450, 0, 0, "Img.basicEnemy", null, e);
+		enemy = new TankEnemy("enemy1", 500, 450, 0, 0, "Img.basicEnemy", null, e);
 		enemy2 = new TankEnemy("enemy2", 3000, 450, 0, 0, "Img.basicEnemy", null, e)
 		enemy3 = new BasicEnemy("enemy3", 4200, 450, 0, 0, "Img.basicEnemy", null, e)
 		enemy4 = new BasicEnemy("enemy4", 6200, 450, 0, 0, "Img.basicEnemy", null, e)
