@@ -7,60 +7,70 @@ Map = function(width, height,tile_width, tile_height) {
 	self.tiles = [];
 	//self.tiles is only used to make sure that no two entities are placed in the same position
 
-	self.EntityList = {
+	self.ObjectList = {
 		enemies: {},
 		terrain: {},
-		player: {},
-		checkpoints: {},
-		weapons: {},
-		music: {},
+		// player: {},
+		// checkpoints: {},
+		// weapons: {},
+		// music: {},
+		// ghost: {},
 	};
-	//self.objects is list of list of entities. There will be list for terrain, one for enemies, one for weapons, etc.
+	//self.ObjectList is a list of lists of objects. There will be list for terrain, one for enemies, one for weapons, etc.
 	//The format of this list is still flexible
 	
 	//Filling tiles with empty objects
 	for(var i=0; i<self.numTilesX; i++){
 		self.tiles.push([]);
 		for(var j=0; j<self.numTilesY; j++){
-				self.tiles[i].push({});
+			self.tiles[i].push({});
 		}
 	}
 
 	var gridShiftDown = 2; //The grid is shifted down 2 tile widths to make space for the buttons
 
+	//Function to check if tile at coordinate x,y is filled
 	self.isFilled = function(x,y){
 		return !(Object.keys(self.tiles[x][y]).length === 0 && self.tiles[x][y].constructor === Object);
 	};
 
-	self.addToEntityList = function(entity){
-		var type = entity.type;
-		var id = entity.id;
-
+	//Function to return the list objects of type t are stored in.
+	self.getList = function(t){
 		//Regex patterns to place objects in their correct lists
-		var terrainPattern = new RegExp("Terrain");
-		var enemyPattern = new RegExp("enemy");
+		let terrainPattern = new RegExp("Terrain");
+		let enemyPattern = new RegExp("enemy");
 
 		//Checking if type matches any of the RegexPatterns
 		//Is there a way to use a switch case instead
 		//Regex may not be the best way to do this either
 		//Maybe switchcase fall-through is better
-		if(terrainPattern.test(type)){
-			self.EntityList['terrain'][id] = entity;
-		}else if(enemyPattern.test(type)){
-			self.EntityList['enemies'][id] = entity;
+		if(terrainPattern.test(t)){
+			return self.ObjectList['terrain'];
+		}else if(enemyPattern.test(t)){
+			return self.ObjectList['enemies'];
 		}
+	}
+
+	//Function to add entity to it's corresponding list
+	self.addToObjectList = function(object){		
+		let id = object.id;
+		let type = object.type;
+
+		let list = self.getList(type);
+		list[id] = object;
 		
-		console.log("Adding "+type+": ", entity);
-		console.log("Updated EntityList",self.EntityList);
+		console.log("Adding "+type+": ", object);
+		console.log("Updated ObjectList",self.ObjectList);
 	};
 
-	//Function to check if the entity, e, can be placed in the spot where the user clicks
-	self.tryToPlaceEntity = function(e){
-		var x = e.x/tile_width;
-		var y = (e.y/tile_height) - gridShiftDown;
-		var w = x + (e.width/tile_width);
-		var h = y + (e.height/tile_height);
+	//Function to check if the object, o, can be placed in the spot where the user clicks
+	self.tryToPlaceEntity = function(o){
+		var x = o.x/tile_width;
+		var y = (o.y/tile_height) - gridShiftDown;
+		var w = x + (o.width/tile_width);
+		var h = y + (o.height/tile_height);
 		var filled;
+
 		for(var i=x; i<w; i++){
 			for(var j=y; j<h; j++){
 				filled = self.isFilled(i,j);
@@ -81,54 +91,42 @@ Map = function(width, height,tile_width, tile_height) {
 		if(!filled){
 			for(var k=x; k<w; k++){
 				for(var l=y; l<h; l++){
-					self.tiles[k][l].id = e.id;
-					self.tiles[k][l].type = e.type;
+					self.tiles[k][l].id = o.id;
+					self.tiles[k][l].type = o.type;
 
 				}
 			}
-			self.addToEntityList(e);
+			self.addToObjectList(o);
 		}
 	};
 
-	//Function to 
+	//Function to remove entity from list
 	self.removeEntity = function(x,y){
-		var i = x/tile_width;
-		var j = (y/tile_height)-gridShiftDown;
+		let i = x/tile_width;
+		let j = (y/tile_height)-gridShiftDown;
 
-		var type = self.tiles[i][j].type;
-		var id = self.tiles[i][j].id;
-		var toBeRemoved;
+		let type = self.tiles[i][j].type;
+		let id = self.tiles[i][j].id;
+		let toBeRemoved;
 
 		if(self.isFilled(i,j)){
+			let list = self.getList(type);
+			toBeRemoved = list[id];
+			delete list[id];
 
-			//Regex patterns to place objects in their correct lists
-			var terrainPattern = new RegExp("Terrain");
-			var enemyPattern = new RegExp("enemy");
-
-			//Checking if type matches any of the RegexPatterns
-			if(terrainPattern.test(type)){
-				toBeRemoved = self.EntityList['terrain'][id];
-				delete self.EntityList['terrain'][id];
-			}else if(enemyPattern.test(type)){
-				toBeRemoved = self.EntityList['enemies'][id];
-				delete self.EntityList['enemies'][id];
-			}
-
-			// delete toBeRemoved;
-			// var toBeRemoved = self.EntityList[self.tiles[i][j].type][self.tiles[i][j].id];
-			// delete self.EntityList[toBeRemoved.type][toBeRemoved.id];
 			ctx_lg.clearRect(x,y,toBeRemoved.width,toBeRemoved.height);
 			self.makeFreeSpace(toBeRemoved);
 			console.log("Removing Entity:",toBeRemoved);
-			console.log("Updated EntityList:",self.EntityList);
+			console.log("Updated ObjectList:",self.ObjectList);
 		}else {
 			console.log("Nothing to remove!");
 		}			
 	};
 
 	self.setBackgroundImage = function(imageName){
+		self.img = imageName;
 		self.backgroundImg = new Image();
-		self.backgroundImg.src = imageName;
+		self.backgroundImg.src = self.img;
 	};
 
 	//Function to clear spaces on the tile array
@@ -145,16 +143,40 @@ Map = function(width, height,tile_width, tile_height) {
 		}
 	};
 
-	//function to draw all entities in EntityList
+	//function to draw all objects in ObjectList
 	self.update = function(){
-		for(let type in self.EntityList){
-			for(let id in self.EntityList[type]){
-				let entity = self.EntityList[type][id];
-				entity.draw();
+		let object = null;
+		for(let type in self.ObjectList){
+			for(let id in self.ObjectList[type]){
+				object = self.ObjectList[type][id];
+				object.draw(ctx_lg);
 			}
 		}
 	};
 
-	console.log(self.EntityList);
+
+	// self.convertToString = function(){
+	// 	var filename = "levelEditor.txt";
+ 
+	// 	var str = JSON.stringify(self.ObjectList).toString();
+	// 	var a = document.createElement("a");
+	// 	document.body.appendChild(a);
+	// 	var file = new Blob([str],{type: 'application/json'});
+	// 	a.href = URL.createObjectURL(file);
+	// 	a.download = filename;
+	// 	a.click();
+	// 	console.log(a);
+
+
+	// 	// console.log("Stringified:",str);
+	// 	// var parsed = JSON.parse(str);
+	// 	// console.log("Parsed:",parsed);
+
+	// 	// var file = new File([""],filename,self.ObjectList);
+	// 	// console.log(file);
+
+	// };
+
+	console.log(self.ObjectList);
 	return self;
 };
