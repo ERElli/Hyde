@@ -281,6 +281,12 @@ var update = function() {
 			}
 		}
 		*/
+		
+		if (enemy.type == 'tank enemy') {
+			if (enemy.health <= 5) {
+				enemy.block();
+			}
+		}
 				
 		var isColliding = enemy.testCollision(player);
 		
@@ -288,8 +294,8 @@ var update = function() {
 			if (!player.isImmune) {
 				
 				
-				player_p = Math.abs(player.vx*player.mass);
-				enemy_p = Math.abs(enemy.vx*enemy.mass);
+				player_p = Math.abs(player.getMomentum());
+				enemy_p = Math.abs(enemy.getMomentum());
 				
 				//console.log("Player: " + player_p)
 				//console.log("Enemy: " + enemy_p)
@@ -297,12 +303,12 @@ var update = function() {
 				delta_p = Math.abs(player_p - enemy_p);
 				
 				if (player_p > enemy_p) {
-					enemy.vx = Math.sign(player.vx)*delta_p/enemy.mass;
+					enemy.launch(Math.sign(player.vx)*delta_p/enemy.mass);
 					//player.vx = 0;
 				}
 				else if (enemy_p > player_p) {
 					player.launch(Math.sign(enemy.vx)*delta_p/player.mass);
-					console.log(player.vx);
+					//console.log(player.vx);
 					//enemy.vx = 0;
 				}
 				else {
