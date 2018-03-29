@@ -146,7 +146,7 @@ var update = function() {
 	player.immuneCounter++;
 	
 	if (player.isLaunched) {
-		console.log("Launched");
+		//console.log("Launched");
 		player.launchTimer++;
 		if (player.launchTimer > 50) {
 			player.isLaunched = false;
@@ -219,9 +219,6 @@ var update = function() {
 				
 				//Enemy takes damage, maybe apply effect (like knockback)
 				enemies[key2].takeDamage(bullet.damage);
-				if (enemies[key2].health <= 0) {
-					delete enemies[key2]; //Remove dead enemies
-				}
 				break;
 			}	
 		}
@@ -254,7 +251,9 @@ var update = function() {
 	for (var key in enemies) {
 		
 		var enemy = enemies[key];
-				
+		
+		console.log(enemy.type + ": " + enemy.health);
+	
 		if (!inRange(enemy)) {
 			//console.log("skipping " + enemy.id);
 			continue;
@@ -263,12 +262,23 @@ var update = function() {
 		enemy.update();
 		enemy.updateAim(player);
 		
+		if (enemy.health <= 0) {
+			delete enemies[key];
+		}
+		
 		if (nearTerrain(enemy.x, enemy.y)) {
 			//console.log(enemy.id)
 			putOnTerrain(enemy);
 		}
 		
 		enemy.attackCounter++;
+		
+		if (enemy.isLaunched) {
+			enemy.launchTimer++;
+			if (enemy.launchTimer > 50) {
+				enemy.isLaunched = false;
+			}	
+		}
 		
 		/*
 		newBullets = enemy.shoot();
@@ -281,44 +291,48 @@ var update = function() {
 			}
 		}
 		*/
-		
-		if (enemy.type == 'tank enemy') {
-			if (enemy.health <= 5) {
-				enemy.block();
-			}
-		}
 				
 		var isColliding = enemy.testCollision(player);
 		
 		if (isColliding) {
+			
+			var enemyDeals = enemy.meleeDamage;
+			var playerDeals = 0;
+			
 			if (!player.isImmune) {
 				
-				
-				player_p = Math.abs(player.getMomentum());
-				enemy_p = Math.abs(enemy.getMomentum());
-				
-				//console.log("Player: " + player_p)
-				//console.log("Enemy: " + enemy_p)
-				
-				delta_p = Math.abs(player_p - enemy_p);
-				
-				if (player_p > enemy_p) {
-					enemy.launch(Math.sign(player.vx)*delta_p/enemy.mass);
-					//player.vx = 0;
+				if (player.isBig || enemy.type=="tank enemy") {
+					
+					player_p = Math.abs(player.getMomentum());
+					enemy_p = Math.abs(enemy.getMomentum());
+					
+					delta_p = Math.abs(player_p - enemy_p);
+					
+					if (player_p > enemy_p) {
+						enemy.launch(Math.sign(player.vx)*delta_p/enemy.mass);
+						playerDeals += delta_p/150;
+						console.log(playerDeals);
+						//player.vx = 0;
+						
+						//console.log(Math.sign(player.vx)*delta_p/enemy.mass)
+					}
+					else if (enemy_p > player_p) {
+						player.launch(Math.sign(enemy.vx)*delta_p/player.mass);
+						
+						enemyDeals += delta_p/150;
+						//console.log(player.vx);
+						//enemy.vx = 0;
+					}
+					else {
+						//player.vx
+					}
+					
 				}
-				else if (enemy_p > player_p) {
-					player.launch(Math.sign(enemy.vx)*delta_p/player.mass);
-					//console.log(player.vx);
-					//enemy.vx = 0;
-				}
-				else {
-					//player.vx
-				}
-				player.takeDamage(enemy.meleeDamage);
 				
-				console.log("Launched: " + player.isLaunched);
-
+				player.takeDamage(enemyDeals);
+				
 			}
+			enemy.takeDamage(playerDeals);
 		}
 		
 	}

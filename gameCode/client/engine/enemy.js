@@ -14,24 +14,41 @@ function Enemy(type, id, x, y, vx, vy, width, height, img, color, acceleration, 
 	var superUpdatePos = self.updatePosition;
 	self.updatePosition = function() {
 		
-		//console.log(target.x);
-		
-		if (self.x < target.x) {
-			self.ax = self.acceleration;
-//			console.log("Player on right");
+		if (self.isLaunched) {
+			self.ax = 0;
+			/*
+			if (self.x >= self.maxForward*5) {
+				self.x = self.maxForward*5;
+				self.vx = 0;
+			}
+			else if (self.x <= self.maxBackward*5) {
+				self.x = self.maxBackward*5;
+				self.vx = 0;
+			}
+			*/
 		}
+		
 		else {
-			self.ax = -self.acceleration;
+			if (self.x < target.x) {
+				self.ax = self.acceleration;
+			}
+			else {
+				self.ax = -self.acceleration;
+			}
+			
+			/*
+			if (self.x >= self.maxForward) {
+				self.x = self.maxForward
+				//self.vx = 0;
+			}
+			else if (self.x <= self.maxBackward && !self.isLaunched) {
+				self.x = self.maxBackward;
+				//self.vx = 0;
+			}
+			*/
 		}
 		
-		if (self.x >= self.maxForward) {
-			self.x = self.maxForward
-			self.vx = 0;
-		}
-		else if (self.x <= self.maxBackward) {
-			self.x = self.maxBackward;
-			self.vx = 0;
-		}
+		
 		
 		superUpdatePos();
 
@@ -169,6 +186,11 @@ function TankEnemy(id, x, y, vx, vy, img, color, target) {
 	
 	var superUpdate = self.updatePosition;
 	self.updatePosition = function() {
+		
+		if (self.health <= 5) {
+			self.block();
+		}
+		
 		if (self.isBlocking) {
 			self.vx *= 0.9;
 		}
