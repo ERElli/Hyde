@@ -45,7 +45,6 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	
 	self.meleeRadius = 15;
 	
-	self.isLaunched = false;
 	
 	var oldUpdate = self.updatePosition;
 	self.updatePosition = function() {
@@ -83,12 +82,6 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 		self.vy = 0;
 		self.acceleration = self.isBig ? bigAcceleration:smallAcceleration;
 		self.maxVelocityX = self.isBig ? bigMaxVX:smallMaxVX;
-	}
-	
-	self.launch = function(vx) {
-		self.vx = vx;
-		self.isLaunched = true;
-		self.launchTimer = 0;
 	}
 	
 	self.sprint = function() {

@@ -103,6 +103,8 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	self.jumpBuffer = 0;
 	self.justJumped = false;
 	
+	self.isLaunched = false;
+	
 	self.ax = 0;
 	self.ay = 0;
 	//self.fx = 0;
@@ -134,6 +136,16 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		self.weapon.update();
 		
 	
+	}
+	
+	self.getMomentum = function() {
+		return self.vx*self.mass;
+	}
+	
+	self.launch = function(vx) {
+		self.vx = vx;
+		self.isLaunched = true;
+		self.launchTimer = 0;
 	}
 	
 	self.jump = function() {
