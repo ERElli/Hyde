@@ -84,7 +84,7 @@ GUI = function(container){
 						ctx.drawImage(Img.playerBig,self.fg.width/2-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);
 						ctx.restore();
 					}
-					Img.playerBig.onload=function(){}	
+					//Img.playerBig.onload=function(){}	
 				}
 				else{
 					var fW=Img.playerSmall.width/5;
@@ -94,20 +94,18 @@ GUI = function(container){
 					sPAnimation=self.updateEntityAnimation(entity,sPAnimation,5);				
 					ctx.drawImage(Img.playerSmall,sPAnimation*fW,playDir*fH,fW,fH,self.fg.width/2-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);
 
-					Img.playerSmall.onload=function(){}	
+					//Img.playerSmall.onload=function(){}	
 				}		
 			}
 	
 			else if(entity.type=="basic enemy"){
 				ctx.drawImage(Img.basicEnemy1,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);				
-				entity.img.onload=function(){
-				}
+				//entity.img.onload=function(){}
 			}
 
 			else if(entity.type=="flying enemy"){
 				ctx.drawImage(Img.basicEnemy2,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);				
-				entity.img.onload=function(){
-				}
+				//entity.img.onload=function(){}
 		
 			}
 
@@ -129,8 +127,7 @@ GUI = function(container){
 				console.log(bearAnimationStage);
 				console.log(bearAniY);
 				ctx.drawImage(Img.bearEnemy,bearAnimationStage%8*fW,bearAniY*fH,fW,fH,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);				
-				entity.img.onload=function(){
-				}
+				//entity.img.onload=function(){}
 			}
 			else if(entity.type=="ghost"){
 				ctx.drawImage(img,x-width/2,y-height/2);
@@ -156,45 +153,50 @@ GUI = function(container){
 				//ctx.rotate(-e.aimAngle*Math.PI/180);	
 				ctx.drawImage(Img.pistol,(entity.x-entity.width/2)-playX+30,entity.y-entity.height/2,entity.width,entity.height);
 				//ctx.restore();
-				entity.img.onload=function(){
-				}
+				//entity.img.onload=function(){}
 			}
 			else if(entity.type=="shotgun"){
 				ctx.drawImage(Img.shotgun,(entity.x-entity.width/2)-playX+30,entity.y-entity.height/2,entity.width,entity.height);
 				
-				entity.img.onload=function(){
-				}
+				//entity.img.onload=function(){}
 			}
 			else if(entity.type=="sword"){
 				ctx.drawImage(Img.swordWeapon,(entity.x-entity.width/2)-playX+30,entity.y-entity.height/2,entity.width,entity.height);
 				
-				entity.img.onload=function(){
-				}
+				//entity.img.onload=function(){}
 			}
 			else if(entity.type=="assaultRifle"){
 				ctx.drawImage(Img.assaultWeapon,(entity.x-entity.width/2)-playX+30,entity.y-entity.height/2,entity.width,entity.height);
 				
-				entity.img.onload=function(){
-				}
+				//entity.img.onload=function(){}
 			}
 			//Draw projectiles
 			else if(entity.type=="bullet"){
 				ctx.drawImage(Img.bullet,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
-				Img.bullet.onload=function(){}
+				//Img.bullet.onload=function(){}
 			}
 			else if(entity.type=="meleeBullet"){
 				ctx.drawImage(Img.bullet,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
-				Img.bullet.onload=function(){}
+				//Img.bullet.onload=function(){}
 			}			
 			else{
 			
 			}
+			entity.img.onload=function(){};
 			ctx.restore();		
 	};
 	//draws terrain
 	self.drawTerrain=function(terrain,ctx){
+		var t=terrain
+		var playX=e.x-self.fg.width/2;
 		ctx.save();
-	
+		switch(terrain.type){
+			case "Terrain1x1":
+				ctx.drawImage(Img.terrain1x1,t.x-t.width/2-playX,t.y-t.height/2,t.width,t.height);
+			break;
+
+		}
+		terrain.img.onload=function(){};
 		ctx.restore();
 	};
 
