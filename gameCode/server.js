@@ -9,6 +9,9 @@ var user ;
 app.get('/',function(req, res) {
     res.sendFile(__dirname + '/client/index.html');
 });
+app.get('//levelEditor/LevelEditor.html',function(req, res) {
+    res.sendFile(__dirname + '//levelEditor/LevelEditor.html');
+});
 
 app.get('/client/gameMenu.html',function(req, res) {
     res.sendFile(__dirname + '/client/gameMenu.html');
@@ -156,8 +159,7 @@ app.get('/images/buildingTerrain3x6.png',function(req, res) {
     res.sendFile(__dirname + '/images/buildingTerrain3x6.png');
 });
 app.use('/',express.static('CS4770'));
-//app.use('/levelEditor',express.static(__dirname + '/levelEditor'));
-serv.listen(2000);
+
 console.log("Server started.");
 
 

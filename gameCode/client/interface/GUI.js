@@ -1,3 +1,6 @@
+var socket = io();
+socket.emit('saveLevel',{x:"s"});
+console.log("hello there");
 GUI = function(container){
 	var self={};
 	self.container=container;

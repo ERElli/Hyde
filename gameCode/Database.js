@@ -6,7 +6,7 @@ var db = USE_DB ? mongojs('localhost:27017/myGame', ['account','progress']) : nu
 Database = {};
 Database.levelSave = function(data){
   console.log(data.x, data.y, data.w, data.h, data.id, data.type);
-  db.saveLevel.update({id:data.rand}, { $addToSet:{ items: {x:data.x, y: data.y, w: data.w,h: data.h,id: data.id,type: data.type} } }, {upsert: true});
+  db.saveLevel.update({id:data.id}, { $addToSet:{ items: {x:data.x, y: data.y, w: data.w,h: data.h,id: data.id,type: data.type} } }, {upsert: true});
   //db.saveLevel.update({username:username},{  $addToSet: {items: {level : "level 1", time: 130} }});
 }
 Database.deleteLevelItem = function(data, cb){

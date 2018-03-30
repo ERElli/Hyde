@@ -1,3 +1,4 @@
+var socket = io();
 Map = function(width, height,tile_width, tile_height) {
 	var self = {};
 	self.width = width;
@@ -58,6 +59,8 @@ Map = function(width, height,tile_width, tile_height) {
 
 		let list = self.getList(type);
 		list[id] = object;
+
+		socket.emit('saveLevel',{x:object.x,y:object.y, w:object.width, h:object.height, id: object.id, type: object.type });
 
 		console.log("Adding "+type+": ", object);
 		console.log("Updated ObjectList",self.ObjectList);
