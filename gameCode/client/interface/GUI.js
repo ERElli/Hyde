@@ -79,7 +79,7 @@ GUI = function(container){
 			playX=e.x-self.fg.width/2;
 		}
 		var en=entity;
-		playX=e.x-self.fg.width/2;
+		// playX=e.x-self.fg.width/2;
 		ctx.save();
 		switch(en.type){
 			case "player":
@@ -168,13 +168,13 @@ GUI = function(container){
 		}
 		var t=terrain;
 		ctx.save();
-<<<<<<< HEAD
+
 
 		ctx.restore();
 	};
 
 
-=======
+
 		switch(terrain.type){
 			case "Terrain1x1":
 				ctx.drawImage(Img.terrain1x1,t.x-playX,t.y,t.width,t.height);
@@ -185,7 +185,7 @@ GUI = function(container){
 		ctx.restore();
 	};
 
->>>>>>> b8f5dfb993259ebe2c66c37574b1af9712ed0a6c
+
 	self.getImageDirection=function(entity){
 		if(entity.aimAngle<=90 && entity.aimAngle>-90){
 			return 0;
