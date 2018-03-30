@@ -356,34 +356,17 @@ var update = function() {
 			continue;
 		}
 		
-		//console.log("Block at: " + block.x + ", " + block.y);
-		
-		block_rect = {'x':block.x, 'y':block.y}
-		
-		//Player
-		
-		if (!player.justJumped) {
-		
-			collisionType = getTerrainCollision(block, player);
-			if (collisionType) {
-				
-				//console.log(collisionType);
-				
-			}
-			
-			if (collisionType == "top") {
-				putOnTerrain(block, player);
-			}
-			else if (collisionType == "bottom") {
-				player.y = block.y + player.height/2;
-			}
-			else if (collisionType == "left") {
-				player.x = block.x - player.width/2;
-			}
-			else if (collisionType == "right") {
-				player.x = block.x + player.width/2;
-			}
+		if (getTerrainCollision(block, player)) {
+			console.log("Ground");
+			putOnTerrain(block, player);
 		}
+		else if (!player.inAir) {
+			//console.log("Air");
+			player.inAir = true;
+			player.setAirMotion();
+		}
+		
+		
 	}
 	
 	
@@ -391,53 +374,10 @@ var update = function() {
 
 var getTerrainCollision = function(terrain, entity) {
 	
+	entity_rect = {'x':entity.x-entity.width/2, 'y':entity.y-entity.height/2, 'width':entity.width, 'height':entity.height};
 	
-	//Top left
-	entity_x = entity.x - (entity.width/2);
-	entity_y = entity.y - (entity.height/2);
+	return testCollision(terrain, entity_rect);
 	
-	
-	
-	if (entity_x <= terrain.x+terrain.width && terrain.x <= entity_x + entity.width) {
-		
-		console.log("Entity actual: " + entity_y);
-		console.log("Entity plus: " + (entity_y + entity.height));
-		console.log("Terrain actual: " + terrain.y);
-		console.log("Terrain plus: " + (terrain.y + terrain.height));
-		
-		if ( Math.abs(entity_y - (terrain.y+terrain.height)) < 10 && Math.abs(terrain.y - (entity_y + entity.height)) < 10) {
-		
-			console.log("here");
-			
-			if (entity.vy <= 0) {
-				/*
-				console.log("Entity: " + entity.x + ", " + entity.y);
-				console.log("Becomes: " + entity_x + ", " + entity_y);
-				console.log("Terrain: " + terrain.x + ", " + terrain.y);
-				console.log("top");
-				*/
-				return "top";
-			}
-			else if (entity.vy > 0) {
-				console.log("Entity: " + entity.x + ", " + entity.y);
-				console.log("Becomes: " + entity_x + ", " + entity_y);
-				console.log("Terrain: " + terrain.x + ", " + terrain.y);
-				console.log("bottom");
-				return "bottom";
-			}
-			if (entity.vx > 0) {
-				console.log("left");
-				return "left";
-			}
-			else {
-				console.log("right");
-				return "right";
-			}
-		}
-		
-		//else { return "none inner" }
-	}	
-	//else { return "none outer" }
 }
 
 var putOnTerrain = function(terrain, entity) {
@@ -445,7 +385,7 @@ var putOnTerrain = function(terrain, entity) {
 	entity.inAir = false;
 	entity.doubleJumped = false;
 	
-	entity.y = terrain.y - terrain.height - entity.height/2;
+	entity.y = terrain.y - entity.height/2;
 	
 	
 }
