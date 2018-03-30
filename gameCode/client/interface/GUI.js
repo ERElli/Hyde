@@ -62,7 +62,13 @@ GUI = function(container){
 	}
 
 	//draws Entities
-	self.drawEntity=function(entity,ctx){
+	self.drawEntity=function(entity,ctx,isLevelEditor){
+		if(isLevelEditor){
+			playX=0;
+		}
+		else{
+			playX=e.x-self.fg.width/2;
+		}
 		var en=entity;
 		playX=e.x-self.fg.width/2;
 		ctx.save();
@@ -143,9 +149,14 @@ GUI = function(container){
 		ctx.restore();		
 	};
 	//draws terrain
-	self.drawTerrain=function(terrain,ctx){
+	self.drawTerrain=function(terrain,ctx,isLevelEditor){
+		if(isLevelEditor){
+			playX=0;
+		}
+		else{
+			playX=e.x-self.fg.width/2;
+		}		
 		var t=terrain;
-		playX=e.x-self.fg.width/2;
 		ctx.save();
 		switch(terrain.type){
 			case "Terrain1x1":
