@@ -31,7 +31,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	//console.log(self.width);
 	
 	self.maxHealth = maxHealth;
-	self.transformCounter = 0;
+	self.transformCounter = 100;
 	self.leftCounter = 0;
 	self.rightCounter = 0;
 	self.smallSpeed = 5;

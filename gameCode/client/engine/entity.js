@@ -94,7 +94,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	self.meleeDamage = meleeDamage;
 	self.slowDownFactor = slowDown
 		
-	self.attackCounter = 0;
+	self.attackCounter = 100;
 	self.aimAngle = 0;
 	
 	self.isImmune = false;

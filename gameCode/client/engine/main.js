@@ -280,7 +280,7 @@ var update = function() {
 			}	
 		}
 		
-		/*
+		
 		newBullets = enemy.shoot();
 		//console.log(newBullets);
 		for (i in newBullets) {
@@ -290,7 +290,7 @@ var update = function() {
 				bullets[newBullet.id] = newBullet;
 			}
 		}
-		*/
+		
 				
 		var isColliding = enemy.testCollision(player);
 		
