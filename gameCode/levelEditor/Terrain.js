@@ -32,7 +32,7 @@ function Terrain1x1Breakable(id, x, y){
 	var self = Terrain(id, x, y);
 	self.height = 50;
 	self.width = 50;
-	self health = 40;
+	self.health = 40;
 	self.breakAt = MaxMomentum/2;
 	self.img = "/images/breakableTerrain3x2.png";
 	self.type = "Terrain1x1Breakable";
@@ -68,7 +68,7 @@ function Terrain3x2Breakable(id, x, y){
 	var self = Terrain(id, x, y);
 	self.width = 150;
 	self.height = 100;
-	self health = 40;
+	self.health = 40;
 	self.breakAt = MaxMomentum/2;
 	self.img = "/images/breakableTerrain3x2.png";
 	self.type = "Terrain3x2Breakable";
@@ -104,7 +104,7 @@ function Terrain3x4Breakable(id, x, y){
 	var self = Terrain(id, x, y);
 	self.width = 150;
 	self.height = 200;
-	self health = 40;
+	self.health = 40;
 	self.breakAt = MaxMomentum/2;
 	self.img = "/images/breakableTerrain3x4.png";
 	self.type = "Terrain3x4Breakable";
@@ -140,7 +140,7 @@ function Terrain3x6Breakable(id, x, y){
 	var self = Terrain(id, x, y);
 	self.width = 150;
 	self.height = 300;
-	self health = 40;
+	self.health = 40;
 	self.breakAt = MaxMomentum/2;
 	self.img = "/images/breakableTerrain3x6.png";
 	self.type = "Terrain3x6Breakable";
