@@ -14,7 +14,7 @@ function Terrain1x1(id, x, y){
 	var self = Terrain(id, x, y);
 	self.width = 50;
 	self.height = 50;
-	self.img = "../../../images/terrain3x2.png";
+	self.img = "img/terrain/terrain3x2.png";
 	self.type = "Terrain1x1";
 
 	var image = new Image();
