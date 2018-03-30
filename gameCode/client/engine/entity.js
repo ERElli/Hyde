@@ -2,14 +2,14 @@
 Coordinates are center of entities (still updating from bottom-left)
 */
 
-var canvas = document.getElementById("fg")
-var ctx = canvas.getContext('2d');
+//var canvas = document.getElementById("fg")
+//ctx=gui.fg_ctx; //canvas.getContext('2d');
 
-let framesPerSecond = 60; //conversion factor for frames to seconds
-let pixPerMetre = 120;
-let mpsTOppf = pixPerMetre/framesPerSecond;
+var framesPerSecond = 60; //conversion factor for frames to seconds
+var pixPerMetre = 120;
+var mpsTOppf = pixPerMetre/framesPerSecond;
 
-let g = -9*mpsTOppf/framesPerSecond; //metres pre frame squared
+var g = -9*mpsTOppf/framesPerSecond; //metres pre frame squared
 
 //ENTITY
 function Entity(type, id, x, y, vx, vy, width, height, img, color) {
