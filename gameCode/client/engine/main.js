@@ -1,4 +1,3 @@
-var canvas = document.getElementById("fg")
 
 var frameCount;
 
@@ -28,8 +27,8 @@ document.onkeyup = function(event) {
 }
 
 document.onmousedown = function(mouse) {
-	var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
-	var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
+	var mouseX = mouse.clientX - gui.fg.getBoundingClientRect().left;
+	var mouseY = mouse.clientY - gui.fg.getBoundingClientRect().top;
 	
 	player.updateAim(mouseX, mouseY);
 	
@@ -48,8 +47,8 @@ document.oncontextmenu = function(mouse) {
 * Reset the player's aiming angle when they move the mouse
 */
 document.onmousemove = function(mouse){
-	var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
-	var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
+	var mouseX = mouse.clientX - gui.fg.getBoundingClientRect().left;
+	var mouseY = mouse.clientY - gui.fg.getBoundingClientRect().top;
 	
 	player.updateAim(mouseX, mouseY);
 }
@@ -66,7 +65,8 @@ var doPressedActions = function() {
 		player.ax = player.acceleration;
 	}
 	else {
-		if (Math.abs(player.vx) < 2) {
+		if (Math.abs(player.vx) < 2 && !player.isLaunched) {
+			//console.log("Stopping");
 			player.vx = 0;
 		}
 		player.ax = -Math.sign(player.vx)*player.acceleration*0.5;
@@ -92,9 +92,13 @@ var doPressedActions = function() {
 	}
 	
 	if (pressing['shoot']) {
-		newBullet = player.shoot();
-		if (newBullet) {
-			bullets[newBullet.id] = newBullet;
+		
+		newBullets = player.shoot();
+		for (i in newBullets) {
+			newBullet = newBullets[i];
+			if (newBullet) {				
+				bullets[newBullet.id] = newBullet;
+			}
 		}
 	}
 }
@@ -125,7 +129,7 @@ var inRange = function(thing) {
 * Main game loop
 */
 var update = function() {
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	gui.fg_ctx.clearRect(0, 0, gui.fg.width, gui.fg.height);
 	
 	//console.log(player.weapon.vx);
 
@@ -139,7 +143,14 @@ var update = function() {
 	player.attackCounter++;
 	player.transformCounter++;
 	player.immuneCounter++;
-
+	
+	if (player.isLaunched) {
+		//console.log("Launched");
+		player.launchTimer++;
+		if (player.launchTimer > 50) {
+			player.isLaunched = false;
+		}
+	}
 	
 	//Draw bars
 	//draws background
@@ -207,9 +218,6 @@ var update = function() {
 				
 				//Enemy takes damage, maybe apply effect (like knockback)
 				enemies[key2].takeDamage(bullet.damage);
-				if (enemies[key2].health <= 0) {
-					delete enemies[key2]; //Remove dead enemies
-				}
 				break;
 			}	
 		}
@@ -222,6 +230,17 @@ var update = function() {
 			}
 		}
 		
+		if (bullet.type == 'meleeBullet') {
+			
+			//console.log("Position: " + bullet.x + ", " + bullet.y);
+			
+			bullet.timer++;
+			//console.log(bullet.timer);
+			if (bullet.timer > 50) {
+				toRemove = true;
+			}
+		}
+		
 		if(toRemove){
 			delete bullets[key];
 		}
@@ -231,31 +250,88 @@ var update = function() {
 	for (var key in enemies) {
 		
 		var enemy = enemies[key];
-				
+		
+		console.log(enemy.type + ": " + enemy.health);
+	
 		if (!inRange(enemy)) {
-			console.log("skipping " + enemy.id);
+			//console.log("skipping " + enemy.id);
 			continue;
 		}
 		
 		enemy.update();
 		enemy.updateAim(player);
 		
+		if (enemy.health <= 0) {
+			delete enemies[key];
+		}
+		
 		if (nearTerrain(enemy.x, enemy.y)) {
-			console.log(enemy.id)
+			//console.log(enemy.id)
 			putOnTerrain(enemy);
 		}
 		
 		enemy.attackCounter++;
-		newBullet = enemy.shoot();
-		if (newBullet) {
-			bullets[newBullet.id] = newBullet;
+		
+		if (enemy.isLaunched) {
+			enemy.launchTimer++;
+			if (enemy.launchTimer > 50) {
+				enemy.isLaunched = false;
+			}	
 		}
+		
+		
+		newBullets = enemy.shoot();
+		//console.log(newBullets);
+		for (i in newBullets) {
+			newBullet = newBullets[i];
+			//console.log(newBullet);
+			if (newBullet) {
+				bullets[newBullet.id] = newBullet;
+			}
+		}
+		
 				
 		var isColliding = enemy.testCollision(player);
+		
 		if (isColliding) {
+			
+			var enemyDeals = enemy.meleeDamage;
+			var playerDeals = 0;
+			
 			if (!player.isImmune) {
-				player.takeDamage(enemy.meleeDamage);
+				
+				if (player.isBig || enemy.type=="tank enemy") {
+					
+					player_p = Math.abs(player.getMomentum());
+					enemy_p = Math.abs(enemy.getMomentum());
+					
+					delta_p = Math.abs(player_p - enemy_p);
+					
+					if (player_p > enemy_p) {
+						enemy.launch(Math.sign(player.vx)*delta_p/enemy.mass);
+						playerDeals += delta_p/150;
+						console.log(playerDeals);
+						//player.vx = 0;
+						
+						//console.log(Math.sign(player.vx)*delta_p/enemy.mass)
+					}
+					else if (enemy_p > player_p) {
+						player.launch(Math.sign(enemy.vx)*delta_p/player.mass);
+						
+						enemyDeals += delta_p/150;
+						//console.log(player.vx);
+						//enemy.vx = 0;
+					}
+					else {
+						//player.vx
+					}
+					
+				}
+				
+				player.takeDamage(enemyDeals);
+				
 			}
+			enemy.takeDamage(playerDeals);
 		}
 		
 	}
@@ -278,7 +354,7 @@ var startGame = function(initial_level) {
 	//surfaceMods = level["terrain"];
 	frameCount = 0;
 	everyTenCount = 0;
-	console.log(enemies['enemy2']);
+	//console.log(enemies['enemy2']);
 
 	
 	setInterval(update, 1000/60)

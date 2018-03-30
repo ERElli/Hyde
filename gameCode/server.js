@@ -196,16 +196,17 @@ io.sockets.on('connection', function(socket){
 	});
 
   socket.on('forgotPassword',function(data){
+
    Database.isUsernameTaken(data,function(res){
     if(res){
       console.log("true");
-    //  Database.checkAnswer(data,function(){
-      //  socket.emit('signUpResponse',{success:false});
+
     //  });
     }
     else {
 
     }
+
   });
 });
 

@@ -2,14 +2,14 @@
 Coordinates are center of entities (still updating from bottom-left)
 */
 
-var canvas = document.getElementById("fg")
-var ctx = canvas.getContext('2d');
+//var canvas = document.getElementById("fg")
+//ctx=gui.fg_ctx; //canvas.getContext('2d');
 
-let framesPerSecond = 60; //conversion factor for frames to seconds
-let pixPerMetre = 120;
-let mpsTOppf = pixPerMetre/framesPerSecond;
+var framesPerSecond = 60; //conversion factor for frames to seconds
+var pixPerMetre = 120;
+var mpsTOppf = pixPerMetre/framesPerSecond;
 
-let g = -9*mpsTOppf/framesPerSecond; //metres pre frame squared
+var g = -9*mpsTOppf/framesPerSecond; //metres pre frame squared
 
 //ENTITY
 function Entity(type, id, x, y, vx, vy, width, height, img, color) {
@@ -32,7 +32,7 @@ function Entity(type, id, x, y, vx, vy, width, height, img, color) {
 	}
 	
 	self.draw = function() {
-		gui.drawEntity(self);
+		gui.drawEntity(self, gui.fg_ctx);
 		/*
 		ctx.save();
 		ctx.fillStyle = self.color;
@@ -94,7 +94,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	self.meleeDamage = meleeDamage;
 	self.slowDownFactor = slowDown
 		
-	self.attackCounter = 0;
+	self.attackCounter = 100;
 	self.aimAngle = 0;
 	
 	self.isImmune = false;
@@ -102,6 +102,8 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	
 	self.jumpBuffer = 0;
 	self.justJumped = false;
+	
+	self.isLaunched = false;
 	
 	self.ax = 0;
 	self.ay = 0;
@@ -116,7 +118,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		self.vx += self.ax;
 		self.vy += self.ay;
 		
-		if (Math.abs(self.vx) > self.maxVelocityX) {
+		if (Math.abs(self.vx) > self.maxVelocityX && !self.isLaunched) {
 			self.vx = Math.sign(self.vx)*self.maxVelocityX;
 		}
 		
@@ -134,6 +136,16 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		self.weapon.update();
 		
 	
+	}
+	
+	self.getMomentum = function() {
+		return self.vx*self.mass;
+	}
+	
+	self.launch = function(vx) {
+		self.isLaunched = true;
+		self.vx = vx;
+		self.launchTimer = 0;
 	}
 	
 	self.jump = function() {
@@ -293,6 +305,30 @@ function Bullet(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	
 	
 	//self.draw = function() {
+	//}
+	
+	return self;
+}
+
+
+function MeleeBullet(id, x, y, vx, vy, width, height, img, color, ownerID) {
+	var self = Entity("meleeBullet", id, x, y, vx, vy, width, height, img, color);
+
+	self.damage = 20;
+	self.timer = 0;
+	
+	self.ownerID = ownerID;
+	
+	self.updatePosition = function() {
+		self.x = player.x;
+		self.y = player.y;
+		self.vx = player.vx;
+		self.vy = player.vy;
+	}
+	
+	
+	//self.draw = function() {
+	
 	//}
 	
 	return self;

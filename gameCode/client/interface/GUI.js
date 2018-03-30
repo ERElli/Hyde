@@ -1,34 +1,8 @@
 GUI = function(container){
 	var self={};
-	
-
 	self.container=container;
-	var Img = {};
-	Img.background1= new Image();
-	Img.background1.src="img/worldOneBackground.png";
-	Img.background2= new Image();
-	Img.background2.src="img/worldTwoBackground.png";
-	Img.background3= new Image();
-	Img.background3.src="img/worldThreeBackground.png";
-	Img.playerSmall = new Image();
-	Img.playerSmall.src = "img/movingCharacter.png";
-	Img.playerBig = new Image();
-	Img.playerBig.src = "img/bigGuy.png";
-	Img.basicEnemy1=new Image();
-	Img.basicEnemy1.src="img/enemy1.png";
-	Img.basicEnemy2=new Image();
-	Img.basicEnemy2.src="img/enemy2.png";
-	Img.basicEnemy3=new Image();
-	Img.basicEnemy3.src="img/enemy3.png";
-	Img.pistol=new Image();
-	Img.pistol.src="img/pistolWeapon.png";
-	Img.assaultWeapon=new Image();
-	Img.assaultWeapon.src="img/assaultWeapon.png";
-	Img.swordWeapon=new Image();
-	Img.swordWeapon.src="img/swordWeapon.png";
-	Img.bullet=new Image();
-	Img.bullet.src="img/bullet.png";
-	var smallPlayerAnimation=0;
+	var sPAnimation=0;
+	var bearAnimationStage=0;
 
 	var backgroundPositionCounter=0;
 	self.create= function(type, id, left, top, width, height){
@@ -62,6 +36,7 @@ GUI = function(container){
 		self.fg_ctx = self.fg.getContext("2d");
 	}
 
+	//draws background
 	self.drawMap=function(){
 		gui.bg_ctx.clearRect(0,0,self.bg.width,self.bg.height);
 		//
@@ -71,14 +46,13 @@ GUI = function(container){
 		n=backgroundPositionCounter;
 		x=self.bg.width-e.x;
 		y=0;
-		Img.background1.onload=function(){
+		Img.background2.onload=function(){
 		}
 
 		//continuously loops backgrounds
-		gui.bg_ctx.drawImage(Img.background1,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
-		gui.bg_ctx.drawImage(Img.background1,x+self.bg.width*n,y,self.bg.width,self.bg.height);
-		gui.bg_ctx.drawImage(Img.background1,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
-
+		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
+		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*n,y,self.bg.width,self.bg.height);
+		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
 		if(x<self.bg.width-self.bg.width*n){
 			backgroundPositionCounter++;
 		}
@@ -86,10 +60,10 @@ GUI = function(container){
 			backgroundPositionCounter--;
 		}
 	}
-	//draws Entities
 
-	self.drawEntity=function(entity){
-		gui.fg_ctx.save();
+	//draws Entities
+	self.drawEntity=function(entity,ctx){
+		ctx.save();
 		//
 		//!!!!!!!!!!!e.x will need to be changed once level object is used!!!!!!!!!!!
 		//
@@ -98,87 +72,132 @@ GUI = function(container){
 			if(entity.type=="player"){
 				//console.log(Img.player);
 				if(entity.isBig==true){
-					gui.fg_ctx.drawImage(Img.playerBig,self.fg.width/2,entity.y-entity.height/2,entity.width,entity.height);
+					playDir=self.getImageDirection(entity);
+					if(playDir==0){
+						ctx.drawImage(Img.playerBig,self.fg.width/2,entity.y-entity.height/2,entity.width,entity.height);
+					}
+					else{
+						ctx.save()
+						ctx.translate(x+Img.playerBig.width,y);
+    						// scaleX by -1; this "trick" flips horizontally
+    						ctx.scale(-1,1);
+						ctx.drawImage(Img.playerBig,self.fg.width/2-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);
+						ctx.restore();
+					}
 					Img.playerBig.onload=function(){}
 				}
 				else{
-					var frameWidth=Img.playerSmall.width/5;
-					var frameHeight=Img.playerSmall.height/2;
-					playerDirection=self.getImageDirection(entity);
+					var fW=Img.playerSmall.width/5;
+					var fH=Img.playerSmall.height/2;
+					playDir=self.getImageDirection(entity);
 					//updates player animation every 5th frame
-					smallPlayerAnimation=self.updateEntityAnimation(entity,smallPlayerAnimation,5);
-					gui.fg_ctx.drawImage(Img.playerSmall,smallPlayerAnimation*frameWidth,playerDirection*frameHeight,frameWidth,frameHeight,self.fg.width/2-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);
+					sPAnimation=self.updateEntityAnimation(entity,sPAnimation,5);
+					ctx.drawImage(Img.playerSmall,sPAnimation*fW,playDir*fH,fW,fH,self.fg.width/2-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);
 
 					Img.playerSmall.onload=function(){}
 				}
 			}
+
 			else if(entity.type=="basic enemy"){
-				gui.fg_ctx.drawImage(Img.basicEnemy1,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
+				ctx.drawImage(Img.basicEnemy1,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
 				entity.img.onload=function(){
-
 				}
 			}
+
 			else if(entity.type=="flying enemy"){
-				gui.fg_ctx.drawImage(Img.basicEnemy2,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
+				ctx.drawImage(Img.basicEnemy2,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
 				entity.img.onload=function(){
-
 				}
 
 			}
-			else if(entity.type=="tank enemy"){
-				gui.fg_ctx.drawImage(Img.basicEnemy3,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
-				entity.img.onload=function(){
 
+			else if(entity.type=="tank enemy"){
+				var fW=Img.bearEnemy.width/8;
+				var fH=Img.bearEnemy.height/8;
+				playDir=self.getImageDirection(entity);
+				bearAnimationStage=self.updateEntityAnimation(entity,bearAnimationStage,16);
+
+				if(entity.vx==0){
+					bearAniY=0;
+				}
+				else if(bearAnimationStage/8>=1){
+					bearAniY=2;
+				}
+				else{
+					bearAniY=1;
+				}
+				console.log(bearAnimationStage);
+				console.log(bearAniY);
+				ctx.drawImage(Img.bearEnemy,bearAnimationStage%8*fW,bearAniY*fH,fW,fH,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
+				entity.img.onload=function(){
 				}
 			}
 			else if(entity.type=="ghost"){
-				gui.fg_ctx.drawImage(img,x-width/2,y-height/2);
-
+				ctx.drawImage(img,x-width/2,y-height/2);
 			}
 			//Drawing special terrain
 			else if(entity.type=="moving plaform"){
-				gui.fg_ctx.fillStyle=color;
-				gui.fg_ctx.fillRect(x-width/2,y-height/2,width,height);
-				gui.fg_ctx.restore();
+				ctx.fillStyle=color;
+				ctx.fillRect(x-width/2,y-height/2,width,height);
+				ctx.restore();
 			}
 			else if(entity.type=="friction modifier"){
-				gui.fg_ctx.fillStyle=color;
-				gui.fg_ctx.fillRect(x-width/2,y-height/2,width,height);
-				gui.fg_ctx.restore();
+				ctx.fillStyle=color;
+				ctx.fillRect(x-width/2,y-height/2,width,height);
+				ctx.restore();
 			}
 			else if(entity.type=="spike trap"){
-				gui.fg_ctx.drawImage(img,x-width/2,y-height/2);
+				ctx.drawImage(img,x-width/2,y-height/2);
 			}
 			//Drawing Useables
 			else if(entity.type=="pistol"){
-				gui.fg_ctx.rotate(e.aimAngle*Math.pi/180);
-				gui.fg_ctx.drawImage(Img.pistol,(entity.x-entity.width/2)-playX+30,entity.y-entity.height/2,entity.width,entity.height);
-
+				//ctx.save();
+				//ctx.translate((entity.x-entity.width/2)-playX,entity.y);
+				//ctx.rotate(-e.aimAngle*Math.PI/180);
+				ctx.drawImage(Img.pistol,(entity.x-entity.width/2)-playX+30,entity.y-entity.height/2,entity.width,entity.height);
+				//ctx.restore();
 				entity.img.onload=function(){
 				}
 			}
 			else if(entity.type=="shotgun"){
-				gui.fg_ctx.drawImage(img,x-width/2,y-height/2);
+				ctx.drawImage(Img.shotgun,(entity.x-entity.width/2)-playX+30,entity.y-entity.height/2,entity.width,entity.height);
 
+				entity.img.onload=function(){
+				}
 			}
 			else if(entity.type=="sword"){
-				gui.fg_ctx.drawImage(img,x-width/2,y-height/2);
+				ctx.drawImage(Img.swordWeapon,(entity.x-entity.width/2)-playX+30,entity.y-entity.height/2,entity.width,entity.height);
 
+				entity.img.onload=function(){
+				}
 			}
-			else if(entity.type=="assault rifle"){
-				gui.fg_ctx.drawImage(img,x-width/2,y-height/2);
+			else if(entity.type=="assaultRifle"){
+				ctx.drawImage(Img.assaultWeapon,(entity.x-entity.width/2)-playX+30,entity.y-entity.height/2,entity.width,entity.height);
 
+				entity.img.onload=function(){
+				}
 			}
 			//Draw projectiles
 			else if(entity.type=="bullet"){
-				gui.fg_ctx.drawImage(Img.bullet,(entity.x-entity.width/2)-playX,entity.y-entity.height,entity.width,entity.height);
+				ctx.drawImage(Img.bullet,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
+				Img.bullet.onload=function(){}
+			}
+			else if(entity.type=="meleeBullet"){
+				ctx.drawImage(Img.bullet,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
 				Img.bullet.onload=function(){}
 			}
 			else{
 
 			}
-			gui.fg_ctx.restore();
+			ctx.restore();
 	};
+	//draws terrain
+	self.drawTerrain=function(terrain,ctx){
+		ctx.save();
+
+		ctx.restore();
+	};
+
 
 	self.getImageDirection=function(entity){
 		if(entity.aimAngle<=90 && entity.aimAngle>-90){
@@ -187,9 +206,8 @@ GUI = function(container){
 		else{
 			return 1;
 		}
-	}
+	};
 	//Function to update the entitys Animations
-
 	self.updateEntityAnimation=function(entity,animationCounter,numAnimations){
 		if(entity.vx==0){
 			return 0;
@@ -201,9 +219,7 @@ GUI = function(container){
 				}
 		}
 		return animationCounter;
-	}
-
-
+	};
 
 
 	self.fgDraw=function(fg_ctx,playerHealth,playerMomentum,ammo){

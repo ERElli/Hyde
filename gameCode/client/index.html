@@ -1,6 +1,6 @@
 
 <body background="../../images/Background.png" style="margin-left:50px; background-repeat: no-repeat; ">
-<div id="signDiv"  style=" background-image:url("../../images/logintemplate.png"); display:none;">
+<div id="signDiv"  style="  display: none;">
     Username: <input id="signDiv-username" type="text"></input><br><br>
     Password: <input id="signDiv-password" type="password"></input><br><br>
     <button id="signDiv-signIn">Sign In</button>
@@ -92,6 +92,7 @@
     forgotButton.onclick = function(){
       signDiv.style.display = 'none';
       forgotDiv.style.display = 'inline-block';
+      console.log("forgot");
          //socket.emit('forgotPassword',{username:usernameField.value,a1: a1.value, a2: a2.value, a3: a3.value});
 
     }
@@ -100,6 +101,11 @@
       main.style.display = 'none';
       signDiv.style.display = 'inline-block';
     }
+
+    recoverButton.onclick = function(){
+      socket.emit('forgotPassword',{username:usernameField.value,a1: a1.value, a2: a2.value, a3: a3.value});
+    }
+
     signUpButton.onclick = function(){
       main.style.display = 'none';
       signUp.style.display = 'inline-block';

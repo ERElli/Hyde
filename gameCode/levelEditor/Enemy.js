@@ -1,44 +1,32 @@
-Enemy = function(id, type, x, y, width, height){
+Enemy = function(id, type, x, y){
 	
 	var self = {
 		id: id,
 		type: type,
 		x: x,
 		y: y,
-		width: width,
-		height: height,
+		width: 50,
+		height: 50,
 	};
 
-	var enemy1Image = new Image();
-	enemy1Image.src = "../../images/enemy1.png";
+	var enemyImage = new Image();
 
-	var enemy2Image = new Image();
-	enemy2Image.src = "../../images/enemy2.png";
-
-	var enemy3Image = new Image();
-	enemy3Image.src = "../../images/enemy3.png";
-
-
-	self.draw = function() {
-
-		if(self.type === "enemy1"){
-
-			ctx_lg.drawImage(enemy1Image, self.x, self.y, self.width, self.height);
-		
-		} else if(self.type === "enemy2"){
-
-			ctx_lg.drawImage(enemy2Image, self.x, self.y, self.width, self.height);
-		
-		} else if(self.type === "enemy3"){
-
-			ctx_lg.drawImage(enemy3Image, self.x, self.y, self.width, self.height);
-
-		} else {
-
-			console.log("enemy.js error");
+	self.draw = function(context) {
+		switch(self.type){
+			case "enemy1":
+				enemyImage.src = "../../images/enemy1.png";
+				break;
+			case "enemy2":
+				enemyImage.src = "../../images/enemy2.png";
+				break;
+			case "enemy3":
+				enemyImage.src = "../../images/enemy3.png";
+				break;
+			default:
+				console.log("enemy.js error");
 		}
-		
-	
+		context.drawImage(enemyImage, self.x, self.y, self.width, self.height);
 	}
+
 	return self;
 };

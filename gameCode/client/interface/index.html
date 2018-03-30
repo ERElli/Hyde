@@ -4,9 +4,6 @@
 		<br>
 		<div id="container">
 
-			<canvas id="bg" height="500" width="1250" style="position: absolute; z-index: 0;"></canvas>
-			<canvas id="fg" height="500" width="1250" style="position: absolute; z-index: 1"></canvas>
-
 		<div id="results" style="positions:absolute; left: 511px;">
 			<table style="border:1px"></table>
 		</div>
@@ -16,13 +13,20 @@
 		<script type="text/javascript" src="../engine/player.js"></script>
 		<script type="text/javascript" src="../engine/enemy.js"></script>
 		<script type="text/javascript" src="../engine/weapon.js"></script>
+		<script type="text/javascript" src="images.js"></script>
 		<script type="text/javascript" src="GUI.js"></script>
+
 		<script>
+
+		//levelFromJson = convertToLevel(level_json)
+
 		// construct the gui with the container and the map
 		var gui;
+		var HEIGHT=500;
+		var WIDTH=1250;
 
 		//id, x, y, vx, vy, width, height, img, color, ownerID
-		p= new Pistol("w1", 150, 450-25, 0, 0, 25, 25,"pistol_image",null, 'player');
+		p= new Sword("w1", 150, 450-25, 0, 0, 50, 50,"pistol_image",null, 'player');
 
 		//id, x, y, vx, vy, img, weapon, isBig
 		e = new Player("player", 150, 450-25, 0, 0, "Img.player", p, false);
@@ -50,7 +54,7 @@
 			document.getElementById("results").position = 'absolute';
 			document.getElementById("results").style.left = container.width + 20;
 			gui=GUI(container)
-			gui.createCanvas(document.getElementById("bg").width,document.getElementById("bg").height);
+			gui.createCanvas(WIDTH,HEIGHT);
 		}
 		//function to load level
 		level=function(levelId){
@@ -65,7 +69,8 @@
 
 		gui.drawMap();
 		//gui.fgDraw(gui.fg_ctx,playerPercentHealth,playerMomentum,ammo);
-		startGame({'player':e,'enemies':{'enemy1':enemy}})//,'enemy2':enemy2, 'enemy3':enemy3, 'enemy4':enemy4}});
+
+		startGame({'player':e,'enemies':{'enemy1':enemy,'enemy2':enemy2}});// 'enemy3':enemy3, 'enemy4':enemy4}});
 
 		</script>
 </html>
