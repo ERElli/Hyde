@@ -34,3 +34,6 @@ var Img = {};
 	Img.shotgun.src="img/shotgun.png";
 	Img.bullet=new Image();
 	Img.bullet.src="img/bullet.png";
+
+	Img.terrain1x1=new Image();
+	Img.terrain1x1.src="img/terrain/terrain3x2.png"
