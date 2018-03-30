@@ -6,6 +6,10 @@ var serv = require('http').Server(app);
 
 var user ;
 
+app.get('/test', function (req, res) {
+  res.sendfile(__dirname + '/levelEditor/test.html');
+});
+
 app.get('/',function(req, res) {
     res.sendFile(__dirname + '/client/index.html');
 });
@@ -91,21 +95,120 @@ app.get('/client/interface/img/movingCharacter.png',function(req, res) {
 ////////////////
 
 //for level editor
+app.get('/Checkpoint.js',function(req, res) {
+    res.sendFile(__dirname + '/levelEditor/Checkpoint.js');
+});
 app.get('/levelEditor',function(req, res) {
     res.sendFile(__dirname + '/levelEditor/levelEditor.html');
 });
-app.get('/gameCode/levelEditor/Map.js',function(req, res) {
+app.get('/Map.js',function(req, res) {
     res.sendFile(__dirname + '/levelEditor/Map.js');
 });
-app.get('/gameCode/levelEditor/Rectangle.js',function(req, res) {
+app.get('/Rectangle.js',function(req, res) {
     res.sendFile(__dirname + '/levelEditor/Rectangle.js');
 });
-app.get('/gameCode/levelEditor/Terrain.js',function(req, res) {
+app.get('/Terrain.js',function(req, res) {
     res.sendFile(__dirname + '/levelEditor/Terrain.js');
 });
 
-///////////////
+app.get('/Enemy.js',function(req, res) {
+    res.sendFile(__dirname + '/levelEditor/Enemy.js');
+});
 
+app.get('/LevelEditorStyling.css',function(req, res) {
+    res.sendFile(__dirname + '/levelEditor/LevelEditorStyling.css');
+});
+
+///////////////
+app.get('/images/placeCheckpoint.png',function(req, res) {
+    res.sendFile(__dirname + '/images/placeCheckpoint.png');
+});
+
+app.get('/images/enemy2.png',function(req, res) {
+    res.sendFile(__dirname + '/images/enemy2.png');
+});
+
+app.get('/images/enemy1.png',function(req, res) {
+    res.sendFile(__dirname + '/images/enemy1.png');
+});
+
+app.get('/images/worldTwoBackground.png',function(req, res) {
+    res.sendFile(__dirname + '/images/worldTwoBackground.png');
+});
+app.get('/images/music3Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/images/music3Drop.png');
+});
+
+app.get('/images/music2Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/images/music2Drop.png');
+});
+
+app.get('/images/enemy3Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/images/enemy3Drop.png');
+});
+
+app.get('/images/music1Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/images/music1Drop.png');
+});
+
+app.get('/images/world1Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/images/world1Drop.png');
+});
+app.get('/images/enemy1Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/images/enemy1Drop.png');
+});
+
+app.get('/images/enemy2Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/images/enemy2Drop.png');
+});
+
+app.get('/images/world2Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/images/world2Drop.png');
+});
+
+app.get('/images/world3Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/images/world3Drop.png');
+});
+
+app.get('/images/3x2Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/images/3x2Drop.png');
+});
+
+app.get('/images/3x2BDrop.png',function(req, res) {
+    res.sendFile(__dirname + '/images/3x2BDrop.png');
+});
+
+app.get('/images/3x4BDrop.png',function(req, res) {
+    res.sendFile(__dirname + '/images/3x4BDrop.png');
+});
+
+app.get('/images/3x4Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/images/3x4Drop.png');
+});
+
+app.get('/images/3x6Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/images/3x6Drop.png');
+});
+
+app.get('/images/3x6BDrop.png',function(req, res) {
+    res.sendFile(__dirname + '/images/3x6BDrop.png');
+});
+
+app.get('/images/pistolDrop.png',function(req, res) {
+    res.sendFile(__dirname + '/images/pistolDrop.png');
+});
+
+app.get('/images/assaultDrop.png',function(req, res) {
+    res.sendFile(__dirname + '/images/assaultDrop.png');
+});
+
+app.get('/images/swordDrop.png',function(req, res) {
+    res.sendFile(__dirname + '/images/swordDrop.png');
+});
+
+app.get('/images/shottyDrop.png',function(req, res) {
+    res.sendFile(__dirname + '/images/shottyDrop.png');
+});
 
 app.get('/images/enemiesButton.png',function(req, res) {
     res.sendFile(__dirname + '/images/enemiesButton.png');
@@ -118,6 +221,13 @@ app.get('/images/checkPointButton.png',function(req, res) {
 });
 app.get('/images/characterButton.png',function(req, res) {
     res.sendFile(__dirname + '/images/characterButton.png');
+});
+
+app.get('/images/weaponButton.png',function(req, res) {
+    res.sendFile(__dirname + '/images/weaponButton.png');
+});
+app.get('/images/backgroundButton.png',function(req, res) {
+    res.sendFile(__dirname + '/images/backgroundButton.png');
 });
 
 app.get('/images/terrainButton.png',function(req, res) {
@@ -146,12 +256,37 @@ app.get('/images/achievements.png',function(req, res) {
 app.get('/images/weaponButton.png',function(req, res) {
     res.sendFile(__dirname + '/images/weaponButton.png');
 });
+
+app.get('/images/terrain3x2.png',function(req, res) {
+    res.sendFile(__dirname + '/images/terrain3x2.png');
+});
+
+app.get('/images/breakableTerrain3x2.png',function(req, res) {
+    res.sendFile(__dirname + '/images/breakableTerrain3x2.png');
+});
+
+app.get('/images/terrain3x4.png',function(req, res) {
+    res.sendFile(__dirname + '/images/terrain3x4.png');
+});
+app.get('/images/breakableTerrain3x4.png',function(req, res) {
+    res.sendFile(__dirname + '/images/breakableTerrain3x4.png');
+});
+
+app.get('/images/terrain3x6.png',function(req, res) {
+    res.sendFile(__dirname + '/images/terrain3x6.png');
+});
+app.get('/images/breakableTerrain3x6.png',function(req, res) {
+    res.sendFile(__dirname + '/images/breakableTerrain3x6.png');
+});
+
 app.get('/images/backgroundButton.png',function(req, res) {
     res.sendFile(__dirname + '/images/backgroundButton.png');
 });
 app.get('/images/background.png',function(req, res) {
     res.sendFile(__dirname + '/images/background.png');
 });
+
+
 app.get('/images/buildingTerrain3x6.png',function(req, res) {
     res.sendFile(__dirname + '/images/buildingTerrain3x6.png');
 });

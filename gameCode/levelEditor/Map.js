@@ -1,3 +1,4 @@
+//
 Map = function(width, height,tile_width, tile_height) {
 	var self = {};
 	self.width = width;

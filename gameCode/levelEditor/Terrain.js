@@ -14,7 +14,7 @@ function Terrain1x1(id, x, y){
 	var self = Terrain(id, x, y);
 	self.width = 50;
 	self.height = 50;
-	self.img = "../../images/terrain3x2.png";
+	self.img = "/images/terrain3x2.png";
 	self.type = "Terrain1x1";
 
 	var image = new Image();
@@ -34,7 +34,7 @@ function Terrain1x1Breakable(id, x, y){
 	self.width = 50;
 	self health = 40;
 	self.breakAt = MaxMomentum/2;
-	self.img = "../../images/breakableTerrain3x2.png";
+	self.img = "/images/breakableTerrain3x2.png";
 	self.type = "Terrain1x1Breakable";
 
 	var image = new Image();
@@ -51,7 +51,7 @@ function Terrain3x2(id, x, y){
 	var self = Terrain(id, x, y);
 	self.width = 150;
 	self.height = 100;
-	self.img = "../../images/terrain3x2.png";
+	self.img = "/images/terrain3x2.png";
 	self.type = "Terrain3x2";
 
 	var image = new Image();
@@ -70,7 +70,7 @@ function Terrain3x2Breakable(id, x, y){
 	self.height = 100;
 	self health = 40;
 	self.breakAt = MaxMomentum/2;
-	self.img = "../../images/breakableTerrain3x2.png";
+	self.img = "/images/breakableTerrain3x2.png";
 	self.type = "Terrain3x2Breakable";
 
 	var image = new Image();
@@ -87,7 +87,7 @@ function Terrain3x4(id, x, y){
 	var self = Terrain(id, x, y);
 	self.width = 150;
 	self.height = 200;
-	self.img = "../../images/terrain3x4.png";
+	self.img = "/images/terrain3x4.png";
 	self.type = "Terrain3x4";
 
 	var image = new Image();
@@ -106,7 +106,7 @@ function Terrain3x4Breakable(id, x, y){
 	self.height = 200;
 	self health = 40;
 	self.breakAt = MaxMomentum/2;
-	self.img = "../../images/breakableTerrain3x4.png";
+	self.img = "/images/breakableTerrain3x4.png";
 	self.type = "Terrain3x4Breakable";
 
 	var image = new Image();
@@ -123,7 +123,7 @@ function Terrain3x6(id, x, y){
 	var self = Terrain(id, x, y);
 	self.width = 150;
 	self.height = 300;
-	self.img = "../../images/terrain3x6.png";
+	self.img = "/images/terrain3x6.png";
 	self.type = "Terrain3x6";
 
 	var image = new Image();
@@ -142,7 +142,7 @@ function Terrain3x6Breakable(id, x, y){
 	self.height = 300;
 	self health = 40;
 	self.breakAt = MaxMomentum/2;
-	self.img = "../../images/breakableTerrain3x6.png";
+	self.img = "/images/breakableTerrain3x6.png";
 	self.type = "Terrain3x6Breakable";
 
 	var image = new Image();
