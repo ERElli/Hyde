@@ -37,3 +37,5 @@ var Img = {};
 
 	Img.terrain1x1=new Image();
 	Img.terrain1x1.src="img/terrain/terrain3x2.png"
+
+

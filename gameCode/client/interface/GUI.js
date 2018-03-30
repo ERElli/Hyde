@@ -75,26 +75,28 @@ GUI = function(container){
 		switch(en.type){
 			case "player":
 				if(en.isBig==true){
-					playDir=self.getImageDirection(en);
-					if(playDir==0){
-						ctx.drawImage(Img.playerBig,self.fg.width/2,en.y-en.height/2,en.width,en.height);
+					playDir=self.getPlayDirection(en);
+					if(playDir==1){
+						//ctx.drawImage(Img.playerBig,self.fg.width/2,en.y-en.height/2,en.width,en.height);
+						self.quickDraw(Img.playerBig,en,ctx);
 					}
 					else{
 						ctx.save()
-						ctx.translate(x+Img.playerBig.width-playX,y);
-    					// scaleX by -1; this "trick" flips horizontally
-    					ctx.scale(-1,1);
-						ctx.drawImage(Img.playerBig,self.fg.width/2-en.width/2,en.y-en.height/2,en.width,en.height);
+						ctx.translate(en.x+fg.width/2-playX,y);
+    						// scaleX by -1; this "trick" flips horizontally
+    						ctx.scale(-1,1);
+						//ctx.drawImage(Img.playerBig,self.fg.width/2-en.width/2,en.y-en.height/2,en.width,en.height);
+						self.quickDraw(Img.playerBig,en,ctx);						
 						ctx.restore();
 					}
 				}
 				else{
 					var fW=Img.playerSmall.width/5;
 					var fH=Img.playerSmall.height/2;
-					playDir=self.getImageDirection(en);
+					playDir=self.getPlayDirection(en);
 					//updates player animation every 5th frame
 					sPAnimation=self.updateEntityAnimation(en,sPAnimation,5);
-					ctx.drawImage(Img.playerSmall,sPAnimation*fW,playDir*fH,fW,fH,self.fg.width/2-en.width/2,en.y-en.height/2,en.width,en.height);
+					self.quickPlayerDraw(Img.playerSmall,en,ctx,sPAnimation,playDir,fW,fH);
 				}
 				break;
 			case "basic enemy":
@@ -108,7 +110,7 @@ GUI = function(container){
 			case "tank enemy":
 				var fW=Img.bearEnemy.width/8;
 				var fH=Img.bearEnemy.height/8;
-				playDir=self.getImageDirection(entity);
+				dir=self.getImgDir(entity);
 				bearAnimationStage=self.updateEntityAnimation(en,bearAnimationStage,16);	
 				if(en.vx==0){
 					bearAniY=0;
@@ -119,7 +121,8 @@ GUI = function(container){
 				else{
 					bearAniY=1;
 				}
-				ctx.drawImage(Img.bearEnemy,bearAnimationStage%8*fW,bearAniY*fH,fW,fH,(en.x-en.width/2)-playX,en.y-en.height/2,en.width,en.height);
+				self.quickAnimatedDraw(Img.bearEnemy,en,ctx,bearAnimationStage%8,bearAniY,fW,fH,dir);
+
 				break;
 			case "ghost":
 				self.quickDraw(Img,en,ctx);
@@ -167,11 +170,20 @@ GUI = function(container){
 		terrain.img.onload=function(){};
 		ctx.restore();
 	};
-
-	self.getImageDirection=function(entity){
+	//returns players direction based on aim angle
+	self.getPlayDirection=function(entity){
 		if(entity.aimAngle<=90 && entity.aimAngle>-90){
 			return 0;
 		} 
+		else{
+			return 1;
+		}
+	};
+	//returns entity direction based on vx
+	self.getImgDir=function(entity){
+		if(entity.vx>=0){
+			return 0;
+		}
 		else{
 			return 1;
 		}
@@ -193,9 +205,24 @@ GUI = function(container){
 	self.quickDraw=function(img,entity,ctx){
 		ctx.drawImage(img,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
 	}
-	self.quickAnimatedDraw=function(img,en,ctx,aniStepX,aniStepY,spriteW,spriteH){
-		ctx.drawImage(img,aniStepX*spriteW,aniStepY*spriteH,spriteW,spriteH,en.x/2-en.width/2-playX,en.y-en.height/2,en.width,en.height);
+
+	self.quickPlayerDraw=function(img,en,ctx,aniX,aniDir,fW,fH){
+		ctx.drawImage(img,aniX*fW,aniDir*fH,fW,fH,en.x-en.width/2-playX,en.y-en.height/2,en.width,en.height);
 	}
+	
+	self.quickAnimatedDraw=function(img,en,ctx,aniStepX,aniStepY,spriteW,spriteH,dir){
+		if (dir==0){
+			ctx.drawImage(img,aniStepX*spriteW,aniStepY*spriteH,spriteW,spriteH,en.x-en.width/2-playX,en.y-en.height/2,en.width,en.height);
+		}else{
+			ctx.save()
+			ctx.translate(fg.width-en.width/2,y);
+    			// scaleX by -1; 
+    			ctx.scale(-1,1);
+			ctx.drawImage(img,aniStepX*spriteW,aniStepY*spriteH,spriteW,spriteH,en.x-en.width/2-playX,en.y-en.height/2,en.width,en.height);
+			ctx.restore();
+		}	
+	}
+
 		
 	self.fgDraw=function(fg_ctx,playerHealth,playerMomentum,ammo){
 		var healthX=0;
