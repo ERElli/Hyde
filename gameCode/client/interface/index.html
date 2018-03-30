@@ -21,7 +21,6 @@
 
 		let gameWidth=2000
 
-
 		// construct the gui with the container and the map
 		var gui;
 		var HEIGHT=500;
@@ -29,26 +28,15 @@
 
 		//id, x, y, vx, vy, width, height, img, color, ownerID
 		p= new Sword("w1", 150, 450-25, 0, 0, 50, 50,"pistol_image",null, 'player');
-
 		//id, x, y, vx, vy, img, weapon, isBig
 		e = new Player("player", 150, 450-25, 0, 0, "Img.player", p, false);
 
 
 		//id, x, y, vx, vy, img, color, target
-
 		enemy = new BasicEnemy("enemy1", 500, 450, 0, 0, "Img.basicEnemy", null, e);
-		enemy2 = new TankEnemy("enemy2", 3000, 450, 0, 0, "Img.basicEnemy", null, e)
+		enemy2 = new TankEnemy("enemy2", 600, 450, 0, 0, "Img.basicEnemy", null, e)
 		enemy3 = new BasicEnemy("enemy3", 4200, 450, 0, 0, "Img.basicEnemy", null, e)
 		enemy4 = new BasicEnemy("enemy4", 6200, 450, 0, 0, "Img.basicEnemy", null, e)
-
-
-		//temp test vars ----------
-		var pMaxHP=e.maxHealth;
-		var pHP=e.health;
-		var playerPercentHealth=(pMaxHP/pHP)*100;
-		var playerMomentum=100;
-		var ammo=17;
-
 		var terrain = {};
 		for (i = 0; i < 10; i++) {
 			id = Math.random();
@@ -60,7 +48,6 @@
 			terrain[id] = new Terrain1x1(id, i*50, 300);
 		}
 
-
 		//-----------
 		init = function() {
 			// get a reference to the container div in the page
@@ -70,14 +57,11 @@
 			gui=GUI(container)
 			gui.createCanvas(WIDTH,HEIGHT);
 		}
-
 		//Creates background and foreground Canvases
 		init();
-
 		gui.drawMap();
-		//gui.fgDraw(gui.fg_ctx,playerPercentHealth,playerMomentum,ammo);
 
-		startGame({'player':e, 'enemies':{}, 'terrain':terrain})//'enemy1':enemy,'enemy2':enemy2}});// 'enemy3':enemy3, 'enemy4':enemy4}});
+		startGame({'player':e, /*'enemies':{'enemy2':enemy2}, */'terrain':terrain} ); //'enemy1':enemy,'enemy2':enemy2}});// 'enemy3':enemy3, 'enemy4':enemy4}});
 
 		</script>
 </html>
