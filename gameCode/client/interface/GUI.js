@@ -63,12 +63,74 @@ GUI = function(container){
 
 	//draws Entities
 	self.drawEntity=function(entity,ctx){
+		var en=entity;
 		ctx.save();
 		//
 		//!!!!!!!!!!!e.x will need to be changed once level object is used!!!!!!!!!!!
 		//
 		playX=e.x-self.fg.width/2;
-			//Drawing humanoids
+		switch(en.type){
+			case "player":
+				if(en.isBig==true){
+					playDir=self.getImageDirection(en);
+					if(playDir==0){
+						ctx.drawImage(Img.playerBig,self.fg.width/2,en.y-en.height/2,en.width,en.height);
+					}
+					else{
+						ctx.save()
+						ctx.translate(x+Img.playerBig.width,y);
+    						// scaleX by -1; this "trick" flips horizontally
+    						ctx.scale(-1,1);
+						ctx.drawImage(Img.playerBig,self.fg.width/2-en.width/2,en.y-en.height/2,en.width,en.height);
+						ctx.restore();
+					}
+					//Img.playerBig.onload=function(){}	
+				}
+				else{
+					var fW=Img.playerSmall.width/5;
+					var fH=Img.playerSmall.height/2;
+					playDir=self.getImageDirection(entity);
+					//updates player animation every 5th frame
+					sPAnimation=self.updateEntityAnimation(entity,sPAnimation,5);				
+					ctx.drawImage(Img.playerSmall,sPAnimation*fW,playDir*fH,fW,fH,self.fg.width/2-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);
+				}
+				break;
+			case "basic enemy":
+				enemyImg=Img.basicEnemy1;
+			case "flying enemy":
+				enemyImg=Img.basicEnemy2;
+				self.quickDraw(enemyImg,en,ctx);
+				break;
+			case "tank enemy":
+				self.quickDraw(enemyImg,en,ctx);
+			case "ghost":
+				self.quickDraw(Img,en,ctx);
+			case "pistol":
+				weapImg=Img.pistol;
+				self.quickDraw(weapImg,en,ctx);
+				break;
+			case "shotgun":
+				weapImg=Img.shotgun;
+				self.quickDraw(weapImg,en,ctx);
+				break;
+			case "sword":
+				weapImg=Img.swordWeapon;
+				self.quickDraw(weapImg,en,ctx);
+				break;
+			case "assaultRifle":
+				weapImg=Img.assaultWeapon
+				self.quickDraw(weapImg,en,ctx);
+				break;
+			case "bullet":
+			case "meleeBullet":
+				self.quickDraw(Img.bullet,en,ctx);
+				break;
+
+			
+	
+		}
+		/*
+		//Drawing humanoids
 			if(entity.type=="player"){
 				//console.log(Img.player);
 				if(entity.isBig==true){
@@ -173,15 +235,13 @@ GUI = function(container){
 			//Draw projectiles
 			else if(entity.type=="bullet"){
 				ctx.drawImage(Img.bullet,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
-				//Img.bullet.onload=function(){}
 			}
 			else if(entity.type=="meleeBullet"){
 				ctx.drawImage(Img.bullet,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
-				//Img.bullet.onload=function(){}
+				
 			}			
 			else{
-			
-			}
+			}*/
 			entity.img.onload=function(){};
 			ctx.restore();		
 	};
@@ -192,7 +252,7 @@ GUI = function(container){
 		ctx.save();
 		switch(terrain.type){
 			case "Terrain1x1":
-				ctx.drawImage(Img.terrain1x1,t.x-t.width/2-playX,t.y-t.height/2,t.width,t.height);
+				ctx.drawImage(Img.terrain1x1,t.x-playX,t.y,t.width,t.height);
 			break;
 
 		}
@@ -222,7 +282,10 @@ GUI = function(container){
 		}
 		return animationCounter;
 	};
-
+	//Method to draw enemies(readability)
+	self.quickDraw=function(img,entity,ctx){
+		ctx.drawImage(img,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
+	}
 
 	self.fgDraw=function(fg_ctx,playerHealth,playerMomentum,ammo){
 		var healthX=0;

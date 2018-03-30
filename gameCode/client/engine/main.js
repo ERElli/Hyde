@@ -351,7 +351,7 @@ var update = function() {
 	for (var key in terrain) {
 		
 		block = terrain[key];
-		
+		gui.drawTerrain(block,gui.fg_ctx)
 		if (!inRange(block)) {
 			continue;
 		}
