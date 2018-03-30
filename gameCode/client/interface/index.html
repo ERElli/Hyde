@@ -13,11 +13,14 @@
 		<script type="text/javascript" src="../engine/player.js"></script>
 		<script type="text/javascript" src="../engine/enemy.js"></script>
 		<script type="text/javascript" src="../engine/weapon.js"></script>
+		<script type="text/javascript" src="../../levelEditor/Terrain.js"></script>
 		<script type="text/javascript" src="images.js"></script>
 		<script type="text/javascript" src="GUI.js"></script>
 		
 		<script>
-		//levelFromJson = convertToLevel(level_json)
+		
+		let gameWidth=2000
+
 		
 		// construct the gui with the container and the map
 		var gui;
@@ -33,18 +36,25 @@
 			
 		//id, x, y, vx, vy, img, color, target
 
-		enemy = new FlyingEnemy("enemy1", 500, 150, 0, 0, "Img.basicEnemy", null, e);
+		enemy = new BasicEnemy("enemy1", 500, 450, 0, 0, "Img.basicEnemy", null, e);
 		enemy2 = new TankEnemy("enemy2", 3000, 450, 0, 0, "Img.basicEnemy", null, e)
 		enemy3 = new BasicEnemy("enemy3", 4200, 450, 0, 0, "Img.basicEnemy", null, e)
 		enemy4 = new BasicEnemy("enemy4", 6200, 450, 0, 0, "Img.basicEnemy", null, e)
 
-		let gameWidth=2000
+		
 		//temp test vars ----------
 		var pMaxHP=e.maxHealth;
 		var pHP=e.health;
 		var playerPercentHealth=(pMaxHP/pHP)*100;
 		var playerMomentum=100;
 		var ammo=17;
+		
+		var terrain = {};
+		for (i = 0; i < 3; i++) {
+			id = Math.random();
+			terrain[id] = new Terrain1x1(id, i*50, 450);
+		}
+		
 
 		//-----------
 		init = function() {
@@ -62,7 +72,7 @@
 		gui.drawMap();
 		//gui.fgDraw(gui.fg_ctx,playerPercentHealth,playerMomentum,ammo);
       
-		startGame({'player':e,'enemies':{'enemy1':enemy,'enemy2':enemy2}});// 'enemy3':enemy3, 'enemy4':enemy4}});
+		startGame({'player':e, 'enemies':{}, 'terrain':terrain})//'enemy1':enemy,'enemy2':enemy2}});// 'enemy3':enemy3, 'enemy4':enemy4}});
 		
 		</script>
 </html>
