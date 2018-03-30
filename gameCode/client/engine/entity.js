@@ -32,7 +32,7 @@ function Entity(type, id, x, y, vx, vy, width, height, img, color) {
 	}
 	
 	self.draw = function() {
-		gui.drawEntity(self, gui.fg_ctx);
+		gui.drawEntity(self, gui.fg_ctx, false);
 		/*
 		ctx.save();
 		ctx.fillStyle = self.color;
