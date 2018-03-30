@@ -3,7 +3,6 @@ GUI = function(container){
 	self.container=container;
 	var sPAnimation=0;
 	var bearAnimationStage=0;
-
 	var backgroundPositionCounter=0;
 	self.create= function(type, id, left, top, width, height){
 		var element= document.createElement(type);
@@ -79,7 +78,6 @@ GUI = function(container){
 			playX=e.x-self.fg.width/2;
 		}
 		var en=entity;
-		playX=e.x-self.fg.width/2;
 		ctx.save();
 		switch(en.type){
 			case "player":
@@ -224,9 +222,9 @@ GUI = function(container){
 			ctx.drawImage(img,aniStepX*spriteW,aniStepY*spriteH,spriteW,spriteH,en.x-en.width/2-playX,en.y-en.height/2,en.width,en.height);
 		}else{
 			ctx.save()
-			ctx.translate(fg.width-en.width/2,y);
     			// scaleX by -1; 
     			ctx.scale(-1,1);
+			ctx.translate(-fg.width,0);
 			ctx.drawImage(img,aniStepX*spriteW,aniStepY*spriteH,spriteW,spriteH,en.x-en.width/2-playX,en.y-en.height/2,en.width,en.height);
 			ctx.restore();
 		}	
