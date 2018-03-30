@@ -1,34 +1,8 @@
 GUI = function(container){
 	var self={};
 	self.container=container;
-	var Img = {};
-	Img.background1= new Image();
-	Img.background1.src="img/worldOneBackground.png";
-	Img.background2= new Image();
-	Img.background2.src="img/worldTwoBackground.png";
-	Img.background3= new Image();
-	Img.background3.src="img/worldThreeBackground.png";	
-	Img.playerSmall = new Image();
-	Img.playerSmall.src = "img/movingCharacter.png";
-	Img.playerBig = new Image();
-	Img.playerBig.src = "img/bigGuy.png";
-	Img.basicEnemy1=new Image();
-	Img.basicEnemy1.src="img/enemy1.png";
-	Img.basicEnemy2=new Image();
-	Img.basicEnemy2.src="img/enemy2.png";
-	Img.basicEnemy3=new Image();
-	Img.basicEnemy3.src="img/enemy3.png";
-	Img.pistol=new Image();
-	Img.pistol.src="img/pistolWeapon.png";
-	Img.assaultWeapon=new Image();
-	Img.assaultWeapon.src="img/assaultWeapon.png";
-	Img.swordWeapon=new Image();
-	Img.swordWeapon.src="img/swordWeapon.png";
-	Img.shotgun=new Image();
-	Img.shotgun.src="img/shotgun.png";
-	Img.bullet=new Image();
-	Img.bullet.src="img/bullet.png";
 	var sPAnimation=0;
+	var bearAnimationStage=0;
 
 	var backgroundPositionCounter=0;
 	self.create= function(type, id, left, top, width, height){
@@ -87,7 +61,6 @@ GUI = function(container){
 		}
 	}
 
-
 	//draws Entities
 	self.drawEntity=function(entity,ctx){
 		ctx.save();
@@ -99,7 +72,18 @@ GUI = function(container){
 			if(entity.type=="player"){
 				//console.log(Img.player);
 				if(entity.isBig==true){
-					ctx.drawImage(Img.playerBig,self.fg.width/2,entity.y-entity.height/2,entity.width,entity.height);
+					playDir=self.getImageDirection(entity);
+					if(playDir==0){
+						ctx.drawImage(Img.playerBig,self.fg.width/2,entity.y-entity.height/2,entity.width,entity.height);
+					}
+					else{
+						ctx.save()
+						ctx.translate(x+Img.playerBig.width,y);
+    						// scaleX by -1; this "trick" flips horizontally
+    						ctx.scale(-1,1);
+						ctx.drawImage(Img.playerBig,self.fg.width/2-entity.width/2,entity.y-entity.height/2,entity.width,entity.height);
+						ctx.restore();
+					}
 					Img.playerBig.onload=function(){}	
 				}
 				else{
@@ -112,20 +96,39 @@ GUI = function(container){
 
 					Img.playerSmall.onload=function(){}	
 				}		
-			}	
+			}
+	
 			else if(entity.type=="basic enemy"){
 				ctx.drawImage(Img.basicEnemy1,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);				
 				entity.img.onload=function(){
 				}
 			}
+
 			else if(entity.type=="flying enemy"){
 				ctx.drawImage(Img.basicEnemy2,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);				
 				entity.img.onload=function(){
 				}
 		
 			}
+
 			else if(entity.type=="tank enemy"){
-				ctx.drawImage(Img.basicEnemy3,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);				
+				var fW=Img.bearEnemy.width/8;
+				var fH=Img.bearEnemy.height/8;
+				playDir=self.getImageDirection(entity);
+				bearAnimationStage=self.updateEntityAnimation(entity,bearAnimationStage,16);
+				
+				if(entity.vx==0){
+					bearAniY=0;
+				}
+				else if(bearAnimationStage/8>=1){
+					bearAniY=2;
+				}
+				else{
+					bearAniY=1;
+				}
+				console.log(bearAnimationStage);
+				console.log(bearAniY);
+				ctx.drawImage(Img.bearEnemy,bearAnimationStage%8*fW,bearAniY*fH,fW,fH,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);				
 				entity.img.onload=function(){
 				}
 			}

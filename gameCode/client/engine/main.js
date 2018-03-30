@@ -1,4 +1,3 @@
-var canvas = document.getElementById("fg")
 
 var frameCount;
 
@@ -28,8 +27,8 @@ document.onkeyup = function(event) {
 }
 
 document.onmousedown = function(mouse) {
-	var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
-	var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
+	var mouseX = mouse.clientX - gui.fg.getBoundingClientRect().left;
+	var mouseY = mouse.clientY - gui.fg.getBoundingClientRect().top;
 	
 	player.updateAim(mouseX, mouseY);
 	
@@ -48,8 +47,8 @@ document.oncontextmenu = function(mouse) {
 * Reset the player's aiming angle when they move the mouse
 */
 document.onmousemove = function(mouse){
-	var mouseX = mouse.clientX - canvas.getBoundingClientRect().left;
-	var mouseY = mouse.clientY - canvas.getBoundingClientRect().top;
+	var mouseX = mouse.clientX - gui.fg.getBoundingClientRect().left;
+	var mouseY = mouse.clientY - gui.fg.getBoundingClientRect().top;
 	
 	player.updateAim(mouseX, mouseY);
 }
@@ -129,7 +128,7 @@ var inRange = function(thing) {
 * Main game loop
 */
 var update = function() {
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	gui.fg_ctx.clearRect(0, 0, gui.fg.width, gui.fg.height);
 	
 	//console.log(player.weapon.vx);
 
