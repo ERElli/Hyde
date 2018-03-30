@@ -15,14 +15,18 @@
 		<script type="text/javascript" src="../engine/weapon.js"></script>
 		<script type="text/javascript" src="images.js"></script>
 		<script type="text/javascript" src="GUI.js"></script>
+		
 		<script>
+		
+		//levelFromJson = convertToLevel(level_json)
+		
 		// construct the gui with the container and the map
 		var gui;
 		var HEIGHT=500;
 		var WIDTH=1250;
 		
 		//id, x, y, vx, vy, width, height, img, color, ownerID
-		p= new Sword("w1", 150, 450-25, 0, 0, 100, 100,"pistol_image",null, 'player');
+		p= new Sword("w1", 150, 450-25, 0, 0, 50, 50,"pistol_image",null, 'player');
 
 		//id, x, y, vx, vy, img, weapon, isBig
 		e = new Player("player", 150, 450-25, 0, 0, "Img.player", p, false);
@@ -30,7 +34,7 @@
 			
 		//id, x, y, vx, vy, img, color, target
 
-		enemy = new BasicEnemy("enemy1", 500, 450, 0, 0, "Img.basicEnemy", null, e);
+		enemy = new FlyingEnemy("enemy1", 500, 150, 0, 0, "Img.basicEnemy", null, e);
 		enemy2 = new TankEnemy("enemy2", 3000, 450, 0, 0, "Img.basicEnemy", null, e)
 		enemy3 = new BasicEnemy("enemy3", 4200, 450, 0, 0, "Img.basicEnemy", null, e)
 		enemy4 = new BasicEnemy("enemy4", 6200, 450, 0, 0, "Img.basicEnemy", null, e)
@@ -65,6 +69,7 @@
 
 		gui.drawMap();
 		//gui.fgDraw(gui.fg_ctx,playerPercentHealth,playerMomentum,ammo);
+      
 		startGame({'player':e,'enemies':{'enemy1':enemy,'enemy2':enemy2}});// 'enemy3':enemy3, 'enemy4':enemy4}});
 		
 		</script>

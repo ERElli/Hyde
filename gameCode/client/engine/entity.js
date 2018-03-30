@@ -94,7 +94,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	self.meleeDamage = meleeDamage;
 	self.slowDownFactor = slowDown
 		
-	self.attackCounter = 0;
+	self.attackCounter = 100;
 	self.aimAngle = 0;
 	
 	self.isImmune = false;
@@ -102,6 +102,8 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	
 	self.jumpBuffer = 0;
 	self.justJumped = false;
+	
+	self.isLaunched = false;
 	
 	self.ax = 0;
 	self.ay = 0;
@@ -116,7 +118,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		self.vx += self.ax;
 		self.vy += self.ay;
 		
-		if (Math.abs(self.vx) > self.maxVelocityX) {
+		if (Math.abs(self.vx) > self.maxVelocityX && !self.isLaunched) {
 			self.vx = Math.sign(self.vx)*self.maxVelocityX;
 		}
 		
@@ -134,6 +136,16 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		self.weapon.update();
 		
 	
+	}
+	
+	self.getMomentum = function() {
+		return self.vx*self.mass;
+	}
+	
+	self.launch = function(vx) {
+		self.isLaunched = true;
+		self.vx = vx;
+		self.launchTimer = 0;
 	}
 	
 	self.jump = function() {

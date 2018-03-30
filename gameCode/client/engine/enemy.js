@@ -14,22 +14,41 @@ function Enemy(type, id, x, y, vx, vy, width, height, img, color, acceleration, 
 	var superUpdatePos = self.updatePosition;
 	self.updatePosition = function() {
 		
-		//console.log(target.x);
-		
-		if (self.x < target.x) {
-			self.ax = self.acceleration;
-//			console.log("Player on right");
+		if (self.isLaunched) {
+			self.ax = 0;
+			/*
+			if (self.x >= self.maxForward*5) {
+				self.x = self.maxForward*5;
+				self.vx = 0;
+			}
+			else if (self.x <= self.maxBackward*5) {
+				self.x = self.maxBackward*5;
+				self.vx = 0;
+			}
+			*/
 		}
+		
 		else {
-			self.ax = -self.acceleration;
+			if (self.x < target.x) {
+				self.ax = self.acceleration;
+			}
+			else {
+				self.ax = -self.acceleration;
+			}
+			
+			/*
+			if (self.x >= self.maxForward) {
+				self.x = self.maxForward
+				//self.vx = 0;
+			}
+			else if (self.x <= self.maxBackward && !self.isLaunched) {
+				self.x = self.maxBackward;
+				//self.vx = 0;
+			}
+			*/
 		}
 		
-		if (self.x >= self.maxForward) {
-			self.x = self.maxForward
-		}
-		else if (self.x <= self.maxBackward) {
-			self.x = self.maxBackward;
-		}
+		
 		
 		superUpdatePos();
 
@@ -155,7 +174,7 @@ function TankEnemy(id, x, y, vx, vy, img, color, target) {
 	var tankMaxVY = 20*mpsTOppf;
 	var tankMaxHP = 50;
 	var tankWeapon = new Pistol("w1", x, y, 0, 0, 5, 5,'img','black', id);
-	var tankMass = 500;
+	var tankMass = 300;
 	var tankJumpSpeed = 2*mpsTOppf;
 	var tankMeleeDamage = 10;
 	var tankPatrolRange = 1000;
@@ -165,8 +184,38 @@ function TankEnemy(id, x, y, vx, vy, img, color, target) {
 					tankJumpSpeed, tankMeleeDamage, tankPatrolRange, tankSlowDown, target);
 	
 	
-	self.block = function() {
+	var superUpdate = self.updatePosition;
+	self.updatePosition = function() {
 		
+		if (self.health <= 5) {
+			self.block();
+		}
+		
+		if (self.isBlocking) {
+			self.vx *= 0.9;
+		}
+		superUpdate();
+	}
+	
+	var superTakeDamage = self.takeDamage;
+	self.takeDamage = function(amount) {
+		if (self.isBlocking) {
+			amount /= 10;
+		}
+		superTakeDamage(amount);
+	}
+	
+	self.block = function() {
+		self.isBlocking = true;
+	}
+	
+	self.getMomentum = function() {
+		if (!self.isBlocking) {
+			return self.vx*self.mass;
+		}
+		else {
+			return self.mass*5;
+		}
 	}
 	
 	//self.draw = function() {
