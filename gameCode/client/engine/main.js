@@ -176,7 +176,7 @@ var update = function() {
 	if (player.justJumped) {
 		player.inAir = true;
 		player.jumpBuffer++;
-		if (player.jumpBuffer > 10) {
+		if (player.jumpBuffer > 20) {
 			player.justJumped = false;
 		}
 	}
@@ -386,6 +386,7 @@ var putOnTerrain = function(terrain, entity) {
 	entity.doubleJumped = false;
 	
 	entity.y = terrain.y - entity.height/2;
+	entity.vy = 0;
 	
 	
 }
