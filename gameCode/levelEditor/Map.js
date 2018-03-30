@@ -34,11 +34,14 @@ Map = function(width, height,tile_width, tile_height) {
 		return !(Object.keys(self.tiles[x][y]).length === 0 && self.tiles[x][y].constructor === Object);
 	};
 
+
 	//Function to return the list objects of type t are stored in.
 	self.getList = function(t){
 		//Regex patterns to place objects in their correct lists
 		let terrainPattern = new RegExp("Terrain");
-		let enemyPattern = new RegExp("enemy");
+		let enemyPattern = new RegExp(' enemy');
+
+		console.log(enemyPattern.test(t));
 
 		//Checking if type matches any of the RegexPatterns
 		//Is there a way to use a switch case instead
@@ -55,7 +58,8 @@ Map = function(width, height,tile_width, tile_height) {
 	self.addToObjectList = function(object){		
 		let id = object.id;
 		let type = object.type;
-
+		
+		console.log("TYPE",type);
 		let list = self.getList(type);
 		list[id] = object;
 		
@@ -114,7 +118,7 @@ Map = function(width, height,tile_width, tile_height) {
 			toBeRemoved = list[id];
 			delete list[id];
 
-			ctx_lg.clearRect(x,y,toBeRemoved.width,toBeRemoved.height);
+			gui.fg_ctx.clearRect(x,y,toBeRemoved.width,toBeRemoved.height);
 			self.makeFreeSpace(toBeRemoved);
 			console.log("Removing Entity:",toBeRemoved);
 			console.log("Updated ObjectList:",self.ObjectList);
@@ -149,33 +153,32 @@ Map = function(width, height,tile_width, tile_height) {
 		for(let type in self.ObjectList){
 			for(let id in self.ObjectList[type]){
 				object = self.ObjectList[type][id];
-				object.draw(ctx_lg);
+				object.draw(gui.fg_ctx);
 			}
 		}
 	};
 
 
-	// self.convertToString = function(){
-	// 	var filename = "levelEditor.txt";
+	self.convertToString = function(){
+		var filename = "TestLevel.json";
  
-	// 	var str = JSON.stringify(self.ObjectList).toString();
-	// 	var a = document.createElement("a");
-	// 	document.body.appendChild(a);
-	// 	var file = new Blob([str],{type: 'application/json'});
-	// 	a.href = URL.createObjectURL(file);
-	// 	a.download = filename;
-	// 	a.click();
-	// 	console.log(a);
+		var str = JSON.stringify(self.ObjectList).toString();
+		var a = document.createElement("a");
+		document.body.appendChild(a);
+		var file = new Blob([str],{type: 'application/json'});
+		a.href = URL.createObjectURL(file);
+		a.download = filename;
+		a.click();
 
 
-	// 	// console.log("Stringified:",str);
-	// 	// var parsed = JSON.parse(str);
-	// 	// console.log("Parsed:",parsed);
+		// console.log("Stringified:",str);
+		// var parsed = JSON.parse(str);
+		// console.log("Parsed:",parsed);
 
-	// 	// var file = new File([""],filename,self.ObjectList);
-	// 	// console.log(file);
+		// var file = new File([""],filename,self.ObjectList);
+		// console.log(file);
 
-	// };
+	};
 
 	console.log(self.ObjectList);
 	return self;
