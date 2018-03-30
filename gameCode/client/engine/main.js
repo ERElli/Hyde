@@ -74,6 +74,7 @@ var doPressedActions = function() {
 	
 	if (pressing['jump']) {
 		if (!player.inAir) {
+			console.log("Jumping");
 			player.jump();
 			hasReleasedJump = false;
 		}
@@ -152,6 +153,8 @@ var update = function() {
 	player.attackCounter++;
 	player.transformCounter++;
 	player.immuneCounter++;
+	
+	player.falling = true; //set to false if standing on terrain;
 	
 	if (player.isLaunched) {
 		//console.log("Launched");
@@ -351,17 +354,21 @@ var update = function() {
 	for (var key in terrain) {
 		
 		block = terrain[key];
+		
 		gui.drawTerrain(block,gui.fg_ctx)
+		
 		if (!inRange(block)) {
 			continue;
 		}
 		
 		if (getTerrainCollision(block, player)) {
-			console.log("Ground");
-			putOnTerrain(block, player);
+			player.falling = false;
+			if (!player.justJumped) {
+				putOnTerrain(block, player);
+			}
 		}
-		else if (!player.inAir) {
-			//console.log("Air");
+		
+		if (player.falling) {
 			player.inAir = true;
 			player.setAirMotion();
 		}
@@ -376,6 +383,7 @@ var getTerrainCollision = function(terrain, entity) {
 	
 	entity_rect = {'x':entity.x-entity.width/2, 'y':entity.y-entity.height/2, 'width':entity.width, 'height':entity.height};
 	
+	//console.log(testCollision(terrain, entity_rect));
 	return testCollision(terrain, entity_rect);
 	
 }

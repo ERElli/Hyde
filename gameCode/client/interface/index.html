@@ -50,9 +50,14 @@
 		var ammo=17;
 		
 		var terrain = {};
-		for (i = 0; i < 100; i++) {
+		for (i = 0; i < 10; i++) {
 			id = Math.random();
 			terrain[id] = new Terrain1x1(id, i*50, 400);
+		}
+		
+		for (i = 10; i < 20; i++) {
+			id = Math.random();
+			terrain[id] = new Terrain1x1(id, i*50, 300);
 		}
 		
 
