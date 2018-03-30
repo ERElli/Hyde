@@ -1,41 +1,44 @@
-var Img = {};
+Img = function(pathToRoot) {
+	var self = {};
 	//background images
-	Img.background1= new Image();
-	Img.background1.src="img/worldOneBackground.png";
-	Img.background2= new Image();
-	Img.background2.src="img/worldTwoBackground.png";
-	Img.background3= new Image();
-	Img.background3.src="img/worldThreeBackground.png";
+	self.background1= new Image();
+	self.background1.src="img/worldOneBackground.png";
+	self.background2= new Image();
+	self.background2.src="img/worldTwoBackground.png";
+	self.background3= new Image();
+	self.background3.src="img/worldThreeBackground.png";
 	//player images	
-	Img.playerSmall = new Image();
-	Img.playerSmall.src = "img/movingCharacter.png";
-	Img.playerBig = new Image();
-	Img.playerBig.src = "img/bigGuy.png";
+	self.playerSmall = new Image();
+	self.playerSmall.src = "img/movingCharacter.png";
+	self.playerBig = new Image();
+	self.playerBig.src = "img/bigGuy.png";
 	//enemy images
-	Img.basicEnemy1=new Image();
-	Img.basicEnemy1.src="img/enemy1.png";
-	Img.basicEnemy2=new Image();
-	Img.basicEnemy2.src="img/enemy2.png";
-	Img.basicEnemy3=new Image();
-	Img.basicEnemy3.src="img/enemy3.png";
+	self.basicEnemy1=new Image();
+	self.basicEnemy1.src=pathToRoot+"client/interface/img/enemy1.png";
+	self.basicEnemy2=new Image();
+	self.basicEnemy2.src="img/enemy2.png";
+	self.basicEnemy3=new Image();
+	self.basicEnemy3.src="img/enemy3.png";
 	
-	Img.bearEnemy=new Image();
-	Img.bearEnemy.src="img/bear.png";
+	self.bearEnemy=new Image();
+	self.bearEnemy.src="img/bear.png";
 	
 	
 	//weapons and ammo
-	Img.pistol=new Image();
-	Img.pistol.src="img/pistolWeapon.png";
-	Img.assaultWeapon=new Image();
-	Img.assaultWeapon.src="img/assaultWeapon.png";
-	Img.swordWeapon=new Image();
-	Img.swordWeapon.src="img/swordWeapon.png";
-	Img.shotgun=new Image();
-	Img.shotgun.src="img/shotgun.png";
-	Img.bullet=new Image();
-	Img.bullet.src="img/bullet.png";
+	self.pistol=new Image();
+	self.pistol.src="img/pistolWeapon.png";
+	self.assaultWeapon=new Image();
+	self.assaultWeapon.src="img/assaultWeapon.png";
+	self.swordWeapon=new Image();
+	self.swordWeapon.src="img/swordWeapon.png";
+	self.shotgun=new Image();
+	self.shotgun.src="img/shotgun.png";
+	self.bullet=new Image();
+	self.bullet.src="img/bullet.png";
 
-	Img.terrain1x1=new Image();
-	Img.terrain1x1.src="img/terrain/terrain3x2.png"
+	self.terrain1x1=new Image();
+	self.terrain1x1.src="img/terrain/terrain3x2.png";
 
+	return self;
+};
 

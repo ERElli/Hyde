@@ -32,8 +32,17 @@ GUI = function(container){
 	self.createCanvas=function(width, height){
 		self.bg=self.create('canvas','bg',0,0,width,height);
 		self.fg=self.create('canvas','fg',0,0,width,height);
+		self.ep=self.create('canvas','ep',0,0,width,height);
+		self.gr=self.create('canvas','gr',0,0,width,height);
+		self.bg.style.zIndex = 0;
+		self.fg.style.zIndex = 1;
+		self.ep.style.zIndex = 2;
+		self.gr.style.zIndex = 3;
 		self.bg_ctx = self.bg.getContext("2d");
 		self.fg_ctx = self.fg.getContext("2d");
+		self.ep_ctx = self.ep.getContext("2d");
+		self.gr_ctx = self.gr.getContext("2d");
+		self.ep_ctx.globalAlpha = 0.5;
 	}
 
 	//draws background
