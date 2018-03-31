@@ -361,7 +361,7 @@ var update = function() {
 			continue;
 		}
 		
-		if (getTerrainCollision(block, player)) {
+		if (blockUnderEntity(block, player)) {
 			player.falling = false;
 			if (!player.justJumped) {
 				putOnTerrain(block, player);
@@ -374,19 +374,65 @@ var update = function() {
 		}
 		
 		
+		if (blockLeftEntity(block, player) && player.vx < 0) {
+			player.x = block.x + block.width+15;
+			player.vx = 1;
+		}
+		if (blockRightEntity(block, player) && player.vx > 0) {
+			player.x = block.x-15;
+			player.vx = -1;
+		}
+		
+		
+		if (blockOverEntity(block, player)) {
+			player.y = block.y+block.height+30;
+			player.vy = -2;
+		}
+		
+		
+		
+		
 	}
 	
 	
 }
 
-var getTerrainCollision = function(terrain, entity) {
+var blockUnderEntity = function(terrain, entity) {
 	
-	entity_rect = {'x':entity.x-entity.width/2, 'y':entity.y-entity.height/2, 'width':entity.width, 'height':entity.height};
+	entity_rect = {'x':entity.x-entity.width/4, 'y':entity.y+entity.height/2, 'width':entity.width/2, 'height':entity.height/4};
 	
 	//console.log(testCollision(terrain, entity_rect));
 	return testCollision(terrain, entity_rect);
 	
 }
+
+var blockLeftEntity = function(terrain, entity) {
+	
+	entity_rect = {'x':entity.x-entity.width/2, 'y':entity.y-entity.height/4, 'width':entity.width/4, 'height':entity.height/2};
+	
+	//console.log(testCollision(terrain, entity_rect));
+	return testCollision(terrain, entity_rect);
+	
+}
+
+var blockRightEntity = function(terrain, entity) {
+	
+	entity_rect = {'x':entity.x+entity.width/2, 'y':entity.y-entity.height/4, 'width':entity.width/4, 'height':entity.height/2};
+	
+	//console.log(testCollision(terrain, entity_rect));
+	return testCollision(terrain, entity_rect);
+	
+}
+
+var blockOverEntity = function(terrain, entity) {
+	
+	entity_rect = {'x':entity.x-entity.width/4, 'y':entity.y-entity.height/2, 'width':entity.width/2, 'height':entity.height/4};
+	
+	//console.log(testCollision(terrain, entity_rect));
+	return testCollision(terrain, entity_rect);
+	
+}
+
 
 var putOnTerrain = function(terrain, entity) {
 	

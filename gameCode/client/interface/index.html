@@ -32,7 +32,7 @@
 		p= new Sword("w1", 150, 450-25, 0, 0, 50, 50,"pistol_image",null, 'player');
 
 		//id, x, y, vx, vy, img, weapon, isBig
-		e = new Player("player", 150, 450-25, 0, 0, "Img.player", p, false);
+		e = new Player("player", 150, 400-25, 0, 0, "Img.player", p, false);
 			
 			
 		//id, x, y, vx, vy, img, color, target
@@ -50,7 +50,7 @@
 		
 		for (i = 10; i < 20; i++) {
 			id = Math.random();
-			terrain[id] = new Terrain1x1(id, i*50, 300);
+			terrain[id] = new Terrain1x1(id, i*50, 200);
 		}
 		
 		//-----------
