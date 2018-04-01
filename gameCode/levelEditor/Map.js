@@ -180,7 +180,7 @@ Map = function(width, height,tile_width, tile_height) {
 		// var file = new File([""],filename,self.ObjectList);
 		// console.log(file);
 
-	};
+	//};
 
 	console.log(self.ObjectList);
 	return self;

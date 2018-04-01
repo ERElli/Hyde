@@ -23,13 +23,21 @@
 
 		// construct the gui with the container and the map
 		var gui;
+		var Img=Img("../../");
 		var HEIGHT=500;
 		var WIDTH=1250;
 
 		//id, x, y, vx, vy, width, height, img, color, ownerID
 		p= new Sword("w1", 150, 450-25, 0, 0, 50, 50,"pistol_image",null, 'player');
 		//id, x, y, vx, vy, img, weapon, isBig
+<<<<<<< HEAD
 		e = new Player("player", 150, 450-25, 0, 0, "Img.player", p, false);
+=======
+		e = new Player("player", 150, 400-25, 0, 0, "Img.player", p, false);
+			
+			
+		//id, x, y, vx, vy, img, color, target
+>>>>>>> b52efb856cf0cc2199e22bdfbb45a1bda69f75d9
 
 
 		//id, x, y, vx, vy, img, color, target
@@ -45,7 +53,7 @@
 
 		for (i = 10; i < 20; i++) {
 			id = Math.random();
-			terrain[id] = new Terrain1x1(id, i*50, 300);
+			terrain[id] = new Terrain1x1(id, i*50, 200);
 		}
 
 		//-----------
@@ -60,8 +68,14 @@
 		//Creates background and foreground Canvases
 		init();
 		gui.drawMap();
+<<<<<<< HEAD
 
 		startGame({'player':e, /*'enemies':{'enemy2':enemy2}, */'terrain':terrain} ); //'enemy1':enemy,'enemy2':enemy2}});// 'enemy3':enemy3, 'enemy4':enemy4}});
 
+=======
+      
+		startGame({'player':e, 'enemies':{'enemy2':enemy2}, /*'terrain':terrain} */}); //'enemy1':enemy,'enemy2':enemy2}});// 'enemy3':enemy3, 'enemy4':enemy4}});
+		
+>>>>>>> b52efb856cf0cc2199e22bdfbb45a1bda69f75d9
 		</script>
 </html>

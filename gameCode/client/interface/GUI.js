@@ -3,7 +3,6 @@ GUI = function(container){
 	self.container=container;
 	var sPAnimation=0;
 	var bearAnimationStage=0;
-
 	var backgroundPositionCounter=0;
 	self.create= function(type, id, left, top, width, height){
 		var element= document.createElement(type);
@@ -74,12 +73,15 @@ GUI = function(container){
 	self.drawEntity=function(entity,ctx,isLevelEditor){
 		if(isLevelEditor){
 			playX=0;
+			xOffset=0;
+			yOffset=0;
 		}
 		else{
 			playX=e.x-self.fg.width/2;
+			xOffset=entity.width/2;
+			yOffset=entity.height/2;
 		}
 		var en=entity;
-		playX=e.x-self.fg.width/2;
 		ctx.save();
 		switch(en.type){
 			case "player":
@@ -212,27 +214,37 @@ GUI = function(container){
 	};
 	//Method to draw enemies(readability)
 	self.quickDraw=function(img,entity,ctx){
-		ctx.drawImage(img,(entity.x-entity.width/2)-playX,entity.y-entity.height/2,entity.width,entity.height);
+		ctx.drawImage(img,(entity.x-xOffset)-playX,entity.y-yOffset,entity.width,entity.height);
 	}
 
 	self.quickPlayerDraw=function(img,en,ctx,aniX,aniDir,fW,fH){
-		ctx.drawImage(img,aniX*fW,aniDir*fH,fW,fH,en.x-en.width/2-playX,en.y-en.height/2,en.width,en.height);
+		ctx.drawImage(img,aniX*fW,aniDir*fH,fW,fH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
 	}
 
 	self.quickAnimatedDraw=function(img,en,ctx,aniStepX,aniStepY,spriteW,spriteH,dir){
 		if (dir==0){
-			ctx.drawImage(img,aniStepX*spriteW,aniStepY*spriteH,spriteW,spriteH,en.x-en.width/2-playX,en.y-en.height/2,en.width,en.height);
+			ctx.drawImage(img,aniStepX*spriteW,aniStepY*spriteH,spriteW,spriteH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
+
 		}else{
 			ctx.save()
+<<<<<<< HEAD
 			ctx.translate(fg.width-en.width/2,y);
     			// scaleX by -1;
+=======
+    			// scaleX by -1; 
+>>>>>>> b52efb856cf0cc2199e22bdfbb45a1bda69f75d9
     			ctx.scale(-1,1);
-			ctx.drawImage(img,aniStepX*spriteW,aniStepY*spriteH,spriteW,spriteH,en.x-en.width/2-playX,en.y-en.height/2,en.width,en.height);
+			ctx.translate(-fg.width,0);
+			ctx.drawImage(img,aniStepX*spriteW,aniStepY*spriteH,spriteW,spriteH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
 			ctx.restore();
 		}
 	}
+<<<<<<< HEAD
 
 
+=======
+	
+>>>>>>> b52efb856cf0cc2199e22bdfbb45a1bda69f75d9
 	self.fgDraw=function(fg_ctx,playerHealth,playerMomentum,ammo){
 		var healthX=0;
 		var healthY=30;
