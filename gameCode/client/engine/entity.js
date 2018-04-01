@@ -28,11 +28,11 @@ function Entity(type, id, x, y, vx, vy, width, height, img, color) {
 	
 	self.update = function() {
 		self.updatePosition();
-		self.draw();
+		self.draw(gui.fg_ctx,false);
 	}
 	
-	self.draw = function() {
-		gui.drawEntity(self, gui.fg_ctx, false);
+	self.draw = function(ctx,isLevelEditor) {
+		gui.drawEntity(self, ctx, isLevelEditor);
 		/*
 		ctx.save();
 		ctx.fillStyle = self.color;
