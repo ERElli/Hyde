@@ -1,6 +1,8 @@
 function Weapon(type, id, x, y, vx, vy, width, height, img, color, firingRate, bulletSpeed, bulletType, range, ammo) {
 	var self = Entity(type, id, x, y, vx, vy, width, height, img, color);
 	
+	//added for Animation.js weapon animation function
+	self.isWeapon=true;
 	
 	self.firingRate = firingRate;
 	self.bulletSpeed = bulletSpeed;
@@ -73,7 +75,7 @@ function Sword(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	
 	var swordRate = 0.5;
 	var swordSpeed = 12;
-	
+	var img=Img.swordWeapon;
 	var self = Weapon("sword", id, x, y, vx, vy, width, height, img, color, swordRate, swordSpeed, "normal", 100, 20);
 		
 	self.fire = function(angle) {
@@ -91,7 +93,7 @@ function AssaultRifle(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	
 	var rifleRate = 5;
 	var rifleSpeed = 12;
-	
+
 	var self = Weapon("assaultRifle", id, x, y, vx, vy, width, height, img, color, rifleRate, rifleSpeed, "normal", 100, 20);
 	
 	

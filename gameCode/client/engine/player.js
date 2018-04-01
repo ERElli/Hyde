@@ -45,9 +45,8 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	self.slowDownFactor = self.isBig ? bigSlowDown:smallSlowDown;
 	
 	self.meleeRadius = 15;
-	
+
 	self.maxMomentum = bigMass*bigMaxVX;
-	
 	
 	var oldUpdate = self.updatePosition;
 	self.updatePosition = function() {
