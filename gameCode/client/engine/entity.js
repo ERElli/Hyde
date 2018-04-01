@@ -140,6 +140,16 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	
 	}
 	
+	self.setAirMotion = function() {
+		self.ay = g;
+		self.ax /= 2;
+	}
+	
+	self.setGroundMotion = function() {
+		self.ay = 0;
+		self.vy = 0;
+	}
+	
 	self.getMomentum = function() {
 		return self.vx*self.mass;
 	}

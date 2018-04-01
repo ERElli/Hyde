@@ -278,11 +278,6 @@ var update = function() {
 			delete enemies[key];
 		}
 		
-		if (nearTerrain(enemy.x, enemy.y)) {
-			//console.log(enemy.id)
-			putOnTerrain(enemy);
-		}
-		
 		enemy.attackCounter++;
 		
 		if (enemy.isLaunched) {
@@ -361,6 +356,8 @@ var update = function() {
 			continue;
 		}
 		
+		//Check collisions with player ####################################
+		
 		if (blockUnderEntity(block, player)) {
 			player.falling = false;
 			if (!player.justJumped) {
@@ -375,26 +372,61 @@ var update = function() {
 		
 		
 		if (blockLeftEntity(block, player) && player.vx < 0) {
-			console.log("left");
 			player.x = block.x + block.width+player.width/2;
 			player.vx = 1;
 		}
 		if (blockRightEntity(block, player) && player.vx > 0) {
-			console.log("right");
 			player.x = block.x-player.width/2;
 			player.vx = -1;
 		}
 		
 		
 		if (blockOverEntity(block, player)) {
-			console.log("over");
 			player.y = block.y+block.height+player.height/2;
 			player.vy = -2;
 		}
 		
 		
+		//Check collisions with enemies ####################################
 		
-		
+		for (var key in enemies) {
+			
+			enemy = enemies[key];
+			enemy.falling = true;
+			
+			if (blockUnderEntity(block, enemy)) {
+				console.log("under");
+				enemy.falling = false;
+				if (!enemy.justJumped) {
+					putOnTerrain(block, enemy);
+				}
+			}
+			
+			if (enemy.falling) {
+				enemy.inAir = true;
+				enemy.setAirMotion();
+			}
+			
+			
+			if (blockLeftEntity(block, enemy) && enemy.vx < 0) {
+				console.log("left");
+				enemy.x = block.x + block.width+enemy.width/2;
+				enemy.vx = 1;
+			}
+			if (blockRightEntity(block, enemy) && enemy.vx > 0) {
+				console.log("right");
+				enemy.x = block.x-enemy.width/2;
+				enemy.vx = -1;
+			}
+			
+			
+			if (blockOverEntity(block, enemy)) {
+				console.log("over");
+				enemy.y = block.y+block.height+enemy.height/2;
+				enemy.vy = -2;
+			}
+			
+		}
 	}
 	
 	
@@ -461,7 +493,7 @@ var testCollision = function(rect1, rect2) {
 var startGame = function(initial_level) {
 	level = initial_level;
 	player = level["player"];
-	enemies = {}//level["enemies"];
+	enemies = level["enemies"];
 	blocks = level["terrain"];
 	//surfaceMods = level["terrain"];
 	frameCount = 0;
