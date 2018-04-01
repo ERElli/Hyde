@@ -13,6 +13,7 @@
 		<script type="text/javascript" src="../engine/player.js"></script>
 		<script type="text/javascript" src="../engine/enemy.js"></script>
 		<script type="text/javascript" src="../engine/weapon.js"></script>
+		<script type="text/javascript" src="../engine/usable.js"></script>
 		<script type="text/javascript" src="../../levelEditor/Terrain.js"></script>
 		<script type="text/javascript" src="images.js"></script>
 		<script type="text/javascript" src="GUI.js"></script>
@@ -31,11 +32,14 @@
 		var WIDTH=1250;
 		
 		//id, x, y, vx, vy, width, height, img, color, ownerID
-		p= new Sword("w1", 150, 450-25, 0, 0, 50, 50,"Img.swordWeapon",null, 'player');
-		//p= new Shotgun("w2", 150, 450-25, 0, 0, 50, 50, Img.shotgun,null, 'player');
+		p= new Shotgun("w1", 150, 450-25, 0, 0, 50, 50,"pistol_image",null, 'player');
+
+
 		//id, x, y, vx, vy, img, weapon, isBig
 		e = new Player("player", 150, 400-25, 0, 0, "Img.player", p, false);
 			
+			
+		pickUp = new WeaponPickUp("weapon", Math.random(), 200, 400-25, "sword");
 			
 		//id, x, y, vx, vy, img, color, target
 
@@ -67,7 +71,7 @@
 
 		//Creates background and foreground Canvases
 		init();    
-		startGame({'player':e, /*'enemies':{'enemy2':enemy2},*/ 'terrain':terrain}); //'enemy1':enemy,'enemy2':enemy2}});// 'enemy3':enemy3, 'enemy4':enemy4}});
+		startGame({'player':e, 'enemies':{'enemy2':enemy2}, 'terrain':terrain}); //'enemy1':enemy,'enemy2':enemy2}});// 'enemy3':enemy3, 'enemy4':enemy4}});
 		
 		</script>
 </html>
