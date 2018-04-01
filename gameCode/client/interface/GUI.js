@@ -94,8 +94,8 @@ GUI = function(container){
 					else{
 						ctx.save()
 						ctx.translate(en.x+fg.width/2-playX,y);
-    						// scaleX by -1; this "trick" flips horizontally
-    						ctx.scale(-1,1);
+    					// scaleX by -1; this "trick" flips horizontally
+    					ctx.scale(-1,1);
 						//ctx.drawImage(Img.playerBig,self.fg.width/2-en.width/2,en.y-en.height/2,en.width,en.height);
 						self.quickDraw(Img.playerBig,en,ctx,en.x,en.y);						
 						ctx.restore();
@@ -121,7 +121,7 @@ GUI = function(container){
 			case "tank enemy":
 				var fW=Img.bearEnemy.width/8;
 				var fH=Img.bearEnemy.height/8;
-				dir=ani.getImgDir(entity);
+				dir=ani.getPlayDirection(entity);
 				bearAnimationStage=ani.updateEntityAnimation(en,bearAnimationStage,16);	
 				if(en.vx==0){
 					bearAniY=0;
@@ -142,6 +142,7 @@ GUI = function(container){
 				weapImg=Img.pistol;
 				newx=ani.getWeaponPosition(en);
 				self.quickDraw(weapImg,en,ctx,newx,en.y);
+				
 				break;
 			case "shotgun":
 				weapImg=Img.shotgun;
@@ -150,6 +151,7 @@ GUI = function(container){
 				break;
 			case "sword":
 				weapImg=Img.swordWeapon;
+				console.log(weapImg.width);
 				newx=ani.getWeaponPosition(en);
 				self.quickDraw(weapImg,en,ctx,newx,en.y);
 				break;
