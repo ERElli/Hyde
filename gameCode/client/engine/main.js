@@ -216,7 +216,7 @@ var update = function() {
 			
 		if(testCollision(player, pickUp)) {
 			
-			console.log("Picking up weapon");
+			//console.log("Picking up weapon");
 			pickUp.applyEffect();
 		}
 			

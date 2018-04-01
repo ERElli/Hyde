@@ -151,7 +151,7 @@ GUI = function(container){
 				break;
 			case "sword":
 				weapImg=Img.swordWeapon;
-				console.log(weapImg.width);
+				//console.log(weapImg.width);
 				newx=ani.getWeaponPosition(en);
 				self.quickDraw(weapImg,en,ctx,newx,en.y);
 				break;
