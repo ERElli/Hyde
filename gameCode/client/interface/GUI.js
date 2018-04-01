@@ -94,8 +94,8 @@ GUI = function(container){
 					else{
 						ctx.save()
 						ctx.translate(en.x+fg.width/2-playX,y);
-    						// scaleX by -1; this "trick" flips horizontally
-    						ctx.scale(-1,1);
+    					// scaleX by -1; this "trick" flips horizontally
+    					ctx.scale(-1,1);
 						//ctx.drawImage(Img.playerBig,self.fg.width/2-en.width/2,en.y-en.height/2,en.width,en.height);
 						self.quickDraw(Img.playerBig,en,ctx,en.x,en.y);						
 						ctx.restore();
@@ -121,7 +121,7 @@ GUI = function(container){
 			case "tank enemy":
 				var fW=Img.bearEnemy.width/8;
 				var fH=Img.bearEnemy.height/8;
-				dir=ani.getImgDir(entity);
+				dir=ani.getPlayDirection(entity);
 				bearAnimationStage=ani.updateEntityAnimation(en,bearAnimationStage,16);	
 				if(en.vx==0){
 					bearAniY=0;
@@ -142,6 +142,7 @@ GUI = function(container){
 				weapImg=Img.pistol;
 				newx=ani.getWeaponPosition(en);
 				self.quickDraw(weapImg,en,ctx,newx,en.y);
+				
 				break;
 			case "shotgun":
 				weapImg=Img.shotgun;
@@ -150,6 +151,7 @@ GUI = function(container){
 				break;
 			case "sword":
 				weapImg=Img.swordWeapon;
+				console.log(weapImg.width);
 				newx=ani.getWeaponPosition(en);
 				self.quickDraw(weapImg,en,ctx,newx,en.y);
 				break;
@@ -222,12 +224,9 @@ GUI = function(container){
 		var weaponImgY=50;
 		var healthBar=player.health/player.maxHealth*100
 		var momentumBar=(Math.abs(player.getMomentum())/player.maxMomentum)*100
-		var ammo=player.weapon.ammo
+		var ammo;
 		var weaponImg=player.weapon.img;
 
-		if(player.weapon.type=="sword"){
-			ammo='Inf';
-		}
 		ctx.save();
 		
 		ctx.clearRect(0,0,self.fg.width,self.fg.height);
@@ -246,11 +245,22 @@ GUI = function(container){
 		ctx.fillText('Health:',healthX,healthY);
 		ctx.fillText('Momentum:',momentX,momentY);
 		//draw ammo
-		ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
+		if(player.weapon.type=="sword"){
+			ammo=Img.infinity;
+			ctx.fillText('Ammo: ',ammoX,ammoY);
+			ctx.drawImage(ammo,ammoX+75,ammoY-25,75,40);
+			ammo.onload=function(){};
+		}else{
+			ammo=player.weapon.ammo;
+			//draw ammo
+			ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
+			ctx.fillText('Weapon: ',weaponX,weaponY);
+		}
+		//ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
 		ctx.fillText('Weapon: ',weaponX,weaponY);
 		//draw current weapon image
  		ctx.drawImage(weaponImg,weaponImgX,weaponImgY,player.weapon.width,player.weapon.height);
-		weaponImg.onload=function(){}
+		weaponImg.onload=function(){};
 	};
 	return self;
 }
