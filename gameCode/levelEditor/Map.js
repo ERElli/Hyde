@@ -1,3 +1,4 @@
+var socket = io();
 Map = function(width, height,tile_width, tile_height) {
 	var self = {};
 	self.width = width;
@@ -18,7 +19,7 @@ Map = function(width, height,tile_width, tile_height) {
 	};
 	//self.ObjectList is a list of lists of objects. There will be list for terrain, one for enemies, one for weapons, etc.
 	//The format of this list is still flexible
-	
+
 	//Filling tiles with empty objects
 	for(var i=0; i<self.numTilesX; i++){
 		self.tiles.push([]);
@@ -56,10 +57,11 @@ Map = function(width, height,tile_width, tile_height) {
 	}
 
 	//Function to add entity to it's corresponding list
-	self.addToObjectList = function(object){		
+	self.addToObjectList = function(object){
 		let id = object.id;
 		let type = object.type;
 
+<<<<<<< HEAD
 		var list = self.getList(type);
 		if(type === "player"){
 			let size = Object.keys(list).length;
@@ -138,7 +140,7 @@ Map = function(width, height,tile_width, tile_height) {
 			console.log("Updated ObjectList:",self.ObjectList);
 		}else {
 			console.log("Nothing to remove!");
-		}			
+		}
 	};
 
 	self.setBackgroundImage = function(imageName){
@@ -173,16 +175,17 @@ Map = function(width, height,tile_width, tile_height) {
 	};
 
 
-	self.convertToString = function(){
-		var filename = "TestLevel.json";
- 
-		var str = JSON.stringify(self.ObjectList).toString();
-		var a = document.createElement("a");
-		document.body.appendChild(a);
-		var file = new Blob([str],{type: 'application/json'});
-		a.href = URL.createObjectURL(file);
-		a.download = filename;
-		a.click();
+	// self.convertToString = function(){
+	// 	var filename = "levelEditor.txt";
+
+	// 	var str = JSON.stringify(self.ObjectList).toString();
+	// 	var a = document.createElement("a");
+	// 	document.body.appendChild(a);
+	// 	var file = new Blob([str],{type: 'application/json'});
+	// 	a.href = URL.createObjectURL(file);
+	// 	a.download = filename;
+	// 	a.click();
+	// 	console.log(a);
 
 
 		// console.log("Stringified:",str);
@@ -192,7 +195,7 @@ Map = function(width, height,tile_width, tile_height) {
 		// var file = new File([""],filename,self.ObjectList);
 		// console.log(file);
 
-	};
+	//};
 
 	self.makeLevel = function(){
 		var Level = {};
