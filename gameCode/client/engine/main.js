@@ -409,19 +409,16 @@ var update = function() {
 			
 			
 			if (blockLeftEntity(block, enemy) && enemy.vx < 0) {
-				console.log("left");
 				enemy.x = block.x + block.width+enemy.width/2;
 				enemy.vx = 1;
 			}
 			if (blockRightEntity(block, enemy) && enemy.vx > 0) {
-				console.log("right");
 				enemy.x = block.x-enemy.width/2;
 				enemy.vx = -1;
 			}
 			
 			
 			if (blockOverEntity(block, enemy)) {
-				console.log("over");
 				enemy.y = block.y+block.height+enemy.height/2;
 				enemy.vy = -2;
 			}
