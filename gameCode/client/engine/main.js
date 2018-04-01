@@ -145,7 +145,7 @@ var update = function() {
 	//Draw HUD
 	//draws background
 	gui.drawMap();
-	gui.fgDraw(gui.fg_ctx,player.health/player.maxHealth*100,100,20);
+	gui.HUD(gui.fg_ctx,player);
 	
 	
 	//Manage player -----------------------------------------------------------------------------------
