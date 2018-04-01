@@ -10,7 +10,7 @@ Map = function(width, height,tile_width, tile_height) {
 	self.ObjectList = {
 		enemies: {},
 		terrain: {},
-		// player: {},
+		player: {},
 		// checkpoints: {},
 		// weapons: {},
 		// music: {},
@@ -40,8 +40,7 @@ Map = function(width, height,tile_width, tile_height) {
 		//Regex patterns to place objects in their correct lists
 		let terrainPattern = new RegExp("Terrain");
 		let enemyPattern = new RegExp(' enemy');
-
-		console.log(enemyPattern.test(t));
+		let playerPattern = new RegExp('player');
 
 		//Checking if type matches any of the RegexPatterns
 		//Is there a way to use a switch case instead
@@ -51,6 +50,8 @@ Map = function(width, height,tile_width, tile_height) {
 			return self.ObjectList['terrain'];
 		}else if(enemyPattern.test(t)){
 			return self.ObjectList['enemies'];
+		}else if(playerPattern.test(t)){
+			return self.ObjectList['player'];
 		}
 	}
 
@@ -153,7 +154,7 @@ Map = function(width, height,tile_width, tile_height) {
 		for(let type in self.ObjectList){
 			for(let id in self.ObjectList[type]){
 				object = self.ObjectList[type][id];
-				object.draw(gui.fg_ctx);
+				object.draw(gui.fg_ctx,true);
 			}
 		}
 	};
@@ -179,6 +180,17 @@ Map = function(width, height,tile_width, tile_height) {
 		// console.log(file);
 
 	};
+
+	self.makeLevel = function(){
+		var Level = {};
+		Level.width = self.width;
+		Level.height = self.height;
+		Level.name = "1-1";
+		Level.enemies = self.ObjectList.enemies;
+		Level.terrain = self.ObjectList.terrain;
+		Level.player = self.ObjectList.player;
+		console.log("Level Object:",Level);
+	}
 
 	console.log(self.ObjectList);
 	return self;
