@@ -263,48 +263,6 @@ function SpikeTrap(id, x, y, vx, vy, width, height, img, color, damage, orientat
 }
 
 
-//USABLE -----------------------------------------------------------------------------------------------------------------------------------
-function Usable(type, id, x, y, vx, vy, width, height, img, color) {
-	var self = Entity(type, id, x, y, vx, vy, width, height, img, color);
-	
-	
-	self.applyEffect = function() {
-		
-	}
-	
-	return self;
-}
-
-function PowerUp(type, id, x, y, vx, vy, width, height, img, color, increaseAmount, effectedStat) {
-	var self = Usable(type, id, x, y, vx, vy, width, height, img, color);
-	
-	
-	self.increaseAmount = increaseAmount;
-	self.effectedStat = effectedStat;
-	
-	
-	self.applyEffect = function(target) {
-		
-	}
-	
-	return self;
-}
-
-function Perk(type, id, x, y, vx, vy, width, height, img, color, name) {
-	var self = Usable(type, id, x, y, vx, vy, width, height, img, color);
-	
-	
-	self.name = name;
-	
-	
-	self.applyEffect = function(target) {
-		
-	}
-	
-	return self;
-}
-
-
 //PROJECTILE ------------------------------------------------------------------------------------------------------------------
 function Bullet(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	var self = Entity("bullet", id, x, y, vx, vy, width, height, img, color);
