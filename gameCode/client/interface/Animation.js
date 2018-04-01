@@ -24,14 +24,14 @@ Animation=function(){
 		}
 	};
 	//returns entity direction based on vx
-	self.getImgDir=function(entity){
+	/*self.getImgDir=function(entity){
 		if(entity.vx>=0){
 			return 0;
 		}
 		else{
 			return 1;
 		}
-	};
+	};*/
 	//Weapon animation;
 	self.getWeaponPosition=function(entity){
 		newX=entity.x;
