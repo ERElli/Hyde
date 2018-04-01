@@ -9,6 +9,30 @@ Database.levelSave = function(data){
   db.saveLevel.update({id:data.rand}, { $addToSet:{ items: {x:data.x, y: data.y, w: data.w,h: data.h,id: data.id,type: data.type} } }, {upsert: true});
   //db.saveLevel.update({username:username},{  $addToSet: {items: {level : "level 1", time: 130} }});
 }
+Database.addLevelItem = function(data, cb){
+
+  //console.log("nice"+data.x, data.y, data.w, data.h, data.id, data.type);
+  //db.saveLevel.remove({id:data.rand}, { $addToSet:{ items: {x:data.x, y: data.y, w: data.w,h: data.h,id: data.id,type: data.type} } }, {upsert: true});
+  db.saveLevel.update({id:data.id},   { $addToSet:{ items: {x:data.x, y: data.y, vx: data.vx,vy: data.vy,id: data.id,type: data.type} } }, {upsert: true});
+
+
+}
+Database.getLevelObject = function(data, cb){
+
+  //console.log("nice"+data.x, data.y, data.w, data.h, data.id, data.type);
+  //db.saveLevel.remove({id:data.rand}, { $addToSet:{ items: {x:data.x, y: data.y, w: data.w,h: data.h,id: data.id,type: data.type} } }, {upsert: true});
+  //db.saveLevel.update({id:data.id},   { $addToSet:{ items: {x:data.x, y: data.y, vx: data.vx,vy: data.vy,id: data.id,type: data.type} } }, {upsert: true});
+  db.saveLevel.find(function(err,res){
+  //  cb("hey");
+  var arr  = JSON.stringify(res);
+    console.log(arr);
+  cb(arr);
+
+   });
+
+
+}
+
 Database.deleteLevelItem = function(data, cb){
 
   //console.log("nice"+data.x, data.y, data.w, data.h, data.id, data.type);

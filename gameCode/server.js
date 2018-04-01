@@ -110,7 +110,9 @@ app.get('/Rectangle.js',function(req, res) {
 app.get('/Terrain.js',function(req, res) {
     res.sendFile(__dirname + '/levelEditor/Terrain.js');
 });
-
+app.get('/levelEditor/Terrain.js',function(req, res) {
+    res.sendFile(__dirname + '/levelEditor/Terrain.js');
+});
 app.get('/Enemy.js',function(req, res) {
     res.sendFile(__dirname + '/levelEditor/Enemy.js');
 });
@@ -119,7 +121,21 @@ app.get('/LevelEditorStyling.css',function(req, res) {
     res.sendFile(__dirname + '/levelEditor/LevelEditorStyling.css');
 });
 
+app.get('/client/interface/images.js',function(req, res) {
+    res.sendFile(__dirname + '//client/interface/images.js');
+});
+
 ///////////////
+app.get('/client/interface/img/terrain/terrain3x2.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/terrain3x2.png');
+});
+app.get('/client/interface/img/bear.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/bear.png');
+});
+app.get('/client/interface/img/shotgun.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/shotgun.png');
+});
+
 app.get('/images/placeCheckpoint.png',function(req, res) {
     res.sendFile(__dirname + '/images/placeCheckpoint.png');
 });
@@ -299,6 +315,7 @@ console.log("Server started.");
 var io = require('socket.io')(serv,{});
 io.sockets.on('connection', function(socket){
 
+
     console.log('socket connection');
 
     socket.on('signIn',function(data){ //{username,password}
@@ -349,8 +366,22 @@ io.sockets.on('connection', function(socket){
    Database.levelUpdate(user, data);
   });
 
+  socket.on('getLevelObject',function(data){
+   Database.getLevelObject(data, function(res){
+    console.log(res);
+
+    socket.emit('receiveLevelObjects', res);
+   });
+
+  });
+
   socket.on('saveLevel',function(data){
    Database.levelSave(data);
+  });
+
+  socket.on('addLevelItem',function(data){
+    console.log("x:"+data.x);
+   Database.addLevelItem(data);
   });
 
   socket.on('deleteLevelItem',function(data){
