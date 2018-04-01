@@ -36,7 +36,7 @@ Animation=function(){
 	self.getWeaponPosition=function(entity){
 		newX=entity.x;
 		if(entity.isWeapon){
-			var dir=self.getPlayDirection(entity);
+			var dir=self.getPlayDirection(player);
 			if(dir==0){
 				newX=newX+30;
 			}else{

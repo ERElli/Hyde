@@ -10,7 +10,6 @@ function Weapon(type, id, x, y, vx, vy, width, height, img, color, firingRate, b
 	self.range = range;
 	self.ammo = ammo;
 	
-	
 	self.applyEffect = function(target) {
 		
 	}
@@ -26,7 +25,7 @@ function Pistol(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	
 	var pistolRate = 2;
 	var pistolSpeed = 12;
-	
+	var img=Img.pistol;
 	var self = Weapon("pistol", id, x, y, vx, vy, width, height, img, color, pistolRate, pistolSpeed, "normal", 100, 20);
 	
 	
@@ -46,7 +45,7 @@ function Shotgun(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	
 	var shotgunRate = 2;
 	var shotgunSpeed = 12;
-	
+	var img=Img.shotgun;
 	var self = Weapon("shotgun", id, x, y, vx, vy, width, height, img, color, shotgunRate, shotgunSpeed, "normal", 100, 20);
 	
 	
@@ -93,7 +92,7 @@ function AssaultRifle(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	
 	var rifleRate = 5;
 	var rifleSpeed = 12;
-
+	var img=Img.assaultWeapon;
 	var self = Weapon("assaultRifle", id, x, y, vx, vy, width, height, img, color, rifleRate, rifleSpeed, "normal", 100, 20);
 	
 	
