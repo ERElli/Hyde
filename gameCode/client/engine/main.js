@@ -214,7 +214,11 @@ var update = function() {
 		
 		pickUp.draw();
 			
-		if(testCollision(player, pickUp)) {
+		pickUp_rect = {'x':pickUp.x-pickUp.width/2, 'y':pickUp.y-pickUp.height/2, 'width':pickUp.width, 'height':pickUp.height};
+		
+		player_rect = {'x':player.x-player.width/2, 'y':player.y-player.height/2, 'width':player.width, 'height':player.height};
+			
+		if (testCollision(player_rect, pickUp_rect)) {
 			
 			//console.log("Picking up weapon");
 			pickUp.applyEffect();

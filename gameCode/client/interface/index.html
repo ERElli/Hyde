@@ -21,6 +21,7 @@
 		<script type="text/javascript" src="Animation.js"></script>
 
 		<script>
+		/*
 		var socket = io();
 
 		//call the socket to get the level objects from database
@@ -35,6 +36,7 @@
 			//level objects should be in data, right now they are logged in console
 	    console.log( data);
 	  });
+	  */
 
 		let gameWidth=2000
 
@@ -73,7 +75,7 @@
 		for (i = 10; i < 50; i++) {
 
 			id = Math.random();
-			terrain[id] = new Terrain1x1(id, i*50, 350);
+			terrain[id] = new Terrain1x1(id, i*50, 200);
 		}
 
 		//-----------
