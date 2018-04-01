@@ -425,8 +425,24 @@ var update = function() {
 				enemy.y = block.y+block.height+enemy.height/2;
 				enemy.vy = -2;
 			}
+		}
+		
+		
+		// Check collisions with bullets ###############################
+		
+		for (var key in bullets) {
+			
+			bullet = bullets[key]
+			
+			if (testCollision(block, bullet)) {
+				
+				delete bullets[key];
+				
+			}
 			
 		}
+		
+		
 	}
 	
 	
