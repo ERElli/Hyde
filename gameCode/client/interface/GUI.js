@@ -112,11 +112,11 @@ GUI = function(container){
 				break;
 			case "basic enemy":
 				enemyImg=Img.basicEnemy1;
-				self.quickDraw(enemyImg,en,ctx);
+				self.quickDraw(enemyImg,en,ctx,en.x,en.y);
 				break;
 			case "flying enemy":
 				enemyImg=Img.basicEnemy2;
-				self.quickDraw(enemyImg,en,ctx);
+				self.quickDraw(enemyImg,en,ctx,en.x,en.y);
 				break;
 			case "tank enemy":
 				var fW=Img.bearEnemy.width/8;
@@ -136,7 +136,7 @@ GUI = function(container){
 
 				break;
 			case "ghost":
-				self.quickDraw(Img,en,ctx);
+				self.quickDraw(Img,en,ctx,en.x,en.y);
 				break;
 			case "pistol":
 				weapImg=Img.pistol;
