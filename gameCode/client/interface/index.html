@@ -35,7 +35,7 @@
 
 		//id, x, y, vx, vy, img, color, target
 		enemy = new BasicEnemy("enemy1", 500, 450, 0, 0, "Img.basicEnemy", null, e);
-		enemy2 = new TankEnemy("enemy2", 600, 450, 0, 0, "Img.basicEnemy", null, e)
+		enemy2 = new BasicEnemy("enemy2", 600, 450, 0, 0, "Img.basicEnemy", null, e)
 		enemy3 = new BasicEnemy("enemy3", 4200, 450, 0, 0, "Img.basicEnemy", null, e)
 		enemy4 = new BasicEnemy("enemy4", 6200, 450, 0, 0, "Img.basicEnemy", null, e)
 		var terrain = {};
@@ -46,7 +46,7 @@
 
 		for (i = 10; i < 20; i++) {
 			id = Math.random();
-			terrain[id] = new Terrain1x1(id, i*50, 200);
+			terrain[id] = new Terrain1x1(id, i*50, 350);
 		}
 
 		//-----------
