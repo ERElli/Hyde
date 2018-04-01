@@ -16,6 +16,7 @@
 		<script type="text/javascript" src="../../levelEditor/Terrain.js"></script>
 		<script type="text/javascript" src="images.js"></script>
 		<script type="text/javascript" src="GUI.js"></script>
+		<script type="text/javascript" src="Animation.js"></script>
 		
 		<script>
 		
@@ -24,12 +25,14 @@
 		
 		// construct the gui with the container and the map
 		var gui;
+		var ani=Animation();
 		var Img=Img("../../");
 		var HEIGHT=500;
 		var WIDTH=1250;
 		
 		//id, x, y, vx, vy, width, height, img, color, ownerID
 		p= new Shotgun("w1", 150, 450-25, 0, 0, 50, 50,"pistol_image",null, 'player');
+
 
 		//id, x, y, vx, vy, img, weapon, isBig
 		e = new Player("player", 150, 400-25, 0, 0, "Img.player", p, false);
@@ -59,15 +62,13 @@
 			var container = document.getElementById("container");
 			document.getElementById("results").position = 'absolute';
 			document.getElementById("results").style.left = container.width + 20;
-			gui=GUI(container)
+			gui=GUI(container);
 			gui.createCanvas(WIDTH,HEIGHT);
 		}
 
 		//Creates background and foreground Canvases
-		init();
-		gui.drawMap();
-      
-		startGame({'player':e, 'enemies':{'enemy2':enemy2}, /*'terrain':terrain} */}); //'enemy1':enemy,'enemy2':enemy2}});// 'enemy3':enemy3, 'enemy4':enemy4}});
+		init();    
+		startGame({'player':e, /*'enemies':{'enemy2':enemy2},*/ 'terrain':terrain}); //'enemy1':enemy,'enemy2':enemy2}});// 'enemy3':enemy3, 'enemy4':enemy4}});
 		
 		</script>
 </html>
