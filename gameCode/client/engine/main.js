@@ -375,17 +375,20 @@ var update = function() {
 		
 		
 		if (blockLeftEntity(block, player) && player.vx < 0) {
-			player.x = block.x + block.width+15;
+			console.log("left");
+			player.x = block.x + block.width+player.width/2;
 			player.vx = 1;
 		}
 		if (blockRightEntity(block, player) && player.vx > 0) {
-			player.x = block.x-15;
+			console.log("right");
+			player.x = block.x-player.width/2;
 			player.vx = -1;
 		}
 		
 		
 		if (blockOverEntity(block, player)) {
-			player.y = block.y+block.height+30;
+			console.log("over");
+			player.y = block.y+block.height+player.height/2;
 			player.vy = -2;
 		}
 		
@@ -399,10 +402,12 @@ var update = function() {
 
 var blockUnderEntity = function(terrain, entity) {
 	
+	terrain_rect = {'x':terrain.x, 'y':terrain.y, 'width':terrain.width, 'height':terrain.height/4};
+	
 	entity_rect = {'x':entity.x-entity.width/4, 'y':entity.y+entity.height/2, 'width':entity.width/2, 'height':entity.height/4};
 	
 	//console.log(testCollision(terrain, entity_rect));
-	return testCollision(terrain, entity_rect);
+	return testCollision(terrain_rect, entity_rect);
 	
 }
 
@@ -438,6 +443,7 @@ var putOnTerrain = function(terrain, entity) {
 	
 	entity.inAir = false;
 	entity.doubleJumped = false;
+	entity.setGroundMotion();
 	
 	entity.y = terrain.y - entity.height/2;
 	entity.vy = 0;
@@ -455,7 +461,7 @@ var testCollision = function(rect1, rect2) {
 var startGame = function(initial_level) {
 	level = initial_level;
 	player = level["player"];
-	enemies = level["enemies"];
+	enemies = {}//level["enemies"];
 	blocks = level["terrain"];
 	//surfaceMods = level["terrain"];
 	frameCount = 0;
