@@ -224,12 +224,9 @@ GUI = function(container){
 		var weaponImgY=50;
 		var healthBar=player.health/player.maxHealth*100
 		var momentumBar=(Math.abs(player.getMomentum())/player.maxMomentum)*100
-		var ammo=player.weapon.ammo
+		var ammo;
 		var weaponImg=player.weapon.img;
 
-		if(player.weapon.type=="sword"){
-			ammo='Inf';
-		}
 		ctx.save();
 		
 		ctx.clearRect(0,0,self.fg.width,self.fg.height);
@@ -248,11 +245,22 @@ GUI = function(container){
 		ctx.fillText('Health:',healthX,healthY);
 		ctx.fillText('Momentum:',momentX,momentY);
 		//draw ammo
-		ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
+		if(player.weapon.type=="sword"){
+			ammo=Img.infinity;
+			ctx.fillText('Ammo: ',ammoX,ammoY);
+			ctx.drawImage(ammo,ammoX+75,ammoY-25,75,40);
+			ammo.onload=function(){};
+		}else{
+			ammo=player.weapon.ammo;
+			//draw ammo
+			ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
+			ctx.fillText('Weapon: ',weaponX,weaponY);
+		}
+		//ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
 		ctx.fillText('Weapon: ',weaponX,weaponY);
 		//draw current weapon image
  		ctx.drawImage(weaponImg,weaponImgX,weaponImgY,player.weapon.width,player.weapon.height);
-		weaponImg.onload=function(){}
+		weaponImg.onload=function(){};
 	};
 	return self;
 }
