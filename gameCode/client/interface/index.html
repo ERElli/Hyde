@@ -1,4 +1,4 @@
-<html>	
+<html>
 	<body>
 		<br>
 		<br>
@@ -8,6 +8,7 @@
 			<table style="border:1px"></table>
 		</div>
 	</body>
+	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 		<script type="text/javascript" src="../engine/main.js"></script>
 		<script type="text/javascript" src="../engine/entity.js"></script>
 		<script type="text/javascript" src="../engine/player.js"></script>
@@ -18,19 +19,32 @@
 		<script type="text/javascript" src="images.js"></script>
 		<script type="text/javascript" src="GUI.js"></script>
 		<script type="text/javascript" src="Animation.js"></script>
-		
+
 		<script>
-		
+		var socket = io();
+
+		//call the socket to get the level objects from database
+		var  getLevelObjects = function() {
+		 socket.emit('getLevelObject', {levelName: "level 1"});
+		};
+
+		getLevelObjects();
+
+		//the socket receive the level objects from the database
+		socket.on('receiveLevelObjects',function(data){
+			//level objects should be in data, right now they are logged in console
+	    console.log( data);
+	  });
+
 		let gameWidth=2000
 
-		
 		// construct the gui with the container and the map
 		var gui;
 		var ani=Animation();
 		var Img=Img("../../");
 		var HEIGHT=500;
 		var WIDTH=1250;
-		
+
 		//id, x, y, vx, vy, width, height, img, color, ownerID
 		p= new Pistol("w1", 150, 450-25, 0, 0, 50, 50,"pistol_image",null, 'player');
 
@@ -57,10 +71,11 @@
 		}
 		
 		for (i = 10; i < 50; i++) {
+
 			id = Math.random();
 			terrain[id] = new Terrain1x1(id, i*50, 350);
 		}
-		
+
 		//-----------
 		init = function() {
 			// get a reference to the container div in the page
@@ -70,10 +85,10 @@
 			gui=GUI(container);
 			gui.createCanvas(WIDTH,HEIGHT);
 		}
-
 		//Creates background and foreground Canvases
 		init();    
 		startGame({'player':e, 'enemies':{'enemy2':enemy2}, 'terrain':terrain, 'pickUps':{'p1':pickUp}}); //'enemy1':enemy,'enemy2':enemy2}});// 'enemy3':enemy3, 'enemy4':enemy4}});
 		
+
 		</script>
 </html>

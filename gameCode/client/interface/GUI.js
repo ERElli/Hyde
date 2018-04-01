@@ -15,7 +15,7 @@ GUI = function(container){
 				element.height=height;
 			}else{
 				element.style.height=height;
-			}				
+			}
 		}
 		if(width!=0){
 			if(type=='canvas'){
@@ -54,10 +54,10 @@ GUI = function(container){
 		n=backgroundPositionCounter;
 		x=self.bg.width-e.x;
 		y=0;
-		Img.background2.onload=function(){	
+		Img.background2.onload=function(){
 		}
 
-		//continuously loops backgrounds	
+		//continuously loops backgrounds
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*n,y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
@@ -98,6 +98,7 @@ GUI = function(container){
     					ctx.scale(-1,1);
 						//ctx.drawImage(Img.playerBig,self.fg.width/2-en.width/2,en.y-en.height/2,en.width,en.height);
 						self.quickDraw(Img.playerBig,en,ctx,en.x,en.y);						
+
 						ctx.restore();
 					}
 				}
@@ -123,6 +124,7 @@ GUI = function(container){
 				var fH=Img.bearEnemy.height/8;
 				dir=ani.getPlayDirection(entity);
 				bearAnimationStage=ani.updateEntityAnimation(en,bearAnimationStage,16);	
+
 				if(en.vx==0){
 					bearAniY=0;
 				}
@@ -166,7 +168,7 @@ GUI = function(container){
 				break;
 		}
 		entity.img.onload=function(){};
-		ctx.restore();		
+		ctx.restore();
 	};
 	//draws terrain
 	self.drawTerrain=function(terrain,ctx,isLevelEditor){
@@ -175,7 +177,7 @@ GUI = function(container){
 		}
 		else{
 			playX=e.x-self.fg.width/2;
-		}		
+		}
 		var t=terrain;
 		ctx.save();
 		switch(terrain.type){
@@ -191,19 +193,25 @@ GUI = function(container){
 	//QuickDraw Methods(For improved readability)
 	self.quickDraw=function(img,entity,ctx,x,y){
 		ctx.drawImage(img,(x-xOffset)-playX,y-yOffset,entity.width,entity.height);
+
 	}
 
 	self.quickPlayerDraw=function(img,en,ctx,aniX,aniDir,fW,fH){
 		ctx.drawImage(img,aniX*fW,aniDir*fH,fW,fH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
 	}
-	
+
 	self.quickAnimatedDraw=function(img,en,ctx,aniStepX,aniStepY,spriteW,spriteH,dir){
 		if (dir==0){
 			ctx.drawImage(img,aniStepX*spriteW,aniStepY*spriteH,spriteW,spriteH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
 
 		}else{
 			ctx.save()
-    			// scaleX by -1; 
+
+			ctx.translate(fg.width-en.width/2,y);
+    			// scaleX by -1;
+
+    			// scaleX by -1;
+
     			ctx.scale(-1,1);
 			ctx.translate(-fg.width,0);
 			ctx.drawImage(img,aniStepX*spriteW,aniStepY*spriteH,spriteW,spriteH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
@@ -212,6 +220,7 @@ GUI = function(container){
 	};
 	
 	self.HUD=function(ctx,player){
+
 		var healthX=0;
 		var healthY=30;
 		var momentX=0;
@@ -237,6 +246,7 @@ GUI = function(container){
 		//draw Healthbar
 		ctx.fillStyle="#FF0000";		
 		ctx.fillRect(healthX,healthY,healthBar,10);
+
 		//draw Momentumbar
 		ctx.fillStyle="#0000FF";
 		ctx.fillRect(momentX,momentY,momentumBar,10);
