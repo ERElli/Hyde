@@ -227,24 +227,21 @@ GUI = function(container){
 
 		}else{
 			ctx.save()
-<<<<<<< HEAD
+
 			ctx.translate(fg.width-en.width/2,y);
     			// scaleX by -1;
-=======
-    			// scaleX by -1; 
->>>>>>> b52efb856cf0cc2199e22bdfbb45a1bda69f75d9
+
+    			// scaleX by -1;
+
     			ctx.scale(-1,1);
 			ctx.translate(-fg.width,0);
 			ctx.drawImage(img,aniStepX*spriteW,aniStepY*spriteH,spriteW,spriteH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
 			ctx.restore();
 		}
 	}
-<<<<<<< HEAD
 
 
-=======
-	
->>>>>>> b52efb856cf0cc2199e22bdfbb45a1bda69f75d9
+
 	self.fgDraw=function(fg_ctx,playerHealth,playerMomentum,ammo){
 		var healthX=0;
 		var healthY=30;
