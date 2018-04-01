@@ -23,7 +23,8 @@ Img = function(pathToRoot) {
 	self.bearEnemy= new Image();
 	self.bearEnemy.src= pathToRoot+"client/interface/img/bear.png";
 	
-	
+	self.infinity=new Image();
+	self.infinity.src= pathToRoot+"client/interface/img/inf.png";
 	//weapons and ammo
 	self.pistol= new Image();
 	self.pistol.src= pathToRoot+"client/interface/img/pistolWeapon.png";
