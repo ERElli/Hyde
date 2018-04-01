@@ -10,22 +10,25 @@ function Usable(type, id, x, y, vx, vy, width, height, img, color) {
 	return self;
 }
 
-function WeaponPickUp(type, id, x, y, weaponType) {
+function WeaponPickUp(id, x, y, weaponType, target) {
 	
-	var self = Usable(type, id, x, y, 0, 0, 25, 25, '', '');
+	
+	var self = Usable("weapon", id, x, y, 0, 0, 25, 25, 'no', 'red');
+	
 	
 	self.weaponType = weaponType;
 	
-	//self.weapon = new Sword("w1", self.x, self.y, 0, 0, 50, 50,"pistol_image",null, e.id);
+	self.weapon = new Sword("w1", self.x, self.y, 0, 0, 50, 50,"pistol_image",null, e.id);
 	
-	self.applyEffect = function(target) {
+	self.applyEffect = function() {
 		target.weapon = self.weapon;
 	}
 	
 	self.draw = function(ctx,isLevelEditor) {
-		gui.drawEntity(self.weapon, ctx, isLevelEditor);
+		gui.drawEntity(self.weapon, gui.fg_ctx, false);
 	}
 	
+	return self;
 	
 }
 

@@ -204,17 +204,22 @@ var update = function() {
 	
 	player.update();
 
-	
-	//Manage pick-ups -------------------------------------------------------------------------------------------------------
-	for (var key in pickUps) {
+	// Manage pick-ups ------------------------------------------------------------------
 		
+	for (var key in pickUps) {
+			
 		pickUp = pickUps[key];
 		
-		if (testCollision(player, pickUp)) {
-			pickUp.applyEffect(player);
+		//console.log(pickUp);
+		
+		pickUp.draw();
+			
+		if(testCollision(player, pickUp)) {
+			
+			console.log("Picking up weapon");
+			pickUp.applyEffect();
 		}
-		
-		
+			
 	}
 	
 	
@@ -409,7 +414,6 @@ var update = function() {
 			enemy.falling = true;
 			
 			if (blockUnderEntity(block, enemy)) {
-				console.log("under");
 				enemy.falling = false;
 				if (!enemy.justJumped) {
 					putOnTerrain(block, enemy);
@@ -452,7 +456,6 @@ var update = function() {
 			}
 			
 		}
-		
 		
 	}
 	
@@ -524,12 +527,11 @@ var startGame = function(initial_level) {
 	blocks = level["terrain"];
 	//surfaceMods = level["terrain"];
 	pickUps = level['pickUps']
+	//console.log(pickUps['p1']);
 	frameCount = 0;
 	everyTenCount = 0;
 	//console.log(enemies['enemy2']);
 	
-	console.log(terrain);
-
 	
 	setInterval(update, 1000/60)
 }
