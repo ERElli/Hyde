@@ -135,8 +135,8 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		self.weapon.y = self.y;
 		self.weapon.vx = self.vx;
 		self.weapon.vy = self.vy;
+
 		self.weapon.update();
-		
 	
 	}
 	
