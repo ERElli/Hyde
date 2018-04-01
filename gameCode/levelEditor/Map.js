@@ -59,10 +59,23 @@ Map = function(width, height,tile_width, tile_height) {
 	self.addToObjectList = function(object){		
 		let id = object.id;
 		let type = object.type;
-		
-		console.log("TYPE",type);
-		let list = self.getList(type);
-		list[id] = object;
+
+		var list = self.getList(type);
+		if(type === "player"){
+			let size = Object.keys(list).length;
+			console.log("ObjectsList['player'] size:",size);
+			if(size === 1){
+				delete list;
+				self.ObjectList['player'] = {};
+				console.log("EMPTYING LIST");
+				self.ObjectList['player'][id] = object;
+			}else{
+				list[id] = object;
+			}
+		}else{
+			list[id] = object;
+		}
+
 		
 		console.log("Adding "+type+": ", object);
 		console.log("Updated ObjectList",self.ObjectList);
@@ -150,7 +163,7 @@ Map = function(width, height,tile_width, tile_height) {
 
 	//function to draw all objects in ObjectList
 	self.update = function(){
-		let object = null;
+		var object = null;
 		for(let type in self.ObjectList){
 			for(let id in self.ObjectList[type]){
 				object = self.ObjectList[type][id];
@@ -188,10 +201,10 @@ Map = function(width, height,tile_width, tile_height) {
 		Level.name = "1-1";
 		Level.enemies = self.ObjectList.enemies;
 		Level.terrain = self.ObjectList.terrain;
+		console.log("PLAYER LEVEL",self.ObjectList.player);
 		Level.player = self.ObjectList.player;
 		console.log("Level Object:",Level);
 	}
 
-	console.log(self.ObjectList);
 	return self;
 };
