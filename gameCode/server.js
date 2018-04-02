@@ -398,6 +398,16 @@ io.sockets.on('connection', function(socket){
    Database.levelSave(data);
   });
 
+  socket.on('loadLevel', function(data){
+  console.log("jello");
+
+  });
+
+  Database.getLevelObject("level 1", function(res){
+socket.emit('hey', res);
+   });
+
+
   socket.on('addLevelItem',function(data){
     console.log("x:"+data.x);
    Database.addLevelItem(data);

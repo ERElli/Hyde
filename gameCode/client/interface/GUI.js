@@ -12,7 +12,7 @@ GUI = function(container){
 				seconds =0;
 				minutes++;
 		}
-		console.log(minutes +" min "+ seconds+ " seconds ");
+		
 
 	  }, 1000);
 
