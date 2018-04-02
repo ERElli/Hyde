@@ -4,19 +4,16 @@
   "description": "All the up-to-date game code Consist of:   -index.html (file to start game in browser)   -/client/ (folder for all files run in the browser)   -/database/ (folder for all files to access the database)",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.2",
+    "express": "^4.16.3",
     "mongojs": "^2.5.0",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.1.0"
   },
   "engines": {
     "node": "4.7.x"
-  },
-  "scripts": {
-    "start": "node server.js"
   }
 }
