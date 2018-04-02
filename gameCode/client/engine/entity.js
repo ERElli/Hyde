@@ -136,9 +136,19 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		self.weapon.y = self.y;
 		self.weapon.vx = self.vx;
 		self.weapon.vy = self.vy;
+
 		self.weapon.update();
-
-
+	
+	}
+	
+	self.setAirMotion = function() {
+		self.ay = g;
+		self.ax /= 2;
+	}
+	
+	self.setGroundMotion = function() {
+		self.ay = 0;
+		self.vy = 0;
 	}
 
 	self.getMomentum = function() {
@@ -247,48 +257,6 @@ function SpikeTrap(id, x, y, vx, vy, width, height, img, color, damage, orientat
 	}
 
 	self.draw = function() {
-
-	}
-
-	return self;
-}
-
-
-//USABLE -----------------------------------------------------------------------------------------------------------------------------------
-function Usable(type, id, x, y, vx, vy, width, height, img, color) {
-	var self = Entity(type, id, x, y, vx, vy, width, height, img, color);
-
-
-	self.applyEffect = function() {
-
-	}
-
-	return self;
-}
-
-function PowerUp(type, id, x, y, vx, vy, width, height, img, color, increaseAmount, effectedStat) {
-	var self = Usable(type, id, x, y, vx, vy, width, height, img, color);
-
-
-	self.increaseAmount = increaseAmount;
-	self.effectedStat = effectedStat;
-
-
-	self.applyEffect = function(target) {
-
-	}
-
-	return self;
-}
-
-function Perk(type, id, x, y, vx, vy, width, height, img, color, name) {
-	var self = Usable(type, id, x, y, vx, vy, width, height, img, color);
-
-
-	self.name = name;
-
-
-	self.applyEffect = function(target) {
 
 	}
 

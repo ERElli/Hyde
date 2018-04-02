@@ -23,7 +23,8 @@ Img = function(pathToRoot) {
 	self.bearEnemy= new Image();
 	self.bearEnemy.src= pathToRoot+"client/interface/img/bear.png";
 	
-	
+	self.infinity=new Image();
+	self.infinity.src= pathToRoot+"client/interface/img/inf.png";
 	//weapons and ammo
 	self.pistol= new Image();
 	self.pistol.src= pathToRoot+"client/interface/img/pistolWeapon.png";
@@ -36,8 +37,23 @@ Img = function(pathToRoot) {
 	self.bullet= new Image();
 	self.bullet.src= pathToRoot+"client/interface/img/bullet.png";
 
+	//Terrain Images
 	self.terrain1x1= new Image();
 	self.terrain1x1.src= pathToRoot+"client/interface/img/terrain/terrain3x2.png";
+	self.terrain1x1Breakable= new Image();
+	self.terrain1x1Breakable.src= pathToRoot+"client/interface/img/terrain/breakableTerrain3x2.png";
+	self.terrain3x2= new Image();
+	self.terrain3x2.src= pathToRoot+"client/interface/img/terrain/terrain3x2.png";
+	self.terrain3x2Breakable= new Image();
+	self.terrain3x2Breakable.src= pathToRoot+"client/interface/img/terrain/breakableTerrain3x2.png";
+	self.terrain3x4= new Image();
+	self.terrain3x4.src= pathToRoot+"client/interface/img/terrain/terrain3x4.png";
+	self.terrain3x4Breakable= new Image();
+	self.terrain3x4Breakable.src= pathToRoot+"client/interface/img/terrain/breakableTerrain3x4.png";
+	self.terrain3x6= new Image();
+	self.terrain3x6.src= pathToRoot+"client/interface/img/terrain/terrain3x4.png";
+	self.terrain3x6Breakable= new Image();
+	self.terrain3x6Breakable.src= pathToRoot+"client/interface/img/terrain/breakableTerrain3x4.png";
 
 	return self;
 };

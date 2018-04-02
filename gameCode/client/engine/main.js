@@ -7,6 +7,7 @@ var enemies;
 var bullets = {};
 var blocks;
 var sufaceMods;
+var pickUps;
 
 var hasReleasedJump = false;
 
@@ -145,7 +146,7 @@ var update = function() {
 	//Draw HUD
 	//draws background
 	gui.drawMap();
-	gui.fgDraw(gui.fg_ctx,player.health/player.maxHealth*100,100,20);
+	gui.HUD(gui.fg_ctx,player);
 	
 	
 	//Manage player -----------------------------------------------------------------------------------
@@ -203,6 +204,28 @@ var update = function() {
 	
 	player.update();
 
+	// Manage pick-ups ------------------------------------------------------------------
+		
+	for (var key in pickUps) {
+			
+		pickUp = pickUps[key];
+		
+		//console.log(pickUp);
+		
+		pickUp.draw();
+			
+		pickUp_rect = {'x':pickUp.x-pickUp.width/2, 'y':pickUp.y-pickUp.height/2, 'width':pickUp.width, 'height':pickUp.height};
+		
+		player_rect = {'x':player.x-player.width/2, 'y':player.y-player.height/2, 'width':player.width, 'height':player.height};
+			
+		if (testCollision(player_rect, pickUp_rect)) {
+			
+			//console.log("Picking up weapon");
+			pickUp.applyEffect();
+		}
+			
+	}
+	
 	
 	
 	//Manage all the bullets -----------------------------------------------------------------------------------------------------
@@ -276,11 +299,6 @@ var update = function() {
 		
 		if (enemy.health <= 0) {
 			delete enemies[key];
-		}
-		
-		if (nearTerrain(enemy.x, enemy.y)) {
-			//console.log(enemy.id)
-			putOnTerrain(enemy);
 		}
 		
 		enemy.attackCounter++;
@@ -361,6 +379,8 @@ var update = function() {
 			continue;
 		}
 		
+		//Check collisions with player ####################################
+		
 		if (blockUnderEntity(block, player)) {
 			player.falling = false;
 			if (!player.justJumped) {
@@ -375,25 +395,71 @@ var update = function() {
 		
 		
 		if (blockLeftEntity(block, player) && player.vx < 0) {
-			console.log("left");
 			player.x = block.x + block.width+player.width/2;
 			player.vx = 1;
 		}
 		if (blockRightEntity(block, player) && player.vx > 0) {
-			console.log("right");
 			player.x = block.x-player.width/2;
 			player.vx = -1;
 		}
 		
 		
 		if (blockOverEntity(block, player)) {
-			console.log("over");
 			player.y = block.y+block.height+player.height/2;
 			player.vy = -2;
 		}
 		
 		
+		//Check collisions with enemies ####################################
 		
+		for (var key in enemies) {
+			
+			enemy = enemies[key];
+			enemy.falling = true;
+			
+			if (blockUnderEntity(block, enemy)) {
+				enemy.falling = false;
+				if (!enemy.justJumped) {
+					putOnTerrain(block, enemy);
+				}
+			}
+			
+			if (enemy.falling) {
+				enemy.inAir = true;
+				enemy.setAirMotion();
+			}
+			
+			
+			if (blockLeftEntity(block, enemy) && enemy.vx < 0) {
+				enemy.x = block.x + block.width+enemy.width/2;
+				enemy.vx = 1;
+			}
+			if (blockRightEntity(block, enemy) && enemy.vx > 0) {
+				enemy.x = block.x-enemy.width/2;
+				enemy.vx = -1;
+			}
+			
+			
+			if (blockOverEntity(block, enemy)) {
+				enemy.y = block.y+block.height+enemy.height/2;
+				enemy.vy = -2;
+			}
+		}
+		
+		
+		// Check collisions with bullets ###############################
+		
+		for (var key in bullets) {
+			
+			bullet = bullets[key]
+			
+			if (testCollision(block, bullet)) {
+				
+				delete bullets[key];
+				
+			}
+			
+		}
 		
 	}
 	
@@ -461,15 +527,15 @@ var testCollision = function(rect1, rect2) {
 var startGame = function(initial_level) {
 	level = initial_level;
 	player = level["player"];
-	enemies = {}//level["enemies"];
+	enemies = level["enemies"];
 	blocks = level["terrain"];
 	//surfaceMods = level["terrain"];
+	pickUps = level['pickUps']
+	//console.log(pickUps['p1']);
 	frameCount = 0;
 	everyTenCount = 0;
 	//console.log(enemies['enemy2']);
 	
-	console.log(terrain);
-
 	
 	setInterval(update, 1000/60)
 }

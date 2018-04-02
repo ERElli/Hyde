@@ -4,21 +4,19 @@ GUI = function(container){
 	var minutes = 0;
 	var stop = false; //stop is true when level is finished
 
-//calculate time for finishing the level
-if(!stop){
-	setInterval(function () {
-	  seconds++;
+        //calculate time for finishing the level
+        if(!stop){
+	  setInterval(function () {
+	     seconds++;
 		if(seconds == 60){
 				seconds =0;
 				minutes++;
 		}
 		console.log(minutes +" min "+ seconds+ " seconds ");
 
-	 }, 1000);
+	  }, 1000);
 
- };
-
-
+        };
 
 	var self={};
 	self.container=container;
@@ -119,43 +117,45 @@ if(!stop){
 		switch(en.type){
 			case "player":
 				if(en.isBig==true){
-					playDir=self.getPlayDirection(en);
+					playDir=ani.getPlayDirection(en);
 					if(playDir==1){
 						//ctx.drawImage(Img.playerBig,self.fg.width/2,en.y-en.height/2,en.width,en.height);
-						self.quickDraw(Img.playerBig,en,ctx);
+						self.quickDraw(Img.playerBig,en,ctx,en.x,en.y);
 					}
 					else{
 						ctx.save()
 						ctx.translate(en.x+fg.width/2-playX,y);
-    						// scaleX by -1; this "trick" flips horizontally
-    						ctx.scale(-1,1);
+    					// scaleX by -1; this "trick" flips horizontally
+    					ctx.scale(-1,1);
 						//ctx.drawImage(Img.playerBig,self.fg.width/2-en.width/2,en.y-en.height/2,en.width,en.height);
-						self.quickDraw(Img.playerBig,en,ctx);
+						self.quickDraw(Img.playerBig,en,ctx,en.x,en.y);
+
 						ctx.restore();
 					}
 				}
 				else{
 					var fW=Img.playerSmall.width/5;
 					var fH=Img.playerSmall.height/2;
-					playDir=self.getPlayDirection(en);
+					playDir=ani.getPlayDirection(en);
 					//updates player animation every 5th frame
-					sPAnimation=self.updateEntityAnimation(en,sPAnimation,5);
+					sPAnimation=ani.updateEntityAnimation(en,sPAnimation,5);
 					self.quickPlayerDraw(Img.playerSmall,en,ctx,sPAnimation,playDir,fW,fH);
 				}
 				break;
 			case "basic enemy":
 				enemyImg=Img.basicEnemy1;
-				self.quickDraw(enemyImg,en,ctx);
+				self.quickDraw(enemyImg,en,ctx,en.x,en.y);
 				break;
 			case "flying enemy":
 				enemyImg=Img.basicEnemy2;
-				self.quickDraw(enemyImg,en,ctx);
+				self.quickDraw(enemyImg,en,ctx,en.x,en.y);
 				break;
 			case "tank enemy":
 				var fW=Img.bearEnemy.width/8;
 				var fH=Img.bearEnemy.height/8;
-				dir=self.getImgDir(entity);
-				bearAnimationStage=self.updateEntityAnimation(en,bearAnimationStage,16);
+				dir=ani.getPlayDirection(entity);
+				bearAnimationStage=ani.updateEntityAnimation(en,bearAnimationStage,16);
+
 				if(en.vx==0){
 					bearAniY=0;
 				}
@@ -169,27 +169,33 @@ if(!stop){
 
 				break;
 			case "ghost":
-				self.quickDraw(Img,en,ctx);
+				self.quickDraw(Img,en,ctx,en.x,en.y);
 				break;
 			case "pistol":
 				weapImg=Img.pistol;
-				self.quickDraw(weapImg,en,ctx);
+				newx=ani.getWeaponPosition(en);
+				self.quickDraw(weapImg,en,ctx,newx,en.y);
+
 				break;
 			case "shotgun":
 				weapImg=Img.shotgun;
-				self.quickDraw(weapImg,en,ctx);
+				newx=ani.getWeaponPosition(en);
+				self.quickDraw(weapImg,en,ctx,newx,en.y);
 				break;
 			case "sword":
 				weapImg=Img.swordWeapon;
-				self.quickDraw(weapImg,en,ctx);
+				//console.log(weapImg.width);
+				newx=ani.getWeaponPosition(en);
+				self.quickDraw(weapImg,en,ctx,newx,en.y);
 				break;
 			case "assaultRifle":
 				weapImg=Img.assaultWeapon
-				self.quickDraw(weapImg,en,ctx);
+				newx=ani.getWeaponPosition(en);
+				self.quickDraw(weapImg,en,ctx,newx,en.y);
 				break;
 			case "bullet":
 			case "meleeBullet":
-				self.quickDraw(Img.bullet,en,ctx);
+				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;
 		}
 		entity.img.onload=function(){};
@@ -214,40 +220,11 @@ if(!stop){
 		terrain.img.onload=function(){};
 		ctx.restore();
 	};
-	//returns players direction based on aim angle
-	self.getPlayDirection=function(entity){
-		if(entity.aimAngle<=90 && entity.aimAngle>-90){
-			return 0;
-		}
-		else{
-			return 1;
-		}
-	};
-	//returns entity direction based on vx
-	self.getImgDir=function(entity){
-		if(entity.vx>=0){
-			return 0;
-		}
-		else{
-			return 1;
-		}
-	};
-	//Function to update the entitys Animations
-	self.updateEntityAnimation=function(entity,animationCounter,numAnimations){
-		if(entity.vx==0){
-			return 0;
-		}
-		if(frameCount%5==0){
-			animationCounter++;
-				if(animationCounter==numAnimations){
-					animationCounter=0;
-				}
-		}
-		return animationCounter;
-	};
-	//Method to draw enemies(readability)
-	self.quickDraw=function(img,entity,ctx){
-		ctx.drawImage(img,(entity.x-xOffset)-playX,entity.y-yOffset,entity.width,entity.height);
+
+	//QuickDraw Methods(For improved readability)
+	self.quickDraw=function(img,entity,ctx,x,y){
+		ctx.drawImage(img,(x-xOffset)-playX,y-yOffset,entity.width,entity.height);
+
 	}
 
 	self.quickPlayerDraw=function(img,en,ctx,aniX,aniDir,fW,fH){
@@ -271,11 +248,12 @@ if(!stop){
 			ctx.drawImage(img,aniStepX*spriteW,aniStepY*spriteH,spriteW,spriteH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
 			ctx.restore();
 		}
-	}
+	};
 
+	self.HUD=function(ctx,player){
 
-
-	self.fgDraw=function(fg_ctx,playerHealth,playerMomentum,ammo){
+		var timeX=0;
+		var timeY=90;
 		var healthX=0;
 		var healthY=30;
 		var timeX=0;
@@ -285,35 +263,50 @@ if(!stop){
 		var ammoX=1050;
 		var ammoY=30;
 		var weaponX=1050;
-		var weaponY=60;
+		var weaponY=80;
 		var weaponImgX=1125;
 		var weaponImgY=50;
-		fg_ctx.save();
+		var healthBar=player.health/player.maxHealth*100
+		var momentumBar=(Math.abs(player.getMomentum())/player.maxMomentum)*100
+		var ammo;
+		var weaponImg=player.weapon.img;
 
-		fg_ctx.clearRect(0,0,self.fg.width,self.fg.height);
-		fg_ctx.font="18px Arial";
+		ctx.save();
+
+		ctx.clearRect(0,0,self.fg.width,self.fg.height);
+		ctx.font="18px Arial";
 		//draw bar outlines
-		fg_ctx.strokeRect(healthX,healthY,100,10);
-		fg_ctx.strokeRect(momentX,momentY,100,10);
+		ctx.strokeRect(healthX,healthY,100,10);
+		ctx.strokeRect(momentX,momentY,100,10);
 		//draw Healthbar
-		fg_ctx.fillStyle="#FF0000";
-		fg_ctx.fillRect(healthX,healthY,playerHealth,10);
+		ctx.fillStyle="#FF0000";
+		ctx.fillRect(healthX,healthY,healthBar,10);
+
 		//draw Momentumbar
-		fg_ctx.fillStyle="#0000FF";
-		fg_ctx.fillRect(momentX,momentY,playerMomentum,10);
+		ctx.fillStyle="#0000FF";
+		ctx.fillRect(momentX,momentY,momentumBar,10);
 		//Colour Text
-		fg_ctx.fillStyle="#FFFFFF";
-		fg_ctx.fillText('Health:',healthX,healthY);
-		fg_ctx.fillText('Momentum:',momentX,momentY);
+		ctx.fillStyle="#FFFFFF";
+		ctx.fillText('Health:',healthX,healthY);
+		ctx.fillText('Momentum:',momentX,momentY);
 		fg_ctx.fillText('Time: '+ minutes +" min "+ seconds+ " seconds ",timeX,timeY); //draws time
-
-
 		//draw ammo
-		fg_ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
-		fg_ctx.fillText('Weapon: '/*+weaponImg*/,weaponX,weaponY);
+		if(player.weapon.type=="sword"){
+			ammo=Img.infinity;
+			ctx.fillText('Ammo: ',ammoX,ammoY);
+			ctx.drawImage(ammo,ammoX+75,ammoY-25,75,40);
+			ammo.onload=function(){};
+		}else{
+			ammo=player.weapon.ammo;
+			//draw ammo
+			ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
+			ctx.fillText('Weapon: ',weaponX,weaponY);
+		}
+		//ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
+		ctx.fillText('Weapon: ',weaponX,weaponY);
 		//draw current weapon image
- 		gui.fg_ctx.drawImage(Img.pistol,weaponImgX,weaponImgY,Img.pistol.width,Img.pistol.height);
-		Img.pistol.onload=function(){}
+ 		ctx.drawImage(weaponImg,weaponImgX,weaponImgY,player.weapon.width,player.weapon.height);
+		weaponImg.onload=function(){};
 	};
 	return self;
 }
