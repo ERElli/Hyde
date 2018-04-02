@@ -1,4 +1,23 @@
 GUI = function(container){
+	
+	var seconds = 0;
+	var minutes = 0;
+	var stop = false; //stop is true when level is finished
+
+        //calculate time for finishing the level
+        if(!stop){
+	  setInterval(function () {
+	     seconds++;
+		if(seconds == 60){
+				seconds =0;
+				minutes++;
+		}
+		console.log(minutes +" min "+ seconds+ " seconds ");
+
+	  }, 1000);
+
+        };
+	
 	var self={};
 	self.container=container;
 	var sPAnimation=0;
@@ -220,7 +239,9 @@ GUI = function(container){
 	};
 	
 	self.HUD=function(ctx,player){
-
+		
+		var timeX=0;
+		var timeY=90;
 		var healthX=0;
 		var healthY=30;
 		var momentX=0;
@@ -242,7 +263,7 @@ GUI = function(container){
 		ctx.font="18px Arial";
 		//draw bar outlines
 		ctx.strokeRect(healthX,healthY,100,10);
-		ctx.strokeRect(momentX,momentY,100,10);		
+		ctx.strokeRect(momentX,momentY,100,10);	
 		//draw Healthbar
 		ctx.fillStyle="#FF0000";		
 		ctx.fillRect(healthX,healthY,healthBar,10);
@@ -254,6 +275,7 @@ GUI = function(container){
 		ctx.fillStyle="#FFFFFF";
 		ctx.fillText('Health:',healthX,healthY);
 		ctx.fillText('Momentum:',momentX,momentY);
+		fg_ctx.fillText('Time: '+ minutes +" min "+ seconds+ " seconds ",timeX,timeY); //draws time
 		//draw ammo
 		if(player.weapon.type=="sword"){
 			ammo=Img.infinity;
