@@ -9,14 +9,14 @@ Img = function(pathToRoot) {
 	self.background3.src= pathToRoot+"client/interface/img/worldThreeBackground.png";
 	//player images	
 	self.playerSmall= new Image();
-	self.playerSmall.src= pathToRoot+"client/interface/img/movingCharacter.png";
+	self.playerSmall.src= pathToRoot+"client/interface/img/entity/movingCharacter.png";
 	self.playerBig= new Image();
-	self.playerBig.src= pathToRoot+"client/interface/img/bigGuy.png";
+	self.playerBig.src= pathToRoot+"client/interface/img/entity/bigGuy.png";
 	//enemy images
 	self.basicEnemy1= new Image();
-	self.basicEnemy1.src= pathToRoot+"client/interface/img/enemy1.png";
+	self.basicEnemy1.src= pathToRoot+"client/interface/img/entity/basicEnemy.png";
 	self.basicEnemy2= new Image();
-	self.basicEnemy2.src= pathToRoot+"client/interface/img/enemy2.png";
+	self.basicEnemy2.src= pathToRoot+"client/interface/img/entity/flyingEnemy.png";
 	self.basicEnemy3= new Image();
 	self.basicEnemy3.src= pathToRoot+"client/interface/img/enemy3.png";
 	

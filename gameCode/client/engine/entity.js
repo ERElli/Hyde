@@ -112,7 +112,12 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	self.ay = 0;
 	//self.fx = 0;
 	//self.fy = 0;
+	//Animation counter for humanoids
+	self.aniCount=0;
 
+	self.setAniCount=function(newCount){
+		self.aniCount=newCount;
+	}
 	self.updatePosition = function() {
 
 		//self.ax = -self.fx / self.mass;
