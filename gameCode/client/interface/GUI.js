@@ -5,7 +5,7 @@ GUI = function(container){
 	var minutes = 0;
 	var stop = false; //stop is true when level is finished
 
-    calculate time for finishing the level
+    //calculate time for finishing the level
     if(!stop){
 	  setInterval(function () {
 	     seconds++;
