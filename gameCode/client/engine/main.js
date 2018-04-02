@@ -529,7 +529,7 @@ var startGame = function(initial_level) {
 	player = level["player"];
 	//console.log(player);
 	enemies = level["enemies"];
-	blocks = level["terrain"];
+	terrain = level["terrain"];
 	//surfaceMods = level["terrain"];
 	pickUps = level['pickUps']
 	//console.log(pickUps['p1']);

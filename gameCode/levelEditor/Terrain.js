@@ -20,7 +20,7 @@ function Terrain1x1(id, x, y){
 	self.type = "Terrain1x1";
 
 	self.draw = function(ctx){
-		ctx.drawImage(self.img, 0, 0, self.img.width, self.img.height, self.x, self.y, self.width, self.height);
+		ctx.drawTerrain(self, gui.fg_ctx, false);
 		//this is just a temp function until we have art for 1x1 terrain
 	};
 
