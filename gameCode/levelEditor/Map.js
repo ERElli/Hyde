@@ -19,7 +19,7 @@ Map = function(width, height,tile_width, tile_height) {
 	};
 	//self.ObjectList is a list of lists of objects. There will be list for terrain, one for enemies, one for weapons, etc.
 	//The format of this list is still flexible
-
+	
 	//Filling tiles with empty objects
 	for(var i=0; i<self.numTilesX; i++){
 		self.tiles.push([]);
@@ -57,40 +57,38 @@ Map = function(width, height,tile_width, tile_height) {
 	}
 
 	//Function to add entity to it's corresponding list
-	self.addToObjectList = function(object){
+	self.addToObjectList = function(object){		
 		let id = object.id;
 		let type = object.type;
 
-<<<<<<< HEAD
 		var list = self.getList(type);
+
 		if(type === "player"){
 			let size = Object.keys(list).length;
-			console.log("ObjectsList['player'] size:",size);
 			if(size === 1){
+				for(var key in list){
+					self.makeFreeSpace(list[key]);
+				}
 				delete list;
 				self.ObjectList['player'] = {};
-				console.log("EMPTYING LIST");
 				self.ObjectList['player'][id] = object;
-			}else{
-				list[id] = object;
 			}
-		}else{
-			list[id] = object;
 		}
+			list[id] = object;
 
-		
+		socket.emit('addLevelItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
+		//{x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type}		
 		console.log("Adding "+type+": ", object);
 		console.log("Updated ObjectList",self.ObjectList);
 	};
 
 	//Function to check if the object, o, can be placed in the spot where the user clicks
-	self.tryToPlaceEntity = function(o){
-		var x = o.x/tile_width;
-		var y = (o.y/tile_height) - gridShiftDown;
-		var w = x + (o.width/tile_width);
-		var h = y + (o.height/tile_height);
+	self.tryToPlaceEntity = function(object){
+		var x = object.x/tile_width;
+		var y = (object.y/tile_height) - gridShiftDown;
+		var w = x + (object.width/tile_width);
+		var h = y + (object.height/tile_height);
 		var filled;
-
 		for(var i=x; i<w; i++){
 			for(var j=y; j<h; j++){
 				filled = self.isFilled(i,j);
@@ -111,12 +109,12 @@ Map = function(width, height,tile_width, tile_height) {
 		if(!filled){
 			for(var k=x; k<w; k++){
 				for(var l=y; l<h; l++){
-					self.tiles[k][l].id = o.id;
-					self.tiles[k][l].type = o.type;
+					self.tiles[k][l].id = object.id;
+					self.tiles[k][l].type = object.type;
 
 				}
 			}
-			self.addToObjectList(o);
+			self.addToObjectList(object);
 		}
 	};
 
@@ -140,7 +138,7 @@ Map = function(width, height,tile_width, tile_height) {
 			console.log("Updated ObjectList:",self.ObjectList);
 		}else {
 			console.log("Nothing to remove!");
-		}
+		}			
 	};
 
 	self.setBackgroundImage = function(imageName){
@@ -175,19 +173,21 @@ Map = function(width, height,tile_width, tile_height) {
 	};
 
 
-	// self.convertToString = function(){
-	// 	var filename = "levelEditor.txt";
-
-	// 	var str = JSON.stringify(self.ObjectList).toString();
-	// 	var a = document.createElement("a");
-	// 	document.body.appendChild(a);
-	// 	var file = new Blob([str],{type: 'application/json'});
-	// 	a.href = URL.createObjectURL(file);
-	// 	a.download = filename;
-	// 	a.click();
-	// 	console.log(a);
-
-
+	self.convertToString = function(){
+		var form = document.getElementById("form");
+		var levelName = document.getElementById("levelName").value;
+		var filename = levelName+".json";
+		var Level = self.makeLevel();
+		Level.name = levelName;
+ 
+		var str = JSON.stringify(Level).toString();
+		var a = document.createElement("a");
+		document.body.appendChild(a);
+		var file = new Blob([str],{type: 'application/json'});
+		a.href = URL.createObjectURL(file);
+		a.download = filename;
+		a.click();
+		
 		// console.log("Stringified:",str);
 		// var parsed = JSON.parse(str);
 		// console.log("Parsed:",parsed);
@@ -195,18 +195,23 @@ Map = function(width, height,tile_width, tile_height) {
 		// var file = new File([""],filename,self.ObjectList);
 		// console.log(file);
 
-	//};
+	};
 
 	self.makeLevel = function(){
 		var Level = {};
+	
 		Level.width = self.width;
 		Level.height = self.height;
-		Level.name = "1-1";
 		Level.enemies = self.ObjectList.enemies;
 		Level.terrain = self.ObjectList.terrain;
-		console.log("PLAYER LEVEL",self.ObjectList.player);
 		Level.player = self.ObjectList.player;
+		for(var type in Level){
+			for(var key in Level[type]){
+				Level[type][key].y = (Level[type][key].y)-100;
+			}
+		}
 		console.log("Level Object:",Level);
+		return Level;
 	}
 
 	return self;
