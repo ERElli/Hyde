@@ -12,7 +12,7 @@ GUI = function(container){
 				seconds =0;
 				minutes++;
 		}
-		console.log(minutes +" min "+ seconds+ " seconds ");
+		//console.log(minutes +" min "+ seconds+ " seconds ");
 
 	  }, 1000);
 
@@ -275,7 +275,7 @@ GUI = function(container){
 		ctx.fillStyle="#FFFFFF";
 		ctx.fillText('Health:',healthX,healthY);
 		ctx.fillText('Momentum:',momentX,momentY);
-		fg_ctx.fillText('Time: '+ minutes +" min "+ seconds+ " seconds ",timeX,timeY); //draws time
+		gui.fg_ctx.fillText('Time: '+ minutes +" min "+ seconds+ " seconds ",timeX,timeY); //draws time
 		//draw ammo
 		if(player.weapon.type=="sword"){
 			ammo=Img.infinity;
