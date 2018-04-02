@@ -12,7 +12,7 @@ GUI = function(container){
 				seconds =0;
 				minutes++;
 		}
-		//console.log(minutes +" min "+ seconds+ " seconds ");
+		console.log(minutes +" min "+ seconds+ " seconds ");
 
 	  }, 1000);
 
@@ -105,7 +105,11 @@ GUI = function(container){
 		switch(en.type){
 			case "player":
 				if(en.isBig==true){
-					playDir=ani.getPlayDirection(en);
+					if(!isLevelEditor){
+						playDir=ani.getPlayDirection(en);
+					}else{
+						playDir = 1;
+					}
 					if(playDir==1){
 						//ctx.drawImage(Img.playerBig,self.fg.width/2,en.y-en.height/2,en.width,en.height);
 						self.quickDraw(Img.playerBig,en,ctx,en.x,en.y);
@@ -124,9 +128,14 @@ GUI = function(container){
 				else{
 					var fW=Img.playerSmall.width/5;
 					var fH=Img.playerSmall.height/2;
-					playDir=ani.getPlayDirection(en);
-					//updates player animation every 5th frame
-					sPAnimation=ani.updateEntityAnimation(en,sPAnimation,5);
+					if(!isLevelEditor){
+						playDir=ani.getPlayDirection(en);
+						//updates player animation every 5th frame
+						sPAnimation=ani.updateEntityAnimation(en,sPAnimation,5);
+					}else{
+						playDir=1;
+					}
+					
 					self.quickPlayerDraw(Img.playerSmall,en,ctx,sPAnimation,playDir,fW,fH);
 				}
 				break;
@@ -275,7 +284,7 @@ GUI = function(container){
 		ctx.fillStyle="#FFFFFF";
 		ctx.fillText('Health:',healthX,healthY);
 		ctx.fillText('Momentum:',momentX,momentY);
-		gui.fg_ctx.fillText('Time: '+ minutes +" min "+ seconds+ " seconds ",timeX,timeY); //draws time
+		fg_ctx.fillText('Time: '+ minutes +" min "+ seconds+ " seconds ",timeX,timeY); //draws time
 		//draw ammo
 		if(player.weapon.type=="sword"){
 			ammo=Img.infinity;
