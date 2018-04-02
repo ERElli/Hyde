@@ -1,22 +1,24 @@
-GUI = function(container){	
-	/*var seconds = 0;
+
+GUI = function(container){
+
+	var seconds = 0;
 	var minutes = 0;
 	var stop = false; //stop is true when level is finished
 
-        calculate time for finishing the level
-        if(!stop){
+    calculate time for finishing the level
+    if(!stop){
 	  setInterval(function () {
 	     seconds++;
 		if(seconds == 60){
 				seconds =0;
 				minutes++;
 		}
-		console.log(minutes +" min "+ seconds+ " seconds ");
+
 
 	  }, 1000);
 
-        };
-	*/
+    };
+
 	var self={};
 	self.container=container;
 	var sPAnimation=0;
@@ -70,7 +72,7 @@ GUI = function(container){
 		//
 		//n is number of canvas distance the player has travelled
 		n=backgroundPositionCounter;
-		x=self.bg.width-e.x;
+		x=self.bg.width-level['player'].x;
 		y=0;
 		Img.background2.onload=function(){
 		}
@@ -79,13 +81,25 @@ GUI = function(container){
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*n,y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
-		if(x<self.bg.width-self.bg.width*n){
+
+    /*
+		//reached the end of the level
+		if(backgroundPositionCounter ==3){
+			 document.getElementById('canvas').onkeypress=function()
+			{
+				 stop = true;
+				 return false;
+			 };
+		}
+		*/
+
+	 if(x<self.bg.width-self.bg.width*n){
 			backgroundPositionCounter++;
 		}
-		else if(x>(-self.bg.width)*n){
+  	else if(x>(-self.bg.width)*n ){
 			backgroundPositionCounter--;
 		}
-	}
+	};
 
 	//draws Entities
 	self.drawEntity=function(entity,ctx,isLevelEditor){
@@ -95,7 +109,7 @@ GUI = function(container){
 			yOffset=0;
 		}
 		else{
-			playX=e.x-self.fg.width/2;
+			playX=level['player'].x-self.fg.width/2;
 			xOffset=entity.width/2;
 			yOffset=entity.height/2;
 		}
@@ -104,7 +118,11 @@ GUI = function(container){
 		switch(en.type){
 			case "player":
 				if(en.isBig==true){
-					playDir=ani.getPlayDirection(en);
+					if(!isLevelEditor){
+						playDir=ani.getPlayDirection(en);
+					}else{
+						playDir = 1;
+					}
 					if(playDir==1){
 						//ctx.drawImage(Img.playerBig,self.fg.width/2,en.y-en.height/2,en.width,en.height);
 						self.quickDraw(Img.playerBig,en,ctx,en.x,en.y);
@@ -115,7 +133,7 @@ GUI = function(container){
     					// scaleX by -1; this "trick" flips horizontally
     					ctx.scale(-1,1);
 						//ctx.drawImage(Img.playerBig,self.fg.width/2-en.width/2,en.y-en.height/2,en.width,en.height);
-						self.quickDraw(Img.playerBig,en,ctx,en.x,en.y);						
+						self.quickDraw(Img.playerBig,en,ctx,en.x,en.y);
 
 						ctx.restore();
 					}
@@ -123,10 +141,15 @@ GUI = function(container){
 				else{
 					var fW=Img.playerSmall.width/5;
 					var fH=Img.playerSmall.height/2;
-					playDir=ani.getPlayDirection(en);
-					//updates player animation every 5th frame
-					ani.updateEntityAnimation(en,5);
-					self.quickAnimatedDraw(Img.playerSmall,en,ctx,playDir,fW,fH);
+
+					if(!isLevelEditor){
+						playDir=ani.getPlayDirection(en);
+						//updates player animation every 5th frame
+						ani.updateEntityAnimation(en,5);
+					}else{
+						playDir=1;
+					}
+          self.quickAnimatedDraw(Img.playerSmall,en,ctx,playDir,fW,fH); 
 				}
 				break;
 			case "basic enemy":
@@ -149,7 +172,7 @@ GUI = function(container){
 				var fW=Img.bearEnemy.width/8;
 				var fH=Img.bearEnemy.height/8;
 				dir=ani.getPlayDirection(entity);
-				bearAnimationStage=ani.updateEntityAnimation(en,bearAnimationStage,16);	
+				bearAnimationStage=ani.updateEntityAnimation(en,bearAnimationStage,16);
 
 				if(en.vx==0){
 					bearAniY=0;
@@ -170,7 +193,7 @@ GUI = function(container){
 				weapImg=Img.pistol;
 				newx=ani.getWeaponPosition(en);
 				self.quickDraw(weapImg,en,ctx,newx,en.y);
-				
+
 				break;
 			case "shotgun":
 				weapImg=Img.shotgun;
@@ -193,6 +216,7 @@ GUI = function(container){
 				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;
 		}
+		//console.log(entity);
 		entity.img.onload=function(){};
 		ctx.restore();
 	};
@@ -230,32 +254,15 @@ GUI = function(container){
 		ctx.drawImage(img,en.aniCount*fW,aniStepY*fH,fW,fH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
 	
 	};
-//	self.timer=function(){
-		
-/*	var seconds = 0;
-	var minutes = 0;
-	var stop = false; //stop is true when level is finished
 
-        //calculate time for finishing the level
-        	if(!stop){
-	 	 	setInterval(function () {
-	     			seconds++;
-				if(seconds == 60){
-					seconds =0;
-					minutes++;
-				}
-				console.log(minutes +" min "+ seconds+ " seconds ");
-			}, 1000);
-
-        	}
-	};*/
-	
 	self.HUD=function(ctx,player){
-		
+
 		var timeX=0;
 		var timeY=90;
 		var healthX=0;
 		var healthY=30;
+		var timeX=0;
+		var timeY=90;
 		var momentX=0;
 		var momentY=60;
 		var ammoX=1050;
@@ -270,14 +277,14 @@ GUI = function(container){
 		var weaponImg=player.weapon.img;
 
 		ctx.save();
-		
+
 		ctx.clearRect(0,0,self.fg.width,self.fg.height);
 		ctx.font="18px Arial";
 		//draw bar outlines
 		ctx.strokeRect(healthX,healthY,100,10);
-		ctx.strokeRect(momentX,momentY,100,10);	
+		ctx.strokeRect(momentX,momentY,100,10);
 		//draw Healthbar
-		ctx.fillStyle="#FF0000";		
+		ctx.fillStyle="#FF0000";
 		ctx.fillRect(healthX,healthY,healthBar,10);
 
 		//draw Momentumbar
@@ -287,8 +294,10 @@ GUI = function(container){
 		ctx.fillStyle="#FFFFFF";
 		ctx.fillText('Health:',healthX,healthY);
 		ctx.fillText('Momentum:',momentX,momentY);
+
 		//draws time
-		//ctx.fillText('Time: '+ minutes +" min "+ seconds+ " seconds ",timeX,timeY); 
+		ctx.fillText('Time: '+ minutes +" min "+ seconds+ " seconds ",timeX,timeY); 
+
 		//draw ammo
 		if(player.weapon.type=="sword"){
 			ammo=Img.infinity;
