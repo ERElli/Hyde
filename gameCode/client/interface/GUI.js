@@ -1,4 +1,25 @@
 GUI = function(container){
+
+	var seconds = 0;
+	var minutes = 0;
+	var stop = false; //stop is true when level is finished
+
+//calculate time for finishing the level
+if(!stop){
+	setInterval(function () {
+	  seconds++;
+		if(seconds == 60){
+				seconds =0;
+				minutes++;
+		}
+		console.log(minutes +" min "+ seconds+ " seconds ");
+
+	 }, 1000);
+
+ };
+
+
+
 	var self={};
 	self.container=container;
 	var sPAnimation=0;
@@ -61,13 +82,25 @@ GUI = function(container){
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*n,y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
-		if(x<self.bg.width-self.bg.width*n){
+
+    /*
+		//reached the end of the level
+		if(backgroundPositionCounter ==3){
+			 document.getElementById('canvas').onkeypress=function()
+			{
+				 stop = true;
+				 return false;
+			 };
+		}
+		*/
+
+	 if(x<self.bg.width-self.bg.width*n){
 			backgroundPositionCounter++;
 		}
-		else if(x>(-self.bg.width)*n){
+  	else if(x>(-self.bg.width)*n ){
 			backgroundPositionCounter--;
 		}
-	}
+	};
 
 	//draws Entities
 	self.drawEntity=function(entity,ctx,isLevelEditor){
@@ -245,6 +278,8 @@ GUI = function(container){
 	self.fgDraw=function(fg_ctx,playerHealth,playerMomentum,ammo){
 		var healthX=0;
 		var healthY=30;
+		var timeX=0;
+		var timeY=90;
 		var momentX=0;
 		var momentY=60;
 		var ammoX=1050;
@@ -270,6 +305,9 @@ GUI = function(container){
 		fg_ctx.fillStyle="#FFFFFF";
 		fg_ctx.fillText('Health:',healthX,healthY);
 		fg_ctx.fillText('Momentum:',momentX,momentY);
+		fg_ctx.fillText('Time: '+ minutes +" min "+ seconds+ " seconds ",timeX,timeY); //draws time
+
+
 		//draw ammo
 		fg_ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
 		fg_ctx.fillText('Weapon: '/*+weaponImg*/,weaponX,weaponY);

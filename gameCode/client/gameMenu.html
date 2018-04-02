@@ -160,6 +160,9 @@ canvas.addEventListener('click', function(e) {
 		//context.clearRect(0, 0, canvas.width, canvas.height);
 		location.href = "/client/interface/index.html";
 	 }
+	 else if( mouseX >buttonX[0] && mouseX < (buttonX[0]+ buttonWidth[2]) && mouseY> buttonY[2] && mouseY < (buttonY[2]+buttonHeight[0]) ) {
+		main();
+	 }
 	 else{
 		 console.log(" do nothing");
 	 }
