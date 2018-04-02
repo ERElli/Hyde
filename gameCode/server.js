@@ -51,12 +51,27 @@ app.get('/client/interface/img/worldOneBackground.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/worldOneBackground.png');
 });
 
+
+app.get('/images/loadlevelbutton.png',function(req, res) {
+    res.sendFile(__dirname + '/images/loadlevelbutton.png');
+});
+app.get('/images/newlevelbutton.png',function(req, res) {
+    res.sendFile(__dirname + '/images/newlevelbutton.png');
+});
+
 app.get('/client/interface/img/worldTwoBackground.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/worldTwoBackground.png');
 });
 
 app.get('/client/interface/img/worldThreeBackground.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/worldThreeBackground.png');
+});
+
+app.get('/client/interface/level.json',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/level.json');
+});
+app.get('/client/interface/jsonTest.js',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/jsonTest.js');
 });
 
 app.get('/client/interface/img/ovingCharacter.png',function(req, res) {
@@ -154,17 +169,6 @@ app.get('/images/enemy1.png',function(req, res) {
     res.sendFile(__dirname + '/images/enemy1.png');
 });
 
-app.get('/images/loadlevelbutton.png',function(req, res) {
-    res.sendFile(__dirname + '/images/loadlevelbutton.png');
-});
-
-app.get('/images/savelevelbutton.png',function(req, res) {
-    res.sendFile(__dirname + '/images/savelevelbutton.png');
-});
-
-app.get('/images/newlevelbutton.png',function(req, res) {
-    res.sendFile(__dirname + '/images/newlevelbutton.png');
-});
 
 app.get('/images/worldTwoBackground.png',function(req, res) {
     res.sendFile(__dirname + '/images/worldTwoBackground.png');
