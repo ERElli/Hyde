@@ -142,7 +142,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		self.weapon.vx = self.vx;
 		self.weapon.vy = self.vy;
 
-		self.weapon.update();
+		self.weapon.update(self.aimAngle);
 	
 	}
 	
