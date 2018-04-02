@@ -1,5 +1,5 @@
 GUI = function(container){
-	
+
 	var seconds = 0;
 	var minutes = 0;
 	var stop = false; //stop is true when level is finished
@@ -12,12 +12,12 @@ GUI = function(container){
 				seconds =0;
 				minutes++;
 		}
-		console.log(minutes +" min "+ seconds+ " seconds ");
+		
 
 	  }, 1000);
 
         };
-	
+
 	var self={};
 	self.container=container;
 	var sPAnimation=0;
@@ -80,13 +80,25 @@ GUI = function(container){
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*n,y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
-		if(x<self.bg.width-self.bg.width*n){
+
+    /*
+		//reached the end of the level
+		if(backgroundPositionCounter ==3){
+			 document.getElementById('canvas').onkeypress=function()
+			{
+				 stop = true;
+				 return false;
+			 };
+		}
+		*/
+
+	 if(x<self.bg.width-self.bg.width*n){
 			backgroundPositionCounter++;
 		}
-		else if(x>(-self.bg.width)*n){
+  	else if(x>(-self.bg.width)*n ){
 			backgroundPositionCounter--;
 		}
-	}
+	};
 
 	//draws Entities
 	self.drawEntity=function(entity,ctx,isLevelEditor){
@@ -120,7 +132,7 @@ GUI = function(container){
     					// scaleX by -1; this "trick" flips horizontally
     					ctx.scale(-1,1);
 						//ctx.drawImage(Img.playerBig,self.fg.width/2-en.width/2,en.y-en.height/2,en.width,en.height);
-						self.quickDraw(Img.playerBig,en,ctx,en.x,en.y);						
+						self.quickDraw(Img.playerBig,en,ctx,en.x,en.y);
 
 						ctx.restore();
 					}
@@ -151,7 +163,7 @@ GUI = function(container){
 				var fW=Img.bearEnemy.width/8;
 				var fH=Img.bearEnemy.height/8;
 				dir=ani.getPlayDirection(entity);
-				bearAnimationStage=ani.updateEntityAnimation(en,bearAnimationStage,16);	
+				bearAnimationStage=ani.updateEntityAnimation(en,bearAnimationStage,16);
 
 				if(en.vx==0){
 					bearAniY=0;
@@ -172,7 +184,7 @@ GUI = function(container){
 				weapImg=Img.pistol;
 				newx=ani.getWeaponPosition(en);
 				self.quickDraw(weapImg,en,ctx,newx,en.y);
-				
+
 				break;
 			case "shotgun":
 				weapImg=Img.shotgun;
@@ -245,15 +257,17 @@ GUI = function(container){
 			ctx.translate(-fg.width,0);
 			ctx.drawImage(img,aniStepX*spriteW,aniStepY*spriteH,spriteW,spriteH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
 			ctx.restore();
-		}	
+		}
 	};
-	
+
 	self.HUD=function(ctx,player){
-		
+
 		var timeX=0;
 		var timeY=90;
 		var healthX=0;
 		var healthY=30;
+		var timeX=0;
+		var timeY=90;
 		var momentX=0;
 		var momentY=60;
 		var ammoX=1050;
@@ -268,14 +282,14 @@ GUI = function(container){
 		var weaponImg=player.weapon.img;
 
 		ctx.save();
-		
+
 		ctx.clearRect(0,0,self.fg.width,self.fg.height);
 		ctx.font="18px Arial";
 		//draw bar outlines
 		ctx.strokeRect(healthX,healthY,100,10);
-		ctx.strokeRect(momentX,momentY,100,10);	
+		ctx.strokeRect(momentX,momentY,100,10);
 		//draw Healthbar
-		ctx.fillStyle="#FF0000";		
+		ctx.fillStyle="#FF0000";
 		ctx.fillRect(healthX,healthY,healthBar,10);
 
 		//draw Momentumbar
@@ -285,7 +299,7 @@ GUI = function(container){
 		ctx.fillStyle="#FFFFFF";
 		ctx.fillText('Health:',healthX,healthY);
 		ctx.fillText('Momentum:',momentX,momentY);
-		fg_ctx.fillText('Time: '+ minutes +" min "+ seconds+ " seconds ",timeX,timeY); //draws time
+		ctx.fillText('Time: '+ minutes +" min "+ seconds+ " seconds ",timeX,timeY); //draws time
 		//draw ammo
 		if(player.weapon.type=="sword"){
 			ammo=Img.infinity;
