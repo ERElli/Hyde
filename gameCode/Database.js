@@ -13,7 +13,7 @@ Database.addLevelItem = function(data, cb){
 
   //console.log("nice"+data.x, data.y, data.w, data.h, data.id, data.type);
   //db.saveLevel.remove({id:data.rand}, { $addToSet:{ items: {x:data.x, y: data.y, w: data.w,h: data.h,id: data.id,type: data.type} } }, {upsert: true});
-  db.saveLevel.update({id:data.id},   { $addToSet:{ items: {x:data.x, y: data.y, vx: data.vx,vy: data.vy,id: data.id,type: data.type} } }, {upsert: true});
+  db.saveLevel.update({level:"level1"},   { $addToSet:{ enemies: { id: data.id, items: {x:data.x, y: data.y, vx: data.vx,vy: data.vy,id: data.id,type: data.type} }, terrain:{}, player: {} } }, {upsert: true});
 
 
 }
