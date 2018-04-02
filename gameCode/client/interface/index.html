@@ -15,6 +15,10 @@
 		<script type="text/javascript" src="../engine/enemy.js"></script>
 		<script type="text/javascript" src="../engine/weapon.js"></script>
 		<script type="text/javascript" src="../engine/usable.js"></script>
+		
+		<script type="text/javascript" src="level.json"></script>
+		<script type="text/javascript" src="jsonTest.js"></script>
+		
 		<script type="text/javascript" src="../../levelEditor/Terrain.js"></script>
 		<script type="text/javascript" src="images.js"></script>
 		<script type="text/javascript" src="GUI.js"></script>
@@ -47,37 +51,23 @@
 		var HEIGHT=500;
 		var WIDTH=1250;
 
-		//id, x, y, vx, vy, width, height, img, color, ownerID
-		p= new Pistol("w1", 150, 450-25, 0, 0, 50, 50,"pistol_image",null, 'player');
+		
+		
+		//console.log(mydata);
+		
+		var level = {}
+		
+		for (var map in mydata) {
+			level.map = {}
 
-
-
-		//id, x, y, vx, vy, img, weapon, isBig
-		e = new Player("player", 150, 400-25, 0, 0, "Img.player", p, false);
-
-
-		pickUp = new WeaponPickUp(Math.random(), 600, 350-25, "sword", e);
-		console.log(pickUp.x)
-
-		//id, x, y, vx, vy, img, color, target
-
-		enemy2 = new FlyingEnemy("enemy2", 200, 125, 0, 0, "Img.basicEnemy", null, e);
-		enemy3 = new FlyingEnemy("enemy3", 150, 125, 0, 0, "Img.basicEnemy", null, e)
-		enemy4 = new FlyingEnemy("enemy4", 150, 75, 0, 0, "Img.basicEnemy", null, e)
-		enemy5 = new FlyingEnemy("enemy5", 150, 100, 0, 0, "Img.basicEnemy", null, e)
-
-		var terrain = {};
-		for (i = 0; i < 10; i++) {
-			id = Math.random();
-			terrain[id] = new Terrain1x1(id, i*50, 400);
 		}
-
-		for (i = 10; i < 50; i++) {
-
-			id = Math.random();
-			terrain[id] = new Terrain1x1(id, i*50, 200);
-		}
-
+		
+		p = mydata['player']
+		console.log(p.x);
+		
+		level['player'] = new Player("player", p.x, p.y, p.vx, p.vy, p.img, new Pistol(Math.random(), p.x, p.y, p.vx, p.vy, 50, 50,"pistol_image",null, p.id), p.isBig);
+		console.log(level['player']);
+		
 		//-----------
 		init = function() {
 			// get a reference to the container div in the page
@@ -89,7 +79,9 @@
 		}
 		//Creates background and foreground Canvases
 		init();
-		startGame({'player':e, 'enemies':{'enemy2':enemy2}, 'terrain':terrain, 'pickUps':{'p1':pickUp}}); //'enemy1':enemy,'enemy2':enemy2}});// 'enemy3':enemy3, 'enemy4':enemy4}});
+
+		
+		startGame(level);
 
 
 		</script>

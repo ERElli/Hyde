@@ -71,7 +71,7 @@ GUI = function(container){
 		//
 		//n is number of canvas distance the player has travelled
 		n=backgroundPositionCounter;
-		x=self.bg.width-e.x;
+		x=self.bg.width-level['player'].x;
 		y=0;
 		Img.background2.onload=function(){
 		}
@@ -108,7 +108,7 @@ GUI = function(container){
 			yOffset=0;
 		}
 		else{
-			playX=e.x-self.fg.width/2;
+			playX=level['player'].x-self.fg.width/2;
 			xOffset=entity.width/2;
 			yOffset=entity.height/2;
 		}
@@ -117,7 +117,11 @@ GUI = function(container){
 		switch(en.type){
 			case "player":
 				if(en.isBig==true){
-					playDir=ani.getPlayDirection(en);
+					if(!isLevelEditor){
+						playDir=ani.getPlayDirection(en);
+					}else{
+						playDir = 1;
+					}
 					if(playDir==1){
 						//ctx.drawImage(Img.playerBig,self.fg.width/2,en.y-en.height/2,en.width,en.height);
 						self.quickDraw(Img.playerBig,en,ctx,en.x,en.y);
@@ -136,9 +140,14 @@ GUI = function(container){
 				else{
 					var fW=Img.playerSmall.width/5;
 					var fH=Img.playerSmall.height/2;
-					playDir=ani.getPlayDirection(en);
-					//updates player animation every 5th frame
-					sPAnimation=ani.updateEntityAnimation(en,sPAnimation,5);
+					if(!isLevelEditor){
+						playDir=ani.getPlayDirection(en);
+						//updates player animation every 5th frame
+						sPAnimation=ani.updateEntityAnimation(en,sPAnimation,5);
+					}else{
+						playDir=1;
+					}
+					
 					self.quickPlayerDraw(Img.playerSmall,en,ctx,sPAnimation,playDir,fW,fH);
 				}
 				break;
@@ -198,6 +207,7 @@ GUI = function(container){
 				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;
 		}
+		//console.log(entity);
 		entity.img.onload=function(){};
 		ctx.restore();
 	};
