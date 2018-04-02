@@ -154,6 +154,18 @@ app.get('/images/enemy1.png',function(req, res) {
     res.sendFile(__dirname + '/images/enemy1.png');
 });
 
+app.get('/images/loadlevelbutton.png',function(req, res) {
+    res.sendFile(__dirname + '/images/loadlevelbutton.png');
+});
+
+app.get('/images/savelevelbutton.png',function(req, res) {
+    res.sendFile(__dirname + '/images/savelevelbutton.png');
+});
+
+app.get('/images/newlevelbutton.png',function(req, res) {
+    res.sendFile(__dirname + '/images/newlevelbutton.png');
+});
+
 app.get('/images/worldTwoBackground.png',function(req, res) {
     res.sendFile(__dirname + '/images/worldTwoBackground.png');
 });
