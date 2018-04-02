@@ -123,22 +123,11 @@ GUI = function(container){
 					}else{
 						playDir = 1;
 					}
-					if(playDir==1){
-						//ctx.drawImage(Img.playerBig,self.fg.width/2,en.y-en.height/2,en.width,en.height);
-						self.quickDraw(Img.playerBig,en,ctx,en.x,en.y);
-					}
-					else{
-						ctx.save()
-						ctx.translate(en.x+fg.width/2-playX,y);
-    					// scaleX by -1; this "trick" flips horizontally
-    					ctx.scale(-1,1);
-						//ctx.drawImage(Img.playerBig,self.fg.width/2-en.width/2,en.y-en.height/2,en.width,en.height);
-						self.quickDraw(Img.playerBig,en,ctx,en.x,en.y);
-
-						ctx.restore();
-					}
-				}
-				else{
+					var fW=Img.playerBig.width/5;
+					var fH=Img.playerBig.height/2;
+					ani.updateEntityAnimation(en,5);
+					self.quickAnimatedDraw(Img.playerBig,en,ctx,playDir,fW,fH); 
+				}else{
 					var fW=Img.playerSmall.width/5;
 					var fH=Img.playerSmall.height/2;
 
@@ -149,7 +138,7 @@ GUI = function(container){
 					}else{
 						playDir=1;
 					}
-          self.quickAnimatedDraw(Img.playerSmall,en,ctx,playDir,fW,fH); 
+          				self.quickAnimatedDraw(Img.playerSmall,en,ctx,playDir,fW,fH); 
 				}
 				break;
 			case "basic enemy":
