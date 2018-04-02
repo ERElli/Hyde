@@ -9,7 +9,12 @@ function Weapon(type, id, x, y, vx, vy, width, height, img, color, firingRate, b
 	self.bulletType = bulletType;
 	self.range = range;
 	self.ammo = ammo;
-	
+
+	self.update = function(aimAngle) {
+		self.aimAngle=aimAngle;
+		self.updatePosition();
+		self.draw(gui.fg_ctx,false);
+	}
 	self.applyEffect = function(target) {
 		
 	}

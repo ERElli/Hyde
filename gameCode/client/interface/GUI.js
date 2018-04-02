@@ -222,17 +222,23 @@ GUI = function(container){
 	};
 	//draws terrain
 	self.drawTerrain=function(terrain,ctx,isLevelEditor){
+		var t=terrain;		
 		if(isLevelEditor){
 			playX=0;
+			xOffset=0;
+			yOffset=0;
 		}
 		else{
-			playX=e.x-self.fg.width/2;
+			playX=level['player'].x-self.fg.width/2;
+			xOffset=0;
+			yOffset=0;
+			//xOffset=t.width/2;
+			//yOffset=t.height/2;
 		}
-		var t=terrain;
 		ctx.save();
 		switch(terrain.type){
 			case "Terrain1x1":
-				ctx.drawImage(Img.terrain1x1,t.x-playX,t.y,t.width,t.height);
+				self.quickDraw(Img.terrain1x1,t,ctx,t.x,t.y);
 			break;
 
 		}

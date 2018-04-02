@@ -17,7 +17,7 @@ Animation=function(){
 	//returns players direction based on aim angle
 	self.getPlayDirection=function(entity){
 		//Checks if entity is player since image is reversed from other entities
-		if(entity.type=='player'){
+		if(entity.type=='player' || entity.type=="pistol" ||entity.type=="assaultRifle" ||entity.type=="shotgun"||entity.type=="sword"){
 			if(entity.aimAngle<=90 && entity.aimAngle>-90){
 				return 0;
 			} 
@@ -47,7 +47,7 @@ Animation=function(){
 	self.getWeaponPosition=function(entity){
 		newX=entity.x;
 		if(entity.isWeapon){
-			var dir=self.getPlayDirection(player);
+			var dir=self.getPlayDirection(entity);
 			if(dir==0){
 				newX=newX+30;
 			}else{
