@@ -16,9 +16,6 @@
 		<script type="text/javascript" src="../engine/weapon.js"></script>
 		<script type="text/javascript" src="../engine/usable.js"></script>
 		
-		<script type="text/javascript" src="level.json"></script>
-		<script type="text/javascript" src="jsonTest.js"></script>
-		
 		<script type="text/javascript" src="../../levelEditor/Terrain.js"></script>
 		<script type="text/javascript" src="images.js"></script>
 		<script type="text/javascript" src="GUI.js"></script>
@@ -52,19 +49,6 @@
 		var WIDTH=1250;
 		
 		
-		//console.log(mydata);
-		
-		var level = {}
-		
-		for (var map in mydata) {
-			level.map = {}
-		}
-		
-		p = mydata['player']
-		console.log(p.x);
-		
-		level['player'] = new Player("player", p.x, p.y, p.vx, p.vy, p.img, new Pistol(Math.random(), p.x, p.y, p.vx, p.vy, 50, 50,"pistol_image",null, p.id), p.isBig);
-		console.log(level['player']);
 		
 		//-----------
 		init = function() {
@@ -77,6 +61,22 @@
 		}
 		//Creates background and foreground Canvases
 		init();
+		
+		
+		//console.log(mydata);
+		
+		var level = {}
+		
+		for (var map in data) {
+			level.map = {}
+		}
+		
+		for (var thing in data['player']) {
+			p = data['player'][thing]
+		}
+		
+		level['player'] = new Player(p.id, p.x, p.y, p.vx, p.vy, p.img, new Pistol(Math.random(), p.x, p.y, p.vx, p.vy, 50, 50,"pistol_image",null, p.id), p.isBig);
+		
 		
 		startGame(level);
 

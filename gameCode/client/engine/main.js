@@ -5,7 +5,7 @@ var level;
 var player;
 var enemies;
 var bullets = {};
-var blocks;
+var terrain;
 var sufaceMods;
 var pickUps;
 
@@ -527,6 +527,7 @@ var testCollision = function(rect1, rect2) {
 var startGame = function(initial_level) {
 	level = initial_level;
 	player = level["player"];
+	//console.log(player);
 	enemies = level["enemies"];
 	blocks = level["terrain"];
 	//surfaceMods = level["terrain"];
