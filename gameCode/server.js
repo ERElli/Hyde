@@ -18,6 +18,12 @@ app.get('/client/gameMenu.html',function(req, res) {
     res.sendFile(__dirname + '/client/gameMenu.html');
 });
 //for interface
+app.get('/client/engine/usable.js',function(req, res) {
+    res.sendFile(__dirname + '/client/engine/usable.js');
+});
+app.get('/client/interface/Animation.js',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/Animation.js');
+});
 app.get('/client/interface/index.html',function(req, res) {
     res.sendFile(__dirname + '/client/interface/index.html');
 });
@@ -245,6 +251,19 @@ app.get('/images/weaponButton.png',function(req, res) {
 app.get('/images/backgroundButton.png',function(req, res) {
     res.sendFile(__dirname + '/images/backgroundButton.png');
 });
+app.get('/client/interface/img/terrain/breakableTerrain3x4.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/breakableTerrain3x4.png');
+});
+app.get('/client/interface/img/terrain/terrain3x4.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/terrain3x4.png');
+});
+app.get('/client/interface/img/terrain/breakableTerrain3x2.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/breakableTerrain3x2.png');
+});
+app.get('/client/interface/img/inf.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/inf.png');
+});
+
 
 app.get('/images/terrainButton.png',function(req, res) {
     res.sendFile(__dirname + '/images/terrainButton.png');
@@ -378,6 +397,16 @@ io.sockets.on('connection', function(socket){
   socket.on('saveLevel',function(data){
    Database.levelSave(data);
   });
+
+  socket.on('loadLevel', function(data){
+  console.log("jello");
+
+  });
+
+  Database.getLevelObject("level 1", function(res){
+socket.emit('hey', res);
+   });
+
 
   socket.on('addLevelItem',function(data){
     console.log("x:"+data.x);

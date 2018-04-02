@@ -1,5 +1,7 @@
 var socket = io();
+
 Map = function(width, height,tile_width, tile_height) {
+
 	var self = {};
 	self.width = width;
 	self.height = height;
@@ -19,7 +21,7 @@ Map = function(width, height,tile_width, tile_height) {
 	};
 	//self.ObjectList is a list of lists of objects. There will be list for terrain, one for enemies, one for weapons, etc.
 	//The format of this list is still flexible
-	
+
 	//Filling tiles with empty objects
 	for(var i=0; i<self.numTilesX; i++){
 		self.tiles.push([]);
@@ -57,7 +59,7 @@ Map = function(width, height,tile_width, tile_height) {
 	}
 
 	//Function to add entity to it's corresponding list
-	self.addToObjectList = function(object){		
+	self.addToObjectList = function(object){
 		let id = object.id;
 		let type = object.type;
 
@@ -77,7 +79,7 @@ Map = function(width, height,tile_width, tile_height) {
 			list[id] = object;
 
 		socket.emit('addLevelItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
-		//{x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type}		
+		//{x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type}
 		console.log("Adding "+type+": ", object);
 		console.log("Updated ObjectList",self.ObjectList);
 	};
@@ -138,7 +140,7 @@ Map = function(width, height,tile_width, tile_height) {
 			console.log("Updated ObjectList:",self.ObjectList);
 		}else {
 			console.log("Nothing to remove!");
-		}			
+		}
 	};
 
 	self.setBackgroundImage = function(imageName){
@@ -179,7 +181,7 @@ Map = function(width, height,tile_width, tile_height) {
 		var filename = levelName+".json";
 		var Level = self.makeLevel();
 		Level.name = levelName;
- 
+
 		var str = JSON.stringify(Level).toString();
 		var a = document.createElement("a");
 		document.body.appendChild(a);
@@ -187,7 +189,7 @@ Map = function(width, height,tile_width, tile_height) {
 		a.href = URL.createObjectURL(file);
 		a.download = filename;
 		a.click();
-		
+
 		// console.log("Stringified:",str);
 		// var parsed = JSON.parse(str);
 		// console.log("Parsed:",parsed);
@@ -199,7 +201,7 @@ Map = function(width, height,tile_width, tile_height) {
 
 	self.makeLevel = function(){
 		var Level = {};
-	
+
 		Level.width = self.width;
 		Level.height = self.height;
 		Level.enemies = self.ObjectList.enemies;
