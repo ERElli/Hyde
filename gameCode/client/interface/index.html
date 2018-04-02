@@ -15,13 +15,17 @@
 		<script type="text/javascript" src="../engine/enemy.js"></script>
 		<script type="text/javascript" src="../engine/weapon.js"></script>
 		<script type="text/javascript" src="../engine/usable.js"></script>
+		
+		<script type="text/javascript" src="level.json"></script>
+		<script type="text/javascript" src="jsonTest.js"></script>
+		
 		<script type="text/javascript" src="../../levelEditor/Terrain.js"></script>
 		<script type="text/javascript" src="images.js"></script>
 		<script type="text/javascript" src="GUI.js"></script>
 		<script type="text/javascript" src="Animation.js"></script>
 
 		<script>
-		/*
+		
 		var socket = io();
 
 		//call the socket to get the level objects from database
@@ -36,7 +40,7 @@
 			//level objects should be in data, right now they are logged in console
 	    console.log( data);
 	  });
-	  */
+	  
 
 		let gameWidth=2000
 
@@ -90,7 +94,7 @@
 		//Creates background and foreground Canvases
 		init();    
 		startGame({'player':e, 'enemies':{'enemy2':enemy2}, 'terrain':terrain, 'pickUps':{'p1':pickUp}}); //'enemy1':enemy,'enemy2':enemy2}});// 'enemy3':enemy3, 'enemy4':enemy4}});
-		
+		//startGame(mydata);
 
 		</script>
 </html>
