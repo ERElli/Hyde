@@ -77,8 +77,14 @@ Map = function(width, height,tile_width, tile_height) {
 			}
 		}
 			list[id] = object;
-			if (type === "basic enemy"){
+			var temp = type;
+			if (type.includes("enemy") ){
 	 			socket.emit('addLevelItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
+   		} else if (type.includes("player")){
+	 			socket.emit('addPlayerItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
+   		}
+			else if (type.includes("Terrain")){
+	 			socket.emit('addTerrainItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
    		}
 		//{x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type}
 		console.log("Adding "+type+": ", object);
@@ -220,3 +226,10 @@ Map = function(width, height,tile_width, tile_height) {
 
 	return self;
 };
+
+
+/*
+[{
+"_id":"5ac3ceec22bb96f1b7fcf90b","level":"level1","enemies":[{"id":0.7827006398238396,"items":{"x":350,"y":250,"vx":0,"vy":0,"id":0.7827006398238396,"type":"basic enemy"}},{"id":0.13818070969281204,"items":{"x":450,"y":200,"vx":0,"vy":0,"id":0.13818070969281204,"type":"basic enemy"}}],"player":[{"id":0.3154181557039857,"items":{"x":500,"y":250,"vx":0,"vy":0,"id":0.3154181557039857,"type":"player"}}]
+}]
+*/
