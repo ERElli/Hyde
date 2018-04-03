@@ -13,8 +13,6 @@ GUI = function(container){
 				seconds =0;
 				minutes++;
 		}
-
-
 	  }, 1000);
 
     };
@@ -24,6 +22,7 @@ GUI = function(container){
 	var sPAnimation=0;
 	var bearAnimationStage=0;
 	var backgroundPositionCounter=0;
+	var editorBackgroundCounter
 	self.create= function(type, id, left, top, width, height){
 		var element= document.createElement(type);
 		element.id=id;
@@ -63,25 +62,38 @@ GUI = function(container){
 		self.gr_ctx = self.gr.getContext("2d");
 		self.ep_ctx.globalAlpha = 0.5;
 	}
+	//draw level editor background
+	self.editorBackground=function(offsetX,offsetY,img){
+		x=self.bg.width-offsetX;
+		y=0;
+		gui.bg_ctx.clearRect(0,0,self.bg.width,self.bg.height);
+		n=editorBackgroundCounter;
+		
+		gui.bg_ctx.drawImage(img,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
+		gui.bg_ctx.drawImage(img,x+self.bg.width*n,y,self.bg.width,self.bg.height);
+		gui.bg_ctx.drawImage(img,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
 
-	//draws background
+		img.onload=function(){
+		}
+		if(x<self.bg.width-self.bg.width*n){
+			editorBackgroundCounter++;
+		}
+		else if(x>(-self.bg.width)*n ){
+			editorBackgroundCounter--;
+		}
+	}
+	//draws gameplay background
 	self.drawMap=function(){
 		gui.bg_ctx.clearRect(0,0,self.bg.width,self.bg.height);
-		//
-		//!!!!!!!!!!!e.x will need to be changed once level object is used!!!!!!!!!!!
-		//
-		//n is number of canvas distance the player has travelled
 		n=backgroundPositionCounter;
 		x=self.bg.width-level['player'].x;
 		y=0;
 		Img.background2.onload=function(){
 		}
-
 		//continuously loops backgrounds
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*n,y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
-
     /*
 		//reached the end of the level
 		if(backgroundPositionCounter ==3){
@@ -93,10 +105,10 @@ GUI = function(container){
 		}
 		*/
 
-	 if(x<self.bg.width-self.bg.width*n){
+		if(x<self.bg.width-self.bg.width*n){
 			backgroundPositionCounter++;
 		}
-  	else if(x>(-self.bg.width)*n ){
+		else if(x>(-self.bg.width)*n ){
 			backgroundPositionCounter--;
 		}
 	};

@@ -146,7 +146,7 @@ var update = function() {
 	//Draw HUD
 	//draws background
 	gui.drawMap();
-	gui.HUD(gui.fg_ctx,player);
+	gui.HUD(gui.gr_ctx,player);
 	
 	
 	//Manage player -----------------------------------------------------------------------------------
