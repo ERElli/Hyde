@@ -19,8 +19,8 @@ function Terrain1x1(id, x, y){
 
 	self.type = "Terrain1x1";
 
-	self.draw = function(ctx){
-		ctx.drawTerrain(self, gui.fg_ctx, false);
+	self.draw = function(ctx,isLevelEditor){
+		gui.drawTerrain(self, ctx, isLevelEditor);
 		//this is just a temp function until we have art for 1x1 terrain
 	};
 

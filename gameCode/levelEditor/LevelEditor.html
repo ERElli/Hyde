@@ -210,8 +210,7 @@ drawGrid = function(){
 
 
 //Drawing Background
-gui.editorBackground(
-drawBackground = function(){
+/*drawBackground = function(){
 	gui.bg_ctx.clearRect(0,0,WIDTH,HEIGHT);
 	var image;
 	switch(self.selectedBackground){
@@ -235,14 +234,13 @@ drawBackground = function(){
 	// } else if(self.selectedBackground === "world3"){
 	// 	gui.bg_ctx.drawImage(Img.background3, 0, 0, Img.background3.width, Img.background3.height,offsetX,offsetY, WIDTH, HEIGHT);
 	// }
-};
+};*/
 
 init = function() {
 	container = document.getElementById("container");
 	gui = GUI(container);
 	gui.createCanvas(1250,650);
 	drawGrid();
-	drawBackground();
 };
 
 init();
@@ -295,26 +293,26 @@ doPressedAction = function() {
 		(offsetX===0)? offsetX = 0 : (offsetX += TILE_WIDTH);
 		gui.fg_ctx.translate(offsetX,offsetY);
 
-		gui.drawBackground(offsetX,offsetY,self.selectedBackground);
+		gui.editorBackground(offsetX,offsetY,self.selectedBackground);
 
 	}
 	if(controls.right){
 		gui.fg_ctx.translate(-offsetX,-offsetY);
 		(offsetX===(gui.bg.width-WIDTH))? (offsetX = gui.bg.width-WIDTH) : offsetX -= TILE_WIDTH;
 		gui.fg_ctx.translate(offsetX,offsetY);
-		gui.drawBackground(offsetX,offsetY,self.selectedBackground);
+		gui.editorBackground(offsetX,offsetY,self.selectedBackground);
 	}
 	if(controls.up){
 		gui.fg_ctx.translate(-offsetX,-offsetY);
 		(offsetY===0)? offsetY = 0 : (offsetY += TILE_HEIGHT);
 		gui.fg_ctx.translate(offsetX,offsetY);
-		gui.drawBackground(offsetX,offsetY,self.selectedBackground);
+		gui.editorBackground(offsetX,offsetY,self.selectedBackground);
 	}
 	if(controls.down){
 		gui.fg_ctx.translate(-offsetX,-offsetY);
 		(offsetY===gui.bg.height-HEIGHT)? (offsetY = gui.bg.height-HEIGHT) : offsetY -= TILE_HEIGHT;
 		gui.fg_ctx.translate(offsetX,offsetY);
-		gui.drawBackground(offsetX,offsetY,self.selectedBackground);
+		gui.editorBackground(offsetX,offsetY,self.selectedBackground);
 	}
 };
 
@@ -435,7 +433,8 @@ document.onclick = function(event) {
 self.worldTapped = function(id){
 	self.selectedBackground = id;
 	console.log(self.selectedBackground);
-	drawBackground(self.selectedBackground);
+	gui.editorBackground(self.selectedBackground);
+	//drawBackground(self.selectedBackground);
 }
 
 /*************************
