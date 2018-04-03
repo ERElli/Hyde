@@ -55,7 +55,13 @@ Animation=function(){
 			}
 		}else{}
 		return newX;
-	};	
+	};
+	self.fireAnimation=function(entity,numAnimation){
+		n=numAnimation;
+		en=entity;
+		
+		return numAnimation;		
+	}	
 	return self;
 }
 

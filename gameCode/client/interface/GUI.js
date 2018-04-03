@@ -204,10 +204,20 @@ GUI = function(container){
 				self.quickDraw(Img,en,ctx,en.x,en.y);
 				break;
 			case "pistol":
-				weapImg=Img.pistol;
+				var weapImg=Img.pistol;
+				var fW=weapImg.width/5;
+				var fH=weapImg.height/2;
+				if(!isLevelEditor){
+					xOffset=fW/2;
+					yOffset=fH/2;
+				}
+				aniX=0
 				newx=ani.getWeaponPosition(en);
-				self.quickDraw(weapImg,en,ctx,newx,en.y);
-
+				dir=ani.getPlayDirection(en);
+				if (en.isFiring==true){
+					aniX=ani.fireAnimation(en,en.fireTimer);
+				}
+				self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newx,en.y);
 				break;
 			case "shotgun":
 				weapImg=Img.shotgun;
@@ -253,6 +263,28 @@ GUI = function(container){
 			case "Terrain1x1":
 				self.quickDraw(Img.terrain1x1,t,ctx,t.x,t.y);
 			break;
+			case "self.terrain1x1Breakable":
+				self.quickDraw(Img.terrain1x1Breakable,t,ctx,t.x,t.y);
+			break;
+			case "self.terrain3x2":
+				self.quickDraw(Img.terrain3x2,t,ctx,t.x,t.y);
+			break;
+			case "self.terrain3x2Breakable":
+				self.quickDraw(Img.terrain3x2Breakable,t,ctx,t.x,t.y);
+			break;
+			case "self.terrain3x4":
+				self.quickDraw(Img.terrain3x4,t,ctx,t.x,t.y);
+			break;
+			case "self.terrain3x4Breakable":
+				self.quickDraw(Img.terrain3x4Breakable,t,ctx,t.x,t.y);
+			break;
+			case "self.terrain3x6":
+				self.quickDraw(Img.terrain3x6Breakable,t,ctx,t.x,t.y);
+			break;
+			case "self.terrain1x1Breakable":
+				self.quickDraw(Img.terrain3x6Breakable,t,ctx,t.x,t.y);
+			break;
+			
 
 		}
 		terrain.img.onload=function(){};
@@ -267,8 +299,10 @@ GUI = function(container){
 
 	self.quickPlayerDraw=function(img,en,ctx,aniX,aniDir,fW,fH){
 		ctx.drawImage(img,aniX*fW,aniDir*fH,fW,fH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
+	}		
+	self.quickAniWeaponDraw=function(img,en,ctx,aniX,dir,fW,fH,x,y){
+		ctx.drawImage(img,aniX*fW,dir*fH,fW,fH,x-xOffset-playX,y-yOffset,fW,fH);
 	}
-
 	self.quickAnimatedDraw=function(img,en,ctx,aniStepY,fW,fH){
 		ctx.drawImage(img,en.aniCount*fW,aniStepY*fH,fW,fH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
 	
@@ -332,7 +366,9 @@ GUI = function(container){
 		//ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
 		ctx.fillText('Weapon: ',weaponX,weaponY);
 		//draw current weapon image
- 		ctx.drawImage(weaponImg,weaponImgX,weaponImgY,player.weapon.width,player.weapon.height);
+		fW=weaponImg.width/5;
+		fH=weaponImg.height/2;
+ 		ctx.drawImage(weaponImg,0,0,fW,fH,weaponImgX,weaponImgY,player.weapon.width,player.weapon.height);
 		weaponImg.onload=function(){};
 	};
 	return self;
