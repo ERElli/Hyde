@@ -66,23 +66,17 @@
 		//Creates background and foreground Canvases
 		init();
 
-		/*var levelFromFactory = EntityFactory(level, false);
-		
-		//levelFromFactory.player = levelFromFactory.player[levelFromFactory.player];
-		
+		var levelFromFactory = EntityFactory(level, false);
+				
 		for (var id in levelFromFactory.player) {
 			//console.log(levelFromFactory.player[id]);
 			levelFromFactory.player = levelFromFactory.player[id]
 		}
-
 		
-		/*
 		for (var id in levelFromFactory.enemies) {
 			console.log(levelFromFactory.enemies[id]);
 			levelFromFactory.enemies[id].target = levelFromFactory.player;
-			console.log(levelFromFactory.enemies[id].target)
 		}
-		*/
 		
 		startGame(levelFromFactory);
 		
