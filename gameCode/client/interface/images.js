@@ -2,21 +2,21 @@ Img = function(pathToRoot) {
 	var self = {};
 	//background images
 	self.background1= new Image();
-	self.background1.src= pathToRoot+"client/interface/img/worldOneBackground.png";
+	self.background1.src= pathToRoot+"client/interface/img/background/worldOneBackground.png";
 	self.background2= new Image();
-	self.background2.src= pathToRoot+"client/interface/img/worldTwoBackground.png";
+	self.background2.src= pathToRoot+"client/interface/img/background/worldTwoBackground.png";
 	self.background3= new Image();
-	self.background3.src= pathToRoot+"client/interface/img/worldThreeBackground.png";
+	self.background3.src= pathToRoot+"client/interface/img/background/worldThreeBackground.png";
 	//player images	
 	self.playerSmall= new Image();
-	self.playerSmall.src= pathToRoot+"client/interface/img/entity/movingCharacter.png";
+	self.playerSmall.src= pathToRoot+"client/interface/img/entity/humanoid/movingCharacter.png";
 	self.playerBig= new Image();
-	self.playerBig.src= pathToRoot+"client/interface/img/entity/bigGuy.png";
+	self.playerBig.src= pathToRoot+"client/interface/img/entity/humanoid/bigGuy.png";
 	//enemy images
 	self.basicEnemy1= new Image();
-	self.basicEnemy1.src= pathToRoot+"client/interface/img/entity/basicEnemy.png";
+	self.basicEnemy1.src= pathToRoot+"client/interface/img/entity/humanoid/basicEnemy.png";
 	self.basicEnemy2= new Image();
-	self.basicEnemy2.src= pathToRoot+"client/interface/img/entity/flyingEnemy.png";
+	self.basicEnemy2.src= pathToRoot+"client/interface/img/entity/humanoid/flyingEnemy.png";
 	self.basicEnemy3= new Image();
 	self.basicEnemy3.src= pathToRoot+"client/interface/img/enemy3.png";
 	
@@ -27,11 +27,11 @@ Img = function(pathToRoot) {
 	self.infinity.src= pathToRoot+"client/interface/img/inf.png";
 	//weapons and ammo
 	self.pistol= new Image();
-	self.pistol.src= pathToRoot+"client/interface/img/pistolWeapon.png";
+	self.pistol.src= pathToRoot+"client/interface/img/entity/weapon/pistolAttack.png";
 	self.assaultWeapon= new Image();
 	self.assaultWeapon.src= pathToRoot+"client/interface/img/assaultWeapon.png";
 	self.swordWeapon= new Image();
-	self.swordWeapon.src= pathToRoot+"client/interface/img/swordWeapon.png";
+	self.swordWeapon.src= pathToRoot+"client/interface/img/entity/weapon/swordAttack.png";
 	self.shotgun= new Image();
 	self.shotgun.src= pathToRoot+"client/interface/img/shotgun.png";
 	self.bullet= new Image();
