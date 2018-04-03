@@ -107,6 +107,9 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	self.isLaunched = false;
 
 	self.falling = false;
+	
+	self.xOffset = self.width/2;
+	self.yOffset = self.height/2;
 
 	self.ax = 0;
 	self.ay = 0;

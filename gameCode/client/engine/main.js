@@ -395,12 +395,36 @@ var update = function() {
 		
 		
 		if (blockLeftEntity(block, player) && player.vx < 0) {
-			player.x = block.x + block.width+player.width/2;
-			player.vx = 1;
+			
+			if (!(block.type == "Terrain1x1Breakable")) {
+				player.x = block.x + block.width+player.width/2;
+				player.vx = 2;
+			}
+			
+			else {
+				player_damage = Math.abs(player.getMomentum()) / 100;
+				block.health -= player_damage;
+				if (block.health <= 0 || Math.abs(player.getMomentum()) >= block.breakAt) {
+					delete  terrain[key];
+				}
+			}
+			
 		}
 		if (blockRightEntity(block, player) && player.vx > 0) {
-			player.x = block.x-player.width/2;
-			player.vx = -1;
+			
+			if (!(block.type == "Terrain1x1Breakable")) {
+				player.x = block.x-player.width/2;
+				player.vx =-2;
+			}
+			
+			else {
+				player_damage = Math.abs(player.getMomentum()) / 100;
+				block.health -= player_damage;
+				if (block.health <= 0 || Math.abs(player.getMomentum()) >= block.breakAt) {
+					delete  terrain[key];
+				}
+			}
+			
 		}
 		
 		
@@ -470,7 +494,7 @@ var blockUnderEntity = function(terrain, entity) {
 	
 	terrain_rect = {'x':terrain.x, 'y':terrain.y, 'width':terrain.width, 'height':terrain.height/4};
 	
-	entity_rect = {'x':entity.x-entity.width/4, 'y':entity.y+entity.height/2, 'width':entity.width/2, 'height':entity.height/4};
+	entity_rect = {'x':entity.x-entity.xOffset/2, 'y':entity.y+entity.yOffset, 'width':entity.xOffset, 'height':entity.yOffset/2};
 	
 	//console.log(testCollision(terrain, entity_rect));
 	return testCollision(terrain_rect, entity_rect);
@@ -479,7 +503,7 @@ var blockUnderEntity = function(terrain, entity) {
 
 var blockLeftEntity = function(terrain, entity) {
 	
-	entity_rect = {'x':entity.x-entity.width/2, 'y':entity.y-entity.height/4, 'width':entity.width/4, 'height':entity.height/2};
+	entity_rect = {'x':entity.x-entity.xOffset, 'y':entity.y-entity.yOffset/2, 'width':entity.xOffset/2, 'height':entity.yOffset};
 	
 	//console.log(testCollision(terrain, entity_rect));
 	return testCollision(terrain, entity_rect);
@@ -488,7 +512,7 @@ var blockLeftEntity = function(terrain, entity) {
 
 var blockRightEntity = function(terrain, entity) {
 	
-	entity_rect = {'x':entity.x+entity.width/2, 'y':entity.y-entity.height/4, 'width':entity.width/4, 'height':entity.height/2};
+	entity_rect = {'x':entity.x+entity.xOffset, 'y':entity.y-entity.yOffset/2, 'width':entity.xOffset/2, 'height':entity.yOffset};
 	
 	//console.log(testCollision(terrain, entity_rect));
 	return testCollision(terrain, entity_rect);
@@ -497,7 +521,7 @@ var blockRightEntity = function(terrain, entity) {
 
 var blockOverEntity = function(terrain, entity) {
 	
-	entity_rect = {'x':entity.x-entity.width/4, 'y':entity.y-entity.height/2, 'width':entity.width/2, 'height':entity.height/4};
+	entity_rect = {'x':entity.x-entity.xOffset/2, 'y':entity.y-entity.yOffset, 'width':entity.xOffset, 'height':entity.yOffset/2};
 	
 	//console.log(testCollision(terrain, entity_rect));
 	return testCollision(terrain, entity_rect);
