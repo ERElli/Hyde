@@ -39,9 +39,9 @@ Img = function(pathToRoot) {
 
 	//Terrain Images
 	self.terrain1x1= new Image();
-	self.terrain1x1.src= pathToRoot+"client/interface/img/terrain/terrain3x2.png";
+	self.terrain1x1.src= pathToRoot+"client/interface/img/terrain/block.png";
 	self.terrain1x1Breakable= new Image();
-	self.terrain1x1Breakable.src= pathToRoot+"client/interface/img/terrain/breakableTerrain3x2.png";
+	self.terrain1x1Breakable.src= pathToRoot+"client/interface/img/terrain/block.png";
 	self.terrain3x2= new Image();
 	self.terrain3x2.src= pathToRoot+"client/interface/img/terrain/terrain3x2.png";
 	self.terrain3x2Breakable= new Image();
