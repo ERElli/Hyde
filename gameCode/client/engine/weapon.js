@@ -16,11 +16,13 @@ function Weapon(type, id, x, y, vx, vy, width, height, img, color, firingRate, b
 
 	self.update = function(aimAngle) {
 		self.aimAngle=aimAngle;
-		
-		if (self.isFiring && self.fireTimer > self.maxFireTimer) {
-			self.isFiring = false;
+		if(self.isFiring){
+			self.fireTimer++;
+			if (self.fireTimer > self.maxFireTimer){	
+				self.isFiring = false;
+				self.fireTimer=0;
+			}
 		}
-		self.fireTimer++;
 		self.updatePosition();
 		self.draw(gui.fg_ctx,false);
 	}

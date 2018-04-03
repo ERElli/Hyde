@@ -29,11 +29,11 @@ Img = function(pathToRoot) {
 	self.pistol= new Image();
 	self.pistol.src= pathToRoot+"client/interface/img/entity/weapon/pistolAttack.png";
 	self.assaultWeapon= new Image();
-	self.assaultWeapon.src= pathToRoot+"client/interface/img/assaultWeapon.png";
+	self.assaultWeapon.src= pathToRoot+"client/interface/img/entity/weapon/assaultAttack.png";
 	self.swordWeapon= new Image();
 	self.swordWeapon.src= pathToRoot+"client/interface/img/entity/weapon/swordAttack.png";
 	self.shotgun= new Image();
-	self.shotgun.src= pathToRoot+"client/interface/img/shotgun.png";
+	self.shotgun.src= pathToRoot+"client/interface/img/entity/weapon/shotgunAttack.png";
 	self.bullet= new Image();
 	self.bullet.src= pathToRoot+"client/interface/img/bullet.png";
 
