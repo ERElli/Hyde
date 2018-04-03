@@ -407,6 +407,10 @@ var update = function() {
 				if (block.health <= 0 || Math.abs(player.getMomentum()) >= block.breakAt) {
 					delete  terrain[key];
 				}
+				else {
+					player.x = block.x + block.width+player.width/2;
+					player.vx = 2;
+				}
 			}
 			
 		}
@@ -422,6 +426,10 @@ var update = function() {
 				block.health -= player_damage;
 				if (block.health <= 0 || Math.abs(player.getMomentum()) >= block.breakAt) {
 					delete  terrain[key];
+				}
+				else {
+					player.x = block.x-player.width/2;
+					player.vx =-2;
 				}
 			}
 			
