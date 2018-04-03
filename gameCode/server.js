@@ -82,6 +82,27 @@ app.get('/client/interface/img/bigGuy.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/bigGuy.png');
 });
 
+app.get('/client/interface/img/entity/basicEnemy.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/basicEnemy.png');
+});
+app.get('/client/interface/img/entity/bigGuy.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/bigGuy.png');
+});
+
+app.get('/client/interface/img/entity/flyingEnemy.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/flyingEnemy.png');
+});
+app.get('/client/interface/img/entity/movingCharacter.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/flyingEnemy.png');
+});
+app.get('/EntityFactory.js',function(req, res) {
+    res.sendFile(__dirname + '/levelEditor/EntityFactory.js');
+});
+
+app.get('/testLevel.js',function(req, res) {
+    res.sendFile(__dirname + '/levelEditor/testLevel.js');
+});
+
 app.get('/client/interface/img/enemy1.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/enemy1.png');
 });
@@ -425,7 +446,7 @@ socket.emit('hey', res);
 
 
   socket.on('addLevelItem',function(data){
-    console.log("x:"+data.x);
+    console.log(data);
    Database.addLevelItem(data);
   });
 
