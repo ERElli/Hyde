@@ -449,6 +449,14 @@ socket.emit('hey', res);
     console.log(data);
    Database.addLevelItem(data);
   });
+  socket.on('addPlayerItem',function(data){
+    console.log(data);
+   Database.addPlayerItem(data);
+  });
+  socket.on('addTerrainItem',function(data){
+    console.log(data);
+   Database.addTerrainItem(data);
+  });
 
   socket.on('deleteLevelItem',function(data){
    Database.deleteLevelItem(data);

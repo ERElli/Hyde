@@ -103,11 +103,23 @@
 
 <script>
 var socket = io();
+var level;
 //This will Receive the level objects and set them to the variable level
 socket.on('hey', function(data){
-  level = data;
-  console.log(level);
+  level = JSON.parse(data);
+  //console.log(level[0].enemies);
+  Update(level);
+
 });
+
+var Update = function(level){
+  var l  = level;
+   console.log("heeey"+JSON.stringify(l[0] ));
+  //for(var i=0; i<l[0].enemies.length; i++){
+  //  console.log("heeey"+JSON.stringify(l[0].enemies[i].items) );
+  //}
+  //console.log("heeey"+l[0].enemies );
+}
 
 if (window.File && window.FileReader && window.FileList && window.Blob) {
   alert("SUCCESS!");

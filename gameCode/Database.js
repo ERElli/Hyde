@@ -10,12 +10,18 @@ Database.levelSave = function(data){
   //db.saveLevel.update({username:username},{  $addToSet: {items: {level : "level 1", time: 130} }});
 }
 Database.addLevelItem = function(data, cb){
-
   //console.log("nice"+data.x, data.y, data.w, data.h, data.id, data.type);
   //db.saveLevel.remove({id:data.rand}, { $addToSet:{ items: {x:data.x, y: data.y, w: data.w,h: data.h,id: data.id,type: data.type} } }, {upsert: true});
-  db.saveLevel.update({level:"level1"},   { $addToSet:{ enemies: { id: data.id, items: {x:data.x, y: data.y, vx: data.vx,vy: data.vy,id: data.id,type: data.type} }, terrain:{}, player: {} } }, {upsert: true});
-
+  db.saveLevel.update({level:"level1"},   { $addToSet:{ enemies: { id: data.id, items: {x:data.x, y: data.y, vx: data.vx,vy: data.vy,id: data.id,type: data.type} } } }, {upsert: true});
 }
+Database.addPlayerItem = function(data, cb){
+  db.saveLevel.update({level:"level1"},   { $addToSet:{ player: { id: data.id, items: {x:data.x, y: data.y, vx: data.vx,vy: data.vy,id: data.id,type: data.type} } } }, {upsert: true});
+}
+Database.addTerrainItem = function(data, cb){
+  console.log("it works");
+  db.saveLevel.update({level:"level1"},   { $addToSet:{ terrain: { id: data.id, items: {x:data.x, y: data.y, vx: data.vx,vy: data.vy,id: data.id,type: data.type} } } }, {upsert: true});
+}
+
 Database.getLevelObject = function(data, cb){
 
   //console.log("nice"+data.x, data.y, data.w, data.h, data.id, data.type);
