@@ -68,18 +68,32 @@ GUI = function(container){
 		y=0;
 		gui.bg_ctx.clearRect(0,0,self.bg.width,self.bg.height);
 		n=editorBackgroundCounter;
+		var image;
+		switch(img){
+			case 'world1':
+				image = Img.background1;
+				break;
+			case 'world2':
+				image = Img.background2;
+				break;
+			case 'world3':
+				image = Img.background3;
+				break;
+		}
+		if(image != null){
+			gui.bg_ctx.drawImage(img,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
+			gui.bg_ctx.drawImage(img,x+self.bg.width*n,y,self.bg.width,self.bg.height);
+			gui.bg_ctx.drawImage(img,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
 		
-		gui.bg_ctx.drawImage(img,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
-		gui.bg_ctx.drawImage(img,x+self.bg.width*n,y,self.bg.width,self.bg.height);
-		gui.bg_ctx.drawImage(img,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
-
-		img.onload=function(){
-		}
-		if(x<self.bg.width-self.bg.width*n){
-			editorBackgroundCounter++;
-		}
-		else if(x>(-self.bg.width)*n ){
-			editorBackgroundCounter--;
+			image.onload=function(){
+			}
+		
+			if(x<self.bg.width-self.bg.width*n){
+				editorBackgroundCounter++;
+			}
+			else if(x>(-self.bg.width)*n ){
+				editorBackgroundCounter--;
+			}
 		}
 	}
 	//draws gameplay background
@@ -233,8 +247,7 @@ GUI = function(container){
 			playX=level['player'].x-self.fg.width/2;
 			xOffset=0;
 			yOffset=0;
-			//xOffset=t.width/2;
-			//yOffset=t.height/2;
+			
 		}
 		ctx.save();
 		switch(terrain.type){
