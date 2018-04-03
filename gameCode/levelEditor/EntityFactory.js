@@ -47,7 +47,9 @@ EntityFactory = function(levelString,isLevelEditor){
 						}
 						break;
 					case "player":
-						self[generalType][id] = Player(id,mX,mY,0,0,Img.playerSmall,null,false);
+						let weapID = Math.random();
+						let weapon = Pistol(weapID, mX, mY, 0, 0, 25, 25, Img.pistol, 'red', id);
+						self[generalType][id] = Player(id,mX,mY,0,0,Img.playerSmall,weapon,false);
 						break;
 					case "enemies":
 						switch(object.type){
