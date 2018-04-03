@@ -433,8 +433,7 @@ document.onclick = function(event) {
 self.worldTapped = function(id){
 	self.selectedBackground = id;
 	console.log(self.selectedBackground);
-	gui.editorBackground(self.selectedBackground);
-	//drawBackground(self.selectedBackground);
+	gui.editorBackground(offsetX,offsetY,self.selectedBackground);
 }
 
 /*************************
