@@ -77,10 +77,12 @@ Map = function(width, height,tile_width, tile_height) {
 			}
 		}
 			list[id] = object;
-
-		socket.emit('addLevelItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
+			if (type === "basic enemy"){
+	 			socket.emit('addLevelItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
+   		}
 		//{x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type}
 		console.log("Adding "+type+": ", object);
+
 		console.log("Updated ObjectList",self.ObjectList);
 	};
 
