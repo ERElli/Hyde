@@ -1,10 +1,10 @@
 EntityFactory = function(levelString,isLevelEditor){
-	console.log(levelString);
+	//console.log(levelString);
 	var self = {};
 
 	//creating a JSON object from a strin
 	let LevelObject = JSON.parse(levelString);
-	console.log("Level Object",LevelObject);
+	//console.log("Level Object",LevelObject);
 
 	var player;
 

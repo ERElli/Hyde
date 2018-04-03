@@ -6,13 +6,16 @@ function Enemy(type, id, x, y, vx, vy, width, height, img, color, acceleration, 
 
 	self.zeroPoint = x;
 	self.patrolRange = patrolRange;
-	self.target = target;
+	self.target = target;	
 	self.maxForward = self.zeroPoint + self.patrolRange;
 	self.maxBackward = self.zeroPoint - self.patrolRange;
 	
 	
 	var superUpdatePos = self.updatePosition;
 	self.updatePosition = function() {
+		
+		//console.log("In Enemy: " + self.target);
+
 		
 		if (self.isLaunched) {
 			self.ax = 0;
@@ -29,7 +32,7 @@ function Enemy(type, id, x, y, vx, vy, width, height, img, color, acceleration, 
 		}
 		
 		else {
-			if (self.x < target.x) {
+			if (self.x < self.target.x) {
 				self.ax = self.acceleration;
 			}
 			else {
