@@ -17,7 +17,7 @@
 		<script type="text/javascript" src="../engine/usable.js"></script>
 		
 		<script type="text/javascript" src="level.json"></script>
-		<script type="text/javascript" src="jsonTest.js"></script>
+		<script type="text/javascript" src="../../levelEditor/EntityFactory.js"></script>
 		
 		<script type="text/javascript" src="../../levelEditor/Terrain.js"></script>
 		<script type="text/javascript" src="images.js"></script>
@@ -65,9 +65,20 @@
 		//Creates background and foreground Canvases
 		init();
 
+		var levelFromFactory = EntityFactory(level, false);
+		
+		//levelFromFactory.player = levelFromFactory.player[levelFromFactory.player];
+		
+		for (var id in levelFromFactory.player) {
+			console.log(levelFromFactory.player[id]);
+			levelFromFactory.player = levelFromFactory.player[id]
+		}
+		console.log("IN INDEX: " + levelFromFactory.player);
 		
 		
 		//console.log(mydata);
+		
+		/*
 		
 		var level = {}
 
@@ -112,23 +123,22 @@
 			if (t.type == 'Terrain1x1') {
 				block = Terrain1x1(t.id, t.x, t.y);
 			}
-			/*
 			else if (e.type == 'tank enemy') {
 				enemy =  new TankEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
 			}
 			else {
 				enemy =  new FlyingEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
 			}
-			*/
 			
 			level['terrain'][t.id] = block;
 			//console.log(level['terrain']);
 			
 		}
 		
+		*/
 		
 		
-		startGame(level);
+		startGame(levelFromFactory);
 
 
 		</script>
