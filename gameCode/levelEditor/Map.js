@@ -84,7 +84,7 @@ Map = function(width, height,tile_width, tile_height) {
 	 			socket.emit('addPlayerItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
    		}
 			else if (type.includes("Terrain")){
-	 			socket.emit('addTerrainItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
+	 			socket.emit('addTerrainItem', {x: object.x, y:object.y, id: object.id, type: object.type});
    		}
 		//{x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type}
 		console.log("Adding "+type+": ", object);
@@ -144,6 +144,17 @@ Map = function(width, height,tile_width, tile_height) {
 
 			gui.fg_ctx.clearRect(x,y,toBeRemoved.width,toBeRemoved.height);
 			self.makeFreeSpace(toBeRemoved);
+
+			if (type.includes("enemy") ){
+				socket.emit('deleteLevelItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, vx: toBeRemoved.vx, vy: toBeRemoved.vy, type: toBeRemoved.type});
+			} else if (type.includes("player")){
+				socket.emit('deletePlayerItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, vx: toBeRemoved.vx, vy: toBeRemoved.vy, type: toBeRemoved.type});
+			}
+			else if (type.includes("Terrain")){
+				socket.emit('deleteTerrainItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
+			}
+			console.log("hello world "+ toBeRemoved.id );
+
 			console.log("Removing Entity:",toBeRemoved);
 			console.log("Updated ObjectList:",self.ObjectList);
 		}else {

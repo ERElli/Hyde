@@ -459,6 +459,19 @@ socket.emit('hey', res);
   });
 
   socket.on('deleteLevelItem',function(data){
+    console.log(data);
+   Database.deleteLevelItem(data);
+  });
+  socket.on('deletePlayerItem',function(data){
+    console.log(data);
+   Database.deletePlayerItem(data);
+  });
+  socket.on('deleteTerrainItem',function(data){
+    console.log(data);
+   Database.deleteTerrainItem(data);
+  });
+
+  socket.on('deleteLevelItem',function(data){
    Database.deleteLevelItem(data);
   });
 
