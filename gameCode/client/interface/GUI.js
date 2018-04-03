@@ -263,25 +263,25 @@ GUI = function(container){
 			case "Terrain1x1":
 				self.quickDraw(Img.terrain1x1,t,ctx,t.x,t.y);
 				break;
-			case "self.terrain1x1Breakable":
+			case "Terrain1x1Breakable":
 				self.quickDraw(Img.terrain1x1Breakable,t,ctx,t.x,t.y);
 				break;
-			case "self.terrain3x2":
+			case "Terrain3x2":
 				self.quickDraw(Img.terrain3x2,t,ctx,t.x,t.y);
 				break;
-			case "self.terrain3x2Breakable":
+			case "Terrain3x2Breakable":
 				self.quickDraw(Img.terrain3x2Breakable,t,ctx,t.x,t.y);
 				break;
-			case "self.terrain3x4":
+			case "Terrain3x4":
 				self.quickDraw(Img.terrain3x4,t,ctx,t.x,t.y);
 				break;
-			case "self.terrain3x4Breakable":
+			case "Terrain3x4Breakable":
 				self.quickDraw(Img.terrain3x4Breakable,t,ctx,t.x,t.y);
 				break;
-			case "self.terrain3x6":
+			case "Terrain3x6":
 				self.quickDraw(Img.terrain3x6,t,ctx,t.x,t.y);
 				break;
-			case "self.terrain1x1Breakable":
+			case "Terrain3x6Breakable":
 				self.quickDraw(Img.terrain3x6Breakable,t,ctx,t.x,t.y);
 				break;
 			
