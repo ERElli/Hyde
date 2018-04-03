@@ -9,9 +9,18 @@ function Weapon(type, id, x, y, vx, vy, width, height, img, color, firingRate, b
 	self.bulletType = bulletType;
 	self.range = range;
 	self.ammo = ammo;
+	
+	self.fireTimer = 0;
+	self.maxFireTimer = 5;
+	self.isFiring = false;
 
 	self.update = function(aimAngle) {
 		self.aimAngle=aimAngle;
+		
+		if (self.isFiring && self.fireTimer > self.maxFireTimer) {
+			self.isFiring = false;
+		}
+		self.fireTimer++;
 		self.updatePosition();
 		self.draw(gui.fg_ctx,false);
 	}
@@ -35,6 +44,7 @@ function Pistol(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	
 	
 	self.fire = function(angle) {
+		
 		self.ammo--;
 		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf + self.vx;
 		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf + self.vy;
@@ -84,8 +94,6 @@ function Sword(id, x, y, vx, vy, width, height, img, color, ownerID) {
 		
 	self.fire = function(angle) {
 		
-		
-
 		return [new MeleeBullet(Math.random(),self.x,self.y,self.vx,self.vy,200,200, "img", "gold", ownerID)];
 
 	}	
