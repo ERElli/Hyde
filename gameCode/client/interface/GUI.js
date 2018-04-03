@@ -241,7 +241,7 @@ GUI = function(container){
 				break;
 		}
 		//console.log(entity);
-		entity.img.onload=function(){};
+		//entity.img.onload=function(){};
 		ctx.restore();
 	};
 	//draws terrain
@@ -262,28 +262,28 @@ GUI = function(container){
 		switch(terrain.type){
 			case "Terrain1x1":
 				self.quickDraw(Img.terrain1x1,t,ctx,t.x,t.y);
-			break;
+				break;
 			case "self.terrain1x1Breakable":
 				self.quickDraw(Img.terrain1x1Breakable,t,ctx,t.x,t.y);
-			break;
+				break;
 			case "self.terrain3x2":
 				self.quickDraw(Img.terrain3x2,t,ctx,t.x,t.y);
-			break;
+				break;
 			case "self.terrain3x2Breakable":
 				self.quickDraw(Img.terrain3x2Breakable,t,ctx,t.x,t.y);
-			break;
+				break;
 			case "self.terrain3x4":
 				self.quickDraw(Img.terrain3x4,t,ctx,t.x,t.y);
-			break;
+				break;
 			case "self.terrain3x4Breakable":
 				self.quickDraw(Img.terrain3x4Breakable,t,ctx,t.x,t.y);
-			break;
+				break;
 			case "self.terrain3x6":
-				self.quickDraw(Img.terrain3x6Breakable,t,ctx,t.x,t.y);
-			break;
+				self.quickDraw(Img.terrain3x6,t,ctx,t.x,t.y);
+				break;
 			case "self.terrain1x1Breakable":
 				self.quickDraw(Img.terrain3x6Breakable,t,ctx,t.x,t.y);
-			break;
+				break;
 			
 
 		}
