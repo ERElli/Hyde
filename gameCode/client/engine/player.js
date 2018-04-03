@@ -20,8 +20,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	var bigMaxVX = 12*mpsTOppf;
 	var bigMaxVY = 20*mpsTOppf;
 	var bigJumpSpeed = 3*mpsTOppf;
-	var bigSlowDown = 4;
-	
+	var bigSlowDown = 4;	
 
 	
 	//type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, health, weapon, mass, jumpSpeed, meleeDamage
@@ -37,7 +36,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	self.smallSpeed = 5;
 	self.isBig = isBig;	
 	self.doubleJumped = false;
-	
+
 	self.acceleration = self.isBig ? bigAcceleration:smallAcceleration;
 	self.jumpSpeed = self.isBig ? bigJumpSpeed:smallJumpSpeed;
 	self.maxVelocityX = self.isBig ? bigMaxVX:smallMaxVX;

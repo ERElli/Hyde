@@ -59,8 +59,7 @@ Animation=function(){
 	self.fireAnimation=function(entity,numAnimation){
 		n=numAnimation;
 		en=entity;
-		
-		return numAnimation;		
+		return n;		
 	}	
 	return self;
 }
