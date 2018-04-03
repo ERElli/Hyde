@@ -18,7 +18,7 @@ function WeaponPickUp(id, x, y, weaponType, target) {
 	
 	self.weaponType = weaponType;
 	
-	self.weapon = new Sword("w1", self.x, self.y, 0, 0, 50, 50,"pistol_image",null, player.id);
+	self.weapon = new Sword("w1", self.x, self.y, 0, 0, 50, 50,"pistol_image",null, target.id);
 	
 	self.applyEffect = function() {
 		target.weapon = self.weapon;

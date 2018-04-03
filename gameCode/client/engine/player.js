@@ -110,6 +110,9 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 				self.maxVelocityY = smallMaxVY;
 				self.jumpSpeed = smallJumpSpeed;
 				self.slowDownFactor = smallSlowDown;
+				
+				self.xOffset = self.width/2;
+				self.yOffset = self.height/2;
 			}
 			else {
 				self.isBig = true;
@@ -121,6 +124,9 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 				self.maxVelocityY = bigMaxVY;
 				self.jumpSpeed = bigJumpSpeed;
 				self.slowDownFactor = bigSlowDown;
+				
+				self.xOffset = self.width/3;
+				self.yOffset = self.height/3;
 			}
 			
 			self.y -= (self.height - oldHeight)/2;
