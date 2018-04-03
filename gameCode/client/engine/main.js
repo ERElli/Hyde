@@ -402,9 +402,9 @@ var update = function() {
 			}
 			
 			else {
-				player_damage = Math.abs(player.getMomentum()) / 100;
-				block.health -= player_damage;
-				if (block.health <= 0 || Math.abs(player.getMomentum()) >= block.breakAt) {
+				//player_damage = Math.abs(player.getMomentum()) / 100;
+				//block.health -= player_damage;
+				if (Math.abs(player.getMomentum()) >= block.breakAt) {
 					delete  terrain[key];
 				}
 				else {
@@ -422,9 +422,9 @@ var update = function() {
 			}
 			
 			else {
-				player_damage = Math.abs(player.getMomentum()) / 100;
-				block.health -= player_damage;
-				if (block.health <= 0 || Math.abs(player.getMomentum()) >= block.breakAt) {
+				//player_damage = Math.abs(player.getMomentum()) / 100;
+				//block.health -= player_damage;
+				if (Math.abs(player.getMomentum()) >= block.breakAt) {
 					delete  terrain[key];
 				}
 				else {
@@ -562,7 +562,7 @@ var startGame = function(initial_level) {
 	//console.log(player);
 	enemies = level["enemies"];
 	terrain = level["terrain"];
-	breakable = new Terrain1x1Breakable(Math.random(), 0, 0);
+	breakable = new Terrain1x1Breakable(Math.random(), 500, 325);
 	terrain[breakable.id] = breakable;
 	console.log(terrain[breakable.id]['x'])
 	//surfaceMods = level["terrain"];

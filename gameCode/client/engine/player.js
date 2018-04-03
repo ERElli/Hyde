@@ -113,6 +113,8 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 				
 				self.xOffset = self.width/2;
 				self.yOffset = self.height/2;
+				
+				self.launch(px/self.mass);
 			}
 			else {
 				self.isBig = true;
