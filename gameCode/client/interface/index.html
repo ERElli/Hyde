@@ -71,16 +71,25 @@
 		//levelFromFactory.player = levelFromFactory.player[levelFromFactory.player];
 		
 		for (var id in levelFromFactory.player) {
-			console.log(levelFromFactory.player[id]);
+			//console.log(levelFromFactory.player[id]);
 			levelFromFactory.player = levelFromFactory.player[id]
 		}
-		console.log("IN INDEX: " + levelFromFactory.player);
+
+		
+		/*
+		for (var id in levelFromFactory.enemies) {
+			console.log(levelFromFactory.enemies[id]);
+			levelFromFactory.enemies[id].target = levelFromFactory.player;
+			console.log(levelFromFactory.enemies[id].target)
+		}
 		*/
+		
+		startGame(levelFromFactory);
 		
 		//console.log(mydata);
 		
 		
-		
+		/*
 		var level = {}
 
 		
@@ -136,8 +145,7 @@
 			
 		}
 		
-		
-		startGame(level);
+		*/
 
 
 		</script>

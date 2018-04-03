@@ -1,10 +1,12 @@
 EntityFactory = function(levelString,isLevelEditor){
-	console.log(levelString);
+	//console.log(levelString);
 	var self = {};
 
 	//creating a JSON object from a strin
 	let LevelObject = JSON.parse(levelString);
-	console.log("Level Object",LevelObject);
+	//console.log("Level Object",LevelObject);
+
+	var player;
 
 	for(let generalType in LevelObject){
 		// console.log(generalType);
@@ -16,7 +18,6 @@ EntityFactory = function(levelString,isLevelEditor){
 				let mX = object.x;
 				let mY = object.y;
 				let mObject = self[generalType];
-
 				switch(generalType){
 					case "terrain":
 						switch(object.type){
@@ -50,6 +51,7 @@ EntityFactory = function(levelString,isLevelEditor){
 						let weapID = Math.random();
 						let weapon = Pistol(weapID, mX, mY, 0, 0, 25, 25, Img.pistol, 'red', id);
 						self[generalType][id] = Player(id,mX,mY,0,0,Img.playerSmall,weapon,false);
+						player = self[generalType][id];
 						break;
 					case "enemies":
 						switch(object.type){
@@ -70,8 +72,14 @@ EntityFactory = function(levelString,isLevelEditor){
 				}
 			}
 		}
+
 		
 		// console.log(Object.keys(self[generalType]).length);
+	}
+
+	//Giving all enemies a target
+	for(let id in self['enemies']){
+		self['enemies'][id].target = player;
 	}
 
 	self.name = LevelObject.name;
