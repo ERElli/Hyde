@@ -554,6 +554,9 @@ var startGame = function(initial_level) {
 	//console.log(player);
 	enemies = level["enemies"];
 	terrain = level["terrain"];
+	breakable = new Terrain1x1Breakable(Math.random(), 0, 0);
+	terrain[breakable.id] = breakable;
+	console.log(terrain[breakable.id]['x'])
 	//surfaceMods = level["terrain"];
 	pickUps = level['pickUps']
 	//console.log(pickUps['p1']);
