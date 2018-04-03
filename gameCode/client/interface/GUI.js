@@ -22,7 +22,7 @@ GUI = function(container){
 	var sPAnimation=0;
 	var bearAnimationStage=0;
 	var backgroundPositionCounter=0;
-	var editorBackgroundCounter
+	var editorBackgroundCounter=0;
 	self.create= function(type, id, left, top, width, height){
 		var element= document.createElement(type);
 		element.id=id;
@@ -64,11 +64,12 @@ GUI = function(container){
 	}
 	//draw level editor background
 	self.editorBackground=function(offsetX,offsetY,img){
-		x=self.bg.width-offsetX;
+		x=self.bg.width+offsetX;
 		y=0;
 		gui.bg_ctx.clearRect(0,0,self.bg.width,self.bg.height);
 		n=editorBackgroundCounter;
 		var image;
+		console.log(img);
 		switch(img){
 			case 'world1':
 				image = Img.background1;
@@ -80,14 +81,12 @@ GUI = function(container){
 				image = Img.background3;
 				break;
 		}
+		console.log(image);
 		if(image != null){
-			gui.bg_ctx.drawImage(img,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
-			gui.bg_ctx.drawImage(img,x+self.bg.width*n,y,self.bg.width,self.bg.height);
-			gui.bg_ctx.drawImage(img,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
-		
-			image.onload=function(){
-			}
-		
+			gui.bg_ctx.drawImage(image,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
+			gui.bg_ctx.drawImage(image,x+self.bg.width*n,y,self.bg.width,self.bg.height);
+			gui.bg_ctx.drawImage(image,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
+			image.onload=function(){};
 			if(x<self.bg.width-self.bg.width*n){
 				editorBackgroundCounter++;
 			}
