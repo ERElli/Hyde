@@ -167,6 +167,9 @@ app.get('/client/interface/img/swordWeapon.png',function(req, res) {
 app.get('/client/interface/img/bullet.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/bullet.png');
 });
+app.get('/client/interface/img/placeCheckpoint.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/placeCheckpoint.png');
+});
 
 app.get('/client/interface/img/movingCharacter.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/movingCharacter.png');
@@ -176,6 +179,10 @@ app.get('/client/interface/img/movingCharacter.png',function(req, res) {
 //for level editor
 app.get('/Checkpoint.js',function(req, res) {
     res.sendFile(__dirname + '/levelEditor/Checkpoint.js');
+});
+
+app.get('/client/level.html',function(req, res) {
+    res.sendFile(__dirname + '/client/level.html');
 });
 app.get('/levelEditor',function(req, res) {
     res.sendFile(__dirname + '/levelEditor/levelEditor.html');
@@ -412,8 +419,6 @@ io.sockets.on('connection', function(socket){
     console.log('socket connection');
 
     socket.on('signIn',function(data){ //{username,password}
-
-
   		Database.isValidPassword(data,function(res){
   			if(!res)
   				return socket.emit('signInResponse',{success:false});
@@ -427,6 +432,17 @@ io.sockets.on('connection', function(socket){
   			})
   		});
 	  });
+
+    socket.on('newLevel',function(data){
+     Database.newLevel(data, function(res){
+       if(!res){
+         socket.emit('checkLevelName', {success:false});
+       }
+       else if(res){
+         socket.emit('checkLevelName', {success:true});
+       }
+     });
+    });
 
     socket.on('signUp',function(data){
 		 Database.isUsernameTaken(data,function(res){
@@ -518,6 +534,8 @@ socket.emit('hey', res);
   socket.on('deleteLevelItem',function(data){
    Database.deleteLevelItem(data);
   });
+
+
 
 });
 
