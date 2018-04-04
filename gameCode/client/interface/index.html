@@ -36,13 +36,13 @@
 		//the socket receive the level objects from the database
 		socket.on('receiveLevelObjects',function(data){
 		levelObjects = data;
-		
+
 			//level objects should be in data, right now they are logged in console
-	    console.log(levelObjects[0].type);
+	    console.log(levelObjects[0].enemies);
 	  });
 
 
-		let gameWidth=2000
+		let gameWidth=2000;
 
 		// construct the gui with the container and the map
 		var gui;
