@@ -117,7 +117,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 				self.xOffset = self.width*0.6;
 				self.yOffset = self.height/2;
 				
-				self.launch(1);
+				self.launch(px/self.mass * mpsTOppf/3);
 			}
 			else {
 				self.isBig = true;
@@ -130,13 +130,15 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 				self.jumpSpeed = bigJumpSpeed;
 				self.slowDownFactor = bigSlowDown;
 				
+				self.vx = (px / self.mass) * mpsTOppf;
+				self.vy = (py / self.mass) * mpsTOppf;
+				
 				self.xOffset = self.width/5;
 				self.yOffset = self.height/3;
 			}
 			
 			self.y -= (self.height - oldHeight)/2;
-			self.vx = (px / self.mass) * mpsTOppf;
-			self.vy = (py / self.mass) * mpsTOppf;
+			
 		}	
 	}
 	

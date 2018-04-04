@@ -60,10 +60,14 @@ document.onmousemove = function(mouse){
 var doPressedActions = function() {
 	
 	if (pressing['left']) {
-		player.ax = -player.acceleration;
+		if (!player.isLaunched) {
+			player.ax = -player.acceleration;
+		}
 	}
 	else if (pressing['right']) {
-		player.ax = player.acceleration;
+		if (!player.isLaunched) {
+			player.ax = player.acceleration;
+		}
 	}
 	else {
 		if (Math.abs(player.vx) < 2 && !player.isLaunched) {
@@ -105,20 +109,6 @@ var doPressedActions = function() {
 	}
 }
 
-/*
-* Return true if the player is standing on terrain, false otherwise
-
-var nearTerrain = function(x, y) {
-	if (Math.abs(y - 450) <= 10) {
-		return true;
-	}
-	return false;
-}
-
-var putOnTerrain = function(thing) {
-	thing.y = 450-thing.height/2;
-}
-*/
 
 /*
 * Return true if the given entity is within the renderable radius
@@ -290,8 +280,9 @@ var update = function() {
 	
 	if (player.isLaunched) {
 		//console.log("Launched");
+		console.log(player.vx);
 		player.launchTimer++;
-		if (player.launchTimer > 50) {
+		if (player.launchTimer > 25) {
 			player.isLaunched = false;
 		}
 	}
