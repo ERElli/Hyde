@@ -132,8 +132,7 @@ GUI = function(container){
 			playX=0;
 			xOffset=0;
 			yOffset=0;
-		}
-		else{
+		}else{
 			playX=level['player'].x-self.fg.width/2;
 			xOffset=entity.width/2;
 			yOffset=entity.height/2;
@@ -154,14 +153,20 @@ GUI = function(container){
 					self.quickAnimatedDraw(Img.playerBig,en,ctx,playDir,fW,fH);
 				}else{
 					var fW=Img.playerSmall.width/5;
-					var fH=Img.playerSmall.height/2;
-
+					var fH=Img.playerSmall.height/3;
+					//only animates for gameplay not level editor
 					if(!isLevelEditor){
 						playDir=ani.getPlayDirection(en);
-						//updates player animation every 5th frame
-						ani.updateEntityAnimation(en,5);
+						//Draws jumping animation
+						//console.log(en.vy);
+						if(en.vy!=0){
+							playDir=ani.playJumpAnimation(en,playDir);
+						}else{
+							//updates player animation every 5th frame
+							ani.updateEntityAnimation(en,5);
+						}
 					}else{
-						playDir=1;
+						playDir=0;
 					}
           				self.quickAnimatedDraw(Img.playerSmall,en,ctx,playDir,fW,fH);
 				}
@@ -187,7 +192,6 @@ GUI = function(container){
 				var fH=Img.bearEnemy.height/8;
 				dir=ani.getPlayDirection(entity);
 				bearAnimationStage=ani.updateEntityAnimation(en,bearAnimationStage,16);
-
 				if(en.vx==0){
 					bearAniY=0;
 				}
@@ -325,14 +329,14 @@ GUI = function(container){
 	self.quickDraw=function(img,entity,ctx,x,y){
 		ctx.drawImage(img,(x-xOffset)-playX,y-yOffset,entity.width,entity.height);
 
-	}
+	};
 
 	self.quickPlayerDraw=function(img,en,ctx,aniX,aniDir,fW,fH){
 		ctx.drawImage(img,aniX*fW,aniDir*fH,fW,fH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
-	}
+	};
 	self.quickAniWeaponDraw=function(img,en,ctx,aniX,dir,fW,fH,x,y){
 		ctx.drawImage(img,aniX*fW,dir*fH,fW,fH,x-xOffset-playX,y-yOffset,fW,fH);
-	}
+	};
 	self.quickAnimatedDraw=function(img,en,ctx,aniStepY,fW,fH){
 		ctx.drawImage(img,en.aniCount*fW,aniStepY*fH,fW,fH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
 
