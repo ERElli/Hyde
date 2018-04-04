@@ -324,3 +324,19 @@ function MeleeBullet(id, x, y, vx, vy, width, height, img, color, ownerID) {
 
 	return self;
 }
+
+function Boulder(id, x, y, vx, vy, width, height, img, color, ownerID) {
+	var self = Entity("boulder", id, x, y, vx, vy, width, height, img, color);
+
+	self.width = 50;
+	self.height = 50;
+	self.damage = 25;
+
+	self.ownerID = ownerID;
+
+
+	//self.draw = function() {
+	//}
+
+	return self;
+}

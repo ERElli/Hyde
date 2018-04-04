@@ -266,6 +266,9 @@ GUI = function(container){
 			case "meleeBullet":
 				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;
+			case "boulder":
+				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
+				break;
 		}
 		//console.log(entity);
 		//entity.img.onload=function(){};

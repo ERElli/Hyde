@@ -99,11 +99,27 @@ var doPressedActions = function() {
 	
 	if (pressing['shoot']) {
 		
-		newBullets = player.shoot();
-		for (i in newBullets) {
-			newBullet = newBullets[i];
-			if (newBullet) {				
-				bullets[newBullet.id] = newBullet;
+		if (player.isBig) {
+			if (player.hasBoulder && player.pickUpBoulderTimer > 10) {
+				boulder = player.throwBoulder();
+				bullets[boulder.id] = boulder;
+			}
+			else if (!player.hasBoulder && player.throwBoulderTimer > 10) {
+				console.log("PIcking up");
+				
+				player.pickUpBoulder();
+			}
+			player.pickUpBoulderTimer++;
+			player.throwBoulderTimer++;
+		}
+		
+		else {
+			newBullets = player.shoot();
+			for (i in newBullets) {
+				newBullet = newBullets[i];
+				if (newBullet) {				
+					bullets[newBullet.id] = newBullet;
+				}
 			}
 		}
 	}
@@ -188,6 +204,8 @@ var update = function() {
 				//block.health -= player_damage;
 				if (Math.abs(player.getMomentum()) >= block.breakAt) {
 					delete  terrain[key];
+					b = new Boulder(Math.random(), block.x, block.y, 0, 0, 0 ,0, "", null, player.id);
+					bullets[b.id] = b;
 				}
 				else {
 					player.x = block.x + block.width+player.xOffset;
@@ -207,6 +225,10 @@ var update = function() {
 				//player_damage = Math.abs(player.getMomentum()) / 100;
 				//block.health -= player_damage;
 				if (Math.abs(player.getMomentum()) >= block.breakAt) {
+					
+					b = new Boulder(Math.random(), block.x, block.y, 0, 0, 0 ,0, "", null, player.id);
+					bullets[b.id] = b;
+					
 					delete  terrain[key];
 				}
 				else {
@@ -220,7 +242,7 @@ var update = function() {
 		
 		if (blockOverEntity(block, player)) {
 			player.y = block.y+block.height+player.height/2;
-			player.vy = -2;
+			player.vy = 0;
 		}
 		
 		
@@ -267,9 +289,12 @@ var update = function() {
 			
 			bullet = bullets[key]
 			
-			if (testCollision(block, bullet)) {
+			if (testCollision(block, {'x':bullet.x-bullet.width/2, 'y':bullet.y-bullet.height/2, 'width':bullet.width, 'height':bullet.height})) {
 				
-				delete bullets[key];
+				if (bullet.type == 'bullet' || bullet.type == "boulder") {
+					delete bullets[key];
+				}
+
 				
 			}
 			
