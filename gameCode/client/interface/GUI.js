@@ -151,7 +151,7 @@ GUI = function(container){
 					var fW=Img.playerBig.width/5;
 					var fH=Img.playerBig.height/2;
 					ani.updateEntityAnimation(en,5);
-					self.quickAnimatedDraw(Img.playerBig,en,ctx,playDir,fW,fH); 
+					self.quickAnimatedDraw(Img.playerBig,en,ctx,playDir,fW,fH);
 				}else{
 					var fW=Img.playerSmall.width/5;
 					var fH=Img.playerSmall.height/2;
@@ -163,7 +163,7 @@ GUI = function(container){
 					}else{
 						playDir=1;
 					}
-          				self.quickAnimatedDraw(Img.playerSmall,en,ctx,playDir,fW,fH); 
+          				self.quickAnimatedDraw(Img.playerSmall,en,ctx,playDir,fW,fH);
 				}
 				break;
 			case "basic enemy":
@@ -278,7 +278,7 @@ GUI = function(container){
 	};
 	//draws terrain
 	self.drawTerrain=function(terrain,ctx,isLevelEditor){
-		var t=terrain;		
+		var t=terrain;
 		if(isLevelEditor){
 			playX=0;
 			xOffset=0;
@@ -288,7 +288,7 @@ GUI = function(container){
 			playX=level['player'].x-self.fg.width/2;
 			xOffset=0;
 			yOffset=0;
-			
+
 		}
 		ctx.save();
 		switch(terrain.type){
@@ -315,7 +315,7 @@ GUI = function(container){
 				break;
 			case "Terrain3x6Breakable":
 				self.quickDraw(Img.terrain3x6Breakable,t,ctx,t.x,t.y);
-				break;		
+				break;
 		}
 		terrain.img.onload=function(){};
 		ctx.restore();
@@ -329,13 +329,13 @@ GUI = function(container){
 
 	self.quickPlayerDraw=function(img,en,ctx,aniX,aniDir,fW,fH){
 		ctx.drawImage(img,aniX*fW,aniDir*fH,fW,fH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
-	}		
+	}
 	self.quickAniWeaponDraw=function(img,en,ctx,aniX,dir,fW,fH,x,y){
 		ctx.drawImage(img,aniX*fW,dir*fH,fW,fH,x-xOffset-playX,y-yOffset,fW,fH);
 	}
 	self.quickAnimatedDraw=function(img,en,ctx,aniStepY,fW,fH){
 		ctx.drawImage(img,en.aniCount*fW,aniStepY*fH,fW,fH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
-	
+
 	};
 
 	self.HUD=function(ctx,player){
@@ -379,7 +379,7 @@ GUI = function(container){
 		ctx.fillText('Momentum:',momentX,momentY);
 
 		//draws time
-		ctx.fillText('Time: '+ minutes +" min "+ seconds+ " seconds ",timeX,timeY); 
+		ctx.fillText('Time: '+ minutes +" min "+ seconds+ " seconds ",timeX,timeY);
 
 		//draw ammo
 		if(player.weapon.type=="sword"){

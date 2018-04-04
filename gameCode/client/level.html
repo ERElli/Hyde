@@ -1,0 +1,35 @@
+<body background="../../images/Background.png" style="margin-left:50px; background-repeat: no-repeat; ">
+<div id="levelDiv"  style="  padding-top:10%; padding-left:40%; color: #ddeeff;">
+    Level Name: <input id="levelName" type="text"></input><br><br>
+    <br><br>
+    <button id="levelButton">Go to Level Editor</button>
+
+</div>
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script>
+
+    var socket = io();
+    var levelName = document.getElementById('levelName');
+    var levelButton = document.getElementById('levelButton');
+
+    levelButton.onclick = function(){
+      if (levelName.value ==="" ){
+        alert("Please input a name for the level.");
+      }
+      else{
+        socket.emit('newLevel',{level: levelName.value});
+      	//
+      }
+    }
+    socket.on('checkLevelName', function(data){
+      if(!data.success){
+        alert("Name already taken");
+      }
+      else if (data.success){
+          location.href = "/levelEditor";
+
+      }
+    });
+
+
+</script>

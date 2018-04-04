@@ -1,9 +1,6 @@
 <html>
-	<body>
-		<br>
-		<br>
+	<body style=" margin:0px;">
 		<div id="container">
-
 		<div id="results" style="positions:absolute; left: 511px;">
 			<table style="border:1px"></table>
 		</div>
@@ -15,11 +12,11 @@
 		<script type="text/javascript" src="../engine/enemy.js"></script>
 		<script type="text/javascript" src="../engine/weapon.js"></script>
 		<script type="text/javascript" src="../engine/usable.js"></script>
-		
+
 		<script type="text/javascript" src="level.json"></script>
 		<script type="text/javascript" src="jsonTest.js"></script>
 		<script type="text/javascript" src="../../levelEditor/EntityFactory.js"></script>
-		
+
 		<script type="text/javascript" src="../../levelEditor/Terrain.js"></script>
 		<script type="text/javascript" src="images.js"></script>
 		<script type="text/javascript" src="GUI.js"></script>
@@ -42,7 +39,7 @@
 			//level objects should be in data, right now they are logged in console
 	    console.log(levelObjects[0].type);
 	  });
-	  
+
 
 		let gameWidth=2000
 
@@ -53,7 +50,7 @@
 		var HEIGHT=500;
 		var WIDTH=1250;
 
-		
+
 		//-----------
 		init = function() {
 			// get a reference to the container div in the page
@@ -72,35 +69,35 @@
 			//console.log(levelFromFactory.player[id]);
 			levelFromFactory.player = levelFromFactory.player[id]
 		}
-		
+
 		for (var id in levelFromFactory.enemies) {
 			console.log(levelFromFactory.enemies[id]);
 			levelFromFactory.enemies[id].target = levelFromFactory.player;
 		}
-		
+
 		startGame(levelFromFactory);
-		
+
 		//console.log(mydata);
-		
-		
+
+
 		/*
 		var level = {}
 
-		
+
 		for (var thing in mydata['player']) {
 			p = mydata['player'][thing]
 		}
-		
+
 		level['player'] = new Player(p.id, p.x, p.y, p.vx, p.vy, p.img, new Pistol(Math.random(), p.x, p.y, p.vx, p.vy, 50, 50,"pistol_image",null, p.id), p.isBig);
-		
-		
+
+
 		level['enemies'] = {}
-		
+
 		for (var thing in mydata['enemies']) {
 			e = mydata['enemies'][thing]
-			
+
 			var enemy;
-			
+
 			if (e.type == 'basic enemy') {
 				enemy =  new BasicEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
 			}
@@ -110,20 +107,20 @@
 			else {
 				enemy =  new FlyingEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
 			}
-			
+
 			level['enemies'][e.id] = enemy;
-			
+
 		}
-		
-		
+
+
 		level['terrain'] = {}
-		
+
 		for (var thing in mydata['terrain']) {
 			t = mydata['terrain'][thing]
 			console.log(t.type);
-			
+
 			var block;
-			
+
 			if (t.type == 'Terrain1x1') {
 				block = Terrain1x1(t.id, t.x, t.y);
 			}
@@ -133,12 +130,12 @@
 			else {
 				enemy =  new FlyingEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
 			}
-			
+
 			level['terrain'][t.id] = block;
 			//console.log(level['terrain']);
-			
+
 		}
-		
+
 		*/
 
 
