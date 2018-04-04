@@ -48,6 +48,10 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 
 	self.maxMomentum = bigMass*bigMaxVX;
 	
+	self.hasBoulder = false;
+	self.pickUpBoulderTimer = 0;
+	self.throwBoulderTimer = 0;
+	
 	self.isStopped = false;
 	self.xOffset = self.width/2;
 	self.yOffset = self.height/2;
@@ -91,6 +95,25 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	}
 	
 	self.sprint = function() {
+		
+	}
+	
+	self.pickUpBoulder = function() {
+		self.hasBoulder = true;
+		self.pickUpBoulderTimer = 0;
+	}
+	
+	self.throwBoulder = function() {
+		
+		console.log("Throwing boulder");
+		var spdX = Math.cos(self.aimAngle/180*Math.PI)*5 * mpsTOppf + self.vx;
+		var spdY = Math.sin(self.aimAngle/180*Math.PI)*5 * mpsTOppf + self.vy;
+
+		self.hasBoulder = false;
+		
+		self.throwBoulderTimer = 0;
+		
+		return new Boulder(Math.random(),self.x,self.y,spdX,spdY,0,0, "img", "gold", self.id);
 		
 	}
 	

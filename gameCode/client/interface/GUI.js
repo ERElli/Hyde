@@ -269,9 +269,14 @@ GUI = function(container){
 			case "bullet":
 				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;
+
 			case "meleeBullet":
 				//melee bullets shouldnt be drawn
 				//self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
+
+			case "boulder":
+				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
+
 				break;
 		}
 		//console.log(entity);
