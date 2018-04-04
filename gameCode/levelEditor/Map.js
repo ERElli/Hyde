@@ -1,4 +1,7 @@
+var socket = io();
+
 Map = function(width, height,tile_width, tile_height) {
+
 	var self = {};
 	self.width = width;
 	self.height = height;
@@ -10,7 +13,7 @@ Map = function(width, height,tile_width, tile_height) {
 	self.ObjectList = {
 		enemies: {},
 		terrain: {},
-		// player: {},
+		player: {},
 		// checkpoints: {},
 		// weapons: {},
 		// music: {},
@@ -34,11 +37,13 @@ Map = function(width, height,tile_width, tile_height) {
 		return !(Object.keys(self.tiles[x][y]).length === 0 && self.tiles[x][y].constructor === Object);
 	};
 
+
 	//Function to return the list objects of type t are stored in.
 	self.getList = function(t){
 		//Regex patterns to place objects in their correct lists
 		let terrainPattern = new RegExp("Terrain");
-		let enemyPattern = new RegExp("enemy");
+		let enemyPattern = new RegExp(' enemy');
+		let playerPattern = new RegExp('player');
 
 		//Checking if type matches any of the RegexPatterns
 		//Is there a way to use a switch case instead
@@ -48,6 +53,8 @@ Map = function(width, height,tile_width, tile_height) {
 			return self.ObjectList['terrain'];
 		}else if(enemyPattern.test(t)){
 			return self.ObjectList['enemies'];
+		}else if(playerPattern.test(t)){
+			return self.ObjectList['player'];
 		}
 	}
 
@@ -56,21 +63,42 @@ Map = function(width, height,tile_width, tile_height) {
 		let id = object.id;
 		let type = object.type;
 
-		let list = self.getList(type);
-		list[id] = object;
+		var list = self.getList(type);
 
+		if(type === "player"){
+			let size = Object.keys(list).length;
+			if(size === 1){
+				for(var key in list){
+					self.makeFreeSpace(list[key]);
+				}
+				delete list;
+				self.ObjectList['player'] = {};
+				self.ObjectList['player'][id] = object;
+			}
+		}
+			list[id] = object;
+			var temp = type;
+			if (type.includes("enemy") ){
+	 			socket.emit('addLevelItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
+   		} else if (type.includes("player")){
+	 			socket.emit('addPlayerItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
+   		}
+			else if (type.includes("Terrain")){
+	 			socket.emit('addTerrainItem', {x: object.x, y:object.y, id: object.id, type: object.type});
+   		}
+		//{x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type}
 		console.log("Adding "+type+": ", object);
+
 		console.log("Updated ObjectList",self.ObjectList);
 	};
 
 	//Function to check if the object, o, can be placed in the spot where the user clicks
-	self.tryToPlaceEntity = function(o){
-		var x = o.x/tile_width;
-		var y = (o.y/tile_height) - gridShiftDown;
-		var w = x + (o.width/tile_width);
-		var h = y + (o.height/tile_height);
+	self.tryToPlaceEntity = function(object){
+		var x = object.x/tile_width;
+		var y = (object.y/tile_height) - gridShiftDown;
+		var w = x + (object.width/tile_width);
+		var h = y + (object.height/tile_height);
 		var filled;
-
 		for(var i=x; i<w; i++){
 			for(var j=y; j<h; j++){
 				filled = self.isFilled(i,j);
@@ -91,12 +119,12 @@ Map = function(width, height,tile_width, tile_height) {
 		if(!filled){
 			for(var k=x; k<w; k++){
 				for(var l=y; l<h; l++){
-					self.tiles[k][l].id = o.id;
-					self.tiles[k][l].type = o.type;
+					self.tiles[k][l].id = object.id;
+					self.tiles[k][l].type = object.type;
 
 				}
 			}
-			self.addToObjectList(o);
+			self.addToObjectList(object);
 		}
 	};
 
@@ -114,8 +142,19 @@ Map = function(width, height,tile_width, tile_height) {
 			toBeRemoved = list[id];
 			delete list[id];
 
-			ctx_lg.clearRect(x,y,toBeRemoved.width,toBeRemoved.height);
+			gui.fg_ctx.clearRect(x,y,toBeRemoved.width,toBeRemoved.height);
 			self.makeFreeSpace(toBeRemoved);
+
+			if (type.includes("enemy") ){
+				socket.emit('deleteLevelItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, vx: toBeRemoved.vx, vy: toBeRemoved.vy, type: toBeRemoved.type});
+			} else if (type.includes("player")){
+				socket.emit('deletePlayerItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, vx: toBeRemoved.vx, vy: toBeRemoved.vy, type: toBeRemoved.type});
+			}
+			else if (type.includes("Terrain")){
+				socket.emit('deleteTerrainItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
+			}
+			console.log("hello world "+ toBeRemoved.id );
+
 			console.log("Removing Entity:",toBeRemoved);
 			console.log("Updated ObjectList:",self.ObjectList);
 		}else {
@@ -145,38 +184,63 @@ Map = function(width, height,tile_width, tile_height) {
 
 	//function to draw all objects in ObjectList
 	self.update = function(){
-		let object = null;
+		var object = null;
 		for(let type in self.ObjectList){
 			for(let id in self.ObjectList[type]){
 				object = self.ObjectList[type][id];
-				object.draw(ctx_lg);
+				object.draw(gui.fg_ctx,true);
 			}
 		}
 	};
 
 
-	// self.convertToString = function(){
-	// 	var filename = "levelEditor.txt";
+	self.convertToString = function(){
+		var form = document.getElementById("form");
+		var levelName = document.getElementById("levelName").value;
+		var filename = levelName+".json";
+		var Level = self.makeLevel();
+		Level.name = levelName;
 
-	// 	var str = JSON.stringify(self.ObjectList).toString();
-	// 	var a = document.createElement("a");
-	// 	document.body.appendChild(a);
-	// 	var file = new Blob([str],{type: 'application/json'});
-	// 	a.href = URL.createObjectURL(file);
-	// 	a.download = filename;
-	// 	a.click();
-	// 	console.log(a);
+		var str = JSON.stringify(Level).toString();
+		var a = document.createElement("a");
+		document.body.appendChild(a);
+		var file = new Blob([str],{type: 'application/json'});
+		a.href = URL.createObjectURL(file);
+		a.download = filename;
+		a.click();
 
+		// console.log("Stringified:",str);
+		// var parsed = JSON.parse(str);
+		// console.log("Parsed:",parsed);
 
-	// 	// console.log("Stringified:",str);
-	// 	// var parsed = JSON.parse(str);
-	// 	// console.log("Parsed:",parsed);
+		// var file = new File([""],filename,self.ObjectList);
+		// console.log(file);
 
-	// 	// var file = new File([""],filename,self.ObjectList);
-	// 	// console.log(file);
+	};
 
-	// };
+	self.makeLevel = function(){
+		var Level = {};
 
-	console.log(self.ObjectList);
+		Level.width = self.width;
+		Level.height = self.height;
+		Level.enemies = self.ObjectList.enemies;
+		Level.terrain = self.ObjectList.terrain;
+		Level.player = self.ObjectList.player;
+		for(var type in Level){
+			for(var key in Level[type]){
+				Level[type][key].y = (Level[type][key].y)-100;
+			}
+		}
+		console.log("Level Object:",Level);
+		return Level;
+	}
+
 	return self;
 };
+
+
+/*
+[{
+"_id":"5ac3ceec22bb96f1b7fcf90b","level":"level1","enemies":[{"id":0.7827006398238396,"items":{"x":350,"y":250,"vx":0,"vy":0,"id":0.7827006398238396,"type":"basic enemy"}},{"id":0.13818070969281204,"items":{"x":450,"y":200,"vx":0,"vy":0,"id":0.13818070969281204,"type":"basic enemy"}}],"player":[{"id":0.3154181557039857,"items":{"x":500,"y":250,"vx":0,"vy":0,"id":0.3154181557039857,"type":"player"}}]
+}]
+*/

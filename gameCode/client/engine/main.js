@@ -5,8 +5,9 @@ var level;
 var player;
 var enemies;
 var bullets = {};
-var blocks;
+var terrain;
 var sufaceMods;
+var pickUps;
 
 var hasReleasedJump = false;
 
@@ -74,6 +75,7 @@ var doPressedActions = function() {
 	
 	if (pressing['jump']) {
 		if (!player.inAir) {
+			console.log("Jumping");
 			player.jump();
 			hasReleasedJump = false;
 		}
@@ -105,7 +107,7 @@ var doPressedActions = function() {
 
 /*
 * Return true if the player is standing on terrain, false otherwise
-*/
+
 var nearTerrain = function(x, y) {
 	if (Math.abs(y - 450) <= 10) {
 		return true;
@@ -116,6 +118,7 @@ var nearTerrain = function(x, y) {
 var putOnTerrain = function(thing) {
 	thing.y = 450-thing.height/2;
 }
+*/
 
 /*
 * Return true if the given entity is within the renderable radius
@@ -129,9 +132,9 @@ var inRange = function(thing) {
 * Main game loop
 */
 var update = function() {
+	
 	gui.fg_ctx.clearRect(0, 0, gui.fg.width, gui.fg.height);
 	
-	//console.log(player.weapon.vx);
 
 	
 	//Update counters
@@ -140,9 +143,19 @@ var update = function() {
 		everyTenCount++;
 	}
 	
+	//Draw HUD
+	//draws background
+	gui.drawMap();
+	gui.HUD(gui.gr_ctx,player);
+	
+	
+	//Manage player -----------------------------------------------------------------------------------
+	
 	player.attackCounter++;
 	player.transformCounter++;
 	player.immuneCounter++;
+	
+	player.falling = true; //set to false if standing on terrain;
 	
 	if (player.isLaunched) {
 		//console.log("Launched");
@@ -151,11 +164,6 @@ var update = function() {
 			player.isLaunched = false;
 		}
 	}
-	
-	//Draw bars
-	//draws background
-	gui.drawMap();
-	gui.fgDraw(gui.fg_ctx,player.health/player.maxHealth*100,100,20);
 
 	//Manage player damage immunity
 	if (player.isImmune && player.immuneCounter > 100) {
@@ -166,23 +174,25 @@ var update = function() {
 	doPressedActions();
 
 	
-	//Manage whether or not player is in the air------------------------------------------------
+	//Manage whether or not player is in the air
 	
 	//Don't put player on the ground if they just jumped (even though they are near terrain)
 	if (player.justJumped) {
 		player.inAir = true;
 		player.jumpBuffer++;
-		if (player.jumpBuffer > 10) {
+		if (player.jumpBuffer > 20) {
 			player.justJumped = false;
 		}
 	}
 	
 	//If they didn't just jump, and they are near terrain, put them on that terrain
+	/*
 	else if (nearTerrain(player.x, player.y+player.height/2)) {
 		player.inAir = false;
 		player.doubleJumped = false;
 		putOnTerrain(player);
 	}
+	*/
 	
 	//Manage motion type
 	if (player.inAir) {
@@ -191,10 +201,35 @@ var update = function() {
 	else {
 		player.setGroundMotion();
 	}
-	//--------------------------------------------------------------------------------------------
+	
+	player.update();
+
+	// Manage pick-ups ------------------------------------------------------------------
+		
+	for (var key in pickUps) {
+			
+		pickUp = pickUps[key];
+		
+		//console.log(pickUp);
+		
+		pickUp.draw();
+			
+		pickUp_rect = {'x':pickUp.x-pickUp.width/2, 'y':pickUp.y-pickUp.height/2, 'width':pickUp.width, 'height':pickUp.height};
+		
+		player_rect = {'x':player.x-player.width/2, 'y':player.y-player.height/2, 'width':player.width, 'height':player.height};
+			
+		if (testCollision(player_rect, pickUp_rect)) {
+			
+			//console.log("Picking up weapon");
+			pickUp.applyEffect();
+		}
+			
+	}
 	
 	
-	//Manage all the bullets
+	
+	//Manage all the bullets -----------------------------------------------------------------------------------------------------
+	
 	for (var key in bullets) {
 	
 		var bullet = bullets[key];
@@ -246,12 +281,13 @@ var update = function() {
 		}
 	}
 	
-	//Manage all the enemies
+	//Manage all the enemies ----------------------------------------------------------------------------------------
+	
 	for (var key in enemies) {
 		
 		var enemy = enemies[key];
 		
-		console.log(enemy.type + ": " + enemy.health);
+		//console.log(enemy.type + ": " + enemy.health);
 	
 		if (!inRange(enemy)) {
 			//console.log("skipping " + enemy.id);
@@ -263,11 +299,6 @@ var update = function() {
 		
 		if (enemy.health <= 0) {
 			delete enemies[key];
-		}
-		
-		if (nearTerrain(enemy.x, enemy.y)) {
-			//console.log(enemy.id)
-			putOnTerrain(enemy);
 		}
 		
 		enemy.attackCounter++;
@@ -335,7 +366,155 @@ var update = function() {
 		}
 		
 	}
-	player.update();
+	
+	
+	//Manage terrain ---------------------------------------------------------------------------
+	for (var key in terrain) {
+		
+		block = terrain[key];
+		
+		gui.drawTerrain(block,gui.fg_ctx)
+		
+		if (!inRange(block)) {
+			continue;
+		}
+		
+		//Check collisions with player ####################################
+		
+		if (blockUnderEntity(block, player)) {
+			player.falling = false;
+			if (!player.justJumped) {
+				putOnTerrain(block, player);
+			}
+		}
+		
+		if (player.falling) {
+			player.inAir = true;
+			player.setAirMotion();
+		}
+		
+		
+		if (blockLeftEntity(block, player) && player.vx < 0) {
+			player.x = block.x + block.width+player.width/2;
+			player.vx = 1;
+		}
+		if (blockRightEntity(block, player) && player.vx > 0) {
+			player.x = block.x-player.width/2;
+			player.vx = -1;
+		}
+		
+		
+		if (blockOverEntity(block, player)) {
+			player.y = block.y+block.height+player.height/2;
+			player.vy = -2;
+		}
+		
+		
+		//Check collisions with enemies ####################################
+		
+		for (var key in enemies) {
+			
+			enemy = enemies[key];
+			enemy.falling = true;
+			
+			if (blockUnderEntity(block, enemy)) {
+				enemy.falling = false;
+				if (!enemy.justJumped) {
+					putOnTerrain(block, enemy);
+				}
+			}
+			
+			if (enemy.falling) {
+				enemy.inAir = true;
+				enemy.setAirMotion();
+			}
+			
+			
+			if (blockLeftEntity(block, enemy) && enemy.vx < 0) {
+				enemy.x = block.x + block.width+enemy.width/2;
+				enemy.vx = 1;
+			}
+			if (blockRightEntity(block, enemy) && enemy.vx > 0) {
+				enemy.x = block.x-enemy.width/2;
+				enemy.vx = -1;
+			}
+			
+			
+			if (blockOverEntity(block, enemy)) {
+				enemy.y = block.y+block.height+enemy.height/2;
+				enemy.vy = -2;
+			}
+		}
+		
+		
+		// Check collisions with bullets ###############################
+		
+		for (var key in bullets) {
+			
+			bullet = bullets[key]
+			
+			if (testCollision(block, bullet)) {
+				
+				delete bullets[key];
+				
+			}
+			
+		}
+		
+	}
+	
+	
+}
+
+var blockUnderEntity = function(terrain, entity) {
+	
+	terrain_rect = {'x':terrain.x, 'y':terrain.y, 'width':terrain.width, 'height':terrain.height/4};
+	
+	entity_rect = {'x':entity.x-entity.width/4, 'y':entity.y+entity.height/2, 'width':entity.width/2, 'height':entity.height/4};
+	
+	//console.log(testCollision(terrain, entity_rect));
+	return testCollision(terrain_rect, entity_rect);
+	
+}
+
+var blockLeftEntity = function(terrain, entity) {
+	
+	entity_rect = {'x':entity.x-entity.width/2, 'y':entity.y-entity.height/4, 'width':entity.width/4, 'height':entity.height/2};
+	
+	//console.log(testCollision(terrain, entity_rect));
+	return testCollision(terrain, entity_rect);
+	
+}
+
+var blockRightEntity = function(terrain, entity) {
+	
+	entity_rect = {'x':entity.x+entity.width/2, 'y':entity.y-entity.height/4, 'width':entity.width/4, 'height':entity.height/2};
+	
+	//console.log(testCollision(terrain, entity_rect));
+	return testCollision(terrain, entity_rect);
+	
+}
+
+var blockOverEntity = function(terrain, entity) {
+	
+	entity_rect = {'x':entity.x-entity.width/4, 'y':entity.y-entity.height/2, 'width':entity.width/2, 'height':entity.height/4};
+	
+	//console.log(testCollision(terrain, entity_rect));
+	return testCollision(terrain, entity_rect);
+	
+}
+
+
+var putOnTerrain = function(terrain, entity) {
+	
+	entity.inAir = false;
+	entity.doubleJumped = false;
+	entity.setGroundMotion();
+	
+	entity.y = terrain.y - entity.height/2;
+	entity.vy = 0;
+	
+	
 }
 
 var testCollision = function(rect1, rect2) {
@@ -348,14 +527,16 @@ var testCollision = function(rect1, rect2) {
 var startGame = function(initial_level) {
 	level = initial_level;
 	player = level["player"];
+	//console.log(player);
 	enemies = level["enemies"];
-	//bullets = level["bullets"];
-	//blocks = level["terrain"];
+	terrain = level["terrain"];
 	//surfaceMods = level["terrain"];
+	pickUps = level['pickUps']
+	//console.log(pickUps['p1']);
 	frameCount = 0;
 	everyTenCount = 0;
 	//console.log(enemies['enemy2']);
-
+	
 	
 	setInterval(update, 1000/60)
 }
