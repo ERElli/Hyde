@@ -188,21 +188,12 @@ GUI = function(container){
 				self.quickAnimatedDraw(enemyImg,en,ctx,dir,fW,fH);
 				break;
 			case "tank enemy":
-				var fW=Img.bearEnemy.width/8;
-				var fH=Img.bearEnemy.height/8;
-				dir=ani.getPlayDirection(entity);
-				bearAnimationStage=ani.updateEntityAnimation(en,bearAnimationStage,16);
-				if(en.vx==0){
-					bearAniY=0;
-				}
-				else if(bearAnimationStage/8>=1){
-					bearAniY=2;
-				}
-				else{
-					bearAniY=1;
-				}
-				self.quickAnimatedDraw(Img.bearEnemy,en,ctx,bearAnimationStage%8,bearAniY,fW,fH,dir);
-
+				enemyImg=Img.basicEnemy1;
+				var fW=Img.basicEnemy1.width/4;
+				var fH=Img.basicEnemy1.height/2;
+				dir=ani.getPlayDirection(en);
+				ani.updateEntityAnimation(en,4);
+				self.quickAnimatedDraw(enemyImg,en,ctx,dir,fW,fH);
 				break;
 			case "ghost":
 				self.quickDraw(Img,en,ctx,en.x,en.y);
