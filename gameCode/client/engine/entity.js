@@ -107,7 +107,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	self.isLaunched = false;
 
 	self.falling = false;
-	
+
 	self.xOffset = self.width/2;
 	self.yOffset = self.height/2;
 
@@ -136,8 +136,8 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		if (Math.abs(self.vy) > self.maxVelocityY) {
 			self.vy = Math.sign(self.vy)*self.maxVelocityX;
 		}
-		
-		
+
+
 		if (self.blockedLeft && self.vx < 0) {
 			console.log("stopped left");
 			self.vx = 0;
@@ -146,7 +146,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 			console.log("stopped right");
 			self.vx = 0;
 		}
-			
+
 
 		self.x += self.vx;
 		self.y -= self.vy;
@@ -157,21 +157,22 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		self.weapon.vy = self.vy;
 
 		self.weapon.update(self.aimAngle);
-	
+
 	}
-	
+
 	self.setAirMotion = function() {
 		self.ay = g;
 		self.ax /= 2;
 	}
-	
+
 	self.setGroundMotion = function() {
 		self.ay = 0;
 		self.vy = 0;
 	}
 
 	self.getMomentum = function() {
-		return self.vx*self.mass;
+		// return self.vx*self.mass;
+		return 100;
 	}
 
 	self.launch = function(vx) {

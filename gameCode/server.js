@@ -406,6 +406,29 @@ app.get('/images/breakableTerrain3x6.png',function(req, res) {
 app.get('/images/backgroundButton.png',function(req, res) {
     res.sendFile(__dirname + '/images/backgroundButton.png');
 });
+
+app.get('/client/interface/img/entity/humanoid/smallPlayer.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/humanoid/smallPlayer.png');
+});
+app.get('/client/interface/img/entity/bullet2.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/bullet2.png');
+});
+
+app.get('/client/interface/img/Animations/muzzleFlash/FlashStage1.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/Animations/muzzleFlash/FlashStage1.png');
+});
+
+app.get('/client/interface/img/Animations/muzzleFlash/FlashStage2.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/Animations/muzzleFlash/FlashStage2.png');
+});
+app.get('/client/interface/img/Animations/muzzleFlash/FlashStage3.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/Animations/muzzleFlash/FlashStage3.png');
+});
+app.get('/client/interface/img/Animations/muzzleFlash/FlashStage4.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/Animations/muzzleFlash/FlashStage4.png');
+});
+
+
 app.get('/images/background.png',function(req, res) {
     res.sendFile(__dirname + '/images/background.png');
 });
@@ -519,7 +542,12 @@ io.sockets.on('connection', function(socket){
   socket.emit('hey', res);
    });
 
+   socket.on('button',function(){
 
+     Database.getLevelObject("level1", function(res){
+     socket.emit('result', res);
+      });
+   });
   socket.on('addLevelItem',function(data){
     console.log(data);
    Database.addLevelItem(data);
