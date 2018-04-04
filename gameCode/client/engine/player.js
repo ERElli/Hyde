@@ -130,7 +130,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 				self.jumpSpeed = bigJumpSpeed;
 				self.slowDownFactor = bigSlowDown;
 				
-				self.xOffset = self.width/3;
+				self.xOffset = self.width/5;
 				self.yOffset = self.height/3;
 			}
 			

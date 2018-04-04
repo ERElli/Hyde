@@ -189,7 +189,7 @@ var update = function() {
 		if (blockLeftEntity(block, player)) {
 			
 			if (!(block.type == "Terrain1x1Breakable")) {
-				player.x = block.x + block.width+player.width/2;
+				player.x = block.x + block.width+player.xOffset;
 				player.blockedLeft = true;
 			}
 			
@@ -200,7 +200,7 @@ var update = function() {
 					delete  terrain[key];
 				}
 				else {
-					player.x = block.x + block.width+player.width/2;
+					player.x = block.x + block.width+player.xOffset;
 					player.blockedLeft = true;
 				}
 			}
@@ -209,7 +209,7 @@ var update = function() {
 		if (blockRightEntity(block, player) && player.vx >= 0){			
 			
 			if (!(block.type == "Terrain1x1Breakable")) {
-				player.x = block.x - player.width*0.6;
+				player.x = block.x - player.xOffset;
 				player.blockedRight = true;
 			}
 			
@@ -220,7 +220,7 @@ var update = function() {
 					delete  terrain[key];
 				}
 				else {
-					player.x = block.x-player.width*0.6;
+					player.x = block.x-player.xOffset;
 					player.blockedRight = true;
 				}
 			}
