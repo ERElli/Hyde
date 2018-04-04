@@ -28,17 +28,26 @@
 
 		//call the socket to get the level objects from database
 		var  getLevelObjects = function() {
-		 socket.emit('getLevelObject', {levelName: "level 1"});
+			socket.emit('getLevelObject', {levelName: "level 1"});
 		};
+		
 		var levelObjects;
 		getLevelObjects();
 
 		//the socket receive the level objects from the database
 		socket.on('receiveLevelObjects',function(data){
-		levelObjects = data;
+			levelObjects = data;
+
 			//level objects should be in data, right now they are logged in console
-	    console.log(levelObjects[0].type);
-	  });
+			Update(levelObjects);
+		});
+		
+		var Update = function(level) {
+			console.log("BEFORE:\n" + levelObjects);
+			levelObjects = EntityFactory(level, false);
+			console.log("AFTER:\n" + levelObjects);
+		}
+		
 
 
 		let gameWidth=2000
@@ -63,19 +72,19 @@
 		//Creates background and foreground Canvases
 		init();
 
-		var levelFromFactory = EntityFactory(level, false);
 
-		for (var id in levelFromFactory.player) {
-			//console.log(levelFromFactory.player[id]);
-			levelFromFactory.player = levelFromFactory.player[id]
+		for (var id in levelObjects.player) {
+			levelObjects.player = levelObjects.player[id]
 		}
 
-		for (var id in levelFromFactory.enemies) {
-			console.log(levelFromFactory.enemies[id]);
-			levelFromFactory.enemies[id].target = levelFromFactory.player;
+		for (var id in levelObjects.enemies) {
+			console.log(levelObjects.enemies[id]);
+			levelObjects.enemies[id].target = levelObjects.player;
 		}
+		
+		startGame(levelObjects);
 
-		startGame(levelFromFactory);
+		
 
 		//console.log(mydata);
 
