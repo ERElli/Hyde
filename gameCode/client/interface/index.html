@@ -33,6 +33,9 @@
 		};
 		var levelObjects;
 		getLevelObjects();
+
+
+
 		//the socket receive the level objects from the database
 		socket.on('receiveLevelObjects',function(data){
 		levelObjects = data;
@@ -140,6 +143,19 @@
 		//Creates background and foreground Canvases
 		init();
 
+		var levelFromFactory = EntityFactory(level, false);
+
+		for (var id in levelFromFactory.player) {
+			//console.log(levelFromFactory.player[id]);
+			levelFromFactory.player = levelFromFactory.player[id]
+		}
+
+		for (var id in levelFromFactory.enemies) {
+			//console.log(levelFromFactory.enemies[id]);
+			levelFromFactory.enemies[id].target = levelFromFactory.player;
+		}
+
+		startGame(levelFromFactory);
 
 		//console.log(mydata);
 
