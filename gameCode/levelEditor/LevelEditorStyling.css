@@ -132,7 +132,7 @@
 }
 
 .backgroundDropdown {
-    position: relative;
+    position: fixed;
     display: inline-block;
     z-index:4;
 
@@ -182,13 +182,13 @@
     height: 62px;
 }
 
-.checkpoinbtn:hover, .dropbtn:focus {
-    
+.checkpointbtn:hover, .checkpointbtn:focus {
+    outline:0;
     z-index:4;
 }
 
 .checkpointDropdown {
-    position: absolute;
+    position: fixed;
     display: inline-block;
     z-index:4;
 
@@ -201,20 +201,22 @@
     top:62px;
     min-width: 62px;
     overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);
+    /*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);*/
     z-index: 4;
 }
 
-.checkpoint-content a {
+.checkpoint-content button {
+    background:transparent;
+    border: none;
     color: black;
-    padding: 31px 31px;
-    text-decoration: none;
+    width: 62px;
+    height: 62px;
     display: block;
+    background-size: 100%;
     z-index: 4;
-    left:62px;
 }
 
-.dropdown a:hover {background-color: #ddd}
+.checkpoint-content button:hover {background-color: #ddd}
 
 .show {display:block;}      
 

@@ -177,6 +177,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	self.launch = function(vx) {
 		self.isLaunched = true;
 		self.vx = vx;
+		self.ax = 0;
 		self.launchTimer = 0;
 	}
 

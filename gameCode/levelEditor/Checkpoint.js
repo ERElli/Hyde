@@ -1,39 +1,36 @@
-Checkpoint = function(id,x,y,width,height){
+Checkpoint = function(id,x,y){
 	var self = {
 		id: id,
-		type: "Checkpoint",
 		x: x,
 		y: y,
-		width: width,
-		height: height,
+		width: 50,
+		height: 50,
 	};
 	
-	//var color = '#'+Math.floor(Math.random()*16777215).toString(16);
-	//self.color = color;
-
-	var checkpointImage = new Image();
-	terrainImage.src = "../../images/checkpoint.png";
-
-
-	self.draw = function() {
-		 //ctx_lg.fillStyle = self.color;
-		 //ctx_lg.fillRect(self.x,self.y,self.width, self.height);
-
-		ctx_lg.drawImage(checkointImage, self.x, self.y,width,height);
-	}
-
 	console.log(self);
 	return self;
 }
 
-Checkpoint.add = function(checkpoint) {
-	checkpoint.list[checkpoint.id] = checkpoint;
-	console.log("Adding terrain: ",terrain);
+standardCheckpoint = function(id,x,y){
+	var self = Checkpoint(id,x,y);
+	self.type = "standard Checkpoint";
+	self.img = Img.standardCheckpoint;
+
+	self.draw = function(ctx,isLevelEditor){
+		ctx.drawImage(self.img,self.x,self.y, self.img.width, self.img.height);
+	}
+
+	return self;
 }
 
-Checkpoint.update = function() {
-	for (var key in Checkpoint.list){
-		var rect = Checkpoint.list[key];
-		rect.draw();
+standardCheckpoint = function(id,x,y){
+	var self = Checkpoint(id,x,y);
+	self.type = "final checkpoint";
+	self.img = Img.finalCheckpoint;
+
+	self.draw = function(ctx,isLevelEditor){
+		ctx.drawImage(self.img,self.x,self.y, self.img.width, self.img.height);
 	}
+
+	return self;
 }
