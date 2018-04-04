@@ -35,9 +35,9 @@
 		getLevelObjects();
 
 		//the socket receive the level objects from the database
-		socket.on('receiveLevelObjects',function(data){
+		socket.on('hey',function(data){
 			levelObjects = data;
-
+			console.log("HERE: " + JSON.parse(levelObjects));
 
 			//level objects should be in data, right now they are logged in console
 			Update(levelObjects);
