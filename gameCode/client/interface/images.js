@@ -32,7 +32,7 @@ Img = function(pathToRoot) {
 	self.shotgun= new Image();
 	self.shotgun.src= pathToRoot+"client/interface/img/entity/weapon/shotgunAttack.png";
 	self.bullet= new Image();
-	self.bullet.src= pathToRoot+"client/interface/img/entity/bullet.png";
+	self.bullet.src= pathToRoot+"client/interface/img/entity/bullet2.png";
 
 	//Terrain Images
 	self.terrain1x1= new Image();
@@ -58,6 +58,17 @@ Img = function(pathToRoot) {
 	self.finalCheckpoint= new Image();
 	self.finalCheckpoint.src = pathToRoot+"client/interface/img/placeCheckpoint.png";
 
+	//muzzle flash animations
+	self.muzzleFlash=[];
+	self.muzzleFlash.stepOne= new Image();
+	self.muzzleFlash.stepOne.src= pathToRoot+"client/interface/img/Animations/muzzleFlash/FlashStage1.png";
+	self.muzzleFlash.stepTwo= new Image();
+	self.muzzleFlash.stepTwo.src= pathToRoot+"client/interface/img/Animations/muzzleFlash/FlashStage2.png";
+	self.muzzleFlash.stepThree= new Image();
+	self.muzzleFlash.stepThree.src= pathToRoot+"client/interface/img/Animations/muzzleFlash/FlashStage3.png";
+	self.muzzleFlash.stepFour= new Image();
+	self.muzzleFlash.stepFour.src= pathToRoot+"client/interface/img/Animations/muzzleFlash/FlashStage4.png";
+	console.log(self.muzzleFlash.stepOne);
 	return self;
 };
 

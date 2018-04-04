@@ -57,9 +57,42 @@ Animation=function(){
 		return newX;
 	};
 	//Fire animation for guns
-	self.fireAnimation=function(entity,numAnimation){
-		n=numAnimation;
-		en=entity;
+	self.fireAnimation=function(entity,numAnimation,x){
+		n=Math.floor(numAnimation/2);
+		if(numAnimation==0){
+			
+		}else if(numAnimation<=2){
+			if(entity.x>x){
+				gui.aniDraw(Img.muzzleFlash.stepOne,x-entity.width,entity.y-entity.height/4.5,40,25);
+			}
+			else{
+				gui.aniDraw(Img.muzzleFlash.stepOne,x+entity.width,entity.y-entity.height/4.5,40,25);
+			}
+		}
+		else if(numAnimation<5){
+			if(entity.x>x){
+				gui.aniDraw(Img.muzzleFlash.stepTwo,x-entity.width,entity.y-entity.height/4.5,40,25);
+			}
+			else{
+				gui.aniDraw(Img.muzzleFlash.stepTwo,x+entity.width,entity.y-entity.height/4.5,40,25);
+			}
+		}
+		else if(numAnimation<7){
+			if(entity.x>x){
+				gui.aniDraw(Img.muzzleFlash.stepThree,x-entity.width,entity.y-entity.height/4.5,40,25);
+			}
+			else{
+				gui.aniDraw(Img.muzzleFlash.stepThree,x+entity.width,entity.y-entity.height/4.5,40,25);
+			}
+		}
+		else{
+			if(entity.x>x){
+				gui.aniDraw(Img.muzzleFlash.stepFour,x-entity.width,entity.y-entity.height/4.5,40,25);
+			}
+			else{
+				gui.aniDraw(Img.muzzleFlash.stepFour,x+entity.width,entity.y-entity.height/4.5,40,25);
+			}
+		}
 		return n;		
 	};
 	//Player jumping animation;
