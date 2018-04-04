@@ -67,6 +67,7 @@ function Shotgun(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	
 	
 	self.fire = function(angle) {
+		self.isFiring=true;
 		self.ammo--;
 		var spdX1 = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf + self.vx;
 		var spdY1 = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf + self.vy;
@@ -110,8 +111,9 @@ function AssaultRifle(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	var img=Img.assaultWeapon;
 	var self = Weapon("assaultRifle", id, x, y, vx, vy, width, height, img, color, rifleRate, rifleSpeed, "normal", 100, 20);
 	
-	self.maxFireTimer = 14;
+	self.maxFireTimer = 16;
 	self.fire = function(angle) {
+		self.isFiring=true;
 		self.ammo--;
 		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf + self.vx;
 		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf + self.vy;
