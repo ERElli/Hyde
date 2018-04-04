@@ -9,7 +9,7 @@ Img = function(pathToRoot) {
 	self.background3.src= pathToRoot+"client/interface/img/background/worldThreeBackground.png";
 	//player images	
 	self.playerSmall= new Image();
-	self.playerSmall.src= pathToRoot+"client/interface/img/entity/humanoid/playerSmall.png";
+	self.playerSmall.src= pathToRoot+"client/interface/img/entity/humanoid/smallPlayer.png";
 	self.playerBig= new Image();
 	self.playerBig.src= pathToRoot+"client/interface/img/entity/humanoid/bigGuy.png";
 	//enemy images
