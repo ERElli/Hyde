@@ -478,6 +478,11 @@ io.sockets.on('connection', function(socket){
       });
   });
 
+  socket.on('getLevelNames',function(){
+   //Database.levelUpdate(user, data);
+   socket.emit('receiveLevelNames', {level1:"level 1",level2: "level 2", level3:"level 3"});
+  });
+
   socket.on('updateLevel',function(data){
    Database.levelUpdate(user, data);
   });

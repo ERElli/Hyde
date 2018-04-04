@@ -8,6 +8,8 @@
 <canvas id="myCanvas" width="1250" height="500" ><p>Your browser does not support HTML5!</p></canvas>
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 <script type="text/javascript">
+
+  var socket = io();
   var state = "main menu";
   var socket = io();
 	var canvas = document.getElementById("myCanvas");
@@ -22,7 +24,7 @@
 	var backgroundImage = new Image();
 	var logoImage = new Image();
 	var playImage = new Image();
-	var playOnlineImage = new Image();
+	var background2Image = new Image();
 	var levelEditorImage = new Image();
 	var achievementsImage = new Image();
 	var bigGuyImage = new Image();
@@ -88,9 +90,11 @@ if(state ==="level"){
 
 			 }
 			 else if( mouseX >buttonX[0] && mouseX < (buttonX[0]+ buttonWidth[2]) && mouseY> buttonY[1] && mouseY < (buttonY[1]+buttonHeight[0]) ) {
-
-				location.href = "/levelEditor";
-				socket.emit('loadLevel',{level: "level1"});
+         clear();
+         state = "save level";
+         saveLevel();
+				//location.href = "/levelEditor";
+			//	socket.emit('loadLevel',{level: "level1"});
 
 			 }
      }
@@ -98,6 +102,33 @@ if(state ==="level"){
 		 }, false);
 
    }
+
+   /*function saveLevel() {
+     socket.emit('getLevelNames');
+     clear();
+
+     socket.on('receiveLevelNames', function(data){
+        console.log(data);
+
+
+        backgroundImage.src = "../../images/Background.png";
+    		backgroundImage.onload = function(){
+    			context.drawImage(backgroundImage, 0, 0);
+    		};
+       for( var i =0; i< 3; i++){
+
+     		//background2Image.onload = function(){
+     			context.drawImage(background2Image, buttonX[1], buttonY[1]);
+     		//}
+     		background2Image.src = "../../images/backgroundButton.png"; //Load level
+
+
+        }
+
+     });
+
+   }; */
+
 
 
 	function draw(){

@@ -36,6 +36,7 @@
 		//the socket receive the level objects from the database
 		socket.on('receiveLevelObjects',function(data){
 		levelObjects = data;
+		
 			//level objects should be in data, right now they are logged in console
 	    console.log(levelObjects[0].type);
 	  });
