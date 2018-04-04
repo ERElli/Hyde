@@ -153,7 +153,7 @@ Map = function(width, height,tile_width, tile_height) {
 			else if (type.includes("Terrain")){
 				socket.emit('deleteTerrainItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
 			}
-			console.log("hello world "+ toBeRemoved.id );
+			//console.log("hello world "+ toBeRemoved.id );
 
 			console.log("Removing Entity:",toBeRemoved);
 			console.log("Updated ObjectList:",self.ObjectList);

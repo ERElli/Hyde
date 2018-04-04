@@ -441,19 +441,26 @@ io.sockets.on('connection', function(socket){
 	});
 
   socket.on('forgotPassword',function(data){
+     Database.isUsernameTaken(data,function(res){
+        if(res){
+          Database.checkAnswer(data,function(result){
+            if(result){
+              socket.emit('recoverResponse',{success:true, password: result.password});
+              console.log("verified");
+            }
+            else{
+              console.log("not correct a1");
+            }
+          });
+        }
+        else {
+          socket.emit('recoverResponse',{success:false});
+          console.log("Username does not exist");
 
-   Database.isUsernameTaken(data,function(res){
-    if(res){
-      console.log("true");
+        }
 
-    //  });
-    }
-    else {
-
-    }
-
+      });
   });
-});
 
   socket.on('updateLevel',function(data){
    Database.levelUpdate(user, data);

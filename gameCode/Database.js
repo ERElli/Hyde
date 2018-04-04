@@ -72,7 +72,7 @@ Database.isValidPassword = function(data,cb){
 Database.isUsernameTaken = function(data,cb){
     if(!USE_DB)
         return cb(false);
-	db.account.findOne({username:data.username,a1: data.q1, a2: data.q2, a3: data.q3},function(err,res){
+	db.account.findOne({username:data.username},function(err,res){
 		if(res)
 			cb(true);
 		else
@@ -83,9 +83,9 @@ Database.isUsernameTaken = function(data,cb){
 Database.checkAnswer = function(data,cb){
     if(!USE_DB)
         return cb(false);
-	db.account.findOne({username:data.username,a1: res.q1, a2: res.q2, a3:res.q3},function(err,res){
+	db.account.findOne({username:data.username,q1: data.a1, q2: data.a2, q3:data.a3},function(err,res){
     if(res)
-      cb(true);
+      cb({success:true, password: res.password});
     else
       cb(false);
 
