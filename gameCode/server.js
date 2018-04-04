@@ -338,6 +338,14 @@ app.get('/client/interface/img/terrain/breakableTerrain3x4.png',function(req, re
 app.get('/client/interface/img/terrain/terrain3x4.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/terrain/terrain3x4.png');
 });
+app.get('/client/interface/img/entity/humanoid/playerSmall.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/humanoid/playerSmall.png');
+});
+
+
+app.get('/client/interface/img/entity/bullet.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/bullet.png');
+});
 app.get('/client/interface/img/terrain/breakableTerrain3x2.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/terrain/breakableTerrain3x2.png');
 });
@@ -476,6 +484,11 @@ io.sockets.on('connection', function(socket){
         }
 
       });
+  });
+
+  socket.on('getLevelNames',function(){
+   //Database.levelUpdate(user, data);
+   socket.emit('receiveLevelNames', {level1:"level 1",level2: "level 2", level3:"level 3"});
   });
 
   socket.on('updateLevel',function(data){
