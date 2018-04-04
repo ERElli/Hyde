@@ -441,7 +441,7 @@ io.sockets.on('connection', function(socket){
   		});
 	  });
 
-    socket.on('newLevel',function(data){
+/*    socket.on('newLevel',function(data){
      Database.newLevel(data, function(res){
        if(!res){
          socket.emit('checkLevelName', {success:false});
@@ -450,7 +450,7 @@ io.sockets.on('connection', function(socket){
          socket.emit('checkLevelName', {success:true});
        }
      });
-    });
+   }); */
 
     socket.on('signUp',function(data){
 		 Database.isUsernameTaken(data,function(res){
@@ -486,10 +486,12 @@ io.sockets.on('connection', function(socket){
       });
   });
 
-  socket.on('getLevelNames',function(){
+/*  socket.on('getLevelNames',function(){
    //Database.levelUpdate(user, data);
    socket.emit('receiveLevelNames', {level1:"level 1",level2: "level 2", level3:"level 3"});
   });
+
+  */
 
   socket.on('updateLevel',function(data){
    Database.levelUpdate(user, data);
@@ -513,8 +515,8 @@ io.sockets.on('connection', function(socket){
 
   });
 
-  Database.getLevelObject("level 1", function(res){
-socket.emit('hey', res);
+  Database.getLevelObject("level1", function(res){
+  socket.emit('hey', res);
    });
 
 

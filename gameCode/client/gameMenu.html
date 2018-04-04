@@ -1,229 +1,146 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!DOCTYPE html>
 <html>
 <head>
-<title>The Dark Night</title>
+<title>Game Title</title>
 </head>
 
-<body style="margin:0px;">
-<canvas id="myCanvas" width="1250" height="500" ><p>Your browser does not support HTML5!</p></canvas>
+<body style="margin:0px">
+<canvas id="myCanvas" width="480" height="320"><p>Your browser does not support HTML5!</p></canvas>
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 <script type="text/javascript">
-
-  var socket = io();
-  var state = "main menu";
   var socket = io();
 	var canvas = document.getElementById("myCanvas");
 	var context = canvas.getContext("2d");
-
 	var width = canvas.getAttribute('width');
 	var height = canvas.getAttribute('height');
-
 	var mouseX;
 	var mouseY;
-
 	var backgroundImage = new Image();
 	var logoImage = new Image();
 	var playImage = new Image();
-	var background2Image = new Image();
+	var playOnlineImage = new Image();
 	var levelEditorImage = new Image();
 	var achievementsImage = new Image();
 	var bigGuyImage = new Image();
-
-
 	var backgroundY = 0;
 	var speed = 1;
-
 	//Arrays for button dimensions
-	var buttonX = [500,500,500,500];
+	var buttonX = [149,149,149,149];
 	var buttonY = [100,140,180,220];
 	var buttonWidth = [96,260,202,160];
 	var buttonHeight = [40,40,40,40];
-
-  function clear() {
-    context.clearRect(0, 0, width, height);
-  }
-  function achievements(){
-    clear();
-    backgroundImage.src = "../../images/Background.png";
-		backgroundImage.onload = function(){
-			context.drawImage(backgroundImage, 0, 0);
-      context.font = '20px serif';
-      context.fillStyle = 'white';
-      context.fillText("Your unlocked levels are: ", buttonX[0]+10, 120);
-      context.fillText("Level 1, Time : 1 min 20 seconds ", buttonX[0]+10, 150);
-      console.log("Your unlocked levels are: ");
-		};
-
-    logoImage.onload = function(){
-      context.drawImage(logoImage,  buttonX[0]+60, 10);
-    }
-    logoImage.src = "../../images/scientistMain.png";
-
-
-
-  }
-	function Level() {
-    clear();
+	/*
+	bigGuyImage.src = "Images/bigGuy.png";
+	backgroundImage.onload = function(){
+		context.drawImage(backgroundImage, 230, 20);
+	};
+	*/
+	/*
+	backgroundImage.src = "Images/Background.png";
+	logoImage.onload = function(){
+		context.drawImage(logoImage, 200, 10);
+	}
+	logoImage.src = "Images/scientistMain.png";
+	playImage.onload = function(){
+		context.drawImage(playImage, buttonX[0], buttonY[0]);
+	}
+	playImage.src = "Images/playStory.png";
+	playOnlineImage.onload = function(){
+		context.drawImage(playOnlineImage, buttonX[1], buttonY[1]);
+	}
+	playOnlineImage.src = "Images/playOnline.png";
+	levelEditorImage.onload = function(){
+		context.drawImage(levelEditorImage, buttonX[2], buttonY[2]);
+	}
+	levelEditorImage.src = "Images/levelEditor.png";
+	achievementsImage.onload = function(){
+		context.drawImage(achievementsImage, buttonX[3], buttonY[3]);
+	}
+	achievementsImage.src = "Images/achievements.png";
+	timerId = setInterval("update()", 1000/frames);
+	canvas.addEventListener("mousemove", checkPos);
+	canvas.addEventListener("mouseup", checkClick);
+	*/
+	function update() {
+		//clear();
+		draw();
+	}
+	function main() {
 		backgroundImage.src = "../../images/Background.png";
 		backgroundImage.onload = function(){
 			context.drawImage(backgroundImage, 0, 0);
 		};
-
 		//login
 		achievementsImage.onload = function(){
 			context.drawImage(achievementsImage, buttonX[1], buttonY[1]);
 		}
 		achievementsImage.src = "../../images/loadlevelbutton.png"; //Load level
-
 		//sign up
 		playImage.onload = function(){
 			context.drawImage(playImage, buttonX[0], buttonY[0]);
 		}
 		playImage.src = "../../images/newlevelbutton.png"; // new Level
-
 		canvas.addEventListener('click', function(e) {
 		   mouseX = e.pageX;
 			 mouseY = e.pageY;
-if(state ==="level"){
 			 if (mouseX >buttonX[0] && mouseX < (buttonX[0]+ buttonWidth[2]) && mouseY> buttonY[0] && mouseY < (buttonY[0]+buttonHeight[0]) ) {
-				location.href = "/client/level.html";
-
+				location.href = "/levelEditor";
 			 }
 			 else if( mouseX >buttonX[0] && mouseX < (buttonX[0]+ buttonWidth[2]) && mouseY> buttonY[1] && mouseY < (buttonY[1]+buttonHeight[0]) ) {
-         clear();
-         state = "save level";
-         saveLevel();
-				//location.href = "/levelEditor";
-			//	socket.emit('loadLevel',{level: "level1"});
-
+				location.href = "/levelEditor";
+				socket.emit('loadLevel',{level: "level1"});
 			 }
-     }
-
 		 }, false);
-
-   }
-
-   /*function saveLevel() {
-     socket.emit('getLevelNames');
-     clear();
-
-     socket.on('receiveLevelNames', function(data){
-        console.log(data);
-
-
-        backgroundImage.src = "../../images/Background.png";
-    		backgroundImage.onload = function(){
-    			context.drawImage(backgroundImage, 0, 0);
-    		};
-       for( var i =0; i< 3; i++){
-
-     		//background2Image.onload = function(){
-     			context.drawImage(background2Image, buttonX[1], buttonY[1]);
-     		//}
-     		background2Image.src = "../../images/backgroundButton.png"; //Load level
-
-
-        }
-
-     });
-
-   }; */
-
-
-
+	}
+	/*
+	function clear() {
+		context.clearRect(0, 0, width, height);
+	}
+	*/
 	function draw(){
-     clear();
 		backgroundImage.src = "../../images/Background.png";
 		backgroundImage.onload = function(){
 			context.drawImage(backgroundImage, 0, 0);
-
 			logoImage.onload = function(){
-				context.drawImage(logoImage,  buttonX[0]+60, 10);
+				context.drawImage(logoImage, 200, 10);
 			}
 			logoImage.src = "../../images/scientistMain.png";
 			playImage.onload = function(){
 				context.drawImage(playImage, buttonX[0], buttonY[0]);
 			}
 			playImage.src = "../../images/playStory.png";
-		/*	playOnlineImage.onload = function(){
+			playOnlineImage.onload = function(){
 				context.drawImage(playOnlineImage, buttonX[1], buttonY[1]);
 			}
-			playOnlineImage.src = "../../images/playOnline.png"; */
+			playOnlineImage.src = "../../images/playOnline.png";
 			levelEditorImage.onload = function(){
-				context.drawImage(levelEditorImage, buttonX[1], buttonY[1]);
+				context.drawImage(levelEditorImage, buttonX[2], buttonY[2]);
 			}
 			levelEditorImage.src = "../../images/levelEditor.png";
 			achievementsImage.onload = function(){
-				context.drawImage(achievementsImage, buttonX[2], buttonY[2]);
+				context.drawImage(achievementsImage, buttonX[3], buttonY[3]);
 			}
 			achievementsImage.src = "../../images/achievements.png";
-
 		};
-
-    canvas.addEventListener('click', function(e) {
-       mouseX = e.pageX;
-    	 mouseY = e.pageY;
-       if(state=== "main menu"){
-      	 if (mouseX >buttonX[0] && mouseX < (buttonX[0]+ buttonWidth[2]) && mouseY> buttonY[0] && mouseY < (buttonY[0]+buttonHeight[0]) ) {
-      		//context.clearRect(0, 0, canvas.width, canvas.height);
-          state = "play";
-      		location.href = "/client/interface/index.html";
-      	 }
-      	 else if( mouseX >buttonX[0] && mouseX < (buttonX[0]+ buttonWidth[2]) && mouseY> buttonY[1] && mouseY < (buttonY[1]+buttonHeight[0]) ) {
-          clear();
-          state = "level";
-          Level();
-      	 }
-         else if( mouseX >buttonX[0] && mouseX < (buttonX[0]+ buttonWidth[2]) && mouseY> buttonY[2] && mouseY < (buttonY[2]+buttonHeight[0]) ) {
-          clear();
-          state = "achievements";
-
-          achievements();
-      	 }
-      	 else{
-      		 console.log(" do nothing");
-      	 }
-       }
-
-
-     }, false);
-
-
 	}
-
-	draw();
-/*if(state=== "main menu"){
+	update();
 canvas.addEventListener('click', function(e) {
    mouseX = e.pageX;
 	 mouseY = e.pageY;
-
-  	 if (mouseX >buttonX[0] && mouseX < (buttonX[0]+ buttonWidth[2]) && mouseY> buttonY[0] && mouseY < (buttonY[0]+buttonHeight[0]) ) {
-  		//context.clearRect(0, 0, canvas.width, canvas.height);
-      state = "play";
-  		location.href = "/client/interface/index.html";
-  	 }
-  	 else if( mouseX >buttonX[0] && mouseX < (buttonX[0]+ buttonWidth[2]) && mouseY> buttonY[1] && mouseY < (buttonY[1]+buttonHeight[0]) ) {
-      clear();
-      state = "level";
-      Level();
-  	 }
-     else if( mouseX >buttonX[0] && mouseX < (buttonX[0]+ buttonWidth[2]) && mouseY> buttonY[2] && mouseY < (buttonY[2]+buttonHeight[0]) ) {
-      clear();
-      state = "achievements";
-
-      achievements();
-  	 }
-  	 else{
-  		 console.log(" do nothing");
-  	 }
-
-
+	 if (mouseX >buttonX[0] && mouseX < (buttonX[0]+ buttonWidth[2]) && mouseY> buttonY[0] && mouseY < (buttonY[0]+buttonHeight[0]) ) {
+		//context.clearRect(0, 0, canvas.width, canvas.height);
+		location.href = "/client/interface/index.html";
+	 }
+	 else if( mouseX >buttonX[0] && mouseX < (buttonX[0]+ buttonWidth[2]) && mouseY> buttonY[2] && mouseY < (buttonY[2]+buttonHeight[0]) ) {
+		main();
+	 }
+	 else{
+		 console.log(" do nothing");
+	 }
  }, false);
-}
 	/*canvas.addEventListener('click', function(event) {
     var x = event.pageX,
         y = event.pageY;
-
     // Collision detection between clicked offset and element.
 		if(x> 149){
 			alert('clicked an element');
@@ -234,16 +151,7 @@ canvas.addEventListener('click', function(e) {
             alert('clicked an element');
         }
     });
-
 }, false); */
-
-/*
-function clear() {
-  context.clearRect(0, 0, width, height);
-}
-*/
-
-
 </script>
 </body>
 
