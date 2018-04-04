@@ -136,6 +136,17 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		if (Math.abs(self.vy) > self.maxVelocityY) {
 			self.vy = Math.sign(self.vy)*self.maxVelocityX;
 		}
+		
+		
+		if (self.blockedLeft && self.vx < 0) {
+			console.log("stopped left");
+			self.vx = 0;
+		}
+		if (self.blockedRight && self.vx > 0) {
+			console.log("stopped right");
+			self.vx = 0;
+		}
+			
 
 		self.x += self.vx;
 		self.y -= self.vy;
