@@ -257,6 +257,7 @@ GUI = function(container){
 				aniX=0
 				newx=ani.getWeaponPosition(en);
 				dir=ani.getPlayDirection(en);
+				//console.log(en.fireTimer);
 				if (en.isFiring==true){
 					aniX=ani.fireAnimation(en,en.fireTimer,newX);
 				}
@@ -326,7 +327,6 @@ GUI = function(container){
 
 	};
 	self.aniDraw=function(img,x,y,width,height){
-		console.log(img,x,y,width,height);
 		gui.fg_ctx.drawImage(img,(x-xOffset)-playX,y-yOffset,width,height);
 
 	};
@@ -402,7 +402,10 @@ GUI = function(container){
 		//draw current weapon image
 		fW=weaponImg.width/5;
 		fH=weaponImg.height/2;
- 		ctx.drawImage(weaponImg,0,0,fW,fH,weaponImgX,weaponImgY,player.weapon.width,player.weapon.height);
+		if(player.weapon.type=="assaultRifle"){
+			fW=weaponImg.width/9;
+		}
+ 		ctx.drawImage(weaponImg,0,0,fW,fH,weaponImgX,weaponImgY,50,50);
 		weaponImg.onload=function(){};
 	};
 	return self;
