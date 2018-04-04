@@ -435,13 +435,15 @@ var update = function() {
 		}
 		
 		
-		newBullets = enemy.shoot();
-		//console.log(newBullets);
-		for (i in newBullets) {
-			newBullet = newBullets[i];
-			//console.log(newBullet);
-			if (newBullet) {
-				bullets[newBullet.id] = newBullet;
+		if (enemy.type == "flying enemy") {
+			newBullets = enemy.shoot();
+			//console.log(newBullets);
+			for (i in newBullets) {
+				newBullet = newBullets[i];
+				//console.log(newBullet);
+				if (newBullet) {
+					bullets[newBullet.id] = newBullet;
+				}
 			}
 		}
 		
