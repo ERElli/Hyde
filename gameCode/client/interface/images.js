@@ -55,6 +55,12 @@ Img = function(pathToRoot) {
 	self.terrain3x6Breakable= new Image();
 	self.terrain3x6Breakable.src= pathToRoot+"client/interface/img/terrain/breakableTerrain3x4.png";
 
+	//checkpoint images
+	self.standardCheckpoint= new Image();
+	self.standardCheckpoint.src = pathToRoot+"client/interface/img/placeCheckpoint.png";
+	self.finalCheckpoint= new Image();
+	self.finalCheckpoint.src = pathToRoot+"client/interface/img/placeCheckpoint.png";
+
 	return self;
 };
 
