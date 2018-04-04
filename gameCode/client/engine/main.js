@@ -156,6 +156,137 @@ var update = function() {
 	player.immuneCounter++;
 	
 	player.falling = true; //set to false if standing on terrain;
+	player.blockedLeft = false;
+	player.blockedRight = false;
+	
+	
+	//Manage terrain (more player below) ---------------------------------------------------------------------------
+	for (var key in terrain) {
+		
+		block = terrain[key];
+		
+		gui.drawTerrain(block,gui.fg_ctx)
+		
+		if (!inRange(block)) {
+			continue;
+		}
+		
+		//Check collisions with player ####################################
+		
+		if (blockUnderEntity(block, player)) {
+			player.falling = false;
+			if (!player.justJumped) {
+				putOnTerrain(block, player);
+			}
+		}
+		
+		if (player.falling) {
+			player.inAir = true;
+			player.setAirMotion();
+		}
+		
+		
+		if (blockLeftEntity(block, player)) {
+			
+			if (!(block.type == "Terrain1x1Breakable")) {
+				player.x = block.x + block.width+player.width/2;
+				player.blockedLeft = true;
+			}
+			
+			else {
+				//player_damage = Math.abs(player.getMomentum()) / 100;
+				//block.health -= player_damage;
+				if (Math.abs(player.getMomentum()) >= block.breakAt) {
+					delete  terrain[key];
+				}
+				else {
+					player.x = block.x + block.width+player.width/2;
+					player.blockedLeft = true;
+				}
+			}
+			
+		}
+		if (blockRightEntity(block, player) && player.vx >= 0){			
+			
+			if (!(block.type == "Terrain1x1Breakable")) {
+				player.x = block.x - player.width*0.6;
+				player.blockedRight = true;
+			}
+			
+			else {
+				//player_damage = Math.abs(player.getMomentum()) / 100;
+				//block.health -= player_damage;
+				if (Math.abs(player.getMomentum()) >= block.breakAt) {
+					delete  terrain[key];
+				}
+				else {
+					player.x = block.x-player.width*0.6;
+					player.blockedRight = true;
+				}
+			}
+			
+		}
+
+		
+		if (blockOverEntity(block, player)) {
+			player.y = block.y+block.height+player.height/2;
+			player.vy = -2;
+		}
+		
+		
+		//Check collisions with enemies ####################################
+		
+		for (var key in enemies) {
+			
+			enemy = enemies[key];
+			enemy.falling = true;
+			
+			if (blockUnderEntity(block, enemy)) {
+				enemy.falling = false;
+				if (!enemy.justJumped) {
+					putOnTerrain(block, enemy);
+				}
+			}
+			
+			if (enemy.falling) {
+				enemy.inAir = true;
+				enemy.setAirMotion();
+			}
+			
+			
+			if (blockLeftEntity(block, enemy) && enemy.vx < 0) {
+				enemy.x = block.x + block.width+enemy.width/2;
+				enemy.vx = 1;
+			}
+			if (blockRightEntity(block, enemy) && enemy.vx > 0) {
+				enemy.x = block.x-enemy.width/2;
+				enemy.vx = -1;
+			}
+			
+			
+			if (blockOverEntity(block, enemy)) {
+				enemy.y = block.y+block.height+enemy.height/2;
+				enemy.vy = -2;
+			}
+		}
+		
+		
+		// Check collisions with bullets ###############################
+		
+		for (var key in bullets) {
+			
+			bullet = bullets[key]
+			
+			if (testCollision(block, bullet)) {
+				
+				delete bullets[key];
+				
+			}
+			
+		}
+		
+	}
+	
 	
 	if (player.isLaunched) {
 		//console.log("Launched");
@@ -203,6 +334,8 @@ var update = function() {
 	}
 	
 	player.update();
+
+	
 
 	// Manage pick-ups ------------------------------------------------------------------
 		
@@ -368,132 +501,8 @@ var update = function() {
 	}
 	
 	
-	//Manage terrain ---------------------------------------------------------------------------
-	for (var key in terrain) {
-		
-		block = terrain[key];
-		
-		gui.drawTerrain(block,gui.fg_ctx)
-		
-		if (!inRange(block)) {
-			continue;
-		}
-		
-		//Check collisions with player ####################################
-		
-		if (blockUnderEntity(block, player)) {
-			player.falling = false;
-			if (!player.justJumped) {
-				putOnTerrain(block, player);
-			}
-		}
-		
-		if (player.falling) {
-			player.inAir = true;
-			player.setAirMotion();
-		}
-		
-		
-		if (blockLeftEntity(block, player) && player.vx < 0) {
-			
-			if (!(block.type == "Terrain1x1Breakable")) {
-				player.x = block.x + block.width+player.width/2;
-				player.vx = 2;
-			}
-			
-			else {
-				//player_damage = Math.abs(player.getMomentum()) / 100;
-				//block.health -= player_damage;
-				if (Math.abs(player.getMomentum()) >= block.breakAt) {
-					delete  terrain[key];
-				}
-				else {
-					player.x = block.x + block.width+player.width/2;
-					player.vx = 2;
-				}
-			}
-			
-		}
-		if (blockRightEntity(block, player) && player.vx > 0) {
-			
-			if (!(block.type == "Terrain1x1Breakable")) {
-				player.x = block.x-player.width/2;
-				player.vx =-2;
-			}
-			
-			else {
-				//player_damage = Math.abs(player.getMomentum()) / 100;
-				//block.health -= player_damage;
-				if (Math.abs(player.getMomentum()) >= block.breakAt) {
-					delete  terrain[key];
-				}
-				else {
-					player.x = block.x-player.width/2;
-					player.vx =-2;
-				}
-			}
-			
-		}
-		
-		
-		if (blockOverEntity(block, player)) {
-			player.y = block.y+block.height+player.height/2;
-			player.vy = -2;
-		}
-		
-		
-		//Check collisions with enemies ####################################
-		
-		for (var key in enemies) {
-			
-			enemy = enemies[key];
-			enemy.falling = true;
-			
-			if (blockUnderEntity(block, enemy)) {
-				enemy.falling = false;
-				if (!enemy.justJumped) {
-					putOnTerrain(block, enemy);
-				}
-			}
-			
-			if (enemy.falling) {
-				enemy.inAir = true;
-				enemy.setAirMotion();
-			}
-			
-			
-			if (blockLeftEntity(block, enemy) && enemy.vx < 0) {
-				enemy.x = block.x + block.width+enemy.width/2;
-				enemy.vx = 1;
-			}
-			if (blockRightEntity(block, enemy) && enemy.vx > 0) {
-				enemy.x = block.x-enemy.width/2;
-				enemy.vx = -1;
-			}
-			
-			
-			if (blockOverEntity(block, enemy)) {
-				enemy.y = block.y+block.height+enemy.height/2;
-				enemy.vy = -2;
-			}
-		}
-		
-		
-		// Check collisions with bullets ###############################
-		
-		for (var key in bullets) {
-			
-			bullet = bullets[key]
-			
-			if (testCollision(block, bullet)) {
-				
-				delete bullets[key];
-				
-			}
-			
-		}
-		
-	}
+	
+	
 	
 	
 }

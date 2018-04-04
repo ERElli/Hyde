@@ -48,12 +48,16 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 
 	self.maxMomentum = bigMass*bigMaxVX;
 	
+	self.isStopped = false;
+	self.xOffset = self.width/2;
+	self.yOffset = self.height/2;
+	
 	var oldUpdate = self.updatePosition;
 	self.updatePosition = function() {
-		
+
 		//console.log(self.vx);
 		
-		if (Math.sign(self.vx) != Math.sign(self.ax) && !self.isLaunched) {
+		if (Math.sign(self.vx) != Math.sign(self.ax) && !self.isLaunched && !self.isStopped) {
 			//console.log("Slowing");
 			self.ax = self.slowDownFactor*self.ax;
 		}	
@@ -111,10 +115,10 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 				self.jumpSpeed = smallJumpSpeed;
 				self.slowDownFactor = smallSlowDown;
 				
-				self.xOffset = self.width/2;
+				self.xOffset = self.width*0.6;
 				self.yOffset = self.height/2;
 				
-				self.launch(px/self.mass);
+				self.launch(1);
 			}
 			else {
 				self.isBig = true;
