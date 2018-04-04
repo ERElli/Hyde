@@ -33,6 +33,8 @@
 		var levelObjects;
 		getLevelObjects();
 
+
+
 		//the socket receive the level objects from the database
 		socket.on('receiveLevelObjects',function(data){
 		levelObjects = data;
@@ -72,7 +74,7 @@
 		}
 
 		for (var id in levelFromFactory.enemies) {
-			console.log(levelFromFactory.enemies[id]);
+			//console.log(levelFromFactory.enemies[id]);
 			levelFromFactory.enemies[id].target = levelFromFactory.player;
 		}
 
