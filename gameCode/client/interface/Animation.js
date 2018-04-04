@@ -56,11 +56,23 @@ Animation=function(){
 		}else{}
 		return newX;
 	};
+	//Fire animation for guns
 	self.fireAnimation=function(entity,numAnimation){
 		n=numAnimation;
 		en=entity;
 		return n;		
-	}	
+	};
+	//Player jumping animation;
+	self.playJumpAnimation=function(entity,playDir){
+		if(playDir==0){
+			entity.aniCount=0;	
+		}else{
+			entity.aniCount=1;
+		}
+		playDir=2;
+		return playDir;	
+	};
+		
 	return self;
 }
 

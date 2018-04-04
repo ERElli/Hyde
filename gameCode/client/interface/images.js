@@ -9,7 +9,7 @@ Img = function(pathToRoot) {
 	self.background3.src= pathToRoot+"client/interface/img/background/worldThreeBackground.png";
 	//player images	
 	self.playerSmall= new Image();
-	self.playerSmall.src= pathToRoot+"client/interface/img/entity/humanoid/movingCharacter.png";
+	self.playerSmall.src= pathToRoot+"client/interface/img/entity/humanoid/playerSmall.png";
 	self.playerBig= new Image();
 	self.playerBig.src= pathToRoot+"client/interface/img/entity/humanoid/bigGuy.png";
 	//enemy images
@@ -18,10 +18,7 @@ Img = function(pathToRoot) {
 	self.basicEnemy2= new Image();
 	self.basicEnemy2.src= pathToRoot+"client/interface/img/entity/humanoid/flyingEnemy.png";
 	self.basicEnemy3= new Image();
-	self.basicEnemy3.src= pathToRoot+"client/interface/img/enemy3.png";
-	
-	self.bearEnemy= new Image();
-	self.bearEnemy.src= pathToRoot+"client/interface/img/bear.png";
+	self.basicEnemy3.src= pathToRoot+"client/interface/img/enemy3.png"
 	
 	self.infinity=new Image();
 	self.infinity.src= pathToRoot+"client/interface/img/inf.png";
@@ -35,7 +32,7 @@ Img = function(pathToRoot) {
 	self.shotgun= new Image();
 	self.shotgun.src= pathToRoot+"client/interface/img/entity/weapon/shotgunAttack.png";
 	self.bullet= new Image();
-	self.bullet.src= pathToRoot+"client/interface/img/bullet.png";
+	self.bullet.src= pathToRoot+"client/interface/img/entity/bullet.png";
 
 	//Terrain Images
 	self.terrain1x1= new Image();

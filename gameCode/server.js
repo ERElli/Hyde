@@ -338,6 +338,14 @@ app.get('/client/interface/img/terrain/breakableTerrain3x4.png',function(req, re
 app.get('/client/interface/img/terrain/terrain3x4.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/terrain/terrain3x4.png');
 });
+app.get('/client/interface/img/entity/humanoid/playerSmall.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/humanoid/playerSmall.png');
+});
+
+
+app.get('/client/interface/img/entity/bullet.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/bullet.png');
+});
 app.get('/client/interface/img/terrain/breakableTerrain3x2.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/terrain/breakableTerrain3x2.png');
 });
