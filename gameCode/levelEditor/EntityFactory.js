@@ -1,20 +1,28 @@
+var socket = io();
 EntityFactory = function(levelString,isLevelEditor){
-	//console.log(levelString);
+	// console.log(levelString);
 	var self = {};
 
-	//creating a JSON object from a strin
+	//creating a JSON object from a string
+	// var LevelString = JSON.stringify(levelString);
+	// console.log("LEVEL",LevelString);
+
+
 	let LevelObject = JSON.parse(levelString);
-	//console.log("Level Object",LevelObject);
+	console.log("Level Object",LevelObject);
 
 	var player;
 
-	for(let generalType in LevelObject){
-		// console.log(generalType);
+	for(let generalType in LevelObject[0]){
+		console.log(generalType);
 		// console.log(Object.keys(LevelObject[generalType]).length);
-		self[generalType] = {};
 		if(generalType === 'enemies' || generalType === 'terrain' || generalType === 'player'){
-			for(let id in LevelObject[generalType]){
-				let object = LevelObject[generalType][id];
+			self[generalType] = {};
+			// for(let id in LevelObject[0][generalType][0]){
+			for(let i=0;i<LevelObject[0][generalType].length;i++){
+				let object = LevelObject[0][generalType][i].items;
+
+				let mID = object.id;
 				let mX = object.x;
 				let mY = object.y;
 				let mObject = self[generalType];
@@ -22,53 +30,53 @@ EntityFactory = function(levelString,isLevelEditor){
 					case "terrain":
 						switch(object.type){
 							case "Terrain1x1":
-								mObject[id] = Terrain1x1(id,mX,mY);
+								mObject[mID] = Terrain1x1(mID,mX,mY);
 								break;	
 							case "Terrain1x1Breakable":
-								mObject[id] = Terrain1x1Breakable(id,mX,mY);
+								mObject[mID] = Terrain1x1Breakable(mID,mX,mY);
 								break;
 							case "Terrain3x2":
-								mObject[id] = Terrain3x2(id,mX,mY);
+								mObject[mID] = Terrain3x2(id,mX,mY);
 								break;
 							case "Terrain3x2Breakable":
-								mObject[id] = Terrain3x2Breakable(id,mX,mY);
+								mObject[mID] = Terrain3x2Breakable(id,mX,mY);
 								break;
 							case "Terrain3x4":
-								mObject[id] = Terrain3x4(id,mX,mY);
+								mObject[mID] = Terrain3x4(id,mX,mY);
 								break;
 							case "Terrain3x4Breakable":
-								mObject[id] = Terrain3x4Breakable(id,mX,mY);
+								mObject[mID] = Terrain3x4Breakable(id,mX,mY);
 								break;
 							case "Terrain3x6":
-								mObject[id] = Terrain3x6(id,mX,mY);
+								mObject[mID] = Terrain3x6(id,mX,mY);
 								break;
 							case "Terrain3x6Breakable":
-								mObject[id] = Terrain3x6Breakable(id,mX,mY);
+								mObject[mID] = Terrain3x6Breakable(id,mX,mY);
 								break;
 						}
 						break;
 					case "player":
 						let weapID = Math.random();
 						let weapon = Pistol(weapID, mX, mY, 0, 0, 25, 25, Img.pistol, 'red', id);
-						self[generalType][id] = Player(id,mX,mY,0,0,Img.playerSmall,weapon,false);
-						player = self[generalType][id];
+						mObject[mID] = Player(mID,mX,mY,0,0,Img.playerSmall,weapon,false);
+						player = mObject[mID];
 						break;
 					case "enemies":
 						switch(object.type){
 							case "basic enemy":
-								mObject[id] = BasicEnemy(id,mX,mY,0,0,Img.basicEnemy1,'red',null);
+								mObject[mID] = BasicEnemy(mID,mX,mY,0,0,Img.basicEnemy1,'red',null);
 								break;
 							case "flying enemy":
-								mObject[id] = FlyingEnemy(id,mX,mY,0,0,Img.basicEnemy2,'red',null);
+								mObject[mID] = FlyingEnemy(mID,mX,mY,0,0,Img.basicEnemy2,'red',null);
 								break;
 							case "tank enemy":
-								mObject[id] = TankEnemy(id,mX,mY,0,0,Img.basicEnemy3,'red',null);
+								mObject[mID] = TankEnemy(mID,mX,mY,0,0,Img.basicEnemy3,'red',null);
 						}
 						break;
 				}
 				if(isLevelEditor){
-					mObject[id].y = mObject[id].y+100;
-					map.tryToPlaceEntity(mObject[id]);
+					// mObject[id].y = mObject[id].y+100;
+					map.tryToPlaceEntity(mObject[mID]);
 				}
 			}
 		}
@@ -82,7 +90,7 @@ EntityFactory = function(levelString,isLevelEditor){
 		self['enemies'][id].target = player;
 	}
 
-	self.name = LevelObject.name;
+	self.name = LevelObject[0].level;
 	self.width = LevelObject.width;
 	self.height = LevelObject.height;
 	console.log("ENTITY FACTORY",self);
