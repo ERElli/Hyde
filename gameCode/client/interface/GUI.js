@@ -210,7 +210,7 @@ GUI = function(container){
 				newx=ani.getWeaponPosition(en);
 				dir=ani.getPlayDirection(en);
 				if (en.isFiring==true){
-					aniX=ani.fireAnimation(en,en.fireTimer);
+					aniX=ani.fireAnimation(en,en.fireTimer,newX);
 				}
 				self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newx,en.y);
 				break;
@@ -226,7 +226,7 @@ GUI = function(container){
 				newx=ani.getWeaponPosition(en);
 				dir=ani.getPlayDirection(en);
 				if (en.isFiring==true){
-					aniX=ani.fireAnimation(en,en.fireTimer);
+					aniX=ani.fireAnimation(en,en.fireTimer,newX);
 				}
 				self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newx,en.y);
 				break;
@@ -242,7 +242,7 @@ GUI = function(container){
 				newx=ani.getWeaponPosition(en);
 				dir=ani.getPlayDirection(en);
 				if (en.isFiring==true){
-					aniX=ani.fireAnimation(en,en.fireTimer);
+					aniX=ani.fireAnimation(en,en.fireTimer,newX);
 				}
 				self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newx,en.y);
 				break;
@@ -258,7 +258,7 @@ GUI = function(container){
 				newx=ani.getWeaponPosition(en);
 				dir=ani.getPlayDirection(en);
 				if (en.isFiring==true){
-					aniX=ani.fireAnimation(en,en.fireTimer);
+					aniX=ani.fireAnimation(en,en.fireTimer,newX);
 				}
 				self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newx,en.y);
 				break;
@@ -321,7 +321,13 @@ GUI = function(container){
 
 	//QuickDraw Methods(For improved readability)
 	self.quickDraw=function(img,entity,ctx,x,y){
+
 		ctx.drawImage(img,(x-xOffset)-playX,y-yOffset,entity.width,entity.height);
+
+	};
+	self.aniDraw=function(img,x,y,width,height){
+		console.log(img,x,y,width,height);
+		gui.fg_ctx.drawImage(img,(x-xOffset)-playX,y-yOffset,width,height);
 
 	};
 
