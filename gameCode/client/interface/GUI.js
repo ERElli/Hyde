@@ -207,12 +207,12 @@ GUI = function(container){
 					yOffset=fH/2;
 				}
 				aniX=0
-				newx=ani.getWeaponPosition(en);
+				newX=ani.getWeaponPosition(en);
 				dir=ani.getPlayDirection(en);
 				if (en.isFiring==true){
 					aniX=ani.fireAnimation(en,en.fireTimer,newX);
 				}
-				self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newx,en.y);
+				self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newX,en.y);
 				break;
 			case "shotgun":
 				weapImg=Img.shotgun;
@@ -223,12 +223,12 @@ GUI = function(container){
 					yOffset=fH/2;
 				}
 				aniX=0
-				newx=ani.getWeaponPosition(en);
+				newX=ani.getWeaponPosition(en);
 				dir=ani.getPlayDirection(en);
 				if (en.isFiring==true){
 					aniX=ani.fireAnimation(en,en.fireTimer,newX);
 				}
-				self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newx,en.y);
+				self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newX,en.y);
 				break;
 			case "sword":
 				weapImg=Img.swordWeapon;
@@ -239,12 +239,15 @@ GUI = function(container){
 					yOffset=fH/2;
 				}
 				aniX=0
-				newx=ani.getWeaponPosition(en);
+				newX=ani.getWeaponPosition(en);
+				newY=en.y;
 				dir=ani.getPlayDirection(en);
 				if (en.isFiring==true){
-					aniX=ani.fireAnimation(en,en.fireTimer,newX);
+					ani.swordAnimation(en,en.fireTimer,newX,newY,weapImg,fW,fH,dir);
 				}
-				self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newx,en.y);
+				else{
+					self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newX,newY);
+				}
 				break;
 			case "assaultRifle":
 				weapImg=Img.assaultWeapon
@@ -255,17 +258,20 @@ GUI = function(container){
 					yOffset=fH/2;
 				}
 				aniX=0
-				newx=ani.getWeaponPosition(en);
+				newX=ani.getWeaponPosition(en);
 				dir=ani.getPlayDirection(en);
 				//console.log(en.fireTimer);
 				if (en.isFiring==true){
 					aniX=ani.fireAnimation(en,en.fireTimer,newX);
 				}
-				self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newx,en.y);
+				self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newX,en.y);
 				break;
 			case "bullet":
-			case "meleeBullet":
 				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
+				break;
+			case "meleeBullet":
+				//melee bullets shouldnt be drawn
+				//self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;
 		}
 		//console.log(entity);
