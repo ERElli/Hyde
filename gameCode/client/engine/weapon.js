@@ -59,7 +59,7 @@ function Pistol(id, x, y, vx, vy, width, height, img, color, ownerID) {
 
 function Shotgun(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	
-	var shotgunRate = 2;
+	var shotgunRate = 1;
 	var shotgunSpeed = 12;
 	var img=Img.shotgun;
 	var self = Weapon("shotgun", id, x, y, vx, vy, width, height, img, color, shotgunRate, shotgunSpeed, "normal", 100, 20);

@@ -22,7 +22,9 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	var bigJumpSpeed = 3*mpsTOppf;
 	var bigSlowDown = 4;
 	//Creating players weapon for GUI testing purposes	
-	var weapon=new Shotgun(1, x, y, vx, vy, 20, 20, Img.swordWeapon, "blue", id);
+
+	//var weapon=new Shotgun(1, x, y, vx, vy, 40, 40, Img.assaultWeapon, "blue", id);
+
 	
 	//type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, health, weapon, mass, jumpSpeed, meleeDamage
 	var self = Humanoid('player', id, x, y, vx, vy, smallWidth, smallHeight, img, 'red', smallAcceleration, smallMaxVX, smallMaxVY,
