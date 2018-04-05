@@ -36,22 +36,22 @@ EntityFactory = function(levelString,isLevelEditor){
 								mObject[mID] = Terrain1x1Breakable(mID,mX,mY);
 								break;
 							case "Terrain3x2":
-								mObject[mID] = Terrain3x2(id,mX,mY);
+								mObject[mID] = Terrain3x2(mID,mX,mY);
 								break;
 							case "Terrain3x2Breakable":
-								mObject[mID] = Terrain3x2Breakable(id,mX,mY);
+								mObject[mID] = Terrain3x2Breakable(mID,mX,mY);
 								break;
 							case "Terrain3x4":
-								mObject[mID] = Terrain3x4(id,mX,mY);
+								mObject[mID] = Terrain3x4(mID,mX,mY);
 								break;
 							case "Terrain3x4Breakable":
-								mObject[mID] = Terrain3x4Breakable(id,mX,mY);
+								mObject[mID] = Terrain3x4Breakable(mID,mX,mY);
 								break;
 							case "Terrain3x6":
-								mObject[mID] = Terrain3x6(id,mX,mY);
+								mObject[mID] = Terrain3x6(mID,mX,mY);
 								break;
 							case "Terrain3x6Breakable":
-								mObject[mID] = Terrain3x6Breakable(id,mX,mY);
+								mObject[mID] = Terrain3x6Breakable(mID,mX,mY);
 								break;
 						}
 						break;
@@ -91,7 +91,8 @@ EntityFactory = function(levelString,isLevelEditor){
 	}
 
 	self.name = LevelObject[0].level;
-	self.width = LevelObject.width;
+	//self.width = LevelObject.width;
+	self.width = 5000;
 	self.height = LevelObject.height;
 	console.log("ENTITY FACTORY",self);
 

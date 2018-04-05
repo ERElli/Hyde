@@ -79,7 +79,7 @@
 			}
 			level['terrain'] = {};
 			for (var thing in realLevel['terrain']) {
-				t = realLevel['terrain'][thing]
+				let t = realLevel['terrain'][thing]
 				console.log(t.type);
 
 				var block;
@@ -100,7 +100,7 @@
 					block = Terrain3x4(t.id, t.x, t.y-100);
 				}
 				else if (t.type == 'Terrain3x4Breakable') {
-					block = Terrain3x4(t.id, t.x, t.y-100);
+					block = Terrain3x4Breakable(t.id, t.x, t.y-100);
 				}
 				else if (t.type == 'Terrain3x6') {
 					block = Terrain3x6(t.id, t.x, t.y-100);
@@ -115,6 +115,8 @@
 
 			}
 
+			level.width = realLevel.width;
+			
 			startGame(level);
 	  });
 
