@@ -273,8 +273,16 @@ Animation=function(){
 		Sound.weaponPickUp.play();	
 	};
 	self.playBackgroundMusic=function(worldnum){
+		if (worldnum==1){
+			Sound.worldOne.play();
+		}else if(worldnum==2){
+			Sound.worldTwo.play();
+		}else if(worldnum==3){
+			Sound.worldThree.play();
+		}else{
 
-	}
+		}		
+	};
 	return self;
 }
 
