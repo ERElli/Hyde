@@ -276,6 +276,8 @@ GUI = function(container){
 				}
 				self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newX,en.y);
 				break;
+			case "noWeapon":
+				break;
 			case "bullet":
 				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;
