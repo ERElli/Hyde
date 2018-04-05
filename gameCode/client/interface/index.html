@@ -22,11 +22,12 @@
 
 		<script type="text/javascript" src="../../levelEditor/Terrain.js"></script>
 		<script type="text/javascript" src="images.js"></script>
+		<script type="text/javascript" src="sounds.js"></script>
 		<script type="text/javascript" src="GUI.js"></script>
 		<script type="text/javascript" src="Animation.js"></script>
 
 		<script>
-		var socket = io();
+		/*var socket = io();
 		//call the socket to get the level objects from database
 		var  getLevelObjects = function() {
 		 socket.emit('getLevelObject', {levelName: "level 1"});
@@ -85,14 +86,14 @@
 				if (t.type == 'Terrain1x1') {
 					block = Terrain1x1(t.id, t.x, t.y);
 				}
-				/*
+				
 				else if (e.type == 'tank enemy') {
 					enemy =  new TankEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
 				}
 				else {
 					enemy =  new FlyingEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
 				}
-				*/
+			
 
 				level['terrain'][t.id] = block;
 				//console.log(level['terrain']);
@@ -117,9 +118,8 @@
 
 				var levelFromFactory = EntityFactory(level,false);
 			}
-			*/
+	*/
 
-		//
 
 
 
@@ -128,6 +128,7 @@
 		var gui;
 		var ani=Animation();
 		var Img=Img("../../");
+		var Sound=Sound("../../");
 		var HEIGHT=500;
 		var WIDTH=1250;
 
@@ -143,7 +144,7 @@
 		//Creates background and foreground Canvases
 		init();
 
-		var levelFromFactory = EntityFactory(level, false);
+		/*var levelFromFactory = EntityFactory2(level, false);
 
 		for (var id in levelFromFactory.player) {
 			//console.log(levelFromFactory.player[id]);
@@ -155,10 +156,9 @@
 			levelFromFactory.enemies[id].target = levelFromFactory.player;
 		}
 
-		startGame(levelFromFactory);
-
+		startGame(levelFromFactory);*/
 		//console.log(mydata);
-
+		
 		var level = {}
 
 		for (var thing in mydata['player']) {
@@ -217,6 +217,6 @@
 
 		console.log("BEFORE SOCKET",mydata);
 
-		// startGame(level);
+		startGame(level);
 		</script>
 </html>

@@ -152,6 +152,7 @@ Animation=function(){
 			if(numAnimation==0){
 			
 			}else if(numAnimation%8<=2){
+				
 				if(entity.x>x){
 					gui.aniDraw(Img.muzzleFlash.stepFour,x-entity.width,entity.y-entity.height/4.5,40,25);
 				}
@@ -186,8 +187,12 @@ Animation=function(){
 		}
 		else{	
 			if(numAnimation==0){
-			
 			}else if(numAnimation<=2){
+				if (entity.type=="pistol"){
+					//Sound.pistol.play();
+				}else{
+					Sound.shotgun.play();
+				}
 				if(entity.x>x){
 					gui.aniDraw(Img.muzzleFlash.stepOne,x-entity.width,entity.y-entity.height/4.5,40,25);
 				}
