@@ -7,6 +7,10 @@ function Terrain(id, x, y){
 		y: y,
 	};
 
+	self.draw = function(ctx,isLevelEditor){
+		gui.drawTerrain(self,ctx,isLevelEditor);
+	}
+
 	return self;
 }
 
@@ -18,11 +22,6 @@ function Terrain1x1(id, x, y){
 	self.img = Img.terrain1x1;
 
 	self.type = "Terrain1x1";
-
-	self.draw = function(ctx,isLevelEditor){
-		gui.drawTerrain(self, ctx, isLevelEditor);
-		//this is just a temp function until we have art for 1x1 terrain
-	};
 
 	return self;
 }
@@ -37,10 +36,6 @@ function Terrain1x1Breakable(id, x, y){
 
 	self.type = "Terrain1x1Breakable";
 
-	self.draw = function(ctx){
-		ctx.drawImage(self.img, 0, 0,self.img.width,self.img.height,self.x,self.y, self.width, self.height);
-		//this is just a temp function until we have art for 1x1 terrain
-	};
 	return self;
 }
 
@@ -51,10 +46,6 @@ function Terrain3x2(id, x, y){
 	self.img = Img.terrain3x2;
 
 	self.type = "Terrain3x2";
-
-	self.draw = function(ctx){
-		ctx.drawImage(self.img,self.x,self.y, self.width, self.height);
-	};
 
 	return self;
 }
@@ -69,10 +60,6 @@ function Terrain3x2Breakable(id, x, y){
 
 	self.type = "Terrain3x2Breakable";
 
-	self.draw = function(ctx){
-		ctx.drawImage(self.img,self.x,self.y, self.width, self.height);
-	};
-
 	return self;
 }
 
@@ -82,10 +69,6 @@ function Terrain3x4(id, x, y){
 	self.height = 200;
 	self.img = Img.terrain3x4;
 	self.type = "Terrain3x4";
-
-	self.draw = function(ctx){
-		ctx.drawImage(self.img,self.x,self.y, self.width, self.height);
-	};
 
 	return self;
 }
@@ -100,10 +83,6 @@ function Terrain3x4Breakable(id, x, y){
 
 	self.type = "Terrain3x4Breakable";
 
-	self.draw = function(ctx){
-		ctx.drawImage(self.img,self.x,self.y, self.width, self.height);
-	};
-
 	return self;
 }
 
@@ -114,10 +93,6 @@ function Terrain3x6(id, x, y){
 	self.img = Img.terrain3x6;
 
 	self.type = "Terrain3x6";
-
-	self.draw = function(ctx){
-		ctx.drawImage(self.img,self.x,self.y, self.width, self.height);
-	};
 
 	return self;
 }
@@ -131,10 +106,6 @@ function Terrain3x6Breakable(id, x, y){
 	self.img = Img.terrain3x6Breakable;
 
 	self.type = "Terrain3x6Breakable";
-
-	self.draw = function(ctx){
-		ctx.drawImage(self.img,self.x,self.y, self.width, self.height);
-	};
 
 	return self;
 }
