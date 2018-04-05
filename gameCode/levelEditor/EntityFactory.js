@@ -91,8 +91,8 @@ EntityFactory = function(levelString,isLevelEditor){
 	}
 
 	self.name = LevelObject[0].level;
-	self.width = LevelObject.width;
-	self.height = LevelObject.height;
+	self.width = LevelObject[0].width;
+	self.height = LevelObject[0].height;
 	console.log("ENTITY FACTORY",self);
 
 	return self;

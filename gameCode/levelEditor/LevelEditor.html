@@ -6,64 +6,64 @@
 
 </head>
 <body>
-	<div id ="container"></div>
-	<div id ="levelMaker" style="width:500px; height:40px; position:absolute; top:700px; left:10;";>
+	<div id ="container" style="display:none; "></div>
+	<div id ="levelMaker" style="display:none; width:500px; height:40px; position:absolute; top:700px; left:10;";>
 		<form action ="#" id="form" onsubmit="map.convertToString()">
 			Level Name: <input type="text" id="levelName"><br>
 			<input type="submit" value="Submit">
 		</form>
-
+    <p id="newLevelName"> Level </p>
     <button id="button1"> Save </button>
 	</div>
 
 
- 	<div id="enemiesDropdown">
+ 	<div id="enemiesDropdown" >
 		<button onclick="typeTapped('enemies')" class="enemiesbtn"></button>
-		<div id="enemies" class="enemies-content">
+		<div id="enemies" class="enemies-content" >
 			<button style="background-image: url(../../images/enemy1Drop.png)" onclick="enemyTapped('Basic Enemy')" class="enemy1btn"></button>
 			<button style="background-image: url(../../images/enemy2Drop.png)" onclick="enemyTapped('Flying Enemy')" class="enemy2btn"></button>
 			<button style="background-image: url(../../images/enemy3Drop.png)" onclick="enemyTapped('Tank Enemy')" class="enemy3btn"></button>
 		</div>
 	</div>
 
-	<div class="musicDropdown">
+	<div class="musicDropdown" >
 		<button onclick="typeTapped('music')" class="musicbtn"></button>
-		<div id="music" class="music-content">
+		<div id="music" class="music-content" >
 			<button style="background-image: url(../../images/music1Drop.png)" onclick="self.music1Tapped()" class="music1btn"></button>
 			<button style="background-image: url(../../images/music2Drop.png)" onclick="self.music2Tapped()" class="music2btn"></button>
 			<button style="background-image: url(../../images/music3Drop.png)" onclick="self.music3Tapped()" class="music3btn"></button>
 		</div>
 	</div>
 
-	<div class="backgroundDropdown">
+	<div class="backgroundDropdown" >
 		<button onclick="typeTapped('backgrounds')" class="backgroundbtn"></button>
-		<div id="backgrounds" class="background-content">
+		<div id="backgrounds" class="background-content" >
 			<button style="background-image: url(../../images/world1Drop.png)" onclick="worldTapped('world1')" class="world1btn"></button>
 			<button style="background-image: url(../../images/world2Drop.png)" onclick="worldTapped('world2')" class="world2btn"></button>
 			<button style="background-image: url(../../images/world3Drop.png)" onclick="worldTapped('world3')" class="world3btn"></button>
 	  	</div>
 	</div>
 
-	<div class="checkpointDropdown">
+	<div class="checkpointDropdown" >
 		<button onclick="typeTapped('checkpoints')" class="checkpointbtn"></button>
-		<div id="checkpoints" class="checkpoint-content">
+		<div id="checkpoints" class="checkpoint-content" >
 			<button style="background-image: url(../images/checkpointDrop.png)" onclick="checkpointTapped('standard checkpoint')" class="checkpoint1btn"></button>
 			<button style="background-image: url(../images/checkpointFinishDrop.png)" onclick="checkpointTapped('final checkpoint')" class="checkpoint2btn"></button>
 		</div>
 	</div>
 
-	<div class="characterDropdown">
+	<div class="characterDropdown" >
 		<button onclick="typeTapped('character')" class="characterbtn"></button>
-		<div id="characterDropdown" class="character-content">
+		<div id="characterDropdown" class="character-content" >
 			<a href="#World1">World 1</a>
 			<a href="#World2">World 2</a>
 			<a href="#World3">World 3</a>
 		</div>
 	</div>
 
-	<div class="terrainDropdown">
+	<div class="terrainDropdown" >
 		<button onclick="typeTapped('terrains')" class="terrainbtn"></button>
-		<div id="terrains" class="terrain-content">
+		<div id="terrains" class="terrain-content" >
 			<button style="background-image: url(../images/1x1Drop.png)" onclick="terrainbtnTapped('1x1')" class="terrain1btn"></button>
 			<button style="background-image: url(../images/1x1Drop.png)" onclick="terrainbtnTapped('1x1Breakable')" class="terrain2btn"></button>
 			<button style="background-image: url(../images/3x2Drop.png)" onclick="terrainbtnTapped('3x2')" class="terrain3btn"></button>
@@ -77,12 +77,20 @@
 
 	<div class="weaponDropdown">
 		<button onclick="typeTapped('weapons')" class="weaponbtn"></button>
-  		<div id="weapons" class="weapon-content">
+  		<div id="weapons" class="weapon-content" >
 			<button style="background-image: url(../../images/pistolDrop.png)" onclick="weaponTapped('pisol')" class="pistolbtn"></button>
 			<button style="background-image: url(../../images/assaultDrop.png)" onclick="weaponTapped('assault')" class="assaultbtn"></button>
 			<button style="background-image: url(../../images/shottyDrop.png)" onclick="weaponTapped('shotgun')" class="shotgunbtn"></button>
 			<button style="background-image: url(../../images/swordDrop.png)" onclick="weaponTapped('sword')" class="swordbtn"></button>
    		</div>
+	</div>
+
+  <div id="levelMenu"  style="  padding-top:10%; padding-left:40%;height:500px; background-color: lightblue;" >
+    Level Name: <input id="levelNameField" type="text"></input><br><br>
+    <br><br>
+    Choose Width (ex: 1200): <input id="widthValue" type="text"></input><br><br>
+      <br><br>
+    <button id="levelButton">Go to Level Editor</button>
 	</div>
 </body>
 
@@ -105,25 +113,65 @@
 <script>
 var socket = io();
 var level;
+var newLevelName = document.getElementById("newLevelName");
+var levelNameField = document.getElementById('levelNameField');
+var widthValue = document.getElementById('widthValue');
+var levelButton = document.getElementById('levelButton');
+
+levelButton.onclick = function(){
+  if (levelNameField.value ==="" ){
+    alert("Please input a name for the level.");
+  }
+  else{
+
+    socket.emit('newLevel',{width:widthValue.value,  level: levelNameField.value});
+    container.style.display = 'block';
+    levelMaker.style.display = 'block';
+    enemiesDropdown.style.display = 'block';
+    levelMenu.style.display = 'none';
+    musicDropdown.style.display ='block';
+    backgroundDropdown.style.display = 'block';
+    checkpointDropdown.display = 'block';
+    characterDropdown.display = 'block';
+    terrainDropdown.display = 'block';
+    weaponDropdown.display = 'block';
+
+    //
+  }
+}
+
+//newLevelName.innerHTML= "blue";
 
 var button1 = document.getElementById("button1");
 
+//request
  button1.onclick = function(){
-
        socket.emit('button');
  }
 
+//receive
  socket.on('result',function(res){
-
     console.log("result", JSON.parse(JSON.stringify(res)));
       location.href = "/client/interface/index.html";
 
  });
+
+ socket.on('gee',function(res){
+
+      //console.log("heeeeey ", JSON.stringify(res));
+      newLevelName.innerHTML= "blue";
+
+ });
+
+
+
 //This will Receive the level objects and set them to the variable level
 socket.on('hey', function(data){
   let level = data;
   console.log("result"+ level);
-  //let levelObject = EntityFactory(level,true);
+  let levelObject = EntityFactory(level,true);
+  map = Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
+  //console.log(levelObject);
 
   Update(level);
 });

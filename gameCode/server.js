@@ -464,16 +464,32 @@ io.sockets.on('connection', function(socket){
   		});
 	  });
 
-/*    socket.on('newLevel',function(data){
-     Database.newLevel(data, function(res){
-       if(!res){
+    //var levelN ="not working";
+
+    socket.on('newLevel',function(data){
+      //levelN = data.level;
+      console.log(data.level);
+     //socket.emit('changeLevelName', {level: data.level});
+     Database.newLevel(data);
+     change(data.level);
+
+
+
+
+      /* if(!res){
          socket.emit('checkLevelName', {success:false});
        }
        else if(res){
          socket.emit('checkLevelName', {success:true});
        }
-     });
-   }); */
+       */
+   });
+  var change = function (levelNa){
+
+
+   socket.emit('gee', {level:levelNa});
+ };
+
 
     socket.on('signUp',function(data){
 		 Database.isUsernameTaken(data,function(res){
@@ -574,9 +590,9 @@ io.sockets.on('connection', function(socket){
    Database.deleteTerrainItem(data);
   });
 
-  socket.on('deleteLevelItem',function(data){
+  /*socket.on('deleteLevelItem',function(data){
    Database.deleteLevelItem(data);
-  });
+ }); */
 
 
 
