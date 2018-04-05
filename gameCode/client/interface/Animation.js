@@ -233,6 +233,14 @@ Animation=function(){
 		playDir=2;
 		return playDir;	
 	};
+
+	self.breakable1x6=function(){
+		
+
+	};
+//####################################################
+//Sound Functions
+	//Jump sounds
 	self.jumpSound=function(entity){
 		if(entity.isBig==true){
 			Sound.bigJump.play();
@@ -241,8 +249,30 @@ Animation=function(){
 			Sound.smallJump.play();
 		}
 	};
-	self.breakable1x6=function(){
-		
+	self.hurtSound=function(entity){
+		if(entity.isBig==true){
+			Sound.bigHurt.play();
+		}
+		else{
+			Sound.smallHurt.play();
+		}
+	};
+	self.deathSound=function(){
+		Sound.death.play();
+	};
+	self.checkpointSound=function(){
+		Sound.checkpoint.play();
+	};
+	self.transformSound=function(){
+		Sound.transform.play();
+	};
+	self.winGameSound=function(){
+		Sound.winGame.play();
+	};	
+	self.weaponPickUpSound=function(){
+		Sound.weaponPickUp.play();	
+	};
+	self.playBackgroundMusic=function(worldnum){
 
 	}
 	return self;
