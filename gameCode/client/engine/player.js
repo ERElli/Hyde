@@ -39,6 +39,8 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	self.smallSpeed = 5;
 	self.isBig = isBig;	
 	self.doubleJumped = false;
+	self.crouchHeight = smallHeight / 2;
+	self.isCrouching = false;
 
 	self.acceleration = self.isBig ? bigAcceleration:smallAcceleration;
 	self.jumpSpeed = self.isBig ? bigJumpSpeed:smallJumpSpeed;
@@ -62,6 +64,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	self.updatePosition = function() {
 
 		//console.log(self.vx);
+
 		
 		if (Math.sign(self.vx) != Math.sign(self.ax) && !self.isLaunched && !self.isStopped) {
 			//console.log("Slowing");
@@ -124,6 +127,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 		self.y = y;
 		self.vx = 0;
 		self.vy = 0;
+		self.ammo = 20;
 		self.weapon = new Pistol(1, x, y, vx, vy, 20, 20, Img.pistolWeapon, "blue", self.id);
 		self.health = self.maxHealth;
 	}

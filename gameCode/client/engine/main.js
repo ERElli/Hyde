@@ -10,10 +10,12 @@ var sufaceMods;
 var pickUps;
 
 var hasReleasedJump = false;
+var hasReleasedCrouch = true;
+var paused = false;
 
-var charCodes = {65:"left", 87:"jump", 68:"right", 83:"crouch", 32:"transform", 27:"pause", };
+var charCodes = {65:"left", 87:"jump", 68:"right", 83:"crouch", 32:"transform",};
 
-var pressing = { "left": 0, "right":0, "jump":0, "crouch":0, "transform":0, "shoot":0, };
+var pressing = { "left": 0, "right":0, "jump":0, "crouch":0, "transform":0, "shoot":0 };
 
 
 document.onkeydown = function(event) {
@@ -23,6 +25,9 @@ document.onkeydown = function(event) {
 document.onkeyup = function(event) {
 	if (charCodes[event.keyCode] == "jump") {
 		hasReleasedJump = true;
+	}
+	if (charCodes[event.keyCode] == "crouch") {
+		hasReleasedCrouch = true;
 	}
 	pressing[charCodes[event.keyCode]] = 0;
 }
@@ -52,6 +57,13 @@ document.onmousemove = function(mouse){
 	var mouseY = mouse.clientY - gui.fg.getBoundingClientRect().top;
 
 	player.updateAim(mouseX, mouseY);
+}
+
+document.onkeypress = function(event) {
+	console.log(event.keyCode);
+	if (event.keyCode == 112) {
+		paused = !paused;
+	}
 }
 
 /*
@@ -89,9 +101,21 @@ var doPressedActions = function() {
 		}
 	}
 
+	/*
 	if (pressing['crouch']) {
-		player.crouch();
+		if (!player.isCrouching) {
+			player.isCrouching = true;
+			player.height = player.crouchHeight;
+			player.y -= player.height;
+		}
+		hasReleasedCrouch = false;
 	}
+	
+	if (hasReleasedCrouch) {
+		player.height = player.crouchHeight*2;
+		player.isCrouching = false;
+	}
+	*/
 
 	if (pressing['transform']) {
 		player.transform();
@@ -138,6 +162,10 @@ var inRange = function(thing) {
 * Main game loop
 */
 var update = function() {
+	
+	if (paused) {
+		return;
+	}
 
 	gui.fg_ctx.clearRect(0, 0, gui.fg.width, gui.fg.height);
 
@@ -313,7 +341,7 @@ var update = function() {
 
 	if (player.isLaunched) {
 		//console.log("Launched");
-		console.log(player.vx);
+		//console.log(player.vx);
 		player.launchTimer++;
 		if (player.launchTimer > 25) {
 			player.isLaunched = false;
