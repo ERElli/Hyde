@@ -93,7 +93,8 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	self.mass = mass;
 	self.jumpSpeed = jumpSpeed;
 	self.meleeDamage = meleeDamage;
-	self.slowDownFactor = slowDown
+	self.slowDownFactor = slowDown;
+	self.ammo = 20;
 
 	self.attackCounter = 100;
 	self.aimAngle = 0;
@@ -171,8 +172,8 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	}
 
 	self.getMomentum = function() {
-		// return self.vx*self.mass;
-		return 100;
+		return self.vx*self.mass;
+		//return 100;
 	}
 
 	self.launch = function(vx) {
@@ -189,12 +190,18 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	}
 
 	self.shoot = function() {
-		if (self.attackCounter > 1/(self.weapon.firingRate/framesPerSecond)) {
-			self.attackCounter = 0;
-			return self.weapon.fire(self.aimAngle);
-		}
-		else {
-			return false;
+		
+		console.log(self.ammo);
+		if (self.ammo > 0) {
+			console.log("Shooting");
+			if (self.attackCounter > 1/(self.weapon.firingRate/framesPerSecond)) {
+				self.attackCounter = 0;
+				self.ammo--;
+				return self.weapon.fire(self.aimAngle);
+			}
+			else {
+				return false;
+			}
 		}
 	}
 
