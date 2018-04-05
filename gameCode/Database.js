@@ -12,32 +12,32 @@ Database.levelSave = function(data){
 Database.addLevelItem = function(data, cb){
   //console.log("nice"+data.x, data.y, data.w, data.h, data.id, data.type);
   //db.saveLevel.remove({id:data.rand}, { $addToSet:{ items: {x:data.x, y: data.y, w: data.w,h: data.h,id: data.id,type: data.type} } }, {upsert: true});
-  db.saveLevel.update({level:"level1"},   { $addToSet:{ enemies: { id: data.id, items: {x:data.x, y: data.y, vx: data.vx,vy: data.vy,id: data.id,type: data.type} } } }, {upsert: true});
+  db.saveLevel.update({level:levelName},   { $addToSet:{ enemies: { id: data.id, items: {x:data.x, y: data.y, vx: data.vx,vy: data.vy,id: data.id,type: data.type} } } }, {upsert: true});
 }
 Database.addPlayerItem = function(data, cb){
-  db.saveLevel.update({level:"level1"},   { $addToSet:{ player: { id: data.id, items: {x:data.x, y: data.y, vx: data.vx,vy: data.vy,id: data.id,type: data.type} } } }, {upsert: true});
+  db.saveLevel.update({level:levelName},   { $addToSet:{ player: { id: data.id, items: {x:data.x, y: data.y, vx: data.vx,vy: data.vy,id: data.id,type: data.type} } } }, {upsert: true});
 }
 Database.addTerrainItem = function(data, cb){
   console.log("it works");
-  db.saveLevel.update({level:"level1"},   { $addToSet:{ terrain: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type} } } }, {upsert: true});
+  db.saveLevel.update({level:levelName},   { $addToSet:{ terrain: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type} } } }, {upsert: true});
 }
 
 
-/*Database.newLevel = function(data, cb){
+ Database.newLevel = function(data, cb){
+   
     levelName = data.level;
-    db.saveLevel.findOne({level:levelName},function(err,res){
-  		if(res){
-        console.log("it exists");
-        cb(false);
+    db.saveLevel.insert({width: data.width, level: data.level});
 
-      }
-  		else {
+  //  db.saveLevel.findOne({level:levelName},function(err,res){
+  	//	if(res){
+    //    console.log("it exists");
+    //    cb(false);
+
+    //  }
+  	//	else {
   		//
-        db.saveLevel.update({level: data.level},  {upsert: true});
-        cb(true);
-      }
-  	});
-    */
+  	};
+
   //  db.levelNames.update({level: data.level}, {level: data.level}, {upsert: true});
 
 
@@ -61,15 +61,15 @@ Database.getLevelObject = function(data, cb){
 Database.deleteLevelItem = function(data, cb){
   //db.saveLevel.update({ level:"level 3"}, {$pull: {player: {id: "0.32591480354017077" } } } );
   console.log("removing enem");
-    db.saveLevel.update({ level:"level1"},{$pull: {enemy : {id:data.id }  }    } );
+    db.saveLevel.update({ level:levelName},{$pull: {enemy : {id:data.id }  }    } );
 }
 Database.deletePlayerItem = function(data, cb){
   console.log("removing player");
-    db.saveLevel.update({ level:"level1"},{$pull: {player : {id:data.id }  }    } );
+    db.saveLevel.update({ level:levelName},{$pull: {player : {id:data.id }  }    } );
 }
 Database.deleteTerrainItem = function(data, cb){
   console.log("removing terrain");
-  db.saveLevel.update({ level:"level1"},{$pull: {terrain : {id:data.id }  }    } );
+  db.saveLevel.update({ level:levelName},{$pull: {terrain : {id:data.id }  }    } );
 }
 //Database.deleteLevelItem = function(data, cb){
 
@@ -101,7 +101,7 @@ Database.isUsernameTaken = function(data,cb){
 	});
 }
 
-Database.checkAnswer = function(data,cb){
+/*Database.checkAnswer = function(data,cb){
     if(!USE_DB)
         return cb(false);
 	db.account.findOne({username:data.username,q1: data.a1, q2: data.a2, q3:data.a3},function(err,res){
@@ -112,7 +112,7 @@ Database.checkAnswer = function(data,cb){
 
     });
 }
-
+*/
 Database.addUser = function(data,cb){
     if(!USE_DB)
         return cb();
