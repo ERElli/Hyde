@@ -88,7 +88,7 @@ function BasicEnemy(id, x, y, vx, vy, img, color, target) {
 	var basicMaxVX = 3*mpsTOppf;
 	var basicMaxVY = 20*mpsTOppf;
 	var basicMaxHP = 20;
-	var basicWeapon = new Pistol("w1", x, y, 0, 0, 5, 5,'img','black', id);
+	var basicWeapon = new NoWeapon("w1", x, y, 0, 0, 5, 5,'img','black', id);
 	var basicMass = 50;
 	var basicJumpSpeed = 3*mpsTOppf;
 	var basicMeleeDamage = 5;
@@ -177,7 +177,7 @@ function TankEnemy(id, x, y, vx, vy, img, color, target) {
 	var tankMaxVX = 9*mpsTOppf;
 	var tankMaxVY = 20*mpsTOppf;
 	var tankMaxHP = 50;
-	var tankWeapon = new Pistol("w1", x, y, 0, 0, 5, 5,'img','black', id);
+	var tankWeapon = new NoWeapon("w1", x, y, 0, 0, 5, 5,'img','black', id);
 	var tankMass = 300;
 	var tankJumpSpeed = 2*mpsTOppf;
 	var tankMeleeDamage = 10;

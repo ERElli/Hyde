@@ -24,7 +24,8 @@ GUI = function(container){
 	var backgroundPositionCounter=0;
 	var editorBackgroundCounter=0;
 	self.create= function(type, id, left, top, width, height){
-		var element= document.createElement(type);
+		var element= document.createElement(type);		
+		
 		element.id=id;
 		element.style.position='absolute';
 		if(left!=0){element.style.left=left;}

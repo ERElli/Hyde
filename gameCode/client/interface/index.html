@@ -1,12 +1,26 @@
 <html>
+
+	<head>
+		<link rel="stylesheet" href="index_style.css">
+	</head>
+		
 	<body>
 		<br>
 		<br>
-		<div id="container">
-
-		<div id="results" style="positions:absolute; left: 511px;">
-			<table style="border:1px"></table>
+		
+		<div id="menu">
+			<button onclick="toggleDisplay(document.getElementById('menu'))">Resume</button> <br>
+			<button onclick="toggleDisplay(document.getElementById('menu'))">Quit</button>
 		</div>
+		
+		<div id="container">
+		
+			<div id="results" style="positions:absolute; left: 511px;">
+				<table style="border:1px"></table>
+			</div>
+			
+		</div>
+		
 	</body>
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 		<script type="text/javascript" src="../engine/main.js"></script>
@@ -26,6 +40,19 @@
 		<script type="text/javascript" src="Animation.js"></script>
 
 		<script>
+		
+		
+		function toggleDisplay(element) {
+			if(element.style.display != 'block'){
+				element.style.display = 'block';
+			} else {
+				element.style.display = 'none';
+			}
+		}
+		
+		var pauseMenu = document.getElementById("menu");
+		toggleDisplay(pauseMenu);
+		
 		var socket = io();
 		//call the socket to get the level objects from database
 		var  getLevelObjects = function() {
