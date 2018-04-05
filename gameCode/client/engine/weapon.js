@@ -111,6 +111,7 @@ function AssaultRifle(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	var self = Weapon("assaultRifle", id, x, y, vx, vy, width, height, img, color, rifleRate, rifleSpeed, "normal", 100, 20);
 	
 	self.maxFireTimer = 16;
+	self.ammo = 50;
 	self.fire = function(angle) {
 		self.isFiring=true;
 		self.ammo--;

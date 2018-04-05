@@ -649,7 +649,7 @@ var startGame = function(initial_level) {
 
 var createPickUps = function() {
 	
-	w = new WeaponPickUp(Math.random(), 100, 100, 'shotgun', player);
+	w = new WeaponPickUp(Math.random(), 100, 100, 'assaultRifle', player);
 	
 	a = new AmmoPickUp(Math.random(), 300, 100, player);
 	

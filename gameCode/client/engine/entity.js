@@ -329,15 +329,32 @@ function MeleeBullet(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	return self;
 }
 
+var Throwable = function() {
+	
+	
+}
+
+
 function Boulder(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	var self = Entity("boulder", id, x, y, vx, vy, width, height, img, color);
 
 	self.width = 50;
 	self.height = 50;
 	self.damage = 25;
+	self.ay = g;
 
 	self.ownerID = ownerID;
 
+	
+	var oldUpdate = self.updatePosition;
+	
+	self.updatePosition = function() {
+
+		self.vy += self.ay;
+		
+		oldUpdate();
+		
+	}
 
 	//self.draw = function() {
 	//}
