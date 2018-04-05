@@ -443,59 +443,59 @@ app.get('/images/background.png',function(req, res) {
     res.sendFile(__dirname + '/images/background.png');
 });
 //Sound files
-app.get('client/interface/soundFX/checkpoint.wav',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/soundFX/checkpoint.wav');
+app.get('/client/interface/soundFX/checkpoint.wav',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/soundFX/checkpoint.wav');
 });
-app.get('client/interface/soundFX/transform.wav',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/soundFX/transform.wav');
+app.get('/client/interface/soundFX/transform.wav',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/soundFX/transform.wav');
 });
-app.get('client/interface/soundFX/WinGame.wav',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/soundFX/WinGame.wav');
+app.get('/client/interface/soundFX/WinGame.wav',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/soundFX/WinGame.wav');
 });
 //world background music
-app.get('client/interface/soundFX/atmospheric/worldOne.mp3',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/soundFX/atmospheric/worldOne.mp3');
+app.get('/client/interface/soundFX/atmospheric/worldOne.mp3',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/soundFX/atmospheric/worldOne.mp3');
 });
-app.get('client/interface/soundFX/atmospheric/worldTwo.wav',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/soundFX/atmospheric/worldTwo.wav');
+app.get('/client/interface/soundFX/atmospheric/worldTwo.wav',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/soundFX/atmospheric/worldTwo.wav');
 });
-app.get('client/interface/soundFX/atmospheric/worldThree.wav',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/soundFX/atmospheric/worldThree.wav');
+app.get('/client/interface/soundFX/atmospheric/worldThree.wav',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/soundFX/atmospheric/worldThree.wav');
 });
 //Weapon sounds
-app.get('client/interface/soundFX/weaponEffects/assaultRifle.wav',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/soundFX/weaponEffects/assaultRifle.wav');
+app.get('/client/interface/soundFX/weaponEffects/assaultRifle.wav',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/soundFX/weaponEffects/assaultRifle.wav');
 });
-app.get('client/interface/soundFX/weaponEffects/pistol.wav',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/soundFX/weaponEffects/pistol.wav');
+app.get('/client/interface/soundFX/weaponEffects/pistol.wav',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/soundFX/weaponEffects/pistol.wav');
 });
-app.get('client/interface/soundFX/weaponEffects/shotgun.wav',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/soundFX/weaponEffects/shotgun.wav');
+app.get('/client/interface/soundFX/weaponEffects/shotgun.wav',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/soundFX/weaponEffects/shotgun.wav');
 });
 app.get('client/interface/soundFX/weaponEffects/sword.wav',function(req, res) {
     res.sendFile(__dirname + 'client/interface/soundFX/weaponEffects/sword.wav');
 });
-app.get('client/interface/soundFX/weaponEffects/weaponPickup.wav',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/soundFX/weaponEffects/weaponPickup.wav');
+app.get('/client/interface/soundFX/weaponEffects/weaponPickup.wav',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/soundFX/weaponEffects/weaponPickup.wav');
 });
 //Player Soundeffects
-app.get('client/interface/soundFX/playerSounds/deathSound.wav',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/soundFX/playerSounds/deathSound.wav');
+app.get('/client/interface/soundFX/playerSounds/deathSound.wav',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/soundFX/playerSounds/deathSound.wav');
 });
-app.get('client/interface/soundFX/playerSounds/smallPlayer/smallHurt.wav',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/soundFX/playerSounds/smallPlayer/smallHurt.wav');
+app.get('/client/interface/soundFX/playerSounds/smallPlayer/smallHurt.wav',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/soundFX/playerSounds/smallPlayer/smallHurt.wav');
 });
-app.get('client/interface/soundFX/playerSounds/smallPlayer/smallJump.wav',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/soundFX/playerSounds/smallPlayer/smallJump.wav');
+app.get('/client/interface/soundFX/playerSounds/smallPlayer/smallJump.wav',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/soundFX/playerSounds/smallPlayer/smallJump.wav');
 });
-app.get('client/interface/soundFX/playerSounds/bigPlayer/bigJump.wav',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/soundFX/playerSounds/bigPlayer/bigJump.wav');
+app.get('/client/interface/soundFX/playerSounds/bigPlayer/bigJump.wav',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/soundFX/playerSounds/bigPlayer/bigJump.wav');
 });
-app.get('client/interface/soundFX/playerSounds/bigPlayer/bigHurt.wav',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/soundFX/playerSounds/bigPlayer/bigHurt.wav');
+app.get('/client/interface/soundFX/playerSounds/bigPlayer/bigHurt.wav',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/soundFX/playerSounds/bigPlayer/bigHurt.wav');
 });
-app.get('client/interface/soundFX/weaponEffects/weaponPickup.wav',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/soundFX/weaponEffects/weaponPickup.wav');
+app.get('/client/interface/soundFX/weaponEffects/weaponPickup.wav',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/soundFX/weaponEffects/weaponPickup.wav');
 });
 app.get('/images/buildingTerrain3x6.png',function(req, res) {
     res.sendFile(__dirname + '/images/buildingTerrain3x6.png');

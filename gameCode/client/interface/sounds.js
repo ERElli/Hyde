@@ -35,7 +35,7 @@ Sound=function(pathToRoot){
 	self.bigJump=new sound(pathToRoot+"client/interface/soundFX/playerSounds/bigPlayer/bigJump.wav");
 	self.bigHurt=new sound(pathToRoot+"client/interface/soundFX/playerSounds/bigPlayer/bigHurt.wav");
 	self.smallJump=new sound(pathToRoot+"client/interface/soundFX/playerSounds/smallPlayer/smallJump.wav");
-	self.smallJump=new sound(pathToRoot+"client/interface/soundFX/playerSounds/smallPlayer/smallHurt.wav");
+	self.smallHurt=new sound(pathToRoot+"client/interface/soundFX/playerSounds/smallPlayer/smallHurt.wav");
 	self.death=new sound(pathToRoot+"client/interface/soundFX/playerSounds/deathSound.wav");
 	
 	self.transform=new sound(pathToRoot+"client/interface/soundFX/transform.wav");
