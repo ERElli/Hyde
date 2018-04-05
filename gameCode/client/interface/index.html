@@ -39,20 +39,10 @@
 		<script type="text/javascript" src="Animation.js"></script>
 
 		<script>
-		
-		
-		function toggleDisplay(element) {
-			if(element.style.display != 'block'){
-				element.style.display = 'block';
-			} else {
-				element.style.display = 'none';
-			}
-		}
-		
-		var pauseMenu = document.getElementById("menu");
-		toggleDisplay(pauseMenu);
+
 		
 		var socket = io();
+
 		//call the socket to get the level objects from database
 		var  getLevelObjects = function() {
 			socket.emit('getLevelObject', {levelName: "level 1"});
@@ -206,6 +196,9 @@
 
 		//console.log(mydata);
 
+//#############################################################################	
+	//FOR GUI TESTING PURPOSES	
+
 		var level = {}
 
 		for (var thing in mydata['player']) {
@@ -248,14 +241,7 @@
 			if (t.type == 'Terrain1x1') {
 				block = Terrain1x1(t.id, t.x, t.y);
 			}
-			/*
-			else if (e.type == 'tank enemy') {
-				enemy =  new TankEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
-			}
-			else {
-				enemy =  new FlyingEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
-			}
-			*/
+
 
 			level['terrain'][t.id] = block;
 			//console.log(level['terrain']);
@@ -264,6 +250,9 @@
 
 		console.log("BEFORE SOCKET",mydata);
 
-		// startGame(level);
+
+		startGame(level);
+//######################################################################################
+
 		</script>
 </html>

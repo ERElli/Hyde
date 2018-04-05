@@ -30,6 +30,7 @@ function WeaponPickUp(id, x, y, weaponType, target) {
 	
 	self.applyEffect = function() {
 		target.weapon = self.weapon;
+		ani.weaponPickUpSound();
 	}
 	
 	self.draw = function(ctx,isLevelEditor) {
@@ -52,5 +53,6 @@ function AmmoPickUp(id, x, y, target) {
 	}
 	
 	return self;
-	
+
 }
+
