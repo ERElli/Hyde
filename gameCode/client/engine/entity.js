@@ -94,7 +94,6 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	self.jumpSpeed = jumpSpeed;
 	self.meleeDamage = meleeDamage;
 	self.slowDownFactor = slowDown;
-	self.ammo = 20;
 
 	self.attackCounter = 100;
 	self.aimAngle = 0;
@@ -140,11 +139,11 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 
 
 		if (self.blockedLeft && self.vx < 0) {
-			console.log("stopped left");
+			//console.log("stopped left");
 			self.vx = 0;
 		}
 		if (self.blockedRight && self.vx > 0) {
-			console.log("stopped right");
+			//console.log("stopped right");
 			self.vx = 0;
 		}
 
@@ -192,12 +191,9 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 
 	self.shoot = function() {
 		
-		console.log(self.ammo);
-		if (self.ammo > 0) {
-			console.log("Shooting");
+		if (self.weapon.ammo > 0) {
 			if (self.attackCounter > 1/(self.weapon.firingRate/framesPerSecond)) {
 				self.attackCounter = 0;
-				self.ammo--;
 				return self.weapon.fire(self.aimAngle);
 			}
 			else {
@@ -334,15 +330,32 @@ function MeleeBullet(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	return self;
 }
 
+var Throwable = function() {
+	
+	
+}
+
+
 function Boulder(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	var self = Entity("boulder", id, x, y, vx, vy, width, height, img, color);
 
 	self.width = 50;
 	self.height = 50;
 	self.damage = 25;
+	self.ay = g;
 
 	self.ownerID = ownerID;
 
+	
+	var oldUpdate = self.updatePosition;
+	
+	self.updatePosition = function() {
+
+		self.vy += self.ay;
+		
+		oldUpdate();
+		
+	}
 
 	//self.draw = function() {
 	//}
