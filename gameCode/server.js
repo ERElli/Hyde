@@ -485,8 +485,8 @@ app.get('client/interface/soundFX/playerSounds/deathSound.wav',function(req, res
 app.get('client/interface/soundFX/playerSounds/smallPlayer/smallHurt.wav',function(req, res) {
     res.sendFile(__dirname + 'client/interface/soundFX/playerSounds/smallPlayer/smallHurt.wav');
 });
-app.get('client/interface/soundFX/playerSounds/smallPlayer/smallJump.wav',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/soundFX/playerSounds/smallPlayer/smallJump.wav');
+app.get('/client/interface/soundFX/playerSounds/smallPlayer/smallJump.wav',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/soundFX/playerSounds/smallPlayer/smallJump.wav');
 });
 app.get('client/interface/soundFX/playerSounds/bigPlayer/bigJump.wav',function(req, res) {
     res.sendFile(__dirname + 'client/interface/soundFX/playerSounds/bigPlayer/bigJump.wav');
