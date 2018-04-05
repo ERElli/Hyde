@@ -488,6 +488,13 @@ var update = function() {
 
 		if (enemy.health <= 0) {
 			delete enemies[key];
+			
+			if (Math.random() < 0.3) {
+				a = new AmmoPickUp(Math.random(), enemy.x, enemy.y, player);
+				pickUps[a.id] = a;
+
+			}
+			
 		}
 
 		enemy.attackCounter++;
@@ -642,7 +649,7 @@ var startGame = function(initial_level) {
 
 var createPickUps = function() {
 	
-	w = new WeaponPickUp(Math.random(), 100, 100, 'sword', player);
+	w = new WeaponPickUp(Math.random(), 100, 100, 'shotgun', player);
 	
 	a = new AmmoPickUp(Math.random(), 300, 100, player);
 	
