@@ -49,7 +49,7 @@ function Pistol(id, x, y, vx, vy, width, height, img, color, ownerID) {
 		self.isFiring=true;
 		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf + self.vx;
 		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf + self.vy;
-
+		self.ammo--;
 		return [new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "gold", ownerID)];
 
 	}

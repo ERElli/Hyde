@@ -32,31 +32,17 @@ function WeaponPickUp(id, x, y, weaponType, target) {
 	
 }
 
-function PowerUp(type, id, x, y, vx, vy, width, height, img, color, increaseAmount, effectedStat) {
-	var self = Usable(type, id, x, y, vx, vy, width, height, img, color);
+function AmmoPickUp(id, x, y, target) {
+	var self = Usable("ammo", id, x, y, 0, 0, 25, 25, 'no', 'red');
 	
+	self.applyEffect = function() {
+		target.weapon.ammo += 5;
+	}
 	
-	self.increaseAmount = increaseAmount;
-	self.effectedStat = effectedStat;
-	
-	
-	self.applyEffect = function(target) {
-		
+	self.draw = function(ctx,isLevelEditor) {
+		gui.drawEntity(self, gui.fg_ctx, false);
 	}
 	
 	return self;
-}
-
-function Perk(type, id, x, y, vx, vy, width, height, img, color, name) {
-	var self = Usable(type, id, x, y, vx, vy, width, height, img, color);
 	
-	
-	self.name = name;
-	
-	
-	self.applyEffect = function(target) {
-		
-	}
-	
-	return self;
 }
