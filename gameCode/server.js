@@ -435,7 +435,7 @@ app.get('/client/interface/img/Animations/muzzleFlash/FlashStage4.png',function(
 app.get('client/interface/img/terrain/1x6BreakableBuilding.png',function(req, res) {
     res.sendFile(__dirname + 'client/interface/img/terrain/1x6BreakableBuilding.png');
 });
-app.get('/images/background.png',function(req, res) {
+app.get('client/interface/img/terrain/1x6BreakableBuildingAnimation.png',function(req, res) {
     res.sendFile(__dirname + 'client/interface/img/terrain/1x6BreakableBuildingAnimation.png');
 });
 
