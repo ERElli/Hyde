@@ -157,6 +157,14 @@ var update = function() {
 
 	//Manage player -----------------------------------------------------------------------------------
 
+	if (player.y > 500) {
+		player.health = 0;
+	}
+	
+	if (player.health <= 0) {
+		player.reset(0, 0);
+	}
+	
 	player.attackCounter++;
 	player.transformCounter++;
 	player.immuneCounter++;
@@ -517,10 +525,6 @@ var update = function() {
 		}
 
 	}
-
-
-
-
 
 
 }
