@@ -140,11 +140,11 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 
 
 		if (self.blockedLeft && self.vx < 0) {
-			console.log("stopped left");
+			//console.log("stopped left");
 			self.vx = 0;
 		}
 		if (self.blockedRight && self.vx > 0) {
-			console.log("stopped right");
+			//console.log("stopped right");
 			self.vx = 0;
 		}
 
@@ -191,9 +191,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 
 	self.shoot = function() {
 		
-		console.log(self.ammo);
 		if (self.ammo > 0) {
-			console.log("Shooting");
 			if (self.attackCounter > 1/(self.weapon.firingRate/framesPerSecond)) {
 				self.attackCounter = 0;
 				self.ammo--;
