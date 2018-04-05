@@ -391,9 +391,12 @@ var update = function() {
 
 	// Manage pick-ups ------------------------------------------------------------------
 
+	//console.log(pickUps);
+	
 	for (var key in pickUps) {
 
 		pickUp = pickUps[key];
+		//console.log(pickUp);
 
 		//console.log(pickUp);
 
@@ -407,6 +410,7 @@ var update = function() {
 
 			//console.log("Picking up weapon");
 			pickUp.applyEffect();
+			delete pickUps[key];
 		}
 
 	}
@@ -484,6 +488,13 @@ var update = function() {
 
 		if (enemy.health <= 0) {
 			delete enemies[key];
+			
+			if (Math.random() < 0.3) {
+				a = new AmmoPickUp(Math.random(), enemy.x, enemy.y, player);
+				pickUps[a.id] = a;
+
+			}
+			
 		}
 
 		enemy.attackCounter++;
@@ -625,14 +636,26 @@ var startGame = function(initial_level) {
 	// terrain[breakable.id] = breakable;
 	// console.log(terrain[breakable.id]['x'])
 	//surfaceMods = level["terrain"];
-	pickUps = level['pickUps']
+	pickUps = {}//level['pickUps']
 	//console.log(pickUps['p1']);
 	frameCount = 0;
 	everyTenCount = 0;
 	//console.log(enemies['enemy2']);
 
+	createPickUps();
 
 	setInterval(update, 1000/60)
+}
+
+var createPickUps = function() {
+	
+	w = new WeaponPickUp(Math.random(), 100, 100, 'shotgun', player);
+	
+	a = new AmmoPickUp(Math.random(), 300, 100, player);
+	
+	pickUps[w.id] = w;
+	pickUps[a.id] = a;
+	
 }
 
 var endGame = function() {
