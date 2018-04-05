@@ -90,13 +90,13 @@ function Shotgun(id, x, y, vx, vy, width, height, img, color, ownerID) {
 
 function Sword(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	
-	var swordRate = 0.5;
+	var swordRate = 1;
 	var swordSpeed = 12;
 	var img=Img.swordWeapon;
 	var self = Weapon("sword", id, x, y, vx, vy, width, height, img, color, swordRate, swordSpeed, "normal", 100, 20);
 		
 	self.fire = function(angle) {
-		
+		self.isFiring=true;
 		return [new MeleeBullet(Math.random(),self.x,self.y,self.vx,self.vy,200,200, "img", "gold", ownerID)];
 
 	}	

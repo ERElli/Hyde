@@ -56,6 +56,95 @@ Animation=function(){
 		}else{}
 		return newX;
 	};
+	//Sword animation
+	self.swordAnimation=function(entity,numAnimation,x,y,img,fW,fH){
+		n=Math.floor(numAnimation/2);
+			switch(numAnimation){
+				case 0:
+					if(entity.x>x){
+						theX=x-entity.width;						
+					}
+					else{
+						theX=x+entity.width;
+					}
+					theY=y-5;
+					break;
+				case 1:
+					if(entity.x>x){
+						theX=x-entity.width;						
+					}
+					else{
+						theX=x+entity.width;
+					}
+					theY=y-10;
+					break;
+				case 2:
+					if(entity.x>x){
+						theX=x-entity.width;						
+					}
+					else{
+						theX=x+entity.width;
+					}
+					theY=y-15;
+					break;
+				case 3:
+					if(entity.x>x){
+						theX=x-entity.width;						
+					}
+					else{
+						theX=x+entity.width;
+					}
+					theY=y-20;
+					break;
+				case 4:
+					if(entity.x>x){
+						theX=x-entity.width;						
+					}
+					else{
+						theX=x+entity.width;
+					}
+					theY=y-25;
+					break;
+				case 5:
+					if(entity.x>x){
+						theX=x-entity.width+5;						
+					}
+					else{
+						theX=x+entity.width-5;
+					}
+					theY=y-30;
+					break;
+				case 6:
+					if(entity.x>x){
+						theX=x-entity.width+10;						
+					}
+					else{
+						theX=x+entity.width-10;
+					}
+					theY=y-35;
+					break;
+				case 7:
+					if(entity.x>x){
+						theX=x-entity.width+15;						
+					}
+					else{
+						theX=x+entity.width-15;
+					}
+					theY=y-40;
+					break;
+				case 8:
+					if(entity.x>x){
+						theX=x-entity.width+20;						
+					}
+					else{
+						theX=x+entity.width-20;
+					}
+					theY=y-45;
+					break;
+			}
+			gui.quickAniWeaponDraw(img,entity,gui.fg_ctx,n,dir,fW,fH,theX,theY);
+		
+	};
 	//Fire animation for guns
 	self.fireAnimation=function(entity,numAnimation,x){
 		n=Math.floor(numAnimation/2);

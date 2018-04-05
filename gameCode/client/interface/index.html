@@ -1,6 +1,9 @@
 <html>
-	<body style=" margin:0px;">
+	<body>
+		<br>
+		<br>
 		<div id="container">
+
 		<div id="results" style="positions:absolute; left: 511px;">
 			<table style="border:1px"></table>
 		</div>
@@ -12,10 +15,10 @@
 		<script type="text/javascript" src="../engine/enemy.js"></script>
 		<script type="text/javascript" src="../engine/weapon.js"></script>
 		<script type="text/javascript" src="../engine/usable.js"></script>
+		<script type="text/javascript" src="../../levelEditor/EntityFactory.js"></script>
 
 		<script type="text/javascript" src="level.json"></script>
 		<script type="text/javascript" src="jsonTest.js"></script>
-		<script type="text/javascript" src="../../levelEditor/EntityFactory.js"></script>
 
 		<script type="text/javascript" src="../../levelEditor/Terrain.js"></script>
 		<script type="text/javascript" src="images.js"></script>
@@ -23,9 +26,7 @@
 		<script type="text/javascript" src="Animation.js"></script>
 
 		<script>
-
 		var socket = io();
-
 		//call the socket to get the level objects from database
 		var  getLevelObjects = function() {
 			socket.emit('getLevelObject', {levelName: "level 1"});
@@ -37,31 +38,100 @@
 
 
 		//the socket receive the level objects from the database
-		socket.on('hey',function(data){
-			levelObjects = data;
-			console.log("HERE: " + JSON.parse(levelObjects));
 
+		socket.on('receiveLevelObjects',function(data){
+		levelObjects = data;
 			//level objects should be in data, right now they are logged in console
-			Update(levelObjects);
-		});
-		
-		var Update = function(level) {
-			console.log("BEFORE:\n" + levelObjects);
-			levelObjects = EntityFactory(level, false);
-			console.log("AFTER:\n" + levelObjects);
-		}
-		
+	    console.log(JSON.parse(levelObjects));
+			let realLevel = EntityFactory(levelObjects,false);
+			console.log("REAL LEVEL",realLevel);
 
 
-		let gameWidth=2000;
+			var level = {};
 
+			for (var thing in realLevel['player']) {
+				p = realLevel['player'][thing]
+			}
+
+			level['player'] = new Player(p.id, p.x, p.y, p.vx, p.vy, p.img, new Pistol(Math.random(), p.x, p.y, p.vx, p.vy, 50, 50,"pistol_image",null, p.id), p.isBig);
+			console.log("REAL LEVEL@@",realLevel);
+
+			level['enemies'] = {};
+
+			for (let thing in realLevel['enemies']) {
+				console.log(realLevel['enemies'][thing]);
+				e = realLevel['enemies'][thing]
+
+				var enemy;
+
+				if (e.type == 'basic enemy') {
+					enemy =  new BasicEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
+				}
+				else if (e.type == 'tank enemy') {
+					enemy =  new TankEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
+				}
+				else {
+					enemy =  new FlyingEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
+				}
+
+				level['enemies'][e.id] = enemy;
+
+			}
+			level['terrain'] = {};
+			for (var thing in realLevel['terrain']) {
+				t = realLevel['terrain'][thing]
+				console.log(t.type);
+
+				var block;
+
+				if (t.type == 'Terrain1x1') {
+					block = Terrain1x1(t.id, t.x, t.y);
+				}
+				/*
+				else if (e.type == 'tank enemy') {
+					enemy =  new TankEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
+				}
+				else {
+					enemy =  new FlyingEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
+				}
+				*/
+
+				level['terrain'][t.id] = block;
+				//console.log(level['terrain']);
+
+			}
+
+			startGame(level);
+	  });
+
+
+		/*
+			socket.on('receiveLevelObjects',function(data){
+			levelObjects = data;
+
+				//level objects should be in data, right now they are logged in console
+				console.log("ddd"+ levelObjects[0].enemies);
+				Update(levelObjects);
+			});
+
+
+			function Update(level){
+
+				var levelFromFactory = EntityFactory(level,false);
+			}
+			*/
+
+		//
+
+
+
+		let gameWidth=2000
 		// construct the gui with the container and the map
 		var gui;
 		var ani=Animation();
 		var Img=Img("../../");
 		var HEIGHT=500;
 		var WIDTH=1250;
-
 
 		//-----------
 		init = function() {
@@ -92,10 +162,7 @@
 
 		//console.log(mydata);
 
-
-		/*
 		var level = {}
-
 
 		for (var thing in mydata['player']) {
 			p = mydata['player'][thing]
@@ -137,20 +204,22 @@
 			if (t.type == 'Terrain1x1') {
 				block = Terrain1x1(t.id, t.x, t.y);
 			}
+			/*
 			else if (e.type == 'tank enemy') {
 				enemy =  new TankEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
 			}
 			else {
 				enemy =  new FlyingEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
 			}
+			*/
 
 			level['terrain'][t.id] = block;
 			//console.log(level['terrain']);
 
 		}
 
-		*/
+		console.log("BEFORE SOCKET",mydata);
 
-
+		// startGame(level);
 		</script>
 </html>

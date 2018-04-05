@@ -1,6 +1,6 @@
 var socket = io();
 EntityFactory = function(levelString,isLevelEditor){
-	// console.log(levelString);
+	 console.log(levelString);
 	var self = {};
 
 	//creating a JSON object from a string
@@ -31,7 +31,7 @@ EntityFactory = function(levelString,isLevelEditor){
 						switch(object.type){
 							case "Terrain1x1":
 								mObject[mID] = Terrain1x1(mID,mX,mY);
-								break;	
+								break;
 							case "Terrain1x1Breakable":
 								mObject[mID] = Terrain1x1Breakable(mID,mX,mY);
 								break;
@@ -57,7 +57,7 @@ EntityFactory = function(levelString,isLevelEditor){
 						break;
 					case "player":
 						let weapID = Math.random();
-						let weapon = Pistol(weapID, mX, mY, 0, 0, 25, 25, Img.pistol, 'red', id);
+						let weapon = Pistol(weapID, mX, mY, 0, 0, 25, 25, Img.pistol, 'red', mID);
 						mObject[mID] = Player(mID,mX,mY,0,0,Img.playerSmall,weapon,false);
 						player = mObject[mID];
 						break;
@@ -81,7 +81,7 @@ EntityFactory = function(levelString,isLevelEditor){
 			}
 		}
 
-		
+
 		// console.log(Object.keys(self[generalType]).length);
 	}
 
