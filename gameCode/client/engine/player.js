@@ -23,6 +23,9 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	var bigSlowDown = 4;
 	//Creating players weapon for GUI testing purposes	
 
+	var weapon=new AssaultRifle(1, x, y, vx, vy, 40, 40, Img.assaultWeapon, "blue", id);
+
+
 	//var weapon=new Shotgun(1, x, y, vx, vy, 40, 40, Img.assaultWeapon, "blue", id);
 
 	

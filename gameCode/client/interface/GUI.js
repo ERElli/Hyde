@@ -146,6 +146,14 @@ GUI = function(container){
 				if(en.isBig==true){
 					if(!isLevelEditor){
 						playDir=ani.getPlayDirection(en);
+						//Draws jumping animation
+						//console.log(en.vy);
+						if(en.vy!=0){
+							playDir=ani.playJumpAnimation(en,playDir);
+						}else{
+							//updates player animation every 5th frame
+							ani.updateEntityAnimation(en,5);
+						}
 					}else{
 						playDir = 1;
 					}
@@ -268,6 +276,8 @@ GUI = function(container){
 				}
 				self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newX,en.y);
 				break;
+			case "noWeapon":
+				break;
 			case "bullet":
 				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;
@@ -327,6 +337,7 @@ GUI = function(container){
 			case "Terrain3x6Breakable":
 				self.quickDraw(Img.terrain3x6Breakable,t,ctx,t.x,t.y);
 				break;
+			//case "":
 		}
 		terrain.img.onload=function(){};
 		ctx.restore();
