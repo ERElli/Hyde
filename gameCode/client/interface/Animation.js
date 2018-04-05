@@ -189,39 +189,39 @@ Animation=function(){
 			if(numAnimation==0){
 			}else if(numAnimation<=2){
 				if (entity.type=="pistol"){
-					//Sound.pistol.play();
+					Sound.pistol.play();
 				}else{
 					Sound.shotgun.play();
 				}
 				if(entity.x>x){
-					gui.aniDraw(Img.muzzleFlash.stepOne,x-entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepOne,x-entity.width/2,entity.y-entity.height/7,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepOne,x+entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepOne,x+entity.width/2,entity.y-entity.height/7,40,25);
 				}
 			}
 			else if(numAnimation<5){
 				if(entity.x>x){
-					gui.aniDraw(Img.muzzleFlash.stepTwo,x-entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepTwo,x-entity.width/2,entity.y-entity.height/7,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepTwo,x+entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepTwo,x+entity.width/2,entity.y-entity.height/7,40,25);
 				}
 			}
 			else if(numAnimation<7){
 				if(entity.x>x){
-					gui.aniDraw(Img.muzzleFlash.stepThree,x-entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepThree,x-entity.width/2,entity.y-entity.height/7,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepThree,x+entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepThree,x+entity.width/2,entity.y-entity.height/7,40,25);
 				}
 			}
 			else{
 				if(entity.x>x){
-					gui.aniDraw(Img.muzzleFlash.stepFour,x-entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepFour,x-entity.width/2,entity.y-entity.height/7,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepFour,x+entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepFour,x+entity.width/2,entity.y-entity.height/7,40,25);
 				}
 			}
 		}

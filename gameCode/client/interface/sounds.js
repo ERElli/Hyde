@@ -17,9 +17,9 @@ Sound=function(pathToRoot){
 	var self={};
 	self.worldTwo=new sound(pathToRoot+"client/interface/soundFX/atmospheric/worldTwo.wav");
 	self.worldTwo.volume=0.25;
-	self.pistol=new sound(pathToRoot+"client/interface/soundFX/weaponEffects/pistolTest.wav");
+	self.pistol=new sound(pathToRoot+"client/interface/soundFX/weaponEffects/pistol.wav");
 	self.pistol.volume=0.5;
 	self.shotgun=new sound(pathToRoot+"client/interface/soundFX/weaponEffects/shotgun.wav");
-	self.shotgun.volume=0.25;
+	self.shotgun.volume=0.5;
 	return self;
 }

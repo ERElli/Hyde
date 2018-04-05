@@ -27,7 +27,7 @@
 		<script type="text/javascript" src="Animation.js"></script>
 
 		<script>
-		/*var socket = io();
+		var socket = io();
 		//call the socket to get the level objects from database
 		var  getLevelObjects = function() {
 		 socket.emit('getLevelObject', {levelName: "level 1"});
@@ -39,9 +39,9 @@
 
 		//the socket receive the level objects from the database
 		socket.on('receiveLevelObjects',function(data){
-		levelObjects = data;
+			levelObjects = data;
 			//level objects should be in data, right now they are logged in console
-	    console.log(JSON.parse(levelObjects));
+			console.log(JSON.parse(levelObjects));
 			let realLevel = EntityFactory(levelObjects,false);
 			console.log("REAL LEVEL",realLevel);
 
@@ -66,6 +66,7 @@
 				if (e.type == 'basic enemy') {
 					enemy =  new BasicEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
 				}
+
 				else if (e.type == 'tank enemy') {
 					enemy =  new TankEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
 				}
@@ -86,22 +87,11 @@
 				if (t.type == 'Terrain1x1') {
 					block = Terrain1x1(t.id, t.x, t.y);
 				}
-				
-				else if (e.type == 'tank enemy') {
-					enemy =  new TankEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
-				}
-				else {
-					enemy =  new FlyingEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
-				}
-			
-
 				level['terrain'][t.id] = block;
 				//console.log(level['terrain']);
-
 			}
-
 			startGame(level);
-	  });
+		});
 
 
 		/*
@@ -158,7 +148,8 @@
 
 		startGame(levelFromFactory);*/
 		//console.log(mydata);
-		
+/*#############################################################################	
+	//FOR GUI TESTING PURPOSES	
 		var level = {}
 
 		for (var thing in mydata['player']) {
@@ -208,7 +199,7 @@
 			else {
 				enemy =  new FlyingEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
 			}
-			*/
+			
 
 			level['terrain'][t.id] = block;
 			//console.log(level['terrain']);
@@ -218,5 +209,6 @@
 		console.log("BEFORE SOCKET",mydata);
 
 		startGame(level);
+######################################################################################*/
 		</script>
 </html>
