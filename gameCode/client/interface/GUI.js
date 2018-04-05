@@ -146,6 +146,14 @@ GUI = function(container){
 				if(en.isBig==true){
 					if(!isLevelEditor){
 						playDir=ani.getPlayDirection(en);
+						//Draws jumping animation
+						//console.log(en.vy);
+						if(en.vy!=0){
+							playDir=ani.playJumpAnimation(en,playDir);
+						}else{
+							//updates player animation every 5th frame
+							ani.updateEntityAnimation(en,5);
+						}
 					}else{
 						playDir = 1;
 					}

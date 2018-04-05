@@ -186,6 +186,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		self.vy = self.jumpSpeed;
 		self.jumpBuffer = 0;
 		self.justJumped = true;
+		ani.jumpSound(self);
 	}
 
 	self.shoot = function() {
