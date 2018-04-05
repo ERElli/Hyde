@@ -69,7 +69,7 @@ GUI = function(container){
 		gui.bg_ctx.clearRect(0,0,self.bg.width,self.bg.height);
 		n=editorBackgroundCounter;
 		var image;
-		console.log(img);
+		//console.log(img);
 		switch(img){
 			case 'world1':
 				image = Img.background1;
@@ -81,7 +81,7 @@ GUI = function(container){
 				image = Img.background3;
 				break;
 		}
-		console.log(image);
+		//console.log(image);
 		if(image != null){
 			gui.bg_ctx.drawImage(image,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
 			gui.bg_ctx.drawImage(image,x+self.bg.width*n,y,self.bg.width,self.bg.height);
@@ -103,11 +103,13 @@ GUI = function(container){
 		y=0;
 		Img.background2.onload=function(){
 		}
+		//console.log(Sound.worldTwo);
+		//Sound.worldTwo.play();
 		//continuously loops backgrounds
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*n,y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
-    /*
+    /*		
 		//reached the end of the level
 		if(backgroundPositionCounter ==3){
 			 document.getElementById('canvas').onkeypress=function()
@@ -273,10 +275,12 @@ GUI = function(container){
 			case "meleeBullet":
 				//melee bullets shouldnt be drawn
 				//self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
-
+				break;
 			case "boulder":
 				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
-
+				break;
+			case "ammo":
+				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;
 		}
 		//console.log(entity);

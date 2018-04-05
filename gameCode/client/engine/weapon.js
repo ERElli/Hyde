@@ -49,7 +49,7 @@ function Pistol(id, x, y, vx, vy, width, height, img, color, ownerID) {
 		self.isFiring=true;
 		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf + self.vx;
 		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf + self.vy;
-
+		self.ammo--;
 		return [new Bullet(Math.random(),self.x,self.y,spdX,spdY,5,5, "img", "gold", ownerID)];
 
 	}
@@ -59,7 +59,7 @@ function Pistol(id, x, y, vx, vy, width, height, img, color, ownerID) {
 
 function Shotgun(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	
-	var shotgunRate = 2;
+	var shotgunRate = 1;
 	var shotgunSpeed = 12;
 	var img=Img.shotgun;
 	var self = Weapon("shotgun", id, x, y, vx, vy, width, height, img, color, shotgunRate, shotgunSpeed, "normal", 100, 20);
@@ -111,6 +111,7 @@ function AssaultRifle(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	var self = Weapon("assaultRifle", id, x, y, vx, vy, width, height, img, color, rifleRate, rifleSpeed, "normal", 100, 20);
 	
 	self.maxFireTimer = 16;
+	self.ammo = 50;
 	self.fire = function(angle) {
 		self.isFiring=true;
 		self.ammo--;
