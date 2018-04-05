@@ -189,9 +189,9 @@ Animation=function(){
 			if(numAnimation==0){
 			}else if(numAnimation<=2){
 				if (entity.type=="pistol"){
-					Sound.pistol.play();
+					//Sound.pistol.play();
 				}else{
-					Sound.shotgun.play();
+					//Sound.shotgun.play();
 				}
 				if(entity.x>x){
 					gui.aniDraw(Img.muzzleFlash.stepOne,x-entity.width/2,entity.y-entity.height/7,40,25);

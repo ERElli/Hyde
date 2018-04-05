@@ -130,6 +130,10 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 		self.ammo = 20;
 		self.weapon = new Pistol(1, x, y, vx, vy, 20, 20, Img.pistolWeapon, "blue", self.id);
 		self.health = self.maxHealth;
+		if (self.isBig) {
+			self.transform();
+		}
+		self.transformCounter = 101;
 	}
 	
 	self.transform = function() {
