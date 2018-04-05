@@ -60,7 +60,6 @@ document.onmousemove = function(mouse){
 }
 
 document.onkeypress = function(event) {
-	console.log(event.keyCode);
 	if (event.keyCode == 112) {
 		paused = !paused;
 	}
@@ -193,6 +192,11 @@ var update = function() {
 		player.reset(0, 0);
 	}
 	
+	if (player.x >= level_width) {
+		console.log("YEAH");
+		paused = !paused;
+	}
+	
 	player.attackCounter++;
 	player.transformCounter++;
 	player.immuneCounter++;
@@ -230,7 +234,7 @@ var update = function() {
 
 		if (blockLeftEntity(block, player)) {
 
-			if (!(block.type == "Terrain1x1Breakable")) {
+			if (!block.breakAt) {
 				player.x = block.x + block.width+player.xOffset;
 				player.blockedLeft = true;
 			}
@@ -252,14 +256,15 @@ var update = function() {
 		}
 		if (blockRightEntity(block, player) && player.vx >= 0){
 
-			if (!(block.type == "Terrain1x1Breakable")) {
+			console.log(block.type);
+		
+			if (!block.breakAt) {
 				player.x = block.x - player.xOffset;
 				player.blockedRight = true;
 			}
 
 			else {
-				//player_damage = Math.abs(player.getMomentum()) / 100;
-				//block.health -= player_damage;
+				console.log("Hey");
 				if (Math.abs(player.getMomentum()) >= block.breakAt) {
 
 					b = new Boulder(Math.random(), block.x, block.y, 0, 0, 0 ,0, "", null, player.id);
@@ -641,6 +646,9 @@ var startGame = function(initial_level) {
 	frameCount = 0;
 	everyTenCount = 0;
 	//console.log(enemies['enemy2']);
+	
+	level_width = initial_level.width;
+	console.log(level_width);
 
 	createPickUps();
 
