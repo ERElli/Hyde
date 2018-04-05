@@ -648,7 +648,6 @@ var startGame = function(initial_level) {
 	//console.log(enemies['enemy2']);
 	
 	level_width = initial_level.width;
-	console.log(level_width);
 
 	createPickUps();
 
