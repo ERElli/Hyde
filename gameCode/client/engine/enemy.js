@@ -9,6 +9,7 @@ function Enemy(type, id, x, y, vx, vy, width, height, img, color, acceleration, 
 	self.target = target;	
 	self.maxForward = self.zeroPoint + self.patrolRange;
 	self.maxBackward = self.zeroPoint - self.patrolRange;
+	self.ammo = 10000000;
 	
 	
 	var superUpdatePos = self.updatePosition;

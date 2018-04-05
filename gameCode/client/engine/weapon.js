@@ -47,7 +47,6 @@ function Pistol(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	
 	self.fire = function(angle) {
 		self.isFiring=true;
-		self.ammo--;
 		var spdX = Math.cos(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf + self.vx;
 		var spdY = Math.sin(angle/180*Math.PI)*self.bulletSpeed * mpsTOppf + self.vy;
 

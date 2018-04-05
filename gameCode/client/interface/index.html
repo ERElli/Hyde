@@ -30,14 +30,16 @@
 		/*var socket = io();
 		//call the socket to get the level objects from database
 		var  getLevelObjects = function() {
-		 socket.emit('getLevelObject', {levelName: "level 1"});
+			socket.emit('getLevelObject', {levelName: "level 1"});
 		};
+		
 		var levelObjects;
 		getLevelObjects();
 
 
 
 		//the socket receive the level objects from the database
+
 		socket.on('receiveLevelObjects',function(data){
 			levelObjects = data;
 			//level objects should be in data, right now they are logged in console
@@ -52,7 +54,7 @@
 				p = realLevel['player'][thing]
 			}
 
-			level['player'] = new Player(p.id, p.x, p.y, p.vx, p.vy, p.img, new Pistol(Math.random(), p.x, p.y, p.vx, p.vy, 50, 50,"pistol_image",null, p.id), p.isBig);
+			level['player'] = new Player(p.id, p.x, p.y-100, p.vx, p.vy, p.img, new Pistol(Math.random(), p.x, p.y, p.vx, p.vy, 50, 50,"pistol_image",null, p.id), p.isBig);
 			console.log("REAL LEVEL@@",realLevel);
 
 			level['enemies'] = {};
@@ -64,14 +66,14 @@
 				var enemy;
 
 				if (e.type == 'basic enemy') {
-					enemy =  new BasicEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
+					enemy =  new BasicEnemy(e.id, e.x, e.y-100, e.vx, e.vy, e.img, null, level['player']);
 				}
 
 				else if (e.type == 'tank enemy') {
-					enemy =  new TankEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
+					enemy =  new TankEnemy(e.id, e.x, e.y-100, e.vx, e.vy, e.img, null, level['player']);
 				}
 				else {
-					enemy =  new FlyingEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
+					enemy =  new FlyingEnemy(e.id, e.x, e.y-100, e.vx, e.vy, e.img, null, level['player']);
 				}
 
 				level['enemies'][e.id] = enemy;
@@ -85,7 +87,7 @@
 				var block;
 
 				if (t.type == 'Terrain1x1') {
-					block = Terrain1x1(t.id, t.x, t.y);
+					block = Terrain1x1(t.id, t.x, t.y-100);
 				}
 				level['terrain'][t.id] = block;
 				//console.log(level['terrain']);
@@ -134,19 +136,24 @@
 		//Creates background and foreground Canvases
 		init();
 
+
 		/*var levelFromFactory = EntityFactory2(level, false);
 
-		for (var id in levelFromFactory.player) {
-			//console.log(levelFromFactory.player[id]);
-			levelFromFactory.player = levelFromFactory.player[id]
+
+		for (var id in levelObjects.player) {
+			levelObjects.player = levelObjects.player[id]
 		}
+
 
 		for (var id in levelFromFactory.enemies) {
 			//console.log(levelFromFactory.enemies[id]);
 			levelFromFactory.enemies[id].target = levelFromFactory.player;
 		}
+		
+		//startGame(levelObjects);
 
 		startGame(levelFromFactory);*/
+
 		//console.log(mydata);
 //#############################################################################	
 	//FOR GUI TESTING PURPOSES	
