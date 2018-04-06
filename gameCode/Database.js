@@ -55,8 +55,9 @@ Database.addWeaponItem = function(data, cb){
 
 
   //}
+  var n;
 Database.getLevelObject = function(data, cb){
-
+  n = data;
   //console.log("nice"+data.x, data.y, data.w, data.h, data.id, data.type);
   //db.saveLevel.remove({id:data.rand}, { $addToSet:{ items: {x:data.x, y: data.y, w: data.w,h: data.h,id: data.id,type: data.type} } }, {upsert: true});
   //db.saveLevel.update({id:data.id},   { $addToSet:{ items: {x:data.x, y: data.y, vx: data.vx,vy: data.vy,id: data.id,type: data.type} } }, {upsert: true});
@@ -68,8 +69,20 @@ Database.getLevelObject = function(data, cb){
       console.log(arr);
     cb(arr);
    });
+}
+Database.getLevelObjectInterface = function(data, cb){
+  //console.log("nice"+data.x, data.y, data.w, data.h, data.id, data.type);
+  //db.saveLevel.remove({id:data.rand}, { $addToSet:{ items: {x:data.x, y: data.y, w: data.w,h: data.h,id: data.id,type: data.type} } }, {upsert: true});
+  //db.saveLevel.update({id:data.id},   { $addToSet:{ items: {x:data.x, y: data.y, vx: data.vx,vy: data.vy,id: data.id,type: data.type} } }, {upsert: true});
 
-
+  //db.saveLevel.find( function(err,res){
+  //db.saveLevel.find({level: "ww"});
+  console.log("this is gooo "+n);
+  db.saveLevel.find({level: n}, function(err,res){
+    var arr  = JSON.stringify(res);
+      console.log("we are getting" + arr);
+    cb(arr);
+   });
 }
 
 Database.deleteLevelItem = function(data, cb){
