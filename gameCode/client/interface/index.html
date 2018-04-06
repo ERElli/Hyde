@@ -1,12 +1,22 @@
 <html>
+		
 	<body>
 		<br>
 		<br>
-		<div id="container">
-
-		<div id="results" style="positions:absolute; left: 511px;">
-			<table style="border:1px"></table>
+		<!--
+		<div id="menu">
+			<a href='../../..'>Quit</button>
 		</div>
+		-->
+		
+		<div id="container">
+		
+			<div id="results" style="positions:absolute; left: 511px;">
+				<table style="border:1px"></table>
+			</div>
+			
+		</div>
+		
 	</body>
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 		<script type="text/javascript" src="../engine/main.js"></script>
@@ -22,11 +32,16 @@
 
 		<script type="text/javascript" src="../../levelEditor/Terrain.js"></script>
 		<script type="text/javascript" src="images.js"></script>
+		<script type="text/javascript" src="sounds.js"></script>
 		<script type="text/javascript" src="GUI.js"></script>
 		<script type="text/javascript" src="Animation.js"></script>
+		
 
 		<script>
+
+		
 		var socket = io();
+
 		//call the socket to get the level objects from database
 		var  getLevelObjects = function() {
 			socket.emit('getLevelObject', {levelName: "level 1"});
@@ -79,7 +94,7 @@
 			}
 			level['terrain'] = {};
 			for (var thing in realLevel['terrain']) {
-				t = realLevel['terrain'][thing]
+				let t = realLevel['terrain'][thing]
 				console.log(t.type);
 
 				var block;
@@ -89,20 +104,37 @@
 				}else if (t.type == 'Terrain3x2Breakable') {
 					block = Terrain3x2(t.id, t.x, t.y-100);
 				}
-				/*
-				else if (e.type == 'tank enemy') {
-					enemy =  new TankEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
+				else if (t.type == 'Terrain1x1Breakable') {
+					block = Terrain1x1Breakable(t.id, t.x, t.y-100);
 				}
-				else {
-					enemy =  new FlyingEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
+				else if (t.type == 'Terrain3x2') {
+					block = Terrain3x2(t.id, t.x, t.y-100);
 				}
-				*/
+				else if (t.type == 'Terrain3x2Breakable') {
+					block = Terrain3x2Breakable(t.id, t.x, t.y-100);
+				}
+				else if (t.type == 'Terrain3x4') {
+					block = Terrain3x4(t.id, t.x, t.y-100);
+				}
+				else if (t.type == 'Terrain3x4Breakable') {
+					block = Terrain3x4Breakable(t.id, t.x, t.y-100);
+				}
+				else if (t.type == 'Terrain3x6') {
+					block = Terrain3x6(t.id, t.x, t.y-100);
+				}
+				else if (t.type == 'Terrain3x6Breakable') {
+					block = Terrain3x6Breakable(t.id, t.x, t.y-100);
+				}
+				
 
 				level['terrain'][t.id] = block;
 				//console.log(level['terrain']);
 
 			}
 
+			level.width = realLevel.width;
+			console.log(realLevel.width);
+			
 			startGame(level);
 	  });
 
@@ -132,6 +164,7 @@
 		var gui;
 		var ani=Animation();
 		var Img=Img("../../");
+		var Sound = Sound("../../");
 		var HEIGHT=500;
 		var WIDTH=1250;
 
@@ -163,6 +196,9 @@
 
 
 		//console.log(mydata);
+
+//#############################################################################	
+	//FOR GUI TESTING PURPOSES	
 
 		var level = {}
 
@@ -206,14 +242,7 @@
 			if (t.type == 'Terrain1x1') {
 				block = Terrain1x1(t.id, t.x, t.y);
 			}
-			/*
-			else if (e.type == 'tank enemy') {
-				enemy =  new TankEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
-			}
-			else {
-				enemy =  new FlyingEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
-			}
-			*/
+
 
 			level['terrain'][t.id] = block;
 			//console.log(level['terrain']);
@@ -222,6 +251,9 @@
 
 		console.log("BEFORE SOCKET",mydata);
 
-		// startGame(level);
+
+		startGame(level);
+//######################################################################################
+
 		</script>
 </html>

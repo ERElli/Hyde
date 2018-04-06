@@ -35,14 +35,7 @@ Animation=function(){
 		}
 	};
 	//returns entity direction based on vx
-	/*self.getImgDir=function(entity){
-		if(entity.vx>=0){
-			return 0;
-		}
-		else{
-			return 1;
-		}
-	};*/
+
 	//Weapon animation;
 	self.getWeaponPosition=function(entity){
 		newX=entity.x;
@@ -58,6 +51,7 @@ Animation=function(){
 	};
 	//Sword animation
 	self.swordAnimation=function(entity,numAnimation,x,y,img,fW,fH){
+		Sound.sword.play();
 		n=Math.floor(numAnimation/2);
 			switch(numAnimation){
 				case 0:
@@ -149,74 +143,80 @@ Animation=function(){
 	self.fireAnimation=function(entity,numAnimation,x){
 		n=Math.floor(numAnimation/2);
 		if(entity.type=="assaultRifle"){
+			Sound.assaultRifle.play();
 			if(numAnimation==0){
 			
 			}else if(numAnimation%8<=2){
+				
 				if(entity.x>x){
-					gui.aniDraw(Img.muzzleFlash.stepFour,x-entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepFour,x-entity.width/2,entity.y-entity.height/7,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepFour,x+entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepFour,x+entity.width/2,entity.y-entity.height/7,40,25);
 				}
 			}
 			else if(numAnimation%8<5){
 				if(entity.x>x){
-					gui.aniDraw(Img.muzzleFlash.stepTwo,x-entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepTwo,x-entity.width/2,entity.y-entity.height/7,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepTwo,x+entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepTwo,x+entity.width/2,entity.y-entity.height/7,40,25);
 				}
 			}
 			else if(numAnimation%8<7){
 				if(entity.x>x){
-					gui.aniDraw(Img.muzzleFlash.stepThree,x-entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepThree,x-entity.width/2,entity.y-entity.height/7,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepThree,x+entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepThree,x+entity.width/2,entity.y-entity.height/7,40,25);
 				}
 			}
 			else{
 				if(entity.x>x){
-					gui.aniDraw(Img.muzzleFlash.stepFour,x-entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepFour,x-entity.width/2,entity.y-entity.height/4.5,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepFour,x+entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepFour,x+entity.width/2,entity.y-entity.height/7,40,25);
 				}
 			}
 		}
 		else{	
 			if(numAnimation==0){
-			
 			}else if(numAnimation<=2){
+				if (entity.type=="pistol"){
+					Sound.pistol.play();
+				}else{
+					Sound.shotgun.play();
+				}
 				if(entity.x>x){
-					gui.aniDraw(Img.muzzleFlash.stepOne,x-entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepOne,x-entity.width/2,entity.y-entity.height/7,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepOne,x+entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepOne,x+entity.width/2,entity.y-entity.height/7,40,25);
 				}
 			}
 			else if(numAnimation<5){
 				if(entity.x>x){
-					gui.aniDraw(Img.muzzleFlash.stepTwo,x-entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepTwo,x-entity.width/2,entity.y-entity.height/7,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepTwo,x+entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepTwo,x+entity.width/2,entity.y-entity.height/7,40,25);
 				}
 			}
 			else if(numAnimation<7){
 				if(entity.x>x){
-					gui.aniDraw(Img.muzzleFlash.stepThree,x-entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepThree,x-entity.width/2,entity.y-entity.height/7,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepThree,x+entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepThree,x+entity.width/2,entity.y-entity.height/7,40,25);
 				}
 			}
 			else{
 				if(entity.x>x){
-					gui.aniDraw(Img.muzzleFlash.stepFour,x-entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepFour,x-entity.width/2,entity.y-entity.height/7,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepFour,x+entity.width,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepFour,x+entity.width/2,entity.y-entity.height/7,40,25);
 				}
 			}
 		}
@@ -224,6 +224,7 @@ Animation=function(){
 	};
 	//Player jumping animation;
 	self.playJumpAnimation=function(entity,playDir){
+
 		if(playDir==0){
 			entity.aniCount=0;	
 		}else{
@@ -232,7 +233,67 @@ Animation=function(){
 		playDir=2;
 		return playDir;	
 	};
-		
+
+	self.breakable1x6=function(entity,aniStep){
+			fW=Img.terrain1x6Ani/3;
+		if(aniStep<=2){
+			aniX=1;
+			gui.quickAniWeaponDraw(Img.terrain1x6Ani,entity,fg_ctx,aniX,0,fW,0,en.x,en.y);
+		}else if(aniStep<=4){
+			aniX=2;
+			gui.quickAniWeaponDraw(Img.terrain1x6Ani,entity,fg_ctx,aniX,0,fW,0,en.x,en.y);
+		}else if(aniStep<=6){
+			aniX=3;
+			gui.quickAniWeaponDraw(Img.terrain1x6Ani,entity,fg_ctx,aniX,0,fW,0,en.x,en.y);
+		}else{
+			
+		}
+	};
+//####################################################
+//Sound Functions
+	//Jump sounds
+	self.jumpSound=function(entity){
+		if(entity.isBig==true){
+			Sound.bigJump.play();
+		}
+		else{
+			Sound.smallJump.play();
+		}
+	};
+	self.hurtSound=function(entity){
+		if(entity.isBig==true){
+			Sound.bigHurt.play();
+		}
+		else{
+			Sound.smallHurt.play();
+		}
+	};
+	self.deathSound=function(){
+		Sound.death.play();
+	};
+	self.checkpointSound=function(){
+		Sound.checkpoint.play();
+	};
+	self.transformSound=function(){
+		Sound.transform.play();
+	};
+	self.winGameSound=function(){
+		Sound.winGame.play();
+	};	
+	self.weaponPickUpSound=function(){
+		Sound.weaponPickUp.play();	
+	};
+	self.playBackgroundMusic=function(worldnum){
+		if (worldnum==1){
+			Sound.worldOne.play();
+		}else if(worldnum==2){
+			Sound.worldTwo.play();
+		}else if(worldnum==3){
+			Sound.worldThree.play();
+		}else{
+
+		}		
+	};
 	return self;
 }
 

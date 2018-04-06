@@ -22,7 +22,12 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	var bigJumpSpeed = 3*mpsTOppf;
 	var bigSlowDown = 4;
 	//Creating players weapon for GUI testing purposes	
-	var weapon=new Shotgun(1, x, y, vx, vy, 20, 20, Img.swordWeapon, "blue", id);
+
+	var weapon=new Pistol(1, x, y, vx, vy, 40, 40, Img.assaultWeapon, "blue", id);
+
+
+	//var weapon=new Shotgun(1, x, y, vx, vy, 40, 40, Img.assaultWeapon, "blue", id);
+
 	
 	//type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, health, weapon, mass, jumpSpeed, meleeDamage
 	var self = Humanoid('player', id, x, y, vx, vy, smallWidth, smallHeight, img, 'red', smallAcceleration, smallMaxVX, smallMaxVY,
@@ -37,6 +42,8 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	self.smallSpeed = 5;
 	self.isBig = isBig;	
 	self.doubleJumped = false;
+	self.crouchHeight = smallHeight / 2;
+	self.isCrouching = false;
 
 	self.acceleration = self.isBig ? bigAcceleration:smallAcceleration;
 	self.jumpSpeed = self.isBig ? bigJumpSpeed:smallJumpSpeed;
@@ -60,6 +67,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	self.updatePosition = function() {
 
 		//console.log(self.vx);
+
 		
 		if (Math.sign(self.vx) != Math.sign(self.ax) && !self.isLaunched && !self.isStopped) {
 			//console.log("Slowing");
@@ -122,12 +130,20 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 		self.y = y;
 		self.vx = 0;
 		self.vy = 0;
+		self.ammo = 20;
 		self.weapon = new Pistol(1, x, y, vx, vy, 20, 20, Img.pistolWeapon, "blue", self.id);
 		self.health = self.maxHealth;
+		if (self.isBig) {
+			self.transform();
+		}
+		self.transformCounter = 101;
+		ani.deathSound();
 	}
 	
 	self.transform = function() {
 		if (self.transformCounter > 100) {
+			
+			ani.transformSound();
 		
 			self.transformCounter = 0;
 			
@@ -177,6 +193,9 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	}
 	
 	self.takeDamage = function(amount) {
+		
+		ani.hurtSound(self);
+		
 		if (!self.isBig) {
 			self.health -= amount;
 			self.isImmune = true;

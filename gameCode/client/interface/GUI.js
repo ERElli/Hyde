@@ -24,7 +24,8 @@ GUI = function(container){
 	var backgroundPositionCounter=0;
 	var editorBackgroundCounter=0;
 	self.create= function(type, id, left, top, width, height){
-		var element= document.createElement(type);
+		var element= document.createElement(type);		
+		
 		element.id=id;
 		element.style.position='absolute';
 		if(left!=0){element.style.left=left;}
@@ -69,7 +70,7 @@ GUI = function(container){
 		gui.bg_ctx.clearRect(0,0,self.bg.width,self.bg.height);
 		n=editorBackgroundCounter;
 		var image;
-		console.log(img);
+		//console.log(img);
 		switch(img){
 			case 'world1':
 				image = Img.background1;
@@ -81,7 +82,7 @@ GUI = function(container){
 				image = Img.background3;
 				break;
 		}
-		console.log(image);
+		//console.log(image);
 		if(image != null){
 			gui.bg_ctx.drawImage(image,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
 			gui.bg_ctx.drawImage(image,x+self.bg.width*n,y,self.bg.width,self.bg.height);
@@ -103,11 +104,13 @@ GUI = function(container){
 		y=0;
 		Img.background2.onload=function(){
 		}
+		//console.log(Sound.worldTwo);
+		Sound.worldTwo.play();
 		//continuously loops backgrounds
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*n,y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
-    /*
+    /*		
 		//reached the end of the level
 		if(backgroundPositionCounter ==3){
 			 document.getElementById('canvas').onkeypress=function()
@@ -144,6 +147,14 @@ GUI = function(container){
 				if(en.isBig==true){
 					if(!isLevelEditor){
 						playDir=ani.getPlayDirection(en);
+						//Draws jumping animation
+						//console.log(en.vy);
+						if(en.vy!=0){
+							playDir=ani.playJumpAnimation(en,playDir);
+						}else{
+							//updates player animation every 5th frame
+							ani.updateEntityAnimation(en,5);
+						}
 					}else{
 						playDir = 1;
 					}
@@ -266,6 +277,8 @@ GUI = function(container){
 				}
 				self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newX,en.y);
 				break;
+			case "noWeapon":
+				break;
 			case "bullet":
 				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;
@@ -273,10 +286,12 @@ GUI = function(container){
 			case "meleeBullet":
 				//melee bullets shouldnt be drawn
 				//self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
-
+				break;
 			case "boulder":
 				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
-
+				break;
+			case "ammo":
+				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;
 		}
 		//console.log(entity);
@@ -323,6 +338,10 @@ GUI = function(container){
 			case "Terrain3x6Breakable":
 				self.quickDraw(Img.terrain3x6Breakable,t,ctx,t.x,t.y);
 				break;
+			case "Terrain1x6Breakable":
+				self.quickDraw(Img.terrainBreak1x6,t,ctx,t.x,t.y);
+				break;
+			
 		}
 		terrain.img.onload=function(){};
 		ctx.restore();
@@ -330,15 +349,11 @@ GUI = function(container){
 
 	//QuickDraw Methods(For improved readability)
 	self.quickDraw=function(img,entity,ctx,x,y){
-
 		ctx.drawImage(img,(x-xOffset)-playX,y-yOffset,entity.width,entity.height);
-
 	};
 	self.aniDraw=function(img,x,y,width,height){
 		gui.fg_ctx.drawImage(img,(x-xOffset)-playX,y-yOffset,width,height);
-
 	};
-
 	self.quickPlayerDraw=function(img,en,ctx,aniX,aniDir,fW,fH){
 		ctx.drawImage(img,aniX*fW,aniDir*fH,fW,fH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
 	};
@@ -347,7 +362,6 @@ GUI = function(container){
 	};
 	self.quickAnimatedDraw=function(img,en,ctx,aniStepY,fW,fH){
 		ctx.drawImage(img,en.aniCount*fW,aniStepY*fH,fW,fH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
-
 	};
 
 	self.HUD=function(ctx,player){

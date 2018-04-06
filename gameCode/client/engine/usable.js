@@ -18,10 +18,19 @@ function WeaponPickUp(id, x, y, weaponType, target) {
 	
 	self.weaponType = weaponType;
 	
-	self.weapon = new Sword("w1", self.x, self.y, 0, 0, 50, 50,"pistol_image",null, target.id);
+	if (weaponType == "shotgun") {
+		self.weapon = new Shotgun("w1", self.x, self.y, 0, 0, 50, 50,"pistol_image",null, target.id);
+	}
+	else if (weaponType == "assaultRifle") {
+		self.weapon = new AssaultRifle("w1", self.x, self.y, 0, 0, 50, 50,"pistol_image",null, target.id);
+	}
+	else {
+		self.weapon = new Sword("w1", self.x, self.y, 0, 0, 50, 50,"pistol_image",null, target.id);
+	}
 	
 	self.applyEffect = function() {
 		target.weapon = self.weapon;
+		ani.weaponPickUpSound();
 	}
 	
 	self.draw = function(ctx,isLevelEditor) {
@@ -32,31 +41,18 @@ function WeaponPickUp(id, x, y, weaponType, target) {
 	
 }
 
-function PowerUp(type, id, x, y, vx, vy, width, height, img, color, increaseAmount, effectedStat) {
-	var self = Usable(type, id, x, y, vx, vy, width, height, img, color);
+function AmmoPickUp(id, x, y, target) {
+	var self = Usable("ammo", id, x, y, 0, 0, 25, 25, 'no', 'red');
 	
+	self.applyEffect = function() {
+		target.weapon.ammo += 5;
+	}
 	
-	self.increaseAmount = increaseAmount;
-	self.effectedStat = effectedStat;
-	
-	
-	self.applyEffect = function(target) {
-		
+	self.draw = function(ctx,isLevelEditor) {
+		gui.drawEntity(self, gui.fg_ctx, false);
 	}
 	
 	return self;
+
 }
 
-function Perk(type, id, x, y, vx, vy, width, height, img, color, name) {
-	var self = Usable(type, id, x, y, vx, vy, width, height, img, color);
-	
-	
-	self.name = name;
-	
-	
-	self.applyEffect = function(target) {
-		
-	}
-	
-	return self;
-}

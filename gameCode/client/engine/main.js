@@ -10,10 +10,12 @@ var sufaceMods;
 var pickUps;
 
 var hasReleasedJump = false;
+var hasReleasedCrouch = true;
+var paused = false;
 
-var charCodes = {65:"left", 87:"jump", 68:"right", 83:"crouch", 32:"transform", 27:"pause", };
+var charCodes = {65:"left", 87:"jump", 68:"right", 83:"crouch", 32:"transform",};
 
-var pressing = { "left": 0, "right":0, "jump":0, "crouch":0, "transform":0, "shoot":0, };
+var pressing = { "left": 0, "right":0, "jump":0, "crouch":0, "transform":0, "shoot":0 };
 
 
 document.onkeydown = function(event) {
@@ -23,6 +25,9 @@ document.onkeydown = function(event) {
 document.onkeyup = function(event) {
 	if (charCodes[event.keyCode] == "jump") {
 		hasReleasedJump = true;
+	}
+	if (charCodes[event.keyCode] == "crouch") {
+		hasReleasedCrouch = true;
 	}
 	pressing[charCodes[event.keyCode]] = 0;
 }
@@ -52,6 +57,12 @@ document.onmousemove = function(mouse){
 	var mouseY = mouse.clientY - gui.fg.getBoundingClientRect().top;
 
 	player.updateAim(mouseX, mouseY);
+}
+
+document.onkeypress = function(event) {
+	if (event.keyCode == 112) {
+		paused = !paused;
+	}
 }
 
 /*
@@ -89,9 +100,21 @@ var doPressedActions = function() {
 		}
 	}
 
+	/*
 	if (pressing['crouch']) {
-		player.crouch();
+		if (!player.isCrouching) {
+			player.isCrouching = true;
+			player.height = player.crouchHeight;
+			player.y -= player.height;
+		}
+		hasReleasedCrouch = false;
 	}
+	
+	if (hasReleasedCrouch) {
+		player.height = player.crouchHeight*2;
+		player.isCrouching = false;
+	}
+	*/
 
 	if (pressing['transform']) {
 		player.transform();
@@ -138,6 +161,10 @@ var inRange = function(thing) {
 * Main game loop
 */
 var update = function() {
+	
+	if (paused) {
+		return;
+	}
 
 	gui.fg_ctx.clearRect(0, 0, gui.fg.width, gui.fg.height);
 
@@ -163,6 +190,11 @@ var update = function() {
 	
 	if (player.health <= 0) {
 		player.reset(0, 0);
+	}
+	
+	if (player.x >= level_width) {
+		console.log("YEAH");
+		paused = !paused;
 	}
 	
 	player.attackCounter++;
@@ -202,7 +234,7 @@ var update = function() {
 
 		if (blockLeftEntity(block, player)) {
 
-			if (!(block.type == "Terrain1x1Breakable")) {
+			if (!block.breakAt) {
 				player.x = block.x + block.width+player.xOffset;
 				player.blockedLeft = true;
 			}
@@ -224,14 +256,15 @@ var update = function() {
 		}
 		if (blockRightEntity(block, player) && player.vx >= 0){
 
-			if (!(block.type == "Terrain1x1Breakable")) {
+			console.log(block.type);
+		
+			if (!block.breakAt) {
 				player.x = block.x - player.xOffset;
 				player.blockedRight = true;
 			}
 
 			else {
-				//player_damage = Math.abs(player.getMomentum()) / 100;
-				//block.health -= player_damage;
+				console.log("Hey");
 				if (Math.abs(player.getMomentum()) >= block.breakAt) {
 
 					b = new Boulder(Math.random(), block.x, block.y, 0, 0, 0 ,0, "", null, player.id);
@@ -313,7 +346,7 @@ var update = function() {
 
 	if (player.isLaunched) {
 		//console.log("Launched");
-		console.log(player.vx);
+		//console.log(player.vx);
 		player.launchTimer++;
 		if (player.launchTimer > 25) {
 			player.isLaunched = false;
@@ -363,9 +396,12 @@ var update = function() {
 
 	// Manage pick-ups ------------------------------------------------------------------
 
+	//console.log(pickUps);
+	
 	for (var key in pickUps) {
 
 		pickUp = pickUps[key];
+		//console.log(pickUp);
 
 		//console.log(pickUp);
 
@@ -379,6 +415,7 @@ var update = function() {
 
 			//console.log("Picking up weapon");
 			pickUp.applyEffect();
+			delete pickUps[key];
 		}
 
 	}
@@ -406,7 +443,10 @@ var update = function() {
 
 			var isColliding = bullet.testCollision(enemies[key2]);
 			if (isColliding && bullet.ownerID != enemies[key2].id) {
-				toRemove = true;
+				
+				if (bullet.type == 'bullet') {
+					toRemove = true;
+				}
 
 				//Enemy takes damage, maybe apply effect (like knockback)
 				enemies[key2].takeDamage(bullet.damage);
@@ -428,7 +468,7 @@ var update = function() {
 
 			bullet.timer++;
 			//console.log(bullet.timer);
-			if (bullet.timer > 50) {
+			if (bullet.timer > 10) {
 				toRemove = true;
 			}
 		}
@@ -456,6 +496,13 @@ var update = function() {
 
 		if (enemy.health <= 0) {
 			delete enemies[key];
+			
+			if (Math.random() < 0.3) {
+				a = new AmmoPickUp(Math.random(), enemy.x, enemy.y, player);
+				pickUps[a.id] = a;
+
+			}
+			
 		}
 
 		enemy.attackCounter++;
@@ -597,14 +644,29 @@ var startGame = function(initial_level) {
 	// terrain[breakable.id] = breakable;
 	// console.log(terrain[breakable.id]['x'])
 	//surfaceMods = level["terrain"];
-	pickUps = level['pickUps']
+	pickUps = {}//level['pickUps']
 	//console.log(pickUps['p1']);
 	frameCount = 0;
 	everyTenCount = 0;
 	//console.log(enemies['enemy2']);
+	
+	level_width = initial_level.width;
+	console.log(level_width);
 
+	createPickUps();
 
 	setInterval(update, 1000/60)
+}
+
+var createPickUps = function() {
+	
+	w = new WeaponPickUp(Math.random(), 100, 100, 'sword', player);
+	
+	a = new AmmoPickUp(Math.random(), 300, 100, player);
+	
+	pickUps[w.id] = w;
+	pickUps[a.id] = a;
+	
 }
 
 var endGame = function() {
