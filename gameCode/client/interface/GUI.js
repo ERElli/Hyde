@@ -24,7 +24,8 @@ GUI = function(container){
 	var backgroundPositionCounter=0;
 	var editorBackgroundCounter=0;
 	self.create= function(type, id, left, top, width, height){
-		var element= document.createElement(type);
+		var element= document.createElement(type);		
+		
 		element.id=id;
 		element.style.position='absolute';
 		if(left!=0){element.style.left=left;}
@@ -104,7 +105,7 @@ GUI = function(container){
 		Img.background2.onload=function(){
 		}
 		//console.log(Sound.worldTwo);
-		//Sound.worldTwo.play();
+		Sound.worldTwo.play();
 		//continuously loops backgrounds
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*n,y,self.bg.width,self.bg.height);

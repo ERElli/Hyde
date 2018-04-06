@@ -1,12 +1,22 @@
 <html>
+		
 	<body>
 		<br>
 		<br>
-		<div id="container">
-
-		<div id="results" style="positions:absolute; left: 511px;">
-			<table style="border:1px"></table>
+		<!--
+		<div id="menu">
+			<a href='../../..'>Quit</button>
 		</div>
+		-->
+		
+		<div id="container">
+		
+			<div id="results" style="positions:absolute; left: 511px;">
+				<table style="border:1px"></table>
+			</div>
+			
+		</div>
+		
 	</body>
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 		<script type="text/javascript" src="../engine/main.js"></script>
@@ -22,11 +32,16 @@
 
 		<script type="text/javascript" src="../../levelEditor/Terrain.js"></script>
 		<script type="text/javascript" src="images.js"></script>
+		<script type="text/javascript" src="sounds.js"></script>
 		<script type="text/javascript" src="GUI.js"></script>
 		<script type="text/javascript" src="Animation.js"></script>
+		
 
 		<script>
-		/*var socket = io();
+
+		
+		var socket = io();
+
 		//call the socket to get the level objects from database
 		var  getLevelObjects = function() {
 			socket.emit('getLevelObject', {levelName: "level 1"});
@@ -116,6 +131,7 @@
 			}
 
 			level.width = realLevel.width;
+			console.log(realLevel.width);
 			
 			startGame(level);
 	  });
@@ -146,7 +162,7 @@
 		var gui;
 		var ani=Animation();
 		var Img=Img("../../");
-		//var Sound = Sound("../../");
+		var Sound = Sound("../../");
 		var HEIGHT=500;
 		var WIDTH=1250;
 

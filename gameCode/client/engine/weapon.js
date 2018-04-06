@@ -125,3 +125,13 @@ function AssaultRifle(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	
 	return self;
 }
+
+function NoWeapon(id, x, y, vx, vy, width, height, img, color, ownerID) {
+	var self = Weapon("noWeapon", id, x, y, vx, vy, width, height, img, color, 0, 0, "normal", 100, 20);
+	
+	self.fire = function(angle) {
+		
+	}
+	
+	return self;
+}

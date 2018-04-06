@@ -23,7 +23,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	var bigSlowDown = 4;
 	//Creating players weapon for GUI testing purposes	
 
-	var weapon=new AssaultRifle(1, x, y, vx, vy, 40, 40, Img.assaultWeapon, "blue", id);
+	var weapon=new Pistol(1, x, y, vx, vy, 40, 40, Img.assaultWeapon, "blue", id);
 
 
 	//var weapon=new Shotgun(1, x, y, vx, vy, 40, 40, Img.assaultWeapon, "blue", id);
@@ -137,10 +137,13 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 			self.transform();
 		}
 		self.transformCounter = 101;
+		ani.deathSound();
 	}
 	
 	self.transform = function() {
 		if (self.transformCounter > 100) {
+			
+			ani.transformSound();
 		
 			self.transformCounter = 0;
 			
@@ -190,6 +193,9 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	}
 	
 	self.takeDamage = function(amount) {
+		
+		ani.hurtSound(self);
+		
 		if (!self.isBig) {
 			self.health -= amount;
 			self.isImmune = true;

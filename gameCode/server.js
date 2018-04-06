@@ -472,8 +472,8 @@ app.get('/client/interface/soundFX/weaponEffects/pistol.wav',function(req, res) 
 app.get('/client/interface/soundFX/weaponEffects/shotgun.wav',function(req, res) {
     res.sendFile(__dirname + '/client/interface/soundFX/weaponEffects/shotgun.wav');
 });
-app.get('client/interface/soundFX/weaponEffects/sword.wav',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/soundFX/weaponEffects/sword.wav');
+app.get('/client/interface/soundFX/weaponEffects/sword.wav',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/soundFX/weaponEffects/sword.wav');
 });
 app.get('/client/interface/soundFX/weaponEffects/weaponPickup.wav',function(req, res) {
     res.sendFile(__dirname + '/client/interface/soundFX/weaponEffects/weaponPickup.wav');

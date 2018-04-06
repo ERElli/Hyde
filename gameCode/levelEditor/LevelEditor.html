@@ -169,8 +169,8 @@ var button1 = document.getElementById("button1");
 socket.on('hey', function(data){
   let level = data;
   console.log("result"+ level);
-  let levelObject = EntityFactory(level,true);
-  map = Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
+  //let levelObject = EntityFactory(level,true);
+  //map = Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
   //console.log(levelObject);
 
   Update(level);

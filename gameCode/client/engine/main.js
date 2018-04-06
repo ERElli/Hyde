@@ -443,7 +443,10 @@ var update = function() {
 
 			var isColliding = bullet.testCollision(enemies[key2]);
 			if (isColliding && bullet.ownerID != enemies[key2].id) {
-				toRemove = true;
+				
+				if (bullet.type == 'bullet') {
+					toRemove = true;
+				}
 
 				//Enemy takes damage, maybe apply effect (like knockback)
 				enemies[key2].takeDamage(bullet.damage);
@@ -465,7 +468,7 @@ var update = function() {
 
 			bullet.timer++;
 			//console.log(bullet.timer);
-			if (bullet.timer > 50) {
+			if (bullet.timer > 10) {
 				toRemove = true;
 			}
 		}
@@ -657,7 +660,7 @@ var startGame = function(initial_level) {
 
 var createPickUps = function() {
 	
-	w = new WeaponPickUp(Math.random(), 100, 100, 'assaultRifle', player);
+	w = new WeaponPickUp(Math.random(), 100, 100, 'sword', player);
 	
 	a = new AmmoPickUp(Math.random(), 300, 100, player);
 	
