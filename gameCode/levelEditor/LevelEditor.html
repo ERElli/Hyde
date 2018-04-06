@@ -238,7 +238,6 @@ backgroundImage.src = "../../images/worldTwoBackground.png";
 
 //Initializing the map
 var map = Map(WIDTH,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
-map.setBackgroundImage(backgroundImage.src);
 
 // let levelObject = EntityFactory(levelString,true);
 // console.log(levelObject);
@@ -721,6 +720,7 @@ document.onclick = function(event) {
 self.worldTapped = function(id){
 	self.selectedBackground = id;
 	console.log(self.selectedBackground);
+  map.setBackgroundImage(id);
 	gui.editorBackground(offsetX,offsetY,self.selectedBackground);
 }
 

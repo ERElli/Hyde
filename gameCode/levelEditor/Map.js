@@ -86,6 +86,12 @@ Map = function(width, height,tile_width, tile_height) {
 			else if (type.includes("Terrain")){
 	 			socket.emit('addTerrainItem', {x: object.x, y:object.y, id: object.id, type: object.type});
    		}
+			else if (type.includes("checkpoint")){
+	 			socket.emit('addCheckpointItem', {x: object.x, y:object.y, id: object.id, type: object.type});
+   		}
+			else if (type.includes("weapon")){
+	 			socket.emit('addWeaponItem', {x: object.x, y:object.y, id: object.id, type: object.weaponType});
+   		}
 		//{x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type}
 		console.log("Adding "+type+": ", object);
 
@@ -153,6 +159,12 @@ Map = function(width, height,tile_width, tile_height) {
 			else if (type.includes("Terrain")){
 				socket.emit('deleteTerrainItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
 			}
+			else if (type.includes("checkpoint")){
+				socket.emit('deleteCheckpointItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
+			}
+			else if (type.includes("weapon")){
+				socket.emit('deleteWeaponItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.weaponType});
+			}
 			//console.log("hello world "+ toBeRemoved.id );
 
 			console.log("Removing Entity:",toBeRemoved);
@@ -163,9 +175,10 @@ Map = function(width, height,tile_width, tile_height) {
 	};
 
 	self.setBackgroundImage = function(imageName){
-		self.img = imageName;
-		self.backgroundImg = new Image();
-		self.backgroundImg.src = self.img;
+
+		socket.emit('addBackgroundItem', imageName);
+
+		self.BackgroundImage = imageName;
 	};
 
 	//Function to clear spaces on the tile array
