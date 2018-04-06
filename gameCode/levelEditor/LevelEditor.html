@@ -72,6 +72,7 @@
 			<button style="background-image: url(../images/3x4BDrop.png)" onclick="terrainbtnTapped('3x4Breakable')" class="terrain6btn"></button>
 			<button style="background-image: url(../images/3x6Drop.png)" onclick="terrainbtnTapped('3x6')" class="terrain7btn"></button>
 			<button style="background-image: url(../images/3x6BDrop.png)" onclick="terrainbtnTapped('3x6Breakable')" class="terrain8btn"></button>
+			<button style="background-image: url(../images/1x6BDrop.png)" onclick="terrainbtnTapped('1x6Breakable')" class="terrain9btn"></button>
 		</div>
 	</div>
 
@@ -389,6 +390,9 @@ snapToGrid  = function(canvas,mouse){
 			case "3x6Breakable":
 				entity = Terrain3x6Breakable(tempID,prev_x,prev_y);
 				break;
+			case "1x6Breakable":
+				entity = Terrain1x6Breakable(tempID,prev_x,prev_y);
+				break;
 		}
 		entity.draw(gui.ep_ctx,true);
     }
@@ -464,6 +468,8 @@ putEntity = function() {
 						entity = Terrain3x6(id, x, y);
               		}else if(self.selectedTerrain === "3x6Breakable"){
 						entity = Terrain3x6Breakable(id, x, y);
+					}else if(self.selectedTerrain === "1x6Breakable"){
+						entity = Terrain1x6Breakable(id, x, y);
 					}else{
 						console.log("terrain problem");
 					}
