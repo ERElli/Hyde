@@ -235,18 +235,18 @@ Animation=function(){
 	};
 
 	self.breakable1x6=function(entity,aniStep){
-			fW=Img.terrain1x6Ani/3;
+			fW=Img.terrain1x6Ani.width/3;
 		if(aniStep<=2){
-			aniX=1;
-			gui.quickAniWeaponDraw(Img.terrain1x6Ani,entity,fg_ctx,aniX,0,fW,0,en.x,en.y);
+			aniX=0;
+			gui.quickAnimatedDraw(Img.terrain1x6Ani,entity,fg_ctx,aniX,fW,0);
 		}else if(aniStep<=4){
-			aniX=2;
-			gui.quickAniWeaponDraw(Img.terrain1x6Ani,entity,fg_ctx,aniX,0,fW,0,en.x,en.y);
+			aniX=1;
+			gui.quickAnimatedDraw(Img.terrain1x6Ani,entity,fg_ctx,aniX,fW,0);
 		}else if(aniStep<=6){
-			aniX=3;
-			gui.quickAniWeaponDraw(Img.terrain1x6Ani,entity,fg_ctx,aniX,0,fW,0,en.x,en.y);
+			aniX=2;
+			gui.quickAnimatedDraw(Img.terrain1x6Ani,entity,fg_ctx,aniX,fW,0);
 		}else{
-			
+
 		}
 	};
 //####################################################
