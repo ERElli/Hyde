@@ -339,7 +339,7 @@ GUI = function(container){
 				self.quickDraw(Img.terrain3x6Breakable,t,ctx,t.x,t.y);
 				break;
 			case "Terrain1x6Breakable":
-				self.quickDraw(Img.terrainBreak1x6,t,ctx,t.x,t.y);
+				self.quickDraw(Img.terrain1x6Breakable,t,ctx,t.x,t.y);
 				break;
 			
 		}

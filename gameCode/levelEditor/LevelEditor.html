@@ -141,13 +141,14 @@ levelButton.onclick = function(){
   }
 }
 
+
 //newLevelName.innerHTML= "blue";
 
 var button1 = document.getElementById("button1");
 
 //request
  button1.onclick = function(){
-       socket.emit('button');
+       socket.emit('button', {level:levelNameField.value});
  }
 
 //receive
@@ -164,18 +165,32 @@ var button1 = document.getElementById("button1");
 
  });
 
+ socket.on('loadIt', function(data){
+   console.log("this is cool");
+   let level = data;
+   console.log("result"+ level);
+   let levelObject = EntityFactory(level,true);
+   //map = Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
+   //console.log(levelObject);
+   Update(level);
+ });
+
 
 
 //This will Receive the level objects and set them to the variable level
+/*
 socket.on('hey', function(data){
   let level = data;
   console.log("result"+ level);
   //let levelObject = EntityFactory(level,true);
   //map = Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
   //console.log(levelObject);
-
   Update(level);
-});
+});  */
+
+
+
+
 
 var Update = function(level){
 	// var l = level;
@@ -435,7 +450,7 @@ putEntity = function() {
               		}else if(self.selectedTerrain === "3x6Breakable"){
 						entity = Terrain3x6Breakable(id, x, y);
 					}else if(self.selectedTerrain === "1x6Breakable"){
-						entity = Terrain1x6Breakbale(id, x, y);
+						entity = Terrain1x6Breakable(id, x, y);
 					}else{
 						console.log("terrain problem");
 					}

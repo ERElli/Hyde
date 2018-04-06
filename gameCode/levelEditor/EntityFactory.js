@@ -53,6 +53,9 @@ EntityFactory = function(levelString,isLevelEditor){
 							case "Terrain3x6Breakable":
 								mObject[mID] = Terrain3x6Breakable(mID,mX,mY);
 								break;
+							case "Terrain1x6Breakable":
+								mObject[mID] = Terrain1x6Breakable(mID,mX,mY);
+								break;
 						}
 						break;
 					case "player":

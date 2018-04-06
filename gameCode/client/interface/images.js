@@ -7,7 +7,7 @@ Img = function(pathToRoot) {
 	self.background2.src= pathToRoot+"client/interface/img/background/worldTwoBackground.png";
 	self.background3= new Image();
 	self.background3.src= pathToRoot+"client/interface/img/background/worldThreeBackground.png";
-	//player images	
+	//player images
 	self.playerSmall= new Image();
 	self.playerSmall.src= pathToRoot+"client/interface/img/entity/humanoid/smallPlayer.png";
 	self.playerBig= new Image();
@@ -19,7 +19,7 @@ Img = function(pathToRoot) {
 	self.basicEnemy2.src= pathToRoot+"client/interface/img/entity/humanoid/flyingEnemy.png";
 	self.basicEnemy3= new Image();
 	self.basicEnemy3.src= pathToRoot+"client/interface/img/enemy3.png"
-	
+
 	self.infinity=new Image();
 	self.infinity.src= pathToRoot+"client/interface/img/inf.png";
 	//weapons and ammo
@@ -51,10 +51,10 @@ Img = function(pathToRoot) {
 	self.terrain3x6.src= pathToRoot+"client/interface/img/terrain/terrain3x6.png";
 	self.terrain3x6Breakable= new Image();
 	self.terrain3x6Breakable.src= pathToRoot+"client/interface/img/terrain/breakableTerrain3x6.png";
-	self.terrainBreak1x6=new Image();
-	self.terrainBreak1x6.src=pathToRoot+"client/interface/img/terrain/BreakableBuilding.png"
+	self.terrain1x6Breakable=new Image();
+	self.terrain1x6Breakable.src=pathToRoot+"client/interface/img/terrain/1x6BreakableBuilding.png"
 	self.terrain1x6Ani=new Image();
-	self.terrain1x6Ani.src=pathToRoot+"client/interface/img/terrain/BreakableBuildingAnimation.png"
+	self.terrain1x6Ani.src=pathToRoot+"client/interface/img/terrain/breakableBuildingAnimation.png"
 	//checkpoint images
 	self.standardCheckpoint= new Image();
 	self.standardCheckpoint.src = pathToRoot+"client/interface/img/placeCheckpoint.png";
@@ -76,4 +76,3 @@ Img = function(pathToRoot) {
 	console.log(self.muzzleFlash.stepOne);
 	return self;
 };
-

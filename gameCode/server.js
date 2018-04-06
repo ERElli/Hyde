@@ -432,13 +432,24 @@ app.get('/client/interface/img/Animations/muzzleFlash/FlashStage4.png',function(
 });
 
 
-app.get('client/interface/img/terrain/1x6BreakableBuilding.png',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/img/terrain/1x6BreakableBuilding.png');
+app.get('/client/interface/img/terrain/1x6BreakableBuilding.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/1x6BreakableBuilding.png');
 });
-app.get('client/interface/img/terrain/1x6BreakableBuildingAnimation.png',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/img/terrain/1x6BreakableBuildingAnimation.png');
+app.get('/client/interface/img/terrain/breakableBuildingAnimation.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/breakableBuildingAnimation.png');
+
 });
 
+app.get('/client/interface/img/terrain/breakableTerrain3x6.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/breakableTerrain3x6.png');
+});
+app.get('/client/interface/img/terrain/breakableBuildingAnimation.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/breakableBuildingAnimation.png');
+});
+
+app.get('/client/interface/img/terrain/terrain3x6.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/terrain3x6.png');
+});
 app.get('/images/background.png',function(req, res) {
     res.sendFile(__dirname + '/images/background.png');
 });
@@ -614,19 +625,37 @@ io.sockets.on('connection', function(socket){
   socket.on('saveLevel',function(data){
    Database.levelSave(data);
   });
+var state;
+  socket.on('load', function(data){
 
-  socket.on('loadLevel', function(data){
-  console.log("jello");
+    //console.log("uuuuu");
+    socket.emit('changeMe');
+    //Database.getLevelObject("level1", function(res){
 
   });
 
+  socket.on('do', function(){
+    console.log("helo let");
+
+  });
+
+
   Database.getLevelObject("level1", function(res){
-  socket.emit('hey', res);
+    console.log("hhhhh");
+    socket.emit('loadIt', res);
    });
 
-   socket.on('button',function(){
 
-     Database.getLevelObject("level1", function(res){
+
+
+
+  //Database.getLevelObject("level1", function(res){
+  //socket.emit('hey', res);
+//   });
+
+   socket.on('button',function(data){
+     console.log('data.level');
+     Database.getLevelObject(data.level, function(res){
      socket.emit('result', res);
       });
    });
