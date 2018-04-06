@@ -498,7 +498,7 @@ putEntity = function() {
 
 	id = Math.random();
 	if(mouseBelowUpperBound && mouseAboveLowerBound){
-		if(((x+entity.width) <= WIDTH) && ((y+entity.height) <= HEIGHT)){
+		if(((x+entity.width) <= WIDTH) && ((y+entity.height) <= HEIGHT) && !dropdownDisplayed){
 			if(self.selectedButton !== null){
 				if(self.selectedButton === 'enemies'){
 					if(self.selectedEnemy === 'Basic Enemy'){
