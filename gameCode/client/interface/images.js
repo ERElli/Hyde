@@ -18,7 +18,7 @@ Img = function(pathToRoot) {
 	self.basicEnemy2= new Image();
 	self.basicEnemy2.src= pathToRoot+"client/interface/img/entity/humanoid/flyingEnemy.png";
 	self.basicEnemy3= new Image();
-	self.basicEnemy3.src= pathToRoot+"client/interface/img/enemy3.png"
+	self.basicEnemy3.src= pathToRoot+"client/interface/img/entity/humanoid/shieldEnemy.png"
 
 	self.infinity=new Image();
 	self.infinity.src= pathToRoot+"client/interface/img/inf.png";
