@@ -102,6 +102,7 @@ GUI = function(container){
 		n=backgroundPositionCounter;
 		x=self.bg.width-level['player'].x;
 		y=0;
+		//if(
 		Img.background2.onload=function(){
 		}
 		//console.log(Sound.worldTwo);

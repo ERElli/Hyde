@@ -59,7 +59,7 @@ Img = function(pathToRoot) {
 	self.standardCheckpoint= new Image();
 	self.standardCheckpoint.src = pathToRoot+"client/interface/img/placeCheckpoint.png";
 	self.finalCheckpoint= new Image();
-	self.finalCheckpoint.src = pathToRoot+"client/interface/img/placeCheckpoint.png";
+	self.finalCheckpoint.src = pathToRoot+"client/interface/img/goalFlag.png";
 
 	self.transformAnimation=new Image();
 	self.transformAnimation.src= pathToRoot+"client/interface/img/Animations/transformAnimation.png";

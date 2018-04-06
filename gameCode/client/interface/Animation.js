@@ -7,6 +7,9 @@ Animation=function(){
 			return 0;
 		}
 		if(frameCount%5==0){
+			if(en.aniCount==0 && en.isBig){
+				en.aniCount++;
+			}
 			en.aniCount++;
 			if(en.aniCount==numAnimations){
 				en.aniCount=0;

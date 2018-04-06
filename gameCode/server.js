@@ -176,6 +176,9 @@ app.get('/client/interface/img/bullet.png',function(req, res) {
 app.get('/client/interface/img/placeCheckpoint.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/placeCheckpoint.png');
 });
+app.get('/client/interface/img/goalFlag.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/goalFlag.png');
+});
 
 app.get('/client/interface/img/movingCharacter.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/movingCharacter.png');
