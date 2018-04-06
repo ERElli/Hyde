@@ -649,46 +649,31 @@ io.sockets.on('connection', function(socket){
   });
 
   socket.on('getLevelObject',function(data){
-   Database.getLevelObject(data, function(res){
-    console.log(res);
+   Database.getLevelObjectInterface(data.level, function(res){
+    console.log("my result" +res);
 
     socket.emit('receiveLevelObjects', res);
    });
 
   });
 
+
+
   socket.on('saveLevel',function(data){
    Database.levelSave(data);
   });
-var state;
-  socket.on('load', function(data){
-    socket.emit('heys');
-    var me;
 
-    //console.log("uuuuu");
-    socket.emit('changeMe');
-    //Database.getLevelObject("level1", function(res){
 
-  });
-
-  socket.on('do', function(){
-    console.log("helo let");
-
-  });
-
-  Database.getLevelObject("level1", function(res){
-    console.log("hhhhh");
-    //socket.emit('loadIt', res);
-   });
 
   //Database.getLevelObject("level1", function(res){
   //socket.emit('hey', res);
 //   });
 
    socket.on('button',function(data){
-     console.log('data.level');
+     console.log("console" +data.level);
      Database.getLevelObject(data.level, function(res){
      socket.emit('result', res);
+
       });
    });
 

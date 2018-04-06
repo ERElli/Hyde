@@ -145,6 +145,8 @@ var levelLoad = document.getElementById('levelLoad');
 var levelButton2 = document.getElementById('levelButton2');
 
 
+
+
 levelButton.onclick = function(){
   if (levelNameField.value ==="" ){
     alert("Please input a name for the level.");
@@ -166,6 +168,7 @@ levelButton.onclick = function(){
 }
 
 levelButton2.onclick = function(){
+
   if (levelNameField2.value ==="" ){
     alert("Please input a name for the level.");
   }
@@ -207,21 +210,12 @@ levelNewButton.onclick = function(){
 var button1 = document.getElementById("button1");
 //request
  button1.onclick = function(){
-       socket.emit('button', {level:levelNameField.value});
+       socket.emit('button', {level:levelNameField2.value});
  }
 //receive
  socket.on('result',function(res){
     console.log("result", JSON.parse(JSON.stringify(res)));
       location.href = "/client/interface/index.html";
- });
- socket.on('gee',function(res){
-      //console.log("heeeeey ", JSON.stringify(res));
-      newLevelName.innerHTML= "blue";
- });
-
- socket.on('heys', function(){
-   console.log("this is cool");
-
  });
 
  socket.on('loadIt', function(data){
