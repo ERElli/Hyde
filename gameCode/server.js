@@ -81,6 +81,9 @@ app.get('/client/interface/img/entity/humanoid/basicEnemy.png',function(req, res
 app.get('/client/interface/img/entity/humanoid/flyingEnemy.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/entity/humanoid/flyingEnemy.png');
 });
+app.get('/client/interface/img/entity/humanoid/shieldEnemy.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/humanoid/shieldEnemy.png');
+});
 app.get('/client/interface/img/entity/weapon/pistolAttack.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/entity/weapon/pistolAttack.png');
 });
@@ -473,8 +476,9 @@ app.get('/images/smallSignInHover.png',function(req, res) {
 app.get('/client/interface/img/terrain/1x6BreakableBuilding.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/terrain/1x6BreakableBuilding.png');
 });
-app.get('/client/interface/img/terrain/1x6BreakableBuildingAnimation.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/terrain/1x6BreakableBuildingAnimation.png');
+app.get('/client/interface/img/terrain/breakableBuildingAnimation.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/breakableBuildingAnimation.png');
+
 });
 app.get('/mainStyle.css',function(req, res) {
     res.sendFile(__dirname + '/client/mainStyle.css');
@@ -547,6 +551,9 @@ app.get('/client/interface/soundFX/playerSounds/bigPlayer/bigHurt.wav',function(
 });
 app.get('/client/interface/soundFX/weaponEffects/weaponPickup.wav',function(req, res) {
     res.sendFile(__dirname + '/client/interface/soundFX/weaponEffects/weaponPickup.wav');
+});
+app.get('/client/interface/img/Animations/transformAnimation.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/Animations/transformAnimation.png');
 });
 app.get('/images/buildingTerrain3x6.png',function(req, res) {
     res.sendFile(__dirname + '/images/buildingTerrain3x6.png');

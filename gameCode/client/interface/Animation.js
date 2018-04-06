@@ -235,20 +235,39 @@ Animation=function(){
 	};
 
 	self.breakable1x6=function(entity,aniStep){
-			fW=Img.terrain1x6Ani/3;
-		if(aniStep<=2){
+			fW=Img.terrain1x6Ani.width/3;
+		if(aniStep<=4){
+
+			aniX=0;
+			gui.onlyAnimation(Img.terrain1x6Ani,entity,fg_ctx,aniX,fW,150,300,entity.x-25,entity.y-300);
+		}else if(aniStep<=8){
 			aniX=1;
-			gui.quickAniWeaponDraw(Img.terrain1x6Ani,entity,fg_ctx,aniX,0,fW,0,en.x,en.y);
-		}else if(aniStep<=4){
+			gui.onlyAnimation(Img.terrain1x6Ani,entity,fg_ctx,aniX,fW,Img.150,300,entity.x-25,entity.y-300);
+		}else if(aniStep<=12){
 			aniX=2;
-			gui.quickAniWeaponDraw(Img.terrain1x6Ani,entity,fg_ctx,aniX,0,fW,0,en.x,en.y);
+			gui.onlyAnimation(Img.terrain1x6Ani,entity,fg_ctx,aniX,fW,150,300,entity.x-25,entity.y-300);
+		}else{
+
+		}
+	};
+	self.transformAnimation=function(entity,aniStep){
+		fW=Img.transformAnimation.width/3
+		img=Img.transformAnimation;
+		if(aniStep<=2){
+			aniX=0;
+			gui.onlyAnimation(img,entity,fg_ctx,aniX,fW)
+		}else if(aniStep<=4){
+			aniX=1;
+			gui.onlyAnimation(img,entity,fg_ctx,aniX,fW)
 		}else if(aniStep<=6){
-			aniX=3;
-			gui.quickAniWeaponDraw(Img.terrain1x6Ani,entity,fg_ctx,aniX,0,fW,0,en.x,en.y);
+			aniX=2;
+			gui.onlyAnimation(img,entity,fg_ctx,aniX,fW)
 		}else{
 			
 		}
 	};
+		
+	}
 //####################################################
 //Sound Functions
 	//Jump sounds

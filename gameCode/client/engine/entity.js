@@ -339,6 +339,8 @@ var Throwable = function() {
 function Boulder(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	var self = Entity("boulder", id, x, y, vx, vy, width, height, img, color);
 
+	self.aniTimer = 0;
+	
 	self.width = 50;
 	self.height = 50;
 	self.damage = 25;
@@ -352,6 +354,10 @@ function Boulder(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	self.updatePosition = function() {
 
 		self.vy += self.ay;
+		
+		ani.breakable1x6(self, self.aniTimer);
+		
+		self.aniTimer++;
 		
 		oldUpdate();
 		

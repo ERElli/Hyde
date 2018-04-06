@@ -270,6 +270,8 @@ var update = function() {
 					b = new Boulder(Math.random(), block.x, block.y, 0, 0, 0 ,0, "", null, player.id);
 					bullets[b.id] = b;
 
+					console.log(bullets[b.id]);
+					
 					delete  terrain[key];
 				}
 				else {
@@ -457,7 +459,9 @@ var update = function() {
 		if (bullet.ownerID != player.id) {
 			var isColliding = bullet.testCollision(player);
 			if (isColliding) {
-				toRemove = true;
+				if (bullet.type == 'bullet') {
+					toRemove = true;
+				}
 				player.takeDamage(bullet.damage);
 			}
 		}
@@ -474,6 +478,7 @@ var update = function() {
 		}
 
 		if(toRemove){
+			console.log("Deleting " + bullet.type);
 			delete bullets[key];
 		}
 	}

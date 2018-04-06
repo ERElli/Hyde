@@ -18,7 +18,10 @@ function WeaponPickUp(id, x, y, weaponType, target) {
 	
 	self.weaponType = weaponType;
 	
-	if (weaponType == "shotgun") {
+	if (weaponType == "pistol") {
+		self.weapon = new Pistol("w1", self.x, self.y, 0, 0, 50, 50,"pistol_image",null, target.id);
+	}
+	else if (weaponType == "shotgun") {
 		self.weapon = new Shotgun("w1", self.x, self.y, 0, 0, 50, 50,"pistol_image",null, target.id);
 	}
 	else if (weaponType == "assaultRifle") {
