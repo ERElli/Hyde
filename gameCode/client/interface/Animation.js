@@ -4,12 +4,13 @@ Animation=function(){
 	//Updates animation stage, takes in an entity,counter of current animation and number of animations per sequence.
 	self.updateEntityAnimation=function(en,numAnimations){
 		if(en.vx==0){
-			return 0;
+			return  0;
 		}
-		if(frameCount%5==0){
+		if(frameCount%5==0){			
+			
 			en.aniCount++;
 			if(en.aniCount==numAnimations){
-				en.aniCount=0;
+				en.aniCount=1;
 			}
 		}
 	};
@@ -254,15 +255,15 @@ Animation=function(){
 	self.transformAnimation=function(entity,aniStep){
 		fW=Img.transformAnimation.width/3
 		img=Img.transformAnimation;
-		if(aniStep<=2){
+		if(aniStep<=5){
 			aniX=0;
-			gui.onlyAnimation(img,entity,gui.fg_ctx,aniX,fW)
-		}else if(aniStep<=4){
+			gui.onlyAnimation(img,entity,gui.fg_ctx,aniX,fW, entity.width, entity.height, entity.x-entity.width/2, entity.y-entity.height/2)
+		}else if(aniStep<=10){
 			aniX=1;
-			gui.onlyAnimation(img,entity,gui.fg_ctx,aniX,fW)
-		}else if(aniStep<=6){
+			gui.onlyAnimation(img,entity,gui.fg_ctx,aniX,fW, entity.width, entity.height, entity.x-entity.width/2, entity.y-entity.height/2)
+		}else if(aniStep<=15){
 			aniX=2;
-			gui.onlyAnimation(img,entity,gui.fg_ctx,aniX,fW)
+			gui.onlyAnimation(img,entity,gui.fg_ctx,aniX,fW, entity.width, entity.height, entity.x-entity.width/2, entity.y-entity.height/2)
 		}else{
 			
 		}

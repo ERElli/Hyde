@@ -267,7 +267,7 @@ var update = function() {
 				console.log("Hey");
 				if (Math.abs(player.getMomentum()) >= block.breakAt) {
 
-					b = new Boulder(Math.random(), block.x, block.y-0.01, 0, 0, 0 ,0, "", null, player.id);
+					b = new Boulder(Math.random(), block.x, block.y, 0, 0, 0 ,0, "", null, player.id);
 					bullets[b.id] = b;
 
 					
@@ -338,38 +338,10 @@ var update = function() {
 			}
 			else if (bullet.type == 'boulder') {
 				
-				
-				
-				bullet.falling = true;
-				
-				if (blockUnderEntity(block, bullet)) {
-					//console.log("here");
-					bullet.falling = false;
-					bullet.y = block.y;
-					bullet.setGroundMotion();
+				if (testCollision(block, bullet)) {
+					console.log("here");
+					bullet.y = block.y - bullet.height/2;
 				}
-
-				if (bullet.falling) {
-					bullet.inAir = true;
-					bullet.setAirMotion();
-				}
-
-
-				if (blockLeftEntity(block, bullet) && bullet.vx < 0) {
-					bullet.x = block.x + block.width+bullet.width/2;
-					bullet.vx = 1;
-				}
-				if (blockRightEntity(block, bullet) && bullet.vx > 0) {
-					bullet.x = block.x-bullet.width/2;
-					bullet.vx = -1;
-				}
-
-
-				if (blockOverEntity(block, bullet)) {
-					bullet.y = block.y+block.height+bullet.height/2;
-					bullet.vy = -2;
-				}
-				
 				
 			}
 

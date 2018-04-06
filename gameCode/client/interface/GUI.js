@@ -160,7 +160,7 @@ GUI = function(container){
 					}
 					var fW=Img.playerBig.width/5;
 					var fH=Img.playerBig.height/3;
-					ani.updateEntityAnimation(en,5);
+					//ani.updateEntityAnimation(en,5);
 					self.quickAnimatedDraw(Img.playerBig,en,ctx,playDir,fW,fH);
 				}else{
 					var fW=Img.playerSmall.width/5;
