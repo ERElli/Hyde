@@ -76,7 +76,33 @@ EntityFactory = function(levelString,isLevelEditor){
 								mObject[mID] = TankEnemy(mID,mX,mY,0,0,Img.basicEnemy3,'red',null);
 						}
 						break;
+					case "checkpoints":
+						switch(object.type){
+							case "standard checkpoint":
+								mObject[mID] = StandCheckpoint(mID,mX,mY);
+								break;
+							case "final checkpoint":
+								mObject[mID] = FinalCheckpoint(mID,mX,mY);
+								break;
+						}
+						break;
+					case "weapons":
+						switch(object.type){
+							case "pistol":
+								mObject[mID] = WeaponPickUp(mID,object.type,mX,mY);
+								break;
+							case "assaultRifle":
+								mObject[mID] = WeaponPickUp(mID,object.type,mX,mY);
+								break;
+							case "shotgun":
+								mObject[mID] = WeaponPickUp(mID,object.type,mX,mY);
+								break;
+							case "sword":
+								mObject[mID] = WeaponPickUp(mID,object.type,mX,mY);
+								break;
+						}
 				}
+
 				if(isLevelEditor){
 					// mObject[id].y = mObject[id].y+100;
 					map.tryToPlaceEntity(mObject[mID]);
