@@ -78,6 +78,9 @@ app.get('/client/interface/img/entity/humanoid/basicEnemy.png',function(req, res
 app.get('/client/interface/img/entity/humanoid/flyingEnemy.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/entity/humanoid/flyingEnemy.png');
 });
+app.get('/client/interface/img/entity/humanoid/shieldEnemy.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/humanoid/shieldEnemy.png');
+});
 app.get('/client/interface/img/entity/weapon/pistolAttack.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/entity/weapon/pistolAttack.png');
 });
