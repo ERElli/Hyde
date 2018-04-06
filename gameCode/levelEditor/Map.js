@@ -36,7 +36,7 @@ Map = function(width, height,tile_width, tile_height) {
 		}
 	}
 	//Collection of the different tile maps
-	var tileMaps  = [self.checkpointTiles,self.tiles, self.weaponTiles];
+	var tileMaps  = [self.checkpointTiles, self.tiles, self.weaponTiles];
 
 	var gridShiftDown = 2; //The grid is shifted down 2 tile widths to make space for the buttons
 
@@ -80,25 +80,17 @@ Map = function(width, height,tile_width, tile_height) {
 			}
 		}
 
-			list[id] = object;
-			var temp = type;
-			if (type.includes("enemy") ){
-	 			socket.emit('addLevelItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
-   		} else if (type.includes("player")){
-	 			socket.emit('addPlayerItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
-   		}
-			else if (type.includes("Terrain")){
-	 			socket.emit('addTerrainItem', {x: object.x, y:object.y, id: object.id, type: object.type});
-   		}
-			else if (type.includes("checkpoint")){
-	 			socket.emit('addCheckpointItem', {x: object.x, y:object.y, id: object.id, type: object.type});
-   		}
-			else if (type.includes("weapon")){
-	 			socket.emit('addWeaponItem', {x: object.x, y:object.y, id: object.id, type: object.weaponType});
-   		}
+		list[id] = object;
+		var temp = type;
 
-
-		
+		//adding objects to the database
+		if (type.includes("enemy") ){
+			socket.emit('addLevelItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
+		}else if(type.includes("player")){
+			socket.emit('addPlayerItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
+		}else if(type.includes("Terrain")){
+			socket.emit('addTerrainItem', {x: object.x, y:object.y, id: object.id, type: object.type});
+		}
 		//{x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type}
 		console.log("Adding "+type+": ", object);
 		console.log("Updated ObjectList",self.ObjectList);
@@ -165,6 +157,7 @@ Map = function(width, height,tile_width, tile_height) {
 		let toBeRemoved;
 
 		for(let map in tileMaps){
+			console.log("MAP COUNT",map);
 			currentMap = tileMaps[map];
 
 			let type = currentMap[i][j].type;
@@ -173,6 +166,7 @@ Map = function(width, height,tile_width, tile_height) {
 			
 			// console.log("COUNT IS FILLED",isFilled(currentMap,i,j));
 			if(filled/*self.isFilled(currentMap,i,j)*/){
+				console.log("FILLED LOOP",map);
 				let list = self.getList(type);
 				toBeRemoved = list[id];
 				if(list[id]!= {}){
@@ -183,41 +177,25 @@ Map = function(width, height,tile_width, tile_height) {
 					self.makeFreeSpace(currentMap,toBeRemoved);
 					console.log("MAKE FREE SPACE ENTITY:",toBeRemoved);
 					gui.fg_ctx.clearRect(x,y,toBeRemoved.width, toBeRemoved.height);
+
+					if (type.includes("enemy") ){
+						socket.emit('deleteLevelItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, vx: toBeRemoved.vx, vy: toBeRemoved.vy, type: toBeRemoved.type});
+					} else if (type.includes("player")){
+						socket.emit('deletePlayerItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, vx: toBeRemoved.vx, vy: toBeRemoved.vy, type: toBeRemoved.type});
+					}else if (type.includes("Terrain")){
+						socket.emit('deleteTerrainItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
+					}
 				}
 			}else{
 				console.log("Nothing to remove on this map!");
 			}
+
 			
-			if (type.includes("enemy") ){
-				socket.emit('deleteLevelItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, vx: toBeRemoved.vx, vy: toBeRemoved.vy, type: toBeRemoved.type});
-			} else if (type.includes("player")){
-				socket.emit('deletePlayerItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, vx: toBeRemoved.vx, vy: toBeRemoved.vy, type: toBeRemoved.type});
-			}
-			else if (type.includes("Terrain")){
-				socket.emit('deleteTerrainItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
-			}
-
-			else if (type.includes("checkpoint")){
-				socket.emit('deleteCheckpointItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
-			}
-			else if (type.includes("weapon")){
-				socket.emit('deleteWeaponItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.weaponType});
-			}
-			//console.log("hello world "+ toBeRemoved.id );
-
-			console.log("Removing Entity:",toBeRemoved);
-			console.log("Updated ObjectList:",self.ObjectList);
-		}else {
-			console.log("Nothing to remove!");
 		}
 	};
 
-	self.setBackgroundImage = function(imageName){
-
-		socket.emit('addBackgroundItem', imageName);
-
-		self.BackgroundImage = imageName;
-
+	self.setBackgroundImage = function(worldName){
+		self.Background = worldName;
 	};
 
 	//Function to clear spaces on the tile array
