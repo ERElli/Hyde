@@ -20,14 +20,14 @@ Animation=function(){
 		if(entity.type=='player' || entity.type=="pistol" ||entity.type=="assaultRifle" ||entity.type=="shotgun"||entity.type=="sword"){
 			if(entity.aimAngle<=90 && entity.aimAngle>-90){
 				return 0;
-			} 
+			}
 			else{
 				return 1;
 			}
 		}else{
 			if(entity.aimAngle<=90 && entity.aimAngle>-90){
 				return 1;
-			} 
+			}
 			else{
 				return 0;
 			}
@@ -56,7 +56,7 @@ Animation=function(){
 			switch(numAnimation){
 				case 0:
 					if(entity.x>x){
-						theX=x-entity.width;						
+						theX=x-entity.width;
 					}
 					else{
 						theX=x+entity.width;
@@ -65,7 +65,7 @@ Animation=function(){
 					break;
 				case 1:
 					if(entity.x>x){
-						theX=x-entity.width;						
+						theX=x-entity.width;
 					}
 					else{
 						theX=x+entity.width;
@@ -74,7 +74,7 @@ Animation=function(){
 					break;
 				case 2:
 					if(entity.x>x){
-						theX=x-entity.width;						
+						theX=x-entity.width;
 					}
 					else{
 						theX=x+entity.width;
@@ -83,7 +83,7 @@ Animation=function(){
 					break;
 				case 3:
 					if(entity.x>x){
-						theX=x-entity.width;						
+						theX=x-entity.width;
 					}
 					else{
 						theX=x+entity.width;
@@ -92,7 +92,7 @@ Animation=function(){
 					break;
 				case 4:
 					if(entity.x>x){
-						theX=x-entity.width;						
+						theX=x-entity.width;
 					}
 					else{
 						theX=x+entity.width;
@@ -101,7 +101,7 @@ Animation=function(){
 					break;
 				case 5:
 					if(entity.x>x){
-						theX=x-entity.width+5;						
+						theX=x-entity.width+5;
 					}
 					else{
 						theX=x+entity.width-5;
@@ -110,7 +110,7 @@ Animation=function(){
 					break;
 				case 6:
 					if(entity.x>x){
-						theX=x-entity.width+10;						
+						theX=x-entity.width+10;
 					}
 					else{
 						theX=x+entity.width-10;
@@ -119,7 +119,7 @@ Animation=function(){
 					break;
 				case 7:
 					if(entity.x>x){
-						theX=x-entity.width+15;						
+						theX=x-entity.width+15;
 					}
 					else{
 						theX=x+entity.width-15;
@@ -128,7 +128,7 @@ Animation=function(){
 					break;
 				case 8:
 					if(entity.x>x){
-						theX=x-entity.width+20;						
+						theX=x-entity.width+20;
 					}
 					else{
 						theX=x+entity.width-20;
@@ -137,7 +137,7 @@ Animation=function(){
 					break;
 			}
 			gui.quickAniWeaponDraw(img,entity,gui.fg_ctx,n,dir,fW,fH,theX,theY);
-		
+
 	};
 	//Fire animation for guns
 	self.fireAnimation=function(entity,numAnimation,x){
@@ -145,9 +145,9 @@ Animation=function(){
 		if(entity.type=="assaultRifle"){
 			Sound.assaultRifle.play();
 			if(numAnimation==0){
-			
+
 			}else if(numAnimation%8<=2){
-				
+
 				if(entity.x>x){
 					gui.aniDraw(Img.muzzleFlash.stepFour,x-entity.width/2,entity.y-entity.height/7,40,25);
 				}
@@ -180,7 +180,7 @@ Animation=function(){
 				}
 			}
 		}
-		else{	
+		else{
 			if(numAnimation==0){
 			}else if(numAnimation<=2){
 				if (entity.type=="pistol"){
@@ -220,18 +220,18 @@ Animation=function(){
 				}
 			}
 		}
-		return n;		
+		return n;
 	};
 	//Player jumping animation;
 	self.playJumpAnimation=function(entity,playDir){
 
 		if(playDir==0){
-			entity.aniCount=0;	
+			entity.aniCount=0;
 		}else{
 			entity.aniCount=1;
 		}
 		playDir=2;
-		return playDir;	
+		return playDir;
 	};
 
 	self.breakable1x6=function(entity,aniStep){
@@ -242,7 +242,7 @@ Animation=function(){
 			gui.onlyAnimation(Img.terrain1x6Ani,entity,fg_ctx,aniX,fW,150,300,entity.x-25,entity.y-300);
 		}else if(aniStep<=8){
 			aniX=1;
-			gui.onlyAnimation(Img.terrain1x6Ani,entity,fg_ctx,aniX,fW,Img.150,300,entity.x-25,entity.y-300);
+			gui.onlyAnimation(Img.terrain1x6Ani,entity,fg_ctx,aniX,fW,150,300,entity.x-25,entity.y-300);
 		}else if(aniStep<=12){
 			aniX=2;
 			gui.onlyAnimation(Img.terrain1x6Ani,entity,fg_ctx,aniX,fW,150,300,entity.x-25,entity.y-300);
@@ -251,7 +251,7 @@ Animation=function(){
 		}
 	};
 	self.transformAnimation=function(entity,aniStep){
-		fW=Img.transformAnimation.width/3
+		fW=Img.transformAnimation.width/3;
 		img=Img.transformAnimation;
 		if(aniStep<=2){
 			aniX=0;
@@ -263,11 +263,11 @@ Animation=function(){
 			aniX=2;
 			gui.onlyAnimation(img,entity,fg_ctx,aniX,fW)
 		}else{
-			
+
 		}
 	};
-		
-	}
+
+	
 //####################################################
 //Sound Functions
 	//Jump sounds
@@ -298,9 +298,9 @@ Animation=function(){
 	};
 	self.winGameSound=function(){
 		Sound.winGame.play();
-	};	
+	};
 	self.weaponPickUpSound=function(){
-		Sound.weaponPickUp.play();	
+		Sound.weaponPickUp.play();
 	};
 	self.playBackgroundMusic=function(worldnum){
 		if (worldnum==1){
@@ -311,8 +311,7 @@ Animation=function(){
 			Sound.worldThree.play();
 		}else{
 
-		}		
+		}
 	};
 	return self;
 }
-

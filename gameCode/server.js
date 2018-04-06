@@ -422,7 +422,9 @@ app.get('/client/interface/img/entity/humanoid/smallPlayer.png',function(req, re
 app.get('/client/interface/img/entity/bullet2.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/entity/bullet2.png');
 });
-
+app.get('/client/interface/img/entity/shieldEnemy.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/shieldEnemy.png');
+});
 app.get('/client/interface/img/Animations/muzzleFlash/FlashStage1.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/Animations/muzzleFlash/FlashStage1.png');
 });
@@ -555,6 +557,7 @@ app.get('/client/interface/soundFX/weaponEffects/weaponPickup.wav',function(req,
 app.get('/client/interface/img/Animations/transformAnimation.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/Animations/transformAnimation.png');
 });
+
 app.get('/images/buildingTerrain3x6.png',function(req, res) {
     res.sendFile(__dirname + '/images/buildingTerrain3x6.png');
 });
