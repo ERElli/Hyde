@@ -105,7 +105,7 @@ GUI = function(container){
 		Img.background2.onload=function(){
 		}
 		//console.log(Sound.worldTwo);
-		//Sound.worldTwo.play();
+		Sound.worldTwo.play();
 		//continuously loops backgrounds
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*n,y,self.bg.width,self.bg.height);
