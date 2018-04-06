@@ -363,8 +363,8 @@ GUI = function(container){
 	self.quickAnimatedDraw=function(img,en,ctx,aniStepY,fW,fH){
 		ctx.drawImage(img,en.aniCount*fW,aniStepY*fH,fW,fH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
 	};
-	self.onlyAnimation=function(img,en,ctx,aniX,fW){
-		ctx.drawImage(img,aniX*fW,0,fW,img.height,en.x-xOffset-playX,en.y-yOffset,img.width,img.height);
+	self.onlyAnimation=function(img,en,ctx,aniX,fW,width,height,x,y){
+		ctx.drawImage(img,aniX*fW,0,fW,img.height,x-xOffset-playX,y-yOffset,width,height);
 			
 	}
 
