@@ -190,7 +190,7 @@ var button1 = document.getElementById("button1");
  });
 
  socket.on('loadIt', function(data){
-
+   //setBackground("world 1");
    console.log("this is cool");
    let level = data;
    console.log("result"+ level);
@@ -209,7 +209,7 @@ socket.on('hey', function(data){
   //console.log(levelObject);
   Update(level);
 
-});  
+});
 
 
 
@@ -262,7 +262,7 @@ backgroundImage.src = "../../images/worldTwoBackground.png";
 
 //Initializing the map
 var map = Map(WIDTH,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
-map.setBackgroundImage(backgroundImage.src);
+//map.setBackgroundImage(backgroundImage.src);
 
 // let levelObject = EntityFactory(levelString,true);
 // console.log(levelObject);
