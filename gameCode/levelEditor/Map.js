@@ -80,14 +80,15 @@ Map = function(width, height,tile_width, tile_height) {
 			}
 		}
 
-		if(levelNameField2.value == ""){
+		if(state == "new"){
 			console.log("inside console");
 			nameL = levelNameField.value;
 		}
-		else if (levelNameField.value == ""){
+		else if (state == "load"){
 			nameL =levelNameField2.value;
 		}
-	//	nameL = "solli";
+		console.log("the nameL is "+nameL);
+		
 		list[id] = object;
 		var temp = type;
 		console.log("field 1: "+levelNameField.value+ " field 2:" + levelNameField2.value+ " name:"+ nameL);

@@ -16,7 +16,9 @@ EntityFactory = function(levelString,isLevelEditor){
 	for(let generalType in LevelObject[0]){
 		console.log(generalType);
 		// console.log(Object.keys(LevelObject[generalType]).length);
-		if(generalType === 'enemies' || generalType === 'terrain' || generalType === 'player' || generalType === 'weapon'){
+
+		if(generalType === 'enemies' || generalType === 'terrain' || generalType === 'player' || generalType ==='weapon'){
+
 			self[generalType] = {};
 			// for(let id in LevelObject[0][generalType][0]){
 			for(let i=0;i<LevelObject[0][generalType].length;i++){

@@ -134,20 +134,16 @@ var levelChoice = document.getElementById("levelChoice");
 var levelNameField = document.getElementById('levelNameField');
 var widthValue = document.getElementById('widthValue');
 var levelButton = document.getElementById('levelButton');
-
 var levelNewButton = document.getElementById('levelNewButton');
 var levelLoadButton = document.getElementById('levelLoadButton');
-
 //levelLoad div
 var levelLoad = document.getElementById('levelLoad');
 var levelNameField2 = document.getElementById('levelNameField2');
 var levelLoad = document.getElementById('levelLoad');
 var levelButton2 = document.getElementById('levelButton2');
-
-
-
-
+var state;
 levelButton.onclick = function(){
+  state = "new";
   if (levelNameField.value ==="" ){
     alert("Please input a name for the level.");
   }
@@ -166,16 +162,14 @@ levelButton.onclick = function(){
     //
   }
 }
-
 levelButton2.onclick = function(){
-
+  state = "load";
   if (levelNameField2.value ==="" ){
     alert("Please input a name for the level.");
   }
   else{
     console.log("i got "+levelNameField2.value );
     socket.emit('levelLoadButton', {level: levelNameField2.value});
-
     //socket.emit('newLevel',{width:widthValue.value,  level: levelNameField.value});
     container.style.display = 'block';
     levelMaker.style.display = 'block';
@@ -190,22 +184,16 @@ levelButton2.onclick = function(){
     //
   }
 }
-
 levelLoadButton.onclick = function(){
       //socket.emit('levelLoadButton', {level:"hey"});
       levelChoice.style.display = 'none';
       levelLoad.style.display = 'block';
-
 }
 levelNewButton.onclick = function(){
     //  socket.emit('levelNewButton', {level:"hey"});
       levelChoice.style.display = 'none';
       levelMenu.style.display = 'block';
-
 }
-
-
-
 //newLevelName.innerHTML= "blue";
 var button1 = document.getElementById("button1");
 //request
@@ -217,9 +205,7 @@ var button1 = document.getElementById("button1");
     console.log("result", JSON.parse(JSON.stringify(res)));
       location.href = "/client/interface/index.html";
  });
-
  socket.on('loadIt', function(data){
-
    //setBackground("world 1");
    console.log("this is cool");
    let level = data;
@@ -230,21 +216,14 @@ var button1 = document.getElementById("button1");
    Update(level);
  });
 //This will Receive the level objects and set them to the variable level
-
 socket.on('hey', function(data){
   let level = data;
   console.log("result"+ level);
   //let levelObject = EntityFactory(level,true);
-  //map = Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
+  map = Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
   //console.log(levelObject);
   Update(level);
-
 });
-
-
-
-
-
 var Update = function(level){
 	// var l = level;
 	 console.log("heeey"+JSON.stringify(level[0] ));
@@ -258,7 +237,6 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 } else {
   alert('The File APIs are not fully supported in this browser.');
 }
-
 //Initial values
 var WIDTH = 1250*3;
 var HEIGHT = 650*1;
@@ -284,19 +262,14 @@ var pos;
 var id;
 var x;
 var y;
-
 // //Creating images
 var backgroundImage = new Image();
 backgroundImage.src = "../../images/worldTwoBackground.png";
-
-
 //Initializing the map
 var map = Map(WIDTH,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
 //map.setBackgroundImage(backgroundImage.src);
-
 // let levelObject = EntityFactory(levelString,true);
 // console.log(levelObject);
-
 /*
 	Controls
 */
@@ -306,7 +279,6 @@ var controls = {
 	right: false,
 	down: false,
 };
-
 /*
 	Keydown Listener
 */
@@ -330,7 +302,6 @@ window.addEventListener("keydown",function(e){
 			break;
 	}
 });
-
 /*
 	Keyup Listener
 */
@@ -351,14 +322,12 @@ window.addEventListener("keyup",function(e){
 	}
 	e.preventDefault();
 });
-
 /*
 	Disabling right-click context menu
 */
 document.oncontextmenu = function(mouse){
 	mouse.preventDefault();
 };
-
 /*
 	Performs pressed actions when controls are being pressed
 */
@@ -388,7 +357,6 @@ doPressedAction = function() {
 		gui.editorBackground(offsetX,offsetY,self.selectedBackground);
 	}
 };
-
 var entity;
 //Drawing a preview of the object to be placed on the level
 //and snapping the top right corner of the preview to the grid lines
@@ -396,12 +364,10 @@ snapToGrid  = function(canvas,mouse){
 	var pos = getMousePosition(canvas,mouse);
 	var prev_x = pos.x - (pos.x % TILE_HEIGHT);
 	var prev_y = pos.y - (pos.y % TILE_WIDTH);
-
 	entity = null;
 	var tempID = 0;
 	var tempTarget = Player(tempID,0,0,0,0,null,false);
 	var previewImage = new Image();
-
 	if(self.selectedButton === 'enemies'){
 		switch(self.selectedEnemy){
 			case "Basic Enemy":
@@ -489,13 +455,11 @@ snapToGrid  = function(canvas,mouse){
 		gui.ep_ctx.fillRect(x,y,TILE_WIDTH,TILE_HEIGHT);
   	}
 };
-
 //function to place entity on the map
 putEntity = function() {
 	var mouseBelowUpperBound = pos.x<gui.fg.width && pos.y<gui.fg.height+(2*TILE_HEIGHT);
 	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
 	var tempTarget = Player(0,0,0,0,0,null,false);
-
 	id = Math.random();
 	if(mouseBelowUpperBound && mouseAboveLowerBound){
 		if(((x+entity.width) <= WIDTH) && ((y+entity.height) <= HEIGHT) && !dropdownDisplayed){
@@ -571,8 +535,6 @@ putEntity = function() {
 		}
 	}
 };
-
-
 deleteEntity = function() {
 	var mouseBelowUpperBound = pos.x<gui.fg.width && pos.y<gui.fg.height+(2*TILE_HEIGHT);
 	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
@@ -580,19 +542,14 @@ deleteEntity = function() {
 		map.removeEntity(x,y);
 	}
 };
-
-
 update = function() {
 	gui.fg_ctx.clearRect(0,0,WIDTH,HEIGHT);
 	map.update();
 	doPressedAction();
 	framecount++;
 };
-
 // Calling update 60 times a second
 setInterval(update, 1000/fps);
-
-
 getMousePosition = function(canvas,mouse){
 	var rect = canvas.getBoundingClientRect();
 	return {
@@ -600,7 +557,6 @@ getMousePosition = function(canvas,mouse){
 		y: mouse.clientY - rect.top,
 	};
 };
-
 // var finalPos;
 // var pathStart;
 // var pathEnd;
@@ -636,79 +592,58 @@ doMouseAction = function(){
 		deleteEntity();
 	}
 }
-
-
-
 document.onmousemove = function(mouse){
 	pos = getMousePosition(gui.bg,mouse);
 	x = pos.x - (pos.x % TILE_HEIGHT) - offsetX;
 	y = pos.y - (pos.y % TILE_WIDTH) - offsetY;
-
 	var mouseBelowUpperBound = pos.x<WIDTH && pos.y<HEIGHT;
 	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
-
 	if(mouseBelowUpperBound && mouseAboveLowerBound){
 		gui.ep_ctx.clearRect(0,0,WIDTH,HEIGHT);
 		snapToGrid(ep,mouse);
 		doMouseAction();
 	}
 };
-
-
 document.onmousedown = function(mouse){
 	(mouse.which===1) ? (mouseLeft = true) : (mouseRight = true);
-
 	doMouseAction();
 	// map.makeLevel();
 	pos = getMousePosition(bg,mouse);
 	x = pos.x - (pos.x % TILE_HEIGHT) - offsetX;
 	y = pos.y - (pos.y % TILE_WIDTH) - offsetY;
 };
-
 document.onmouseup = function(mouse){
 	(mouse.which===1) ? (mouseLeft = false) : (mouseRight = false);
 };
-
-
 //Drawing Grid lines
 drawGrid = function(){
 	gui.gr_ctx.globalAlpha = 0.05;
 	gui.gr_ctx.lineWidth = 2;
 	gui.gr_ctx.strokeStyle = "#515151";
-
 	//Drawing vertical lines
 	for(x=TILE_WIDTH; x<=WIDTH; x+=TILE_WIDTH){
 		gui.gr_ctx.moveTo(x,TILE_HEIGHT*2);	//The first 2 rows of the canvas are used by buttons
 		gui.gr_ctx.lineTo(x,HEIGHT);
 		gui.gr_ctx.stroke();
 	}
-
 	//Drawing horizontal lines
 	for(y=TILE_HEIGHT*2; y<=HEIGHT; y+=TILE_HEIGHT){
 		gui.gr_ctx.moveTo(0,y);
 		gui.gr_ctx.lineTo(WIDTH,y);
 		gui.gr_ctx.stroke();
 	}
-
 	gui.gr_ctx.globalAlpha = 1;
 };
-
-
 init = function() {
 	container = document.getElementById("container");
 	gui = GUI(container);
 	gui.createCanvas(1250,650);
 	drawGrid();
 };
-
 init();
-
 /***********************
-
 DROP DOWN FUNCTIONALITY
-
 ***********************/
-
 self.selectedButton = null;
 self.selectedEnemy = null;
 self.selectedBackground = null;
@@ -716,7 +651,6 @@ self.selectedCheckpoint = null;
 self.selectedCharacter = null;
 self.selectedTerrain = null;
 self.selectedWeapon = null;
-
 /*
 	Toggles style.display of an element
 */
@@ -726,7 +660,6 @@ function toggleDisplay(element) {
 		element.style.display = 'block';
 		dropdownDisplayed = true;
 		visibleDropdown = element.id;
-
 	} else {
 		element.style.display = 'none';
 		dropdownDisplayed = false;
@@ -734,7 +667,6 @@ function toggleDisplay(element) {
 	}
 	// console.log("AFTER",element.style.display,dropdownDisplayed,visibleDropdown);
 }
-
 /*
 	Detects what button is pressed and toggles the style.display of the corresponding
 	dropdown menu
@@ -748,7 +680,6 @@ function typeTapped(id){
 		// visibleDropdown = element.id;
 	}
 }
-
 window.onclick = function(event){
 	// console.log("CLASSNAME",event.target);
 	target = event.target.parentElement.className;
@@ -766,11 +697,9 @@ window.onclick = function(event){
 		// console.log("DROPDOWN");
 	}
 }
-
 /*************************
 	Enemies
 **************************/
-
 // Close the enemies dropdown if the user clicks outside of it
 // document.onclick = function(event) {
 // 	var divToHide = document.getElementById("myEnemiesDropdown");
@@ -780,19 +709,15 @@ window.onclick = function(event){
 // 		}
 // 	}
 // }
-
-
 self.enemyTapped = function(id){
 	self.selectedEnemy = id;
 	console.log(self.selectedEnemy);
 	let parent = document.getElementById('enemies')
 	toggleDisplay(parent);
 }
-
 /*************************
 	Music
 **************************/
-
 // Close the enemies dropdown if the user clicks outside of it
 // document.onclick = function(event) {
 //   	var divToHide = document.getElementById("myMusicDropdown");
@@ -803,6 +728,7 @@ self.enemyTapped = function(id){
 // 	}
 // }
 
+
 self.musicTapped = function(id){
   self.selectedMusic = id;
   let parent = document.getElementById("music");
@@ -810,10 +736,10 @@ self.musicTapped = function(id){
 }
 
 
+
 /*************************
 	Background
 **************************/
-
 // // Close the enemies dropdown if the user clicks outside of it
 // document.onclick = function(event) {
 // 	let divToHide = document.getElementById("backgrounds");
@@ -823,7 +749,6 @@ self.musicTapped = function(id){
 // 		}
 // 	}
 // }
-
 self.worldTapped = function(id){
 	self.selectedBackground = id;
 	console.log(self.selectedBackground);
@@ -833,11 +758,9 @@ self.worldTapped = function(id){
 	let parent = document.getElementById('backgrounds');
 	toggleDisplay(parent);
 }
-
 /*************************
 	Checkpoint
 **************************/
-
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
 function checkpointTapped(id) {
@@ -847,7 +770,6 @@ function checkpointTapped(id) {
 	let parent = document.getElementById('checkpoints');
 	toggleDisplay(parent);
 }
-
 // window.onclick = function(event) {
 // 	var divToHide = document.getElementById("checkpointDropdown");
 // 	if (!event.target.matches('.checkpointbtn')) {
@@ -856,11 +778,9 @@ function checkpointTapped(id) {
 // 		}
 // 	}
 // }
-
 /*************************
 	Character
 **************************/
-
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
 function characterTapped() {
@@ -868,7 +788,6 @@ function characterTapped() {
 	var element = document.getElementById("characterDropdown");
 	toggleDisplay(element);
 }
-
 // window.onclick = function(event) {
 // 	var divToHide = document.getElementById("characterDropdown");
 // 	if (!event.target.matches('.characterbtn')) {
@@ -877,11 +796,9 @@ function characterTapped() {
 // 		}
 // 	}
 // }
-
 /*************************
 	Terrain
 **************************/
-
 // Close the Terrain dropdown if the user clicks outside of it
 // window.onclick = function(event) {
 // 	var divToHide = document.getElementById("myTerrainDropdown");
@@ -892,15 +809,17 @@ function characterTapped() {
 // 	}
 // }
 
+
 function terrainTapped(id){
+
 	self.selectedTerrain = id;
 
 	var parent = document.getElementById('terrains');
 	toggleDisplay(parent);
 }
-
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
+
 // function weaponTapped() {
 // 	self.selectedButton = "weapon";
 // 	var element = document.getElementById("myWeaponDropdown");
@@ -916,7 +835,6 @@ toggle between hiding and showing the dropdown content */
 // 		}
 // 	}
 // }
-
 self.weaponTapped = function(id){
 	self.selectedWeapon = id;
 	console.log(self.selectedWeapon);
@@ -924,6 +842,5 @@ self.weaponTapped = function(id){
 	var parent = document.getElementById('weapons');
 	toggleDisplay(weapons);
 }
-
 </script>
 </html>
