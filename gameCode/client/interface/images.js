@@ -61,6 +61,8 @@ Img = function(pathToRoot) {
 	self.finalCheckpoint= new Image();
 	self.finalCheckpoint.src = pathToRoot+"client/interface/img/placeCheckpoint.png";
 
+	self.transformAnimation=new Image();
+	self.transformAnimation.src= pathToRoot+"client/interface/img/Animations/transformAnimation.png";
 	//muzzle flash animations
 	self.muzzleFlash=[];
 	self.muzzleFlash.stepOne= new Image();
