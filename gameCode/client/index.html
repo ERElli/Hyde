@@ -1,21 +1,36 @@
+<head>
 
-<body background="../../images/background.png" style="margin-left:50px; background-repeat: no-repeat; ">
-<div id="signDiv"  style="  display: none; padding-top:10%; padding-left:40%;">
-    Username: <input id="signDiv-username" type="text"></input><br><br>
-    Password: <input id="signDiv-password" type="password"></input><br><br>
-    <button id="signDiv-signIn">Sign In</button>
-    <button id="signDiv-signUp">Sign Up</button><br><br>
-      <button id="forgotButton">Forgot Password</button><br><br>
+  <link rel="stylesheet" type="text/css" href="mainStyle.css">
+
+</head>
+
+<body background="../../images/Background.png" style="margin-left:50px; background-repeat: no-repeat; ">
+<div id="signDiv" class="signInDiv" style="display: none;">
+    <input id="signDiv-username" class="usernameTextfield" placeholder="Username" type="text"></input><br><br>
+    <input id="signDiv-password" class="passwordTextfield" placeholder="Password" type="password"></input><br><br>
+    <button id="signDiv-signIn" class="signInDiv-signInButton"></button>
+    <button id="signDiv-signUp" class="signInDiv-signUpButton" style=""></button><br><br>
+    <button id="forgotButton" style="display: none; background: transparent; border: none; left: 650px; top: 1000px; text-decoration-color: white;  ">Forgot your password?</button>
+    <br><br>
 
 </div>
+
+<!-- <div id="gameMenu" class="gameMenu">
+
+    <button id="playStory" class="playStoryButton"></button>
+    <button id="playOnline" class="playOnlineButton"></button>
+    <button id="levelEditor" class="levelEditorButton"></button>
+    <button id="achievements" class="achievementsButton"></button>
+
+</div> -->
 
 <div id="main" style="padding-top:10%; padding-left:40%;" >
   <br><br><br>
-  <button id="signInButton" >Sign In</button>
-  <button id="signUpButton">Sign Up</button><br><br>
+  <button id="signInButton" class="signInButton"></button>
+  <button id="signUpButton" class="signUpButton"></button><br><br>
 </div>
 
-<div id="signUp" style=" display:none; padding-top:10%; padding-left:40%; color: #ddeeff;" >
+<div id="signUp" class="signUpDiv" style="display:none;" >
   Choose a Username: <input id="signDiv-user" type="text"></input><br><br>
   Choose a Password: <input id="signDiv-pass" type="password"></input><br><br>
   Answer these Security Questions for account recovery: <br> <br>
@@ -105,6 +120,7 @@
     }
 
     signInButton.onclick = function(){
+
       main.style.display = 'none';
       signDiv.style.display = 'inline-block';
     }

@@ -431,6 +431,41 @@ app.get('/client/interface/img/Animations/muzzleFlash/FlashStage4.png',function(
     res.sendFile(__dirname + '/client/interface/img/Animations/muzzleFlash/FlashStage4.png');
 });
 
+app.get('/images/signUpBackground.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/signUpBackground.png');
+});
+
+app.get('/images/signUpButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/signUpButton.png');
+});
+
+app.get('/images/signInButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/signInButton.png');
+});
+app.get('/images/signInBackground.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/signInBackground.png');
+});
+app.get('/images/signUpHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/signUpHover.png');
+});
+app.get('/images/signInHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/signInHover.png');
+});
+app.get('/images/smallSignUp.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/smallSignUp.png');
+});
+app.get('/images/smallSignIn.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/smallSignIn.png');
+});
+app.get('/images/smallSignUpHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/smallSignUpHover.png');
+});
+app.get('/images/smallSignInHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/smallSignInHover.png');
+});
+
+
+
 
 app.get('/client/interface/img/terrain/1x6BreakableBuilding.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/terrain/1x6BreakableBuilding.png');
@@ -438,6 +473,9 @@ app.get('/client/interface/img/terrain/1x6BreakableBuilding.png',function(req, r
 app.get('/client/interface/img/terrain/breakableBuildingAnimation.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/terrain/breakableBuildingAnimation.png');
 
+});
+app.get('/mainStyle.css',function(req, res) {
+    res.sendFile(__dirname + '/client/mainStyle.css');
 });
 
 app.get('/client/interface/img/terrain/breakableTerrain3x6.png',function(req, res) {
