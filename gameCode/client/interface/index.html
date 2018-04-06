@@ -4,7 +4,7 @@
 		<br>
 		<br>
 		<div id="menu">
-			<a href='../../..'>Quit</a>
+			<a href='../gameMenu.html'>Quit</a>
 		</div>
 
 		<div id="container">
@@ -62,6 +62,7 @@
 
 
 			var level = {};
+			var p;
 
 			for (var thing in realLevel['player']) {
 				p = realLevel['player'][thing]
@@ -73,7 +74,6 @@
 			level['enemies'] = {};
 
 			for (let thing in realLevel['enemies']) {
-				console.log(realLevel['enemies'][thing]);
 				e = realLevel['enemies'][thing]
 
 				var enemy;
@@ -91,6 +91,23 @@
 				level['enemies'][e.id] = enemy;
 
 			}
+			
+			level['weapon'] = {};
+			
+			console.log("Weap: " + realLevel['weapon']);
+
+			for (let thing in realLevel['weapon']) {
+				console.log("HERE: " + realLevel['weapon'][thing]);
+				w = realLevel['weapon'][thing]
+
+				var weapon;
+
+				weapon = new WeaponPickUp(w.id, w.x, w.y, w.weaponType, level['player']);
+
+				level['weapon'][w.id] = weapon;
+
+			}
+			
 			level['terrain'] = {};
 			for (var thing in realLevel['terrain']) {
 				let t = realLevel['terrain'][thing]
@@ -199,8 +216,10 @@
 
 		//console.log(mydata);
 
-//#############################################################################
-	//FOR GUI TESTING PURPOSES
+//#############################################################################	
+	//FOR GUI TESTING PURPOSES	
+	/*
+
 
 		var level = {}
 
@@ -255,6 +274,7 @@
 
 
 		startGame(level);
+		*/
 //######################################################################################
 
 		</script>

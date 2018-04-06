@@ -102,6 +102,7 @@ GUI = function(container){
 		n=backgroundPositionCounter;
 		x=self.bg.width-level['player'].x;
 		y=0;
+		//if(
 		Img.background2.onload=function(){
 		}
 		//console.log(Sound.worldTwo);
@@ -159,8 +160,8 @@ GUI = function(container){
 						playDir = 1;
 					}
 					var fW=Img.playerBig.width/5;
-					var fH=Img.playerBig.height/2;
-					ani.updateEntityAnimation(en,5);
+					var fH=Img.playerBig.height/3;
+					//ani.updateEntityAnimation(en,5);
 					self.quickAnimatedDraw(Img.playerBig,en,ctx,playDir,fW,fH);
 				}else{
 					var fW=Img.playerSmall.width/5;
@@ -200,8 +201,8 @@ GUI = function(container){
 				break;
 			case "tank enemy":
 				enemyImg=Img.basicEnemy3;
-				var fW=Img.basicEnemy1.width/5;
-				var fH=Img.basicEnemy1.height/2;
+				var fW=Img.basicEnemy3.width/5;
+				var fH=Img.basicEnemy3.height/2;
 				dir=ani.getPlayDirection(en);
 				ani.updateEntityAnimation(en,5);
 				self.quickAnimatedDraw(enemyImg,en,ctx,dir,fW,fH);
@@ -341,12 +342,39 @@ GUI = function(container){
 			case "Terrain1x6Breakable":
 				self.quickDraw(Img.terrain1x6Breakable,t,ctx,t.x,t.y);
 				break;
-			
+			case "Checkpoint":
+				if (t.isActive){
+					//does not exist yet
+					//img=Img.activeCheckpoint;
+				}
+				else{
+					img=Img.standardCheckpoint;
+				}
+				self.quickDraw(img,t,gui.fg_ctx,t.x,t.y);
+				break;
 		}
 		terrain.img.onload=function(){};
 		ctx.restore();
 	};
-
+	
+	//Draws goal flag
+	self.drawGoal=function(){
+		img=Img.finalCheckpoint;
+		gui.fg_ctx.drawImage(img,(level.width-50)-playX,100,50,400);
+	};
+	//Checkpoint update
+	self.checkpointUpdate=function(checkpoint){
+		//Does not exist		
+		//img=Img.activeCheckpoint;
+		//self.quickDraw(img,checkpoint,gui,fg_ctx,checkpoint.x,checkpoint.y);
+		ani.checkpointSound();
+	}
+	//LevelComplete
+	self.levelComplete=function(){
+		img=Img.levelComplete;
+		gui.gr_ctx.drawImage(img,400,150,450,350);
+		ani.winGameSound();
+	};
 	//QuickDraw Methods(For improved readability)
 	self.quickDraw=function(img,entity,ctx,x,y){
 		ctx.drawImage(img,(x-xOffset)-playX,y-yOffset,entity.width,entity.height);
@@ -365,7 +393,6 @@ GUI = function(container){
 	};
 	self.onlyAnimation=function(img,en,ctx,aniX,fW,width,height,x,y){
 		ctx.drawImage(img,aniX*fW,0,fW,img.height,x-xOffset-playX,y-yOffset,width,height);
-			
 	}
 
 	self.HUD=function(ctx,player){

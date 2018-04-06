@@ -63,11 +63,14 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	self.xOffset = self.width/2;
 	self.yOffset = self.height/2;
 	
+	self.transformAniTimer = 0;
+	
 	var oldUpdate = self.updatePosition;
 	self.updatePosition = function() {
 
 		//console.log(self.vx);
 
+		self.transformAniTimer++;
 		
 		if (Math.sign(self.vx) != Math.sign(self.ax) && !self.isLaunched && !self.isStopped) {
 			//console.log("Slowing");
@@ -140,10 +143,15 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 		ani.deathSound();
 	}
 	
+	
 	self.transform = function() {
 		if (self.transformCounter > 100) {
 			
 			ani.transformSound();
+			
+			self.transformAniTimer = 0;
+			
+			ani.transformAnimation(self, self.transformAniTimer);
 		
 			self.transformCounter = 0;
 			

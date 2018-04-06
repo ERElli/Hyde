@@ -18,7 +18,9 @@ Img = function(pathToRoot) {
 	self.basicEnemy2= new Image();
 	self.basicEnemy2.src= pathToRoot+"client/interface/img/entity/humanoid/flyingEnemy.png";
 	self.basicEnemy3= new Image();
-	//self.basicEnemy3.src= pathToRoot+"client/interface/img/entity/shieldEnemy.png"
+
+	self.basicEnemy3.src= pathToRoot+"client/interface/img/entity/humanoid/shieldEnemy.png"
+
 
 	self.infinity=new Image();
 	self.infinity.src= pathToRoot+"client/interface/img/inf.png";
@@ -38,7 +40,7 @@ Img = function(pathToRoot) {
 	self.terrain1x1= new Image();
 	self.terrain1x1.src= pathToRoot+"client/interface/img/terrain/block.png";
 	self.terrain1x1Breakable= new Image();
-	self.terrain1x1Breakable.src= pathToRoot+"client/interface/img/terrain/block.png";
+	self.terrain1x1Breakable.src= pathToRoot+"client/interface/img/terrain/breakableBlock.png";
 	self.terrain3x2= new Image();
 	self.terrain3x2.src= pathToRoot+"client/interface/img/terrain/terrain3x2.png";
 	self.terrain3x2Breakable= new Image();
@@ -59,8 +61,9 @@ Img = function(pathToRoot) {
 	self.standardCheckpoint= new Image();
 	self.standardCheckpoint.src = pathToRoot+"client/interface/img/placeCheckpoint.png";
 	self.finalCheckpoint= new Image();
-	self.finalCheckpoint.src = pathToRoot+"client/interface/img/placeCheckpoint.png";
-
+	self.finalCheckpoint.src = pathToRoot+"client/interface/img/goalFlag.png";
+	self.levelComplete=new Image();
+	self.levelComplete.src= pathToRoot+"client/interface/img/level_complete.png";
 	self.transformAnimation=new Image();
 	self.transformAnimation.src= pathToRoot+"client/interface/img/Animations/transformAnimation.png";
 	//muzzle flash animations
