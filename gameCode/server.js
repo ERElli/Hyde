@@ -17,6 +17,9 @@ app.get('/',function(req, res) {
 app.get('/client/gameMenu.html',function(req, res) {
     res.sendFile(__dirname + '/client/gameMenu.html');
 });
+app.get('/client/gameMenu2.html',function(req, res) {
+    res.sendFile(__dirname + '/client/gameMenu2.html');
+});
 //for interface
 app.get('/client/engine/usable.js',function(req, res) {
     res.sendFile(__dirname + '/client/engine/usable.js');
@@ -661,6 +664,8 @@ io.sockets.on('connection', function(socket){
   });
 var state;
   socket.on('load', function(data){
+    socket.emit('heys');
+    var me;
 
     //console.log("uuuuu");
     socket.emit('changeMe');
@@ -673,15 +678,10 @@ var state;
 
   });
 
-
   Database.getLevelObject("level1", function(res){
     console.log("hhhhh");
-    socket.emit('loadIt', res);
+    //socket.emit('loadIt', res);
    });
-
-
-
-
 
   //Database.getLevelObject("level1", function(res){
   //socket.emit('hey', res);
@@ -693,6 +693,21 @@ var state;
      socket.emit('result', res);
       });
    });
+
+   socket.on('levelLoadButton',function(data){
+     console.log('levelNewButton');
+     Database.getLevelObject(data.level, function(res){
+     socket.emit('loadIt', res);
+      });
+   });
+
+   socket.on('levelNewButton',function(data){
+     console.log('levelNewButton');
+     Database.getLevelObject(data.level, function(res){
+     socket.emit('hey', res);
+      });
+   });
+
   socket.on('addLevelItem',function(data){
     console.log(data);
    Database.addLevelItem(data);
