@@ -338,7 +338,10 @@ GUI = function(container){
 			case "Terrain3x6Breakable":
 				self.quickDraw(Img.terrain3x6Breakable,t,ctx,t.x,t.y);
 				break;
-			//case "":
+			case "Terrain1x6Breakable":
+				self.quickDraw(Img.terrainBreak1x6,t,ctx,t.x,t.y);
+				break;
+			
 		}
 		terrain.img.onload=function(){};
 		ctx.restore();
@@ -346,15 +349,11 @@ GUI = function(container){
 
 	//QuickDraw Methods(For improved readability)
 	self.quickDraw=function(img,entity,ctx,x,y){
-
 		ctx.drawImage(img,(x-xOffset)-playX,y-yOffset,entity.width,entity.height);
-
 	};
 	self.aniDraw=function(img,x,y,width,height){
 		gui.fg_ctx.drawImage(img,(x-xOffset)-playX,y-yOffset,width,height);
-
 	};
-
 	self.quickPlayerDraw=function(img,en,ctx,aniX,aniDir,fW,fH){
 		ctx.drawImage(img,aniX*fW,aniDir*fH,fW,fH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
 	};
@@ -363,7 +362,6 @@ GUI = function(container){
 	};
 	self.quickAnimatedDraw=function(img,en,ctx,aniStepY,fW,fH){
 		ctx.drawImage(img,en.aniCount*fW,aniStepY*fH,fW,fH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
-
 	};
 
 	self.HUD=function(ctx,player){
