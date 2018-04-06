@@ -588,18 +588,10 @@ io.sockets.on('connection', function(socket){
   		});
 	  });
 
-    //var levelN ="not working";
-
     socket.on('newLevel',function(data){
-      //levelN = data.level;
       console.log(data.level);
      //socket.emit('changeLevelName', {level: data.level});
      Database.newLevel(data);
-     change(data.level);
-
-
-
-
       /* if(!res){
          socket.emit('checkLevelName', {success:false});
        }
@@ -608,11 +600,7 @@ io.sockets.on('connection', function(socket){
        }
        */
    });
-  var change = function (levelNa){
 
-
-   socket.emit('gee', {level:levelNa});
- };
 
 
     socket.on('signUp',function(data){
@@ -705,7 +693,8 @@ var state;
    });
 
    socket.on('levelLoadButton',function(data){
-     console.log('levelNewButton');
+     console.log('levelLoadButtonB'+ data.level);
+
      Database.getLevelObject(data.level, function(res){
      socket.emit('loadIt', res);
       });
