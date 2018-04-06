@@ -159,7 +159,7 @@ GUI = function(container){
 						playDir = 1;
 					}
 					var fW=Img.playerBig.width/5;
-					var fH=Img.playerBig.height/2;
+					var fH=Img.playerBig.height/3;
 					ani.updateEntityAnimation(en,5);
 					self.quickAnimatedDraw(Img.playerBig,en,ctx,playDir,fW,fH);
 				}else{
