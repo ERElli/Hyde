@@ -16,7 +16,7 @@ EntityFactory = function(levelString,isLevelEditor){
 	for(let generalType in LevelObject[0]){
 		console.log(generalType);
 		// console.log(Object.keys(LevelObject[generalType]).length);
-		if(generalType === 'enemies' || generalType === 'terrain' || generalType === 'player'){
+		if(generalType === 'enemies' || generalType === 'terrain' || generalType === 'player' || generalType === 'weapon'){
 			self[generalType] = {};
 			// for(let id in LevelObject[0][generalType][0]){
 			for(let i=0;i<LevelObject[0][generalType].length;i++){
@@ -89,16 +89,16 @@ EntityFactory = function(levelString,isLevelEditor){
 					case "weapon":
 						switch(object.type){
 							case "pistol":
-								mObject[mID] = WeaponPickUp(mID,mX,mY,object.type,null);
+								mObject[mID] = WeaponPickUp(mID,mX,mY,object.type,player);
 								break;
 							case "assaultRifle":
-								mObject[mID] = WeaponPickUp(mID,mX,mY,object.type,null);
+								mObject[mID] = WeaponPickUp(mID,mX,mY,object.type,player);
 								break;
 							case "shotgun":
-								mObject[mID] = WeaponPickUp(mID,mX,mY,object.type,null);
+								mObject[mID] = WeaponPickUp(mID,mX,mY,object.type,player);
 								break;
 							case "sword":
-								mObject[mID] = WeaponPickUp(mID,mX,mY,object.type,null);
+								mObject[mID] = WeaponPickUp(mID,mX,mY,object.type,player);
 								break;
 						}
 				}

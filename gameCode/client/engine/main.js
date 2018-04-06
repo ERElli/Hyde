@@ -193,8 +193,7 @@ var update = function() {
 	}
 	
 	if (player.x >= level_width) {
-		console.log("YEAH");
-		paused = !paused;
+		endGame();
 	}
 	
 	player.attackCounter++;
@@ -244,7 +243,7 @@ var update = function() {
 				//block.health -= player_damage;
 				if (Math.abs(player.getMomentum()) >= block.breakAt) {
 					delete  terrain[key];
-					b = new Boulder(Math.random(), block.x, block.y, 0, 0, 0 ,0, "", null, player.id);
+					b = new Boulder(Math.random(), block.x, block.y-100, 0, 0, 0 ,0, "", null, player.id);
 					bullets[b.id] = b;
 				}
 				else {
@@ -270,7 +269,6 @@ var update = function() {
 					b = new Boulder(Math.random(), block.x, block.y, 0, 0, 0 ,0, "", null, player.id);
 					bullets[b.id] = b;
 
-					console.log(bullets[b.id]);
 					
 					delete  terrain[key];
 				}
@@ -332,13 +330,18 @@ var update = function() {
 
 			bullet = bullets[key]
 
-			if (testCollision(block, {'x':bullet.x-bullet.width/2, 'y':bullet.y-bullet.height/2, 'width':bullet.width, 'height':bullet.height})) {
-
-				if (bullet.type == 'bullet' || bullet.type == "boulder") {
+			if (bullet.type == 'bullet') {
+				if (testCollision(block, {'x':bullet.x-bullet.width/2, 'y':bullet.y-bullet.height/2, 'width':bullet.width, 'height':bullet.height})) {
 					delete bullets[key];
 				}
-
-
+			}
+			else if (bullet.type == 'boulder') {
+				
+				if (testCollision(block, bullet)) {
+					console.log("here");
+					bullet.y = block.y - bullet.height/2;
+				}
+				
 			}
 
 		}
@@ -429,9 +432,11 @@ var update = function() {
 	for (var key in bullets) {
 
 		var bullet = bullets[key];
+		
 
 		//If the bullet is very far away from the player, just delete it
 		if (!inRange(bullet)) {
+			console.log("Deleting1 + " + bullet.type);
 			delete bullets[key];
 		}
 
@@ -478,7 +483,7 @@ var update = function() {
 		}
 
 		if(toRemove){
-			console.log("Deleting " + bullet.type);
+			console.log("Deleting2 " + bullet.type);
 			delete bullets[key];
 		}
 	}
@@ -649,7 +654,7 @@ var startGame = function(initial_level) {
 	// terrain[breakable.id] = breakable;
 	// console.log(terrain[breakable.id]['x'])
 	//surfaceMods = level["terrain"];
-	pickUps = {}//level['pickUps']
+	pickUps = level['weapon']
 	//console.log(pickUps['p1']);
 	frameCount = 0;
 	everyTenCount = 0;
@@ -658,7 +663,7 @@ var startGame = function(initial_level) {
 	level_width = initial_level.width;
 	console.log(level_width);
 
-	createPickUps();
+	//createPickUps();
 
 	setInterval(update, 1000/60)
 }
@@ -675,5 +680,5 @@ var createPickUps = function() {
 }
 
 var endGame = function() {
-
+	paused = !paused;	
 }

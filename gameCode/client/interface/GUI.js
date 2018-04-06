@@ -160,8 +160,8 @@ GUI = function(container){
 						playDir = 1;
 					}
 					var fW=Img.playerBig.width/5;
-					var fH=Img.playerBig.height/2;
-					ani.updateEntityAnimation(en,5);
+					var fH=Img.playerBig.height/3;
+					//ani.updateEntityAnimation(en,5);
 					self.quickAnimatedDraw(Img.playerBig,en,ctx,playDir,fW,fH);
 				}else{
 					var fW=Img.playerSmall.width/5;
@@ -201,8 +201,8 @@ GUI = function(container){
 				break;
 			case "tank enemy":
 				enemyImg=Img.basicEnemy3;
-				var fW=Img.basicEnemy1.width/5;
-				var fH=Img.basicEnemy1.height/2;
+				var fW=Img.basicEnemy3.width/5;
+				var fH=Img.basicEnemy3.height/2;
 				dir=ani.getPlayDirection(en);
 				ani.updateEntityAnimation(en,5);
 				self.quickAnimatedDraw(enemyImg,en,ctx,dir,fW,fH);
@@ -393,7 +393,6 @@ GUI = function(container){
 	};
 	self.onlyAnimation=function(img,en,ctx,aniX,fW,width,height,x,y){
 		ctx.drawImage(img,aniX*fW,0,fW,img.height,x-xOffset-playX,y-yOffset,width,height);
-			
 	}
 
 	self.HUD=function(ctx,player){
