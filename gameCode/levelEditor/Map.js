@@ -8,14 +8,16 @@ Map = function(width, height,tile_width, tile_height) {
 	self.numTilesX = width/tile_width;
 	self.numTilesY = height/tile_height;
 	self.tiles = [];
+	self.checkpointTiles = [];
+	self.weaponTiles = [];
 	//self.tiles is only used to make sure that no two entities are placed in the same position
 
 	self.ObjectList = {
 		enemies: {},
 		terrain: {},
 		player: {},
-		// checkpoints: {},
-		// weapons: {},
+		checkpoints: {},
+		weapons: {},
 		// music: {},
 		// ghost: {},
 	};
@@ -25,38 +27,39 @@ Map = function(width, height,tile_width, tile_height) {
 	//Filling tiles with empty objects
 	for(var i=0; i<self.numTilesX; i++){
 		self.tiles.push([]);
+		self.checkpointTiles.push([]);
+		self.weaponTiles.push([]);
 		for(var j=0; j<self.numTilesY; j++){
 			self.tiles[i].push({});
+			self.checkpointTiles[i].push({});
+			self.weaponTiles[i].push({});
 		}
 	}
+	//Collection of the different tile maps
+	var tileMaps  = [self.checkpointTiles, self.tiles, self.weaponTiles];
 
 	var gridShiftDown = 2; //The grid is shifted down 2 tile widths to make space for the buttons
 
-	//Function to check if tile at coordinate x,y is filled
-	self.isFilled = function(x,y){
-		return !(Object.keys(self.tiles[x][y]).length === 0 && self.tiles[x][y].constructor === Object);
-	};
-
-
 	//Function to return the list objects of type t are stored in.
 	self.getList = function(t){
-		//Regex patterns to place objects in their correct lists
-		let terrainPattern = new RegExp("Terrain");
-		let enemyPattern = new RegExp(' enemy');
-		let playerPattern = new RegExp('player');
-
-		//Checking if type matches any of the RegexPatterns
-		//Is there a way to use a switch case instead
-		//Regex may not be the best way to do this either
-		//Maybe switchcase fall-through is better
-		if(terrainPattern.test(t)){
+		//Checking if type matches a reg ex
+		if(t.includes("Terrain")){
 			return self.ObjectList['terrain'];
-		}else if(enemyPattern.test(t)){
+		}else if(t.includes("enemy")){
 			return self.ObjectList['enemies'];
-		}else if(playerPattern.test(t)){
+		}else if(t.includes("player")){
 			return self.ObjectList['player'];
+		}else if(t.includes("checkpoint")){
+			return self.ObjectList['checkpoints'];
+		}else if(t.includes("weapon")){
+			return self.ObjectList['weapons'];
 		}
-	}
+	};
+
+	//Function to check if tile at coordinate x,y is filled
+	self.isFilled = function(tileMap,x,y){
+		return !(Object.keys(tileMap[x][y]).length === 0 && tileMap[x][y].constructor === Object);
+	};
 
 	//Function to add entity to it's corresponding list
 	self.addToObjectList = function(object){
@@ -76,32 +79,51 @@ Map = function(width, height,tile_width, tile_height) {
 				self.ObjectList['player'][id] = object;
 			}
 		}
-			list[id] = object;
-			var temp = type;
-			if (type.includes("enemy") ){
-	 			socket.emit('addLevelItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
-   		} else if (type.includes("player")){
-	 			socket.emit('addPlayerItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
-   		}
-			else if (type.includes("Terrain")){
-	 			socket.emit('addTerrainItem', {x: object.x, y:object.y, id: object.id, type: object.type});
-   		}
+
+		list[id] = object;
+		var temp = type;
+
+		//adding objects to the database
+		if (type.includes("enemy") ){
+			socket.emit('addLevelItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
+		}else if(type.includes("player")){
+			socket.emit('addPlayerItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
+		}else if(type.includes("Terrain")){
+			socket.emit('addTerrainItem', {x: object.x, y:object.y, id: object.id, type: object.type});
+		}
 		//{x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type}
 		console.log("Adding "+type+": ", object);
-
 		console.log("Updated ObjectList",self.ObjectList);
 	};
 
 	//Function to check if the object, o, can be placed in the spot where the user clicks
 	self.tryToPlaceEntity = function(object){
+		console.log(object);
 		var x = object.x/tile_width;
 		var y = (object.y/tile_height) - gridShiftDown;
 		var w = x + (object.width/tile_width);
 		var h = y + (object.height/tile_height);
-		var filled;
+		var type = object.type;
+		var filled = true;
+		var tileMap;
+
+		//Referencing the appropriate tileMap;
+		if(type.includes("enemy") || type.includes("Terrain") || type.includes("player")){
+			tileMap = self.tiles;
+			console.log("ENTITY TILE MAP",tileMap);
+		}else if(type.includes("checkpoint")){
+			tileMap = self.checkpointTiles;
+			console.log("CHECKPOINT TILE MAP",tileMap);
+		}else if(type.includes("weapon") || type.includes("assault") || type.includes("shotgun") || type.includes("sword")){
+			console.log("TRY TO PLACE WEAPONS");
+
+			tileMap = self.weaponTiles;
+		}
+
+		//Checking if tiles in tileMap are filled
 		for(var i=x; i<w; i++){
 			for(var j=y; j<h; j++){
-				filled = self.isFilled(i,j);
+				filled = self.isFilled(tileMap,i,j);
 				if(filled){
 					break;
 				}
@@ -111,7 +133,7 @@ Map = function(width, height,tile_width, tile_height) {
 					*/
 			}
 			if(filled){
-				console.log(self.tiles[i][j].type,"already placed in this location");
+				console.log(tileMap[i][j].type,"already placed in this location");
 				break;
 			}
 		}
@@ -119,9 +141,8 @@ Map = function(width, height,tile_width, tile_height) {
 		if(!filled){
 			for(var k=x; k<w; k++){
 				for(var l=y; l<h; l++){
-					self.tiles[k][l].id = object.id;
-					self.tiles[k][l].type = object.type;
-
+					tileMap[k][l].id = object.id;
+					tileMap[k][l].type = object.type;
 				}
 			}
 			self.addToObjectList(object);
@@ -132,44 +153,53 @@ Map = function(width, height,tile_width, tile_height) {
 	self.removeEntity = function(x,y){
 		let i = x/tile_width;
 		let j = (y/tile_height)-gridShiftDown;
-
-		let type = self.tiles[i][j].type;
-		let id = self.tiles[i][j].id;
+		let currentMap;
 		let toBeRemoved;
 
-		if(self.isFilled(i,j)){
-			let list = self.getList(type);
-			toBeRemoved = list[id];
-			delete list[id];
+		for(let map in tileMaps){
+			console.log("MAP COUNT",map);
+			currentMap = tileMaps[map];
 
-			gui.fg_ctx.clearRect(x,y,toBeRemoved.width,toBeRemoved.height);
-			self.makeFreeSpace(toBeRemoved);
+			let type = currentMap[i][j].type;
+			let id = currentMap[i][j].id;
+			let filled = self.isFilled(currentMap,i,j);
+			
+			// console.log("COUNT IS FILLED",isFilled(currentMap,i,j));
+			if(filled/*self.isFilled(currentMap,i,j)*/){
+				console.log("FILLED LOOP",map);
+				let list = self.getList(type);
+				toBeRemoved = list[id];
+				if(list[id]!= {}){
+					console.log("TO BE REMOVED",toBeRemoved);
+					delete list[id];
+					console.log("UPDATE LIST",self.ObjectList);
 
-			if (type.includes("enemy") ){
-				socket.emit('deleteLevelItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, vx: toBeRemoved.vx, vy: toBeRemoved.vy, type: toBeRemoved.type});
-			} else if (type.includes("player")){
-				socket.emit('deletePlayerItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, vx: toBeRemoved.vx, vy: toBeRemoved.vy, type: toBeRemoved.type});
+					self.makeFreeSpace(currentMap,toBeRemoved);
+					console.log("MAKE FREE SPACE ENTITY:",toBeRemoved);
+					gui.fg_ctx.clearRect(x,y,toBeRemoved.width, toBeRemoved.height);
+
+					if (type.includes("enemy") ){
+						socket.emit('deleteLevelItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, vx: toBeRemoved.vx, vy: toBeRemoved.vy, type: toBeRemoved.type});
+					} else if (type.includes("player")){
+						socket.emit('deletePlayerItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, vx: toBeRemoved.vx, vy: toBeRemoved.vy, type: toBeRemoved.type});
+					}else if (type.includes("Terrain")){
+						socket.emit('deleteTerrainItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
+					}
+				}
+			}else{
+				console.log("Nothing to remove on this map!");
 			}
-			else if (type.includes("Terrain")){
-				socket.emit('deleteTerrainItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
-			}
-			//console.log("hello world "+ toBeRemoved.id );
 
-			console.log("Removing Entity:",toBeRemoved);
-			console.log("Updated ObjectList:",self.ObjectList);
-		}else {
-			console.log("Nothing to remove!");
+			
 		}
 	};
 
-	self.setBackgroundImage = function(imageName){
-		self.img = imageName;
-		self.backgroundImg = new Image();
-		self.backgroundImg.src = self.img;
+	self.setBackgroundImage = function(worldName){
+		self.Background = worldName;
 	};
 
 	//Function to clear spaces on the tile array
-	self.makeFreeSpace = function(e){
+	self.makeFreeSpace = function(tileMap,e){
 		var x = e.x/tile_width;
 		var y = (e.y/tile_height) - gridShiftDown;
 		var w = x + (e.width/tile_width);
@@ -177,7 +207,7 @@ Map = function(width, height,tile_width, tile_height) {
 
 		for(var i=x; i<w; i++){
 			for(var j=y; j<h; j++){
-				self.tiles[i][j] = {};
+				tileMap[i][j] = {};
 			}
 		}
 	};
@@ -194,6 +224,9 @@ Map = function(width, height,tile_width, tile_height) {
 	};
 
 
+	/*
+		function to download json level files
+	*/
 	self.convertToString = function(){
 		var form = document.getElementById("form");
 		var levelName = document.getElementById("levelName").value;
@@ -208,16 +241,13 @@ Map = function(width, height,tile_width, tile_height) {
 		a.href = URL.createObjectURL(file);
 		a.download = filename;
 		a.click();
-
-		// console.log("Stringified:",str);
-		// var parsed = JSON.parse(str);
-		// console.log("Parsed:",parsed);
-
-		// var file = new File([""],filename,self.ObjectList);
-		// console.log(file);
-
 	};
 
+
+
+	/*
+		Function to make an Level Object from the ObjectList and other attributes
+	*/
 	self.makeLevel = function(){
 		var Level = {};
 

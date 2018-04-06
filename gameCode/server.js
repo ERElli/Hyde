@@ -712,10 +712,22 @@ var state;
     console.log(data);
    Database.addTerrainItem(data);
   });
-
+  socket.on('addWeaponItem',function(data){
+    console.log(data);
+   Database.addWeaponItem(data);
+  });
+  socket.on('addCheckpointItem',function(data){
+    console.log(data);
+   Database.addCheckpointItem(data);
+  });
   socket.on('deleteLevelItem',function(data){
     console.log(data);
    Database.deleteLevelItem(data);
+  });
+
+  socket.on('addBackgroundItem',function(data){
+    console.log(data);
+   Database.addBackgroundItem(data);
   });
   socket.on('deletePlayerItem',function(data){
     console.log(data);
@@ -724,6 +736,14 @@ var state;
   socket.on('deleteTerrainItem',function(data){
     console.log(data);
    Database.deleteTerrainItem(data);
+  });
+  socket.on('deleteCheckpointItem',function(data){
+    console.log(data);
+   Database.deleteCheckpointItem(data);
+  });
+  socket.on('deleteWeaponItem',function(data){
+    console.log(data);
+   Database.deleteWeaponItem(data);
   });
 
   /*socket.on('deleteLevelItem',function(data){

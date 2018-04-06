@@ -21,6 +21,19 @@ Database.addTerrainItem = function(data, cb){
   console.log("it works");
   db.saveLevel.update({level:levelName},   { $addToSet:{ terrain: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type} } } }, {upsert: true});
 }
+Database.addCheckpointItem = function(data, cb){
+  console.log("add checkp");
+  db.saveLevel.update({level:levelName},   { $addToSet:{ checkpoint: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type} } } }, {upsert: true});
+}
+Database.addBackgroundItem = function(data, cb){
+  console.log("add background");
+  db.saveLevel.update({level:levelName},   { $addToSet:{ background: { id: data, items: { background:data } } } }, {upsert: true});
+}
+Database.addWeaponItem = function(data, cb){
+  console.log("add checkp");
+  db.saveLevel.update({level:levelName},   { $addToSet:{ weapon: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type} } } }, {upsert: true});
+}
+
 
 
  Database.newLevel = function(data, cb){
@@ -71,6 +84,16 @@ Database.deletePlayerItem = function(data, cb){
 Database.deleteTerrainItem = function(data, cb){
   console.log("removing terrain");
   db.saveLevel.update({ level:levelName},{$pull: {terrain : {id:data.id }  }    } );
+}
+Database.deleteCheckpointItem = function(data, cb){
+  //db.saveLevel.update({ level:"level 3"}, {$pull: {player: {id: "0.32591480354017077" } } } );
+  console.log("removing checkpoint");
+    db.saveLevel.update({ level:levelName},{$pull: {checkpoint : {id:data.id }  }    } );
+}
+Database.deleteWeaponItem = function(data, cb){
+  //db.saveLevel.update({ level:"level 3"}, {$pull: {player: {id: "0.32591480354017077" } } } );
+  console.log("removing weapon");
+    db.saveLevel.update({ level:levelName},{$pull: {weapon : {id:data.id }  }    } );
 }
 //Database.deleteLevelItem = function(data, cb){
 
