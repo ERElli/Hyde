@@ -86,7 +86,7 @@ EntityFactory = function(levelString,isLevelEditor){
 								break;
 						}
 						break;
-					case "weapons":
+					case "weapon":
 						switch(object.type){
 							case "pistol":
 								mObject[mID] = WeaponPickUp(mID,mX,mY,object.type,null);
@@ -119,8 +119,8 @@ EntityFactory = function(levelString,isLevelEditor){
 		self['enemies'][id].target = player;
 	}
 
-	for(let id in self['enemies']){
-		self['weapons'][id].target = player;
+	for(let id in self['weapon']){
+		self['weapon'][id].target = player;
 	}
 
 
