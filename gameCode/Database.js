@@ -84,7 +84,13 @@ Database.getLevelObjectInterface = function(data, cb){
     cb(arr);
    });
 }
+Database.getLevels = function(cb){
+  db.saveLevel.find({},function(err,res){
+		  var arr  = JSON.stringify(res);
+			cb(arr);
 
+	});
+}
 Database.deleteLevelItem = function(data, cb){
   //db.saveLevel.update({ level:"level 3"}, {$pull: {player: {id: "0.32591480354017077" } } } );
   console.log("removing enem");
