@@ -239,13 +239,13 @@ Animation=function(){
 		if(aniStep<=2){
 
 			aniX=0;
-			gui.onlyAnimation=function(Img.terrain1x6Ani,entity,fg_ctx,aniX,fW)
+			gui.onlyAnimation(Img.terrain1x6Ani,entity,gui.fg_ctx,aniX,fW)
 		}else if(aniStep<=4){
 			aniX=1;
-			gui.onlyAnimation=function(Img.terrain1x6Ani,entity,fg_ctx,aniX,fW)
+			gui.onlyAnimation(Img.terrain1x6Ani,entity,gui.fg_ctx,aniX,fW)
 		}else if(aniStep<=6){
 			aniX=2;
-			gui.onlyAnimation=function(Img.terrain1x6Ani,entity,fg_ctx,aniX,fW)
+			gui.onlyAnimation(Img.terrain1x6Ani,entity,gui.fg_ctx,aniX,fW)
 		}else{
 
 		}
@@ -255,19 +255,19 @@ Animation=function(){
 		img=Img.transformAnimation;
 		if(aniStep<=2){
 			aniX=0;
-			gui.onlyAnimation=function(img,entity,fg_ctx,aniX,fW)
+			gui.onlyAnimation(img,entity,fg_ctx,aniX,fW)
 		}else if(aniStep<=4){
 			aniX=1;
-			gui.onlyAnimation=function(img,entity,fg_ctx,aniX,fW)
+			gui.onlyAnimation(img,entity,fg_ctx,aniX,fW)
 		}else if(aniStep<=6){
 			aniX=2;
-			gui.onlyAnimation=function(img,entity,fg_ctx,aniX,fW)
+			gui.onlyAnimation(img,entity,fg_ctx,aniX,fW)
 		}else{
 			
 		}
 	};
 		
-	}
+	
 //####################################################
 //Sound Functions
 	//Jump sounds

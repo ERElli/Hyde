@@ -356,6 +356,7 @@ function Boulder(id, x, y, vx, vy, width, height, img, color, ownerID) {
 		self.vy += self.ay;
 		
 		ani.breakable1x6(self, self.aniTimer);
+		console.log(self.aniTimer);
 		
 		self.aniTimer++;
 		

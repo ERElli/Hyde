@@ -334,7 +334,7 @@ var update = function() {
 
 			if (testCollision(block, {'x':bullet.x-bullet.width/2, 'y':bullet.y-bullet.height/2, 'width':bullet.width, 'height':bullet.height})) {
 
-				if (bullet.type == 'bullet' || bullet.type == "boulder") {
+				if (bullet.type == 'bullet') {
 					delete bullets[key];
 				}
 
@@ -429,9 +429,11 @@ var update = function() {
 	for (var key in bullets) {
 
 		var bullet = bullets[key];
+		
 
 		//If the bullet is very far away from the player, just delete it
 		if (!inRange(bullet)) {
+			console.log("Deleting1 + " + bullet.type);
 			delete bullets[key];
 		}
 
@@ -478,7 +480,7 @@ var update = function() {
 		}
 
 		if(toRemove){
-			console.log("Deleting " + bullet.type);
+			console.log("Deleting2 " + bullet.type);
 			delete bullets[key];
 		}
 	}
