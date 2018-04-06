@@ -91,9 +91,9 @@
 				level['enemies'][e.id] = enemy;
 
 			}
-			
+
 			level['weapon'] = {};
-			
+
 			console.log("Weap: " + realLevel['weapon']);
 
 			for (let thing in realLevel['weapon']) {
@@ -102,12 +102,12 @@
 
 				var weapon;
 
-				weapon = new WeaponPickUp(w.id, w.x, w.y, w.weaponType, level['player']);
+				weapon = new WeaponPickUp(w.id, w.x, w.y-100, w.weaponType, level['player']);
 
 				level['weapon'][w.id] = weapon;
 
 			}
-			
+
 			level['terrain'] = {};
 			for (var thing in realLevel['terrain']) {
 				let t = realLevel['terrain'][thing]
@@ -216,8 +216,8 @@
 
 		//console.log(mydata);
 
-//#############################################################################	
-	//FOR GUI TESTING PURPOSES	
+//#############################################################################
+	//FOR GUI TESTING PURPOSES
 	/*
 
 

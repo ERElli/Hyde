@@ -88,7 +88,7 @@ Map = function(width, height,tile_width, tile_height) {
 			nameL =levelNameField2.value;
 		}
 		console.log("the nameL is "+nameL);
-		
+
 		list[id] = object;
 		var temp = type;
 		console.log("field 1: "+levelNameField.value+ " field 2:" + levelNameField2.value+ " name:"+ nameL);

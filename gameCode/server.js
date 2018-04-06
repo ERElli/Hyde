@@ -564,6 +564,10 @@ app.get('/client/interface/img/Animations/transformAnimation.png',function(req, 
     res.sendFile(__dirname + '/client/interface/img/Animations/transformAnimation.png');
 });
 
+app.get('/client/interface/img/terrain/breakableBlock.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/breakableBlock.png');
+});
+
 app.get('/images/buildingTerrain3x6.png',function(req, res) {
     res.sendFile(__dirname + '/images/buildingTerrain3x6.png');
 });
