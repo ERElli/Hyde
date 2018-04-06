@@ -214,69 +214,87 @@ GUI = function(container){
 				var weapImg=Img.pistol;
 				var fW=weapImg.width/5;
 				var fH=weapImg.height/2;
-				if(!isLevelEditor){
-					xOffset=fW/2;
-					yOffset=fH/2;
-				}
+
 				aniX=0
-				newX=ani.getWeaponPosition(en);
-				dir=ani.getPlayDirection(en);
+				newX=0;
+				dir=1;
 				if (en.isFiring==true){
 					aniX=ani.fireAnimation(en,en.fireTimer,newX);
 				}
-				self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newX,en.y);
+
+				if(!isLevelEditor){
+					xOffset=fW/2;
+					yOffset=fH/2;
+					newX=ani.getWeaponPosition(en);
+					dir=ani.getPlayDirection(en);
+					self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newX,en.y);
+				}else{
+					self.editorWeaponDraw(weapImg,en,ctx,fW,fH);
+				}
+				
 				break;
 			case "shotgun":
 				weapImg=Img.shotgun;
 				var fW=weapImg.width/5;
 				var fH=weapImg.height/2;
-				if(!isLevelEditor){
-					xOffset=fW/2;
-					yOffset=fH/2;
-				}
-				aniX=0
-				newX=ani.getWeaponPosition(en);
-				dir=ani.getPlayDirection(en);
+				ianiX=0
+				newX=0;
+				dir=1;
 				if (en.isFiring==true){
 					aniX=ani.fireAnimation(en,en.fireTimer,newX);
 				}
-				self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newX,en.y);
+
+				if(!isLevelEditor){
+					xOffset=fW/2;
+					yOffset=fH/2;
+					newX=ani.getWeaponPosition(en);
+					dir=ani.getPlayDirection(en);
+					self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newX,en.y);
+				}else{
+					self.editorWeaponDraw(weapImg,en,ctx,fW,fH);
+				}
 				break;
 			case "sword":
 				weapImg=Img.swordWeapon;
 				var fW=weapImg.width/5;
 				var fH=weapImg.height/2;
+				aniX=0
+				newX=0;
+				dir=1;
+				if (en.isFiring==true){
+					aniX=ani.fireAnimation(en,en.fireTimer,newX);
+				}
+
 				if(!isLevelEditor){
 					xOffset=fW/2;
 					yOffset=fH/2;
-				}
-				aniX=0
-				newX=ani.getWeaponPosition(en);
-				newY=en.y;
-				dir=ani.getPlayDirection(en);
-				if (en.isFiring==true){
-					ani.swordAnimation(en,en.fireTimer,newX,newY,weapImg,fW,fH,dir);
-				}
-				else{
-					self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newX,newY);
+					newX=ani.getWeaponPosition(en);
+					dir=ani.getPlayDirection(en);
+					self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newX,en.y);
+				}else{
+					self.editorWeaponDraw(weapImg,en,ctx,fW,fH);
 				}
 				break;
 			case "assaultRifle":
 				weapImg=Img.assaultWeapon
 				var fW=weapImg.width/9;
 				var fH=weapImg.height/2;
-				if(!isLevelEditor){
-					xOffset=fW/2;
-					yOffset=fH/2;
-				}
 				aniX=0
-				newX=ani.getWeaponPosition(en);
-				dir=ani.getPlayDirection(en);
-				//console.log(en.fireTimer);
+				newX=0;
+				dir=1;
 				if (en.isFiring==true){
 					aniX=ani.fireAnimation(en,en.fireTimer,newX);
 				}
-				self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newX,en.y);
+
+				if(!isLevelEditor){
+					xOffset=fW/2;
+					yOffset=fH/2;
+					newX=ani.getWeaponPosition(en);
+					dir=ani.getPlayDirection(en);
+					self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newX,en.y);
+				}else{
+					self.editorWeaponDraw(weapImg,en,ctx,fW,fH);
+				}
 				break;
 			case "noWeapon":
 				break;
@@ -393,7 +411,10 @@ GUI = function(container){
 	};
 	self.onlyAnimation=function(img,en,ctx,aniX,fW,width,height,x,y){
 		ctx.drawImage(img,aniX*fW,0,fW,img.height,x-xOffset-playX,y-yOffset,width,height);
-	}
+	};
+	self.editorWeaponDraw = function(img,en,ctx,fW,fH){
+		ctx.drawImage(img,0,0,fW,fH,en.x,en.y,50,50);
+	};
 
 	self.HUD=function(ctx,player){
 
