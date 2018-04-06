@@ -99,6 +99,8 @@
 
 				if (t.type == 'Terrain1x1') {
 					block = Terrain1x1(t.id, t.x, t.y-100);
+				}else if (t.type == 'Terrain3x2Breakable') {
+					block = Terrain3x2(t.id, t.x, t.y-100);
 				}
 				else if (t.type == 'Terrain1x1Breakable') {
 					block = Terrain1x1Breakable(t.id, t.x, t.y-100);

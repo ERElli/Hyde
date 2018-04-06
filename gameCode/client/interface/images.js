@@ -7,7 +7,7 @@ Img = function(pathToRoot) {
 	self.background2.src= pathToRoot+"client/interface/img/background/worldTwoBackground.png";
 	self.background3= new Image();
 	self.background3.src= pathToRoot+"client/interface/img/background/worldThreeBackground.png";
-	//player images	
+	//player images
 	self.playerSmall= new Image();
 	self.playerSmall.src= pathToRoot+"client/interface/img/entity/humanoid/smallPlayer.png";
 	self.playerBig= new Image();
@@ -19,7 +19,7 @@ Img = function(pathToRoot) {
 	self.basicEnemy2.src= pathToRoot+"client/interface/img/entity/humanoid/flyingEnemy.png";
 	self.basicEnemy3= new Image();
 	self.basicEnemy3.src= pathToRoot+"client/interface/img/enemy3.png"
-	
+
 	self.infinity=new Image();
 	self.infinity.src= pathToRoot+"client/interface/img/inf.png";
 	//weapons and ammo
@@ -74,4 +74,3 @@ Img = function(pathToRoot) {
 	console.log(self.muzzleFlash.stepOne);
 	return self;
 };
-
