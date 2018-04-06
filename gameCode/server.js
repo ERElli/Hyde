@@ -497,6 +497,9 @@ app.get('/client/interface/soundFX/playerSounds/bigPlayer/bigHurt.wav',function(
 app.get('/client/interface/soundFX/weaponEffects/weaponPickup.wav',function(req, res) {
     res.sendFile(__dirname + '/client/interface/soundFX/weaponEffects/weaponPickup.wav');
 });
+app.get('/client/interface/img/Animations/transformAnimation.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/Animations/transformAnimation.png');
+});
 app.get('/images/buildingTerrain3x6.png',function(req, res) {
     res.sendFile(__dirname + '/images/buildingTerrain3x6.png');
 });
