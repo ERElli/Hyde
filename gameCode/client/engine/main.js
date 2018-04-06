@@ -193,8 +193,7 @@ var update = function() {
 	}
 	
 	if (player.x >= level_width) {
-		console.log("YEAH");
-		paused = !paused;
+		endGame();
 	}
 	
 	player.attackCounter++;
@@ -655,7 +654,7 @@ var startGame = function(initial_level) {
 	// terrain[breakable.id] = breakable;
 	// console.log(terrain[breakable.id]['x'])
 	//surfaceMods = level["terrain"];
-	pickUps = {}//level['pickUps']
+	pickUps = level['pickUps']
 	//console.log(pickUps['p1']);
 	frameCount = 0;
 	everyTenCount = 0;
@@ -664,7 +663,7 @@ var startGame = function(initial_level) {
 	level_width = initial_level.width;
 	console.log(level_width);
 
-	createPickUps();
+	//createPickUps();
 
 	setInterval(update, 1000/60)
 }
@@ -681,5 +680,5 @@ var createPickUps = function() {
 }
 
 var endGame = function() {
-
+	paused = !paused;	
 }
