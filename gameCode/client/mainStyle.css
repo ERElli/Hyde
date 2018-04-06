@@ -8,7 +8,7 @@
     top: 100px;
     position: fixed;
     left: 445px;
-    
+
     border: none;
     cursor: pointer;
 
@@ -17,17 +17,17 @@
 }
 
 .signInButton:hover{
-    
+
 	background:transparent;
 	background-image: url(images/signInHover.png);
     background-size: cover;
     position: fixed;
-    
+
 
     border: none;
     cursor: pointer;
 
-    
+
 }
 
 .signUpButton {
@@ -37,7 +37,7 @@
     top: 200px;
     position: fixed;
     left: 445px;
-    
+
     border: none;
     cursor: pointer;
 
@@ -46,12 +46,12 @@
 }
 
 .signUpButton:hover{
-    
+
     background:transparent;
     background-image: url(images/signUpHover.png);
     background-size: cover;
     position: fixed;
-    
+
 
     border: none;
     cursor: pointer;
@@ -79,7 +79,7 @@
 .signUpDiv {
 
     background:transparent;
-    background-image: url(images/signUpBackground.png);
+    
     background-size: cover;
     position: fixed;
 
@@ -95,7 +95,7 @@
     background:transparent;
     background-image:url(images/textfieldBackground.png);
     border: none;
-    padding: 20px; 
+    padding: 20px;
     width: 350px;
     height: 62px;
     font-size: 18;
@@ -201,7 +201,7 @@
     top: 100px;
     position: fixed;
     left: 445px;
-    
+
     border: none;
     cursor: pointer;
 
@@ -215,7 +215,7 @@
     background-image: url(images/playStoryButtonHover.png);
     background-size: cover;
     position: fixed;
-    
+
 
     border: none;
     cursor: pointer;
@@ -230,7 +230,7 @@
     top: 175px;
     position: fixed;
     left: 445px;
-    
+
     border: none;
     cursor: pointer;
 
@@ -244,7 +244,7 @@
     background-image: url(images/playonlineButtonHover.png);
     background-size: cover;
     position: fixed;
-    
+
 
     border: none;
     cursor: pointer;
@@ -259,7 +259,7 @@
     top: 250px;
     position: fixed;
     left: 445px;
-    
+
     border: none;
     cursor: pointer;
 
@@ -273,7 +273,7 @@
     background-image: url(images/levelEditorButtonHover.png);
     background-size: cover;
     position: fixed;
-    
+
 
     border: none;
     cursor: pointer;
@@ -288,7 +288,7 @@
     top: 325px;
     position: fixed;
     left: 445px;
-    
+
     border: none;
     cursor: pointer;
 
@@ -302,10 +302,9 @@
     background-image: url(images/achievementsButtonHover.png);
     background-size: cover;
     position: fixed;
-    
+
 
     border: none;
     cursor: pointer;
 
 }
-

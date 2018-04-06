@@ -5,7 +5,7 @@
 </head>
 
 <body style="margin:0px">
-<canvas id="myCanvas" width="480" height="320"><p>Your browser does not support HTML5!</p></canvas>
+<canvas id="myCanvas" width="1250" height="500"><p>Your browser does not support HTML5!</p></canvas>
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 <script type="text/javascript">
   var socket = io();
@@ -25,8 +25,8 @@
 	var backgroundY = 0;
 	var speed = 1;
 	//Arrays for button dimensions
-	var buttonX = [149,149,149,149];
-	var buttonY = [100,140,180,220];
+	var buttonX = [500,500,500,500];
+	var buttonY = [200,240,280,320];
 	var buttonWidth = [96,260,202,160];
 	var buttonHeight = [40,40,40,40];
 
@@ -111,7 +111,7 @@
 		backgroundImage.onload = function(){
 			context.drawImage(backgroundImage, 0, 0);
 			logoImage.onload = function(){
-				context.drawImage(logoImage, 200, 10);
+				context.drawImage(logoImage, buttonX[0]+50, buttonY[0]-100);
 			}
 			logoImage.src = "../../images/scientistMain.png";
 			playImage.onload = function(){
