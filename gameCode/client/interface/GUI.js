@@ -199,11 +199,11 @@ GUI = function(container){
 				self.quickAnimatedDraw(enemyImg,en,ctx,dir,fW,fH);
 				break;
 			case "tank enemy":
-				enemyImg=Img.basicEnemy1;
-				var fW=Img.basicEnemy1.width/4;
+				enemyImg=Img.basicEnemy3;
+				var fW=Img.basicEnemy1.width/5;
 				var fH=Img.basicEnemy1.height/2;
 				dir=ani.getPlayDirection(en);
-				ani.updateEntityAnimation(en,4);
+				ani.updateEntityAnimation(en,5);
 				self.quickAnimatedDraw(enemyImg,en,ctx,dir,fW,fH);
 				break;
 			case "ghost":
