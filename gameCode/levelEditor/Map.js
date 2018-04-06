@@ -1,7 +1,7 @@
 var socket = io();
 
 Map = function(width, height,tile_width, tile_height) {
-
+	var nameL ;
 	var self = {};
 	self.width = width;
 	self.height = height;
@@ -80,22 +80,35 @@ Map = function(width, height,tile_width, tile_height) {
 			}
 		}
 
+		if(levelNameField2.value == ""){
+			console.log("inside console");
+			nameL = levelNameField.value;
+		}
+		else if (levelNameField.value == ""){
+			nameL =levelNameField2.value;
+		}
+	//	nameL = "solli";
 		list[id] = object;
 		var temp = type;
-
+		console.log("field 1: "+levelNameField.value+ " field 2:" + levelNameField2.value+ " name:"+ nameL);
+		//console.log("awesomenoss"+levelNameField1.value);
+	//	console.log("not awesomenoss"+nameL);
 		//adding objects to the database
+
+
+
 		if (type.includes("enemy") ){
-			socket.emit('addLevelItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
+			socket.emit('addLevelItem', {level:nameL, x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
 		}else if(type.includes("player")){
-			socket.emit('addPlayerItem', {x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
+			socket.emit('addPlayerItem', {level:nameL, x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
 		}else if(type.includes("Terrain")){
-			socket.emit('addTerrainItem', {x: object.x, y:object.y, id: object.id, type: object.type});
+			socket.emit('addTerrainItem', {level:nameL,x: object.x, y:object.y, id: object.id, type: object.type});
 		}
 		else if (type.includes("checkpoint")){
-			socket.emit('addCheckpointItem', {x: object.x, y:object.y, id: object.id, type: object.type});
+			socket.emit('addCheckpointItem', {level:nameL,x: object.x, y:object.y, id: object.id, type: object.type});
 		}
 		else if (type.includes("weapon")){
-			socket.emit('addWeaponItem', {x: object.x, y:object.y, id: object.id, type: object.weaponType});
+			socket.emit('addWeaponItem', {level:nameL,x: object.x, y:object.y, id: object.id, type: object.weaponType});
 		}
 		//{x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type}
 		console.log("Adding "+type+": ", object);
@@ -116,7 +129,7 @@ Map = function(width, height,tile_width, tile_height) {
 		//Referencing the appropriate tileMap;
 		if(type.includes("enemy") || type.includes("Terrain") || type.includes("player")){
 			tileMap = self.tiles;
-			console.log("ENTITY TILE MAP",tileMap);
+			//console.log("ENTITY TILE MAP",tileMap);
 		}else if(type.includes("checkpoint")){
 			tileMap = self.checkpointTiles;
 			console.log("CHECKPOINT TILE MAP",tileMap);
@@ -183,19 +196,19 @@ Map = function(width, height,tile_width, tile_height) {
 					self.makeFreeSpace(currentMap,toBeRemoved);
 					console.log("MAKE FREE SPACE ENTITY:",toBeRemoved);
 					gui.fg_ctx.clearRect(x,y,toBeRemoved.width, toBeRemoved.height);
-
+					console.log("delete here " + nameL);
 					if (type.includes("enemy") ){
-						socket.emit('deleteLevelItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, vx: toBeRemoved.vx, vy: toBeRemoved.vy, type: toBeRemoved.type});
+						socket.emit('deleteLevelItem', {level:nameL, x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, vx: toBeRemoved.vx, vy: toBeRemoved.vy, type: toBeRemoved.type});
 					} else if (type.includes("player")){
-						socket.emit('deletePlayerItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, vx: toBeRemoved.vx, vy: toBeRemoved.vy, type: toBeRemoved.type});
+						socket.emit('deletePlayerItem', {level:nameL, x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, vx: toBeRemoved.vx, vy: toBeRemoved.vy, type: toBeRemoved.type});
 					}else if (type.includes("Terrain")){
-						socket.emit('deleteTerrainItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
+						socket.emit('deleteTerrainItem', {level:nameL, x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
 					}
 					else if (type.includes("checkpoint")){
-				socket.emit('deleteCheckpointItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
+				socket.emit('deleteCheckpointItem', {level:nameL, x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
 			}
 			else if (type.includes("weapon")){
-				socket.emit('deleteWeaponItem', {x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.weaponType});
+				socket.emit('deleteWeaponItem', {level:nameL, x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.weaponType});
 			}
 
 				}

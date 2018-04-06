@@ -1,20 +1,20 @@
 <html>
-		
+
 	<body>
 		<br>
 		<br>
 		<div id="menu">
 			<a href='../gameMenu.html'>Quit</a>
 		</div>
-		
+
 		<div id="container">
-		
+
 			<div id="results" style="positions:absolute; left: 511px;">
 				<table style="border:1px"></table>
 			</div>
-			
+
 		</div>
-		
+
 	</body>
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 		<script type="text/javascript" src="../engine/main.js"></script>
@@ -33,16 +33,17 @@
 		<script type="text/javascript" src="sounds.js"></script>
 		<script type="text/javascript" src="GUI.js"></script>
 		<script type="text/javascript" src="Animation.js"></script>
-		
+
 
 		<script>
 
-		
+
 		var socket = io();
+
 
 		//call the socket to get the level objects from database
 		var  getLevelObjects = function() {
-			socket.emit('getLevelObject', {levelName: "level 1"});
+			socket.emit('getLevelObject', {level:"level 1"});
 		};
 
 		var levelObjects;
@@ -143,7 +144,7 @@
 				else if (t.type == 'Terrain1x6Breakable') {
 					block = Terrain1x6Breakable(t.id, t.x, t.y-100);
 				}
-				
+
 
 				level['terrain'][t.id] = block;
 				//console.log(level['terrain']);
@@ -152,7 +153,7 @@
 
 			level.width = realLevel.width;
 			console.log(realLevel.width);
-			
+
 			startGame(level);
 	  });
 
@@ -218,6 +219,7 @@
 //#############################################################################	
 	//FOR GUI TESTING PURPOSES	
 	/*
+
 
 		var level = {}
 

@@ -29,9 +29,9 @@
 	<div id="musicDropdown">
 		<button onclick="typeTapped('music')" id="musicbtn"></button>
 		<div id="music" class="dropdown-content">
-			<button style="background-image: url(../../images/music1Drop.png)" onclick="self.music1Tapped()" class="music1btn"></button>
-			<button style="background-image: url(../../images/music2Drop.png)" onclick="self.music2Tapped()" class="music2btn"></button>
-			<button style="background-image: url(../../images/music3Drop.png)" onclick="self.music3Tapped()" class="music3btn"></button>
+			<button style="background-image: url(../../images/music1Drop.png)" onclick="self.musicTapped('music1')" class="music1btn"></button>
+			<button style="background-image: url(../../images/music2Drop.png)" onclick="self.musicTapped('music2')" class="music2btn"></button>
+			<button style="background-image: url(../../images/music3Drop.png)" onclick="self.musicTapped('music3')" class="music3btn"></button>
 		</div>
 	</div>
 
@@ -64,15 +64,15 @@
 	<div id="terrainDropdown">
 		<button onclick="typeTapped('terrains')" id="terrainbtn"></button>
 		<div id="terrains" class="dropdown-content">
-			<button style="background-image: url(../images/1x1Drop.png)" onclick="terrainbtnTapped('1x1')" class="terrain1btn"></button>
-			<button style="background-image: url(../images/1x1Drop.png)" onclick="terrainbtnTapped('1x1Breakable')" class="terrain2btn"></button>
-			<button style="background-image: url(../images/3x2Drop.png)" onclick="terrainbtnTapped('3x2')" class="terrain3btn"></button>
-			<button style="background-image: url(../images/3x2BDrop.png)" onclick="terrainbtnTapped('3x2Breakable')" class="terrain4btn"></button>
-			<button style="background-image: url(../images/3x4Drop.png)" onclick="terrainbtnTapped('3x4')" class="terrain5btn"></button>
-			<button style="background-image: url(../images/3x4BDrop.png)" onclick="terrainbtnTapped('3x4Breakable')" class="terrain6btn"></button>
-			<button style="background-image: url(../images/3x6Drop.png)" onclick="terrainbtnTapped('3x6')" class="terrain7btn"></button>
-			<button style="background-image: url(../images/3x6BDrop.png)" onclick="terrainbtnTapped('3x6Breakable')" class="terrain8btn"></button>
-			<button style="background-image: url(../images/1x6BDrop.png)" onclick="terrainbtnTapped('1x6Breakable')" class="terrain9btn"></button>
+			<button style="background-image: url(../images/1x1Drop.png)" onclick="terrainTapped('1x1')" class="terrain1btn"></button>
+			<button style="background-image: url(../images/1x1Drop.png)" onclick="terrainTapped('1x1Breakable')" class="terrain2btn"></button>
+			<button style="background-image: url(../images/3x2Drop.png)" onclick="terrainTapped('3x2')" class="terrain3btn"></button>
+			<button style="background-image: url(../images/3x2BDrop.png)" onclick="terrainTapped('3x2Breakable')" class="terrain4btn"></button>
+			<button style="background-image: url(../images/3x4Drop.png)" onclick="terrainTapped('3x4')" class="terrain5btn"></button>
+			<button style="background-image: url(../images/3x4BDrop.png)" onclick="terrainTapped('3x4Breakable')" class="terrain6btn"></button>
+			<button style="background-image: url(../images/3x6Drop.png)" onclick="terrainTapped('3x6')" class="terrain7btn"></button>
+			<button style="background-image: url(../images/3x6BDrop.png)" onclick="terrainTapped('3x6Breakable')" class="terrain8btn"></button>
+			<button style="background-image: url(../images/1x6BDrop.png)" onclick="terrainTapped('1x6Breakable')" class="terrain9btn"></button>
 		</div>
 	</div>
 
@@ -93,6 +93,12 @@
     Choose Width (ex: 1200): <input id="widthValue" type="text"></input><br><br>
       <br><br>
     <button id="levelButton">Go to Level Editor</button>
+	</div>
+
+  <div id="levelLoad"  style=" display:none; padding-top:10%; padding-left:40%;height:500px; background-color: lightblue;" >
+    Level Name: <input id="levelNameField2" type="text"></input><br><br>
+    <br><br>
+    <button id="levelButton2">Load in Level Editor</button>
 	</div>
 
   <div id="levelChoice"  style="   padding-top:10%; padding-left:40%;height:500px; background-color: lightblue;" >
@@ -132,6 +138,14 @@ var levelButton = document.getElementById('levelButton');
 var levelNewButton = document.getElementById('levelNewButton');
 var levelLoadButton = document.getElementById('levelLoadButton');
 
+//levelLoad div
+var levelLoad = document.getElementById('levelLoad');
+var levelNameField2 = document.getElementById('levelNameField2');
+var levelLoad = document.getElementById('levelLoad');
+var levelButton2 = document.getElementById('levelButton2');
+
+
+
 
 levelButton.onclick = function(){
   if (levelNameField.value ==="" ){
@@ -153,14 +167,38 @@ levelButton.onclick = function(){
   }
 }
 
+levelButton2.onclick = function(){
+
+  if (levelNameField2.value ==="" ){
+    alert("Please input a name for the level.");
+  }
+  else{
+    console.log("i got "+levelNameField2.value );
+    socket.emit('levelLoadButton', {level: levelNameField2.value});
+
+    //socket.emit('newLevel',{width:widthValue.value,  level: levelNameField.value});
+    container.style.display = 'block';
+    levelMaker.style.display = 'block';
+    enemiesDropdown.style.display = 'block';
+    levelLoad.style.display = 'none';
+    musicDropdown.style.display ='block';
+    backgroundDropdown.style.display = 'block';
+    checkpointDropdown.display = 'block';
+    characterDropdown.display = 'block';
+    terrainDropdown.display = 'block';
+    weaponDropdown.display = 'block';
+    //
+  }
+}
+
 levelLoadButton.onclick = function(){
-      socket.emit('levelLoadButton', {level:"hey"});
+      //socket.emit('levelLoadButton', {level:"hey"});
       levelChoice.style.display = 'none';
-      levelMenu.style.display = 'block';
+      levelLoad.style.display = 'block';
 
 }
 levelNewButton.onclick = function(){
-      socket.emit('levelNewButton', {level:"hey"});
+    //  socket.emit('levelNewButton', {level:"hey"});
       levelChoice.style.display = 'none';
       levelMenu.style.display = 'block';
 
@@ -172,24 +210,16 @@ levelNewButton.onclick = function(){
 var button1 = document.getElementById("button1");
 //request
  button1.onclick = function(){
-       socket.emit('button', {level:levelNameField.value});
+       socket.emit('button', {level:levelNameField2.value});
  }
 //receive
  socket.on('result',function(res){
     console.log("result", JSON.parse(JSON.stringify(res)));
       location.href = "/client/interface/index.html";
  });
- socket.on('gee',function(res){
-      //console.log("heeeeey ", JSON.stringify(res));
-      newLevelName.innerHTML= "blue";
- });
-
- socket.on('heys', function(){
-   console.log("this is cool");
-
- });
 
  socket.on('loadIt', function(data){
+
    //setBackground("world 1");
    console.log("this is cool");
    let level = data;
@@ -755,6 +785,8 @@ window.onclick = function(event){
 self.enemyTapped = function(id){
 	self.selectedEnemy = id;
 	console.log(self.selectedEnemy);
+	let parent = document.getElementById('enemies')
+	toggleDisplay(parent);
 }
 
 /*************************
@@ -771,17 +803,12 @@ self.enemyTapped = function(id){
 // 	}
 // }
 
-self.music1Tapped = function(){
-  self.selectedMusic = "music1";
+self.musicTapped = function(id){
+  self.selectedMusic = id;
+  let parent = document.getElementById("music");
+  toggleDisplay(parent);
 }
 
-self.music2Tapped = function(){
-  self.selectedMusic = "music2";
-}
-
-self.music3Tapped = function(){
-  self.selectedMusic = "music3";
-}
 
 /*************************
 	Background
@@ -802,6 +829,9 @@ self.worldTapped = function(id){
 	console.log(self.selectedBackground);
 	map.setBackground = id;
 	gui.editorBackground(offsetX,offsetY,self.selectedBackground);
+
+	let parent = document.getElementById('backgrounds');
+	toggleDisplay(parent);
 }
 
 /*************************
@@ -813,6 +843,9 @@ toggle between hiding and showing the dropdown content */
 function checkpointTapped(id) {
 	self.selectedCheckpoint = id;
 	console.log(id);
+
+	let parent = document.getElementById('checkpoints');
+	toggleDisplay(parent);
 }
 
 // window.onclick = function(event) {
@@ -859,18 +892,20 @@ function characterTapped() {
 // 	}
 // }
 
-function terrainbtnTapped(id){
-	console.log(id);
+function terrainTapped(id){
 	self.selectedTerrain = id;
+
+	var parent = document.getElementById('terrains');
+	toggleDisplay(parent);
 }
 
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
-function weaponTapped() {
-	self.selectedButton = "weapon";
-	var element = document.getElementById("myWeaponDropdown");
-	toggleDisplay(element);
-}
+// function weaponTapped() {
+// 	self.selectedButton = "weapon";
+// 	var element = document.getElementById("myWeaponDropdown");
+// 	toggleDisplay(element);
+// }
 
 // // Close the weapon dropdown if the user clicks outside of it
 // window.onclick = function(event) {
@@ -885,6 +920,9 @@ function weaponTapped() {
 self.weaponTapped = function(id){
 	self.selectedWeapon = id;
 	console.log(self.selectedWeapon);
+
+	var parent = document.getElementById('weapons');
+	toggleDisplay(weapons);
 }
 
 </script>

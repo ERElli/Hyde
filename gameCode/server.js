@@ -594,18 +594,10 @@ io.sockets.on('connection', function(socket){
   		});
 	  });
 
-    //var levelN ="not working";
-
     socket.on('newLevel',function(data){
-      //levelN = data.level;
       console.log(data.level);
      //socket.emit('changeLevelName', {level: data.level});
      Database.newLevel(data);
-     change(data.level);
-
-
-
-
       /* if(!res){
          socket.emit('checkLevelName', {success:false});
        }
@@ -614,11 +606,7 @@ io.sockets.on('connection', function(socket){
        }
        */
    });
-  var change = function (levelNa){
 
-
-   socket.emit('gee', {level:levelNa});
- };
 
 
     socket.on('signUp',function(data){
@@ -667,51 +655,37 @@ io.sockets.on('connection', function(socket){
   });
 
   socket.on('getLevelObject',function(data){
-   Database.getLevelObject(data, function(res){
-    console.log(res);
+   Database.getLevelObjectInterface(data.level, function(res){
+    console.log("my result" +res);
 
     socket.emit('receiveLevelObjects', res);
    });
 
   });
 
+
+
   socket.on('saveLevel',function(data){
    Database.levelSave(data);
   });
-var state;
-  socket.on('load', function(data){
-    socket.emit('heys');
-    var me;
 
-    //console.log("uuuuu");
-    socket.emit('changeMe');
-    //Database.getLevelObject("level1", function(res){
 
-  });
-
-  socket.on('do', function(){
-    console.log("helo let");
-
-  });
-
-  Database.getLevelObject("level1", function(res){
-    console.log("hhhhh");
-    //socket.emit('loadIt', res);
-   });
 
   //Database.getLevelObject("level1", function(res){
   //socket.emit('hey', res);
 //   });
 
    socket.on('button',function(data){
-     console.log('data.level');
+     console.log("console" +data.level);
      Database.getLevelObject(data.level, function(res){
      socket.emit('result', res);
+
       });
    });
 
    socket.on('levelLoadButton',function(data){
-     console.log('levelNewButton');
+     console.log('levelLoadButtonB'+ data.level);
+
      Database.getLevelObject(data.level, function(res){
      socket.emit('loadIt', res);
       });
