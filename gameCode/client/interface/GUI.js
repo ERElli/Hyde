@@ -102,6 +102,7 @@ GUI = function(container){
 		n=backgroundPositionCounter;
 		x=self.bg.width-level['player'].x;
 		y=0;
+		//if(
 		Img.background2.onload=function(){
 		}
 		//console.log(Sound.worldTwo);
@@ -341,12 +342,39 @@ GUI = function(container){
 			case "Terrain1x6Breakable":
 				self.quickDraw(Img.terrain1x6Breakable,t,ctx,t.x,t.y);
 				break;
-			
+			case "Checkpoint":
+				if (t.isActive){
+					//does not exist yet
+					//img=Img.activeCheckpoint;
+				}
+				else{
+					img=Img.standardCheckpoint;
+				}
+				self.quickDraw(img,t,gui.fg_ctx,t.x,t.y);
+				break;
 		}
 		terrain.img.onload=function(){};
 		ctx.restore();
 	};
-
+	
+	//Draws goal flag
+	self.drawGoal=function(){
+		img=Img.finalCheckpoint;
+		gui.fg_ctx.drawImage(img,(level.width-50)-playX,100,50,400);
+	};
+	//Checkpoint update
+	self.checkpointUpdate=function(checkpoint){
+		//Does not exist		
+		//img=Img.activeCheckpoint;
+		//self.quickDraw(img,checkpoint,gui,fg_ctx,checkpoint.x,checkpoint.y);
+		ani.checkpointSound();
+	}
+	//LevelComplete
+	self.levelComplete=function(){
+		img=Img.levelComplete;
+		gui.gr_ctx.drawImage(img,400,150,450,350);
+		ani.winGameSound();
+	};
 	//QuickDraw Methods(For improved readability)
 	self.quickDraw=function(img,entity,ctx,x,y){
 		ctx.drawImage(img,(x-xOffset)-playX,y-yOffset,entity.width,entity.height);
