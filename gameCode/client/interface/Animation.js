@@ -7,7 +7,6 @@ Animation=function(){
 			return  0;
 		}
 		if(frameCount%5==0){			
-			
 			en.aniCount++;
 			if(en.aniCount==numAnimations){
 				en.aniCount=1;

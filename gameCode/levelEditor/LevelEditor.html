@@ -86,12 +86,18 @@
    		</div>
 	</div>
 
-	<div id="levelMenu"  style="  padding-top:10%; padding-left:40%;height:500px; background-color: lightblue;" >
-    	Level Name: <input id="levelNameField" type="text"></input><br><br>
-    	<br><br>
-    	Choose Width (ex: 1200): <input id="widthValue" type="text"></input><br><br>
-      	<br><br>
-    	<button id="levelButton">Go to Level Editor</button>
+
+  <div id="levelMenu"  style=" display:none; padding-top:10%; padding-left:40%;height:500px; background-color: lightblue;" >
+    Level Name: <input id="levelNameField" type="text"></input><br><br>
+    <br><br>
+    Choose Width (ex: 1200): <input id="widthValue" type="text"></input><br><br>
+      <br><br>
+    <button id="levelButton">Go to Level Editor</button>
+	</div>
+
+  <div id="levelChoice"  style="   padding-top:10%; padding-left:40%;height:500px; background-color: lightblue;" >
+      <button id="levelNewButton">New Level</button>
+    <button id="levelLoadButton">Load Level</button>
 	</div>
 
 </body>
@@ -118,9 +124,15 @@
 var socket = io();
 var level;
 var newLevelName = document.getElementById("newLevelName");
+var levelChoice = document.getElementById("levelChoice");
 var levelNameField = document.getElementById('levelNameField');
 var widthValue = document.getElementById('widthValue');
 var levelButton = document.getElementById('levelButton');
+
+var levelNewButton = document.getElementById('levelNewButton');
+var levelLoadButton = document.getElementById('levelLoadButton');
+
+
 levelButton.onclick = function(){
   if (levelNameField.value ==="" ){
     alert("Please input a name for the level.");
@@ -140,6 +152,22 @@ levelButton.onclick = function(){
     //
   }
 }
+
+levelLoadButton.onclick = function(){
+      socket.emit('levelLoadButton', {level:"hey"});
+      levelChoice.style.display = 'none';
+      levelMenu.style.display = 'block';
+
+}
+levelNewButton.onclick = function(){
+      socket.emit('levelNewButton', {level:"hey"});
+      levelChoice.style.display = 'none';
+      levelMenu.style.display = 'block';
+
+}
+
+
+
 //newLevelName.innerHTML= "blue";
 var button1 = document.getElementById("button1");
 //request
@@ -155,7 +183,14 @@ var button1 = document.getElementById("button1");
       //console.log("heeeeey ", JSON.stringify(res));
       newLevelName.innerHTML= "blue";
  });
+
+ socket.on('heys', function(){
+   console.log("this is cool");
+
+ });
+
  socket.on('loadIt', function(data){
+
    console.log("this is cool");
    let level = data;
    console.log("result"+ level);
@@ -165,7 +200,7 @@ var button1 = document.getElementById("button1");
    Update(level);
  });
 //This will Receive the level objects and set them to the variable level
-/*
+
 socket.on('hey', function(data){
   let level = data;
   console.log("result"+ level);
@@ -173,7 +208,13 @@ socket.on('hey', function(data){
   //map = Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
   //console.log(levelObject);
   Update(level);
-});  */
+
+});  
+
+
+
+
+
 var Update = function(level){
 	// var l = level;
 	 console.log("heeey"+JSON.stringify(level[0] ));
