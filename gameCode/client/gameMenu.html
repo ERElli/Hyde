@@ -29,6 +29,13 @@
 	var buttonY = [100,140,180,220];
 	var buttonWidth = [96,260,202,160];
 	var buttonHeight = [40,40,40,40];
+
+  socket.on('changeMe', function(data){
+    location.href = "/levelEditor";
+    socket.emit('loadIt', data);
+  //  socket.emit('do');
+  });
+
 	/*
 	bigGuyImage.src = "Images/bigGuy.png";
 	backgroundImage.onload = function(){
@@ -84,11 +91,13 @@
 		   mouseX = e.pageX;
 			 mouseY = e.pageY;
 			 if (mouseX >buttonX[0] && mouseX < (buttonX[0]+ buttonWidth[2]) && mouseY> buttonY[0] && mouseY < (buttonY[0]+buttonHeight[0]) ) {
-				location.href = "/client/level.html";
+          socket.emit('newMee',{level: "level1"});
+          //location.href = "/levelEditor";
+          // socket.emit('got',{todo: "new"});
 			 }
 			 else if( mouseX >buttonX[0] && mouseX < (buttonX[0]+ buttonWidth[2]) && mouseY> buttonY[1] && mouseY < (buttonY[1]+buttonHeight[0]) ) {
-				location.href = "/levelEditor";
-				socket.emit('loadLevel',{level: "level1"});
+
+				  socket.emit('load',{level: "level1"});
 			 }
 		 }, false);
 	}
