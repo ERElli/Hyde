@@ -199,11 +199,11 @@ GUI = function(container){
 				self.quickAnimatedDraw(enemyImg,en,ctx,dir,fW,fH);
 				break;
 			case "tank enemy":
-				enemyImg=Img.basicEnemy1;
-				var fW=Img.basicEnemy1.width/4;
+				enemyImg=Img.basicEnemy3;
+				var fW=Img.basicEnemy1.width/5;
 				var fH=Img.basicEnemy1.height/2;
 				dir=ani.getPlayDirection(en);
-				ani.updateEntityAnimation(en,4);
+				ani.updateEntityAnimation(en,5);
 				self.quickAnimatedDraw(enemyImg,en,ctx,dir,fW,fH);
 				break;
 			case "ghost":
@@ -339,7 +339,7 @@ GUI = function(container){
 				self.quickDraw(Img.terrain3x6Breakable,t,ctx,t.x,t.y);
 				break;
 			case "Terrain1x6Breakable":
-				self.quickDraw(Img.terrainBreak1x6,t,ctx,t.x,t.y);
+				self.quickDraw(Img.terrain1x6Breakable,t,ctx,t.x,t.y);
 				break;
 			
 		}
@@ -363,6 +363,10 @@ GUI = function(container){
 	self.quickAnimatedDraw=function(img,en,ctx,aniStepY,fW,fH){
 		ctx.drawImage(img,en.aniCount*fW,aniStepY*fH,fW,fH,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
 	};
+	self.onlyAnimation=function(img,en,ctx,aniX,fW,width,height,x,y){
+		ctx.drawImage(img,aniX*fW,0,fW,img.height,x-xOffset-playX,y-yOffset,width,height);
+			
+	}
 
 	self.HUD=function(ctx,player){
 
