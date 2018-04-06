@@ -32,7 +32,7 @@
 
   socket.on('changeMe', function(data){
     location.href = "/levelEditor";
-    socket.emit('loadIt', data);
+    //socket.emit('loadIt', data);
   //  socket.emit('do');
   });
 
@@ -72,7 +72,7 @@
 		//clear();
 		draw();
 	}
-	function main() {
+/*	function main() {
 		backgroundImage.src = "../../images/Background.png";
 		backgroundImage.onload = function(){
 			context.drawImage(backgroundImage, 0, 0);
@@ -100,7 +100,8 @@
 				  socket.emit('load',{level: "level1"});
 			 }
 		 }, false);
-	}
+	} */
+  
 	/*
 	function clear() {
 		context.clearRect(0, 0, width, height);
@@ -141,7 +142,7 @@ canvas.addEventListener('click', function(e) {
 		location.href = "/client/interface/index.html";
 	 }
 	 else if( mouseX >buttonX[0] && mouseX < (buttonX[0]+ buttonWidth[2]) && mouseY> buttonY[2] && mouseY < (buttonY[2]+buttonHeight[0]) ) {
-		main();
+		location.href = "/levelEditor";
 	 }
 	 else{
 		 console.log(" do nothing");
