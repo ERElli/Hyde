@@ -121,6 +121,9 @@
 				else if (t.type == 'Terrain3x6Breakable') {
 					block = Terrain3x6Breakable(t.id, t.x, t.y-100);
 				}
+				else if (t.type == 'Terrain1x6Breakable') {
+					block = Terrain1x6Breakable(t.id, t.x, t.y-100);
+				}
 				
 
 				level['terrain'][t.id] = block;
