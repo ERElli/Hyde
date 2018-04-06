@@ -37,7 +37,7 @@ function WeaponPickUp(id, x, y, weaponType, target) {
 	}
 	
 	self.draw = function(ctx,isLevelEditor) {
-		gui.drawEntity(self.weapon, gui.fg_ctx, false);
+		gui.drawEntity(self.weapon, gui.fg_ctx, isLevelEditor);
 	}
 	
 	return self;

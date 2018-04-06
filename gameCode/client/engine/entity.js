@@ -344,6 +344,9 @@ function Boulder(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	self.width = 50;
 	self.height = 50;
 	self.damage = 25;
+	self.xOffset = 0;
+	self.yOffset=0;
+	self.falling = false;
 	self.ay = g;
 
 	self.ownerID = ownerID;
@@ -356,12 +359,22 @@ function Boulder(id, x, y, vx, vy, width, height, img, color, ownerID) {
 		self.vy += self.ay;
 		
 		ani.breakable1x6(self, self.aniTimer);
-		console.log(self.aniTimer);
+		//console.log(self.aniTimer);
 		
 		self.aniTimer++;
 		
 		oldUpdate();
 		
+	}
+	
+	self.setAirMotion = function() {
+		self.ay = g;
+		self.ax /= 2;
+	}
+
+	self.setGroundMotion = function() {
+		self.ay = 0;
+		self.vy = 0;
 	}
 
 	//self.draw = function() {

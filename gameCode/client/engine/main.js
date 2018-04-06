@@ -244,7 +244,7 @@ var update = function() {
 				//block.health -= player_damage;
 				if (Math.abs(player.getMomentum()) >= block.breakAt) {
 					delete  terrain[key];
-					b = new Boulder(Math.random(), block.x, block.y, 0, 0, 0 ,0, "", null, player.id);
+					b = new Boulder(Math.random(), block.x, block.y-100, 0, 0, 0 ,0, "", null, player.id);
 					bullets[b.id] = b;
 				}
 				else {
@@ -267,10 +267,9 @@ var update = function() {
 				console.log("Hey");
 				if (Math.abs(player.getMomentum()) >= block.breakAt) {
 
-					b = new Boulder(Math.random(), block.x, block.y, 0, 0, 0 ,0, "", null, player.id);
+					b = new Boulder(Math.random(), block.x, block.y-0.01, 0, 0, 0 ,0, "", null, player.id);
 					bullets[b.id] = b;
 
-					console.log(bullets[b.id]);
 					
 					delete  terrain[key];
 				}
@@ -332,13 +331,46 @@ var update = function() {
 
 			bullet = bullets[key]
 
-			if (testCollision(block, {'x':bullet.x-bullet.width/2, 'y':bullet.y-bullet.height/2, 'width':bullet.width, 'height':bullet.height})) {
-
-				if (bullet.type == 'bullet') {
+			if (bullet.type == 'bullet') {
+				if (testCollision(block, {'x':bullet.x-bullet.width/2, 'y':bullet.y-bullet.height/2, 'width':bullet.width, 'height':bullet.height})) {
 					delete bullets[key];
+				}
+			}
+			else if (bullet.type == 'boulder') {
+				
+				
+				
+				bullet.falling = true;
+				
+				if (blockUnderEntity(block, bullet)) {
+					//console.log("here");
+					bullet.falling = false;
+					bullet.y = block.y;
+					bullet.setGroundMotion();
+				}
+
+				if (bullet.falling) {
+					bullet.inAir = true;
+					bullet.setAirMotion();
 				}
 
 
+				if (blockLeftEntity(block, bullet) && bullet.vx < 0) {
+					bullet.x = block.x + block.width+bullet.width/2;
+					bullet.vx = 1;
+				}
+				if (blockRightEntity(block, bullet) && bullet.vx > 0) {
+					bullet.x = block.x-bullet.width/2;
+					bullet.vx = -1;
+				}
+
+
+				if (blockOverEntity(block, bullet)) {
+					bullet.y = block.y+block.height+bullet.height/2;
+					bullet.vy = -2;
+				}
+				
+				
 			}
 
 		}
