@@ -654,7 +654,7 @@ var startGame = function(initial_level) {
 	// terrain[breakable.id] = breakable;
 	// console.log(terrain[breakable.id]['x'])
 	//surfaceMods = level["terrain"];
-	pickUps = level['pickUps']
+	pickUps = level['weapon']
 	//console.log(pickUps['p1']);
 	frameCount = 0;
 	everyTenCount = 0;

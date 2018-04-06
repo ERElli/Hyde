@@ -91,19 +91,19 @@
 
 			}
 			
-			level['weapons'] = {};
+			level['weapon'] = {};
 			
-			console.log("Weap: " + realLevel['weapons']);
+			console.log("Weap: " + realLevel['weapon']);
 
-			for (let thing in realLevel['weapons']) {
-				console.log("HERE: " + realLevel['weapons'][thing]);
-				w = realLevel['weapons'][thing]
+			for (let thing in realLevel['weapon']) {
+				console.log("HERE: " + realLevel['weapon'][thing]);
+				w = realLevel['weapon'][thing]
 
 				var weapon;
 
 				weapon = new WeaponPickUp(w.id, w.x, w.y, w.weaponType, level['player']);
 
-				level['weapons'][w.id] = weapon;
+				level['weapon'][w.id] = weapon;
 
 			}
 			
