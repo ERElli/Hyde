@@ -432,13 +432,23 @@ app.get('/client/interface/img/Animations/muzzleFlash/FlashStage4.png',function(
 });
 
 
-app.get('client/interface/img/terrain/1x6BreakableBuilding.png',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/img/terrain/1x6BreakableBuilding.png');
+app.get('/client/interface/img/terrain/1x6BreakableBuilding.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/1x6BreakableBuilding.png');
 });
-app.get('client/interface/img/terrain/1x6BreakableBuildingAnimation.png',function(req, res) {
-    res.sendFile(__dirname + 'client/interface/img/terrain/1x6BreakableBuildingAnimation.png');
+app.get('/client/interface/img/terrain/1x6BreakableBuildingAnimation.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/1x6BreakableBuildingAnimation.png');
 });
 
+app.get('/client/interface/img/terrain/breakableTerrain3x6.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/breakableTerrain3x6.png');
+});
+app.get('/client/interface/img/terrain/breakableBuildingAnimation.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/breakableBuildingAnimation.png');
+});
+
+app.get('/client/interface/img/terrain/terrain3x6.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/terrain3x6.png');
+});
 app.get('/images/background.png',function(req, res) {
     res.sendFile(__dirname + '/images/background.png');
 });
