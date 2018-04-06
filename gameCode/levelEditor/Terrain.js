@@ -109,3 +109,16 @@ function Terrain3x6Breakable(id, x, y){
 
 	return self;
 }
+
+function Terrain1x6Breakable(id, x, y){
+	var self = Terrain(id, x, y);
+	self.width = 50;
+	self.height = 300;
+	self.health = 40;
+	self.breakAt = MaxMomentum/2;
+	self.img = Img.terrain1x6Breakable;
+
+	self.type = "Terrain1x6Breakable";
+
+	return self;
+}
