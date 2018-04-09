@@ -167,6 +167,8 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 				self.jumpSpeed = smallJumpSpeed;
 				self.slowDownFactor = smallSlowDown;
 				
+				self.weapon = new Pistol(1, x, y, vx, vy, 40, 40, Img.assaultWeapon, "blue", id);
+				
 				self.xOffset = self.width*0.6;
 				self.yOffset = self.height/2;
 				
@@ -183,6 +185,8 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 				self.maxVelocityY = bigMaxVY;
 				self.jumpSpeed = bigJumpSpeed;
 				self.slowDownFactor = bigSlowDown;
+				
+				self.weapon = new NoWeapon(1, x, y, vx, vy, 40, 40, Img.assaultWeapon, "blue", id);
 				
 				self.vx = (px / self.mass) * mpsTOppf;
 				self.vy = (py / self.mass) * mpsTOppf;
