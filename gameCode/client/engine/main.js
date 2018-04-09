@@ -126,17 +126,15 @@ var doPressedActions = function() {
 
 		if (player.isBig) {
 			
-			if (player.hasBoulder && player.pickUpBoulderTimer > 20) {
+			if (player.hasBoulder && player.pickUpBoulderTimer > 10) {
 				boulder = player.throwBoulder();
 				bullets[boulder.id] = boulder;
 			}
-			else if (!player.hasBoulder && player.throwBoulderTimer > 20) {
+			else if (!player.hasBoulder && player.throwBoulderTimer > 10) {
 				
 				for (var key in boulderPickUps) {
 
 					bp = boulderPickUps[key];
-
-					bp.draw();
 
 					pickUp_rect = {'x':bp.x-bp.width/2, 'y':bp.y-bp.height/2, 'width':bp.width, 'height':bp.height};
 
@@ -343,17 +341,10 @@ var update = function() {
 
 			bullet = bullets[key]
 
-			if (bullet.type == 'bullet') {
+			if (bullet.type != 'meleeBullet') {
 				if (testCollision(block, {'x':bullet.x-bullet.width/2, 'y':bullet.y-bullet.height/2, 'width':bullet.width, 'height':bullet.height})) {
 					delete bullets[key];
 				}
-			}
-			else if (bullet.type == 'boulder') {
-
-				if (testCollision(block, bullet)) {
-					bullet.y = block.y - bullet.height/2;
-				}
-
 			}
 
 		}

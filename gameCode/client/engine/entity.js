@@ -339,7 +339,7 @@ function BoulderBullet(id, x, y, vx, vy, img, color, ownerID) {
 	self.xOffset = 0;
 	self.yOffset=0;
 	self.falling = false;
-	self.ay = 0;
+	self.ay = g;
 
 	self.ownerID = ownerID;
 
@@ -352,15 +352,6 @@ function BoulderBullet(id, x, y, vx, vy, img, color, ownerID) {
 		
 		oldUpdate();
 		
-	}
-	
-	self.setAirMotion = function() {
-		self.ay = g;
-	}
-
-	self.setGroundMotion = function() {
-		self.ay = 0;
-		self.vy = 0;
 	}
 	
 	return self;
