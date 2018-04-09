@@ -341,17 +341,10 @@ var update = function() {
 
 			bullet = bullets[key]
 
-			if (bullet.type == 'bullet') {
+			if (bullet.type != 'meleeBullet') {
 				if (testCollision(block, {'x':bullet.x-bullet.width/2, 'y':bullet.y-bullet.height/2, 'width':bullet.width, 'height':bullet.height})) {
 					delete bullets[key];
 				}
-			}
-			else if (bullet.type == 'boulder') {
-
-				if (testCollision(block, bullet)) {
-					bullet.y = block.y - bullet.height/2;
-				}
-
 			}
 
 		}
