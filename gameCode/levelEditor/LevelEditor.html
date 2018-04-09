@@ -16,13 +16,12 @@
     	<button id="button1"> Save </button>
 	</div>
 
-
  	<div id="enemiesDropdown">
 		<button onclick="typeTapped('enemies')" id="enemiesbtn"></button>
 		<div id="enemies" class="dropdown-content">
-			<button style="background-image: url(../../images/enemy1Drop.png)" onclick="enemyTapped('Basic Enemy')" class="enemy1btn"></button>
-			<button style="background-image: url(../../images/enemy2Drop.png)" onclick="enemyTapped('Flying Enemy')" class="enemy2btn"></button>
-			<button style="background-image: url(../../images/enemy3Drop.png)" onclick="enemyTapped('Tank Enemy')" class="enemy3btn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/enemy/basicEnemyDrop.png)" onclick="enemyTapped('Basic Enemy')" class="enemy1btn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/enemy/flyingEnemyDrop.png)" onclick="enemyTapped('Flying Enemy')" class="enemy2btn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/enemy/shieldEnemyDrop.png)" onclick="enemyTapped('Tank Enemy')" class="enemy3btn"></button>
 		</div>
 	</div>
 
@@ -47,8 +46,8 @@
 	<div id="checkpointDropdown">
 		<button onclick="typeTapped('checkpoints')" id="checkpointbtn"></button>
 		<div id="checkpoints" class="dropdown-content">
-			<button style="background-image: url(../images/checkpointDrop.png)" onclick="checkpointTapped('standard checkpoint')" class="checkpoint1btn"></button>
-			<button style="background-image: url(../images/checkpointFinishDrop.png)" onclick="checkpointTapped('final checkpoint')" class="checkpoint2btn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/checkpoint/checkpointDrop.png)" onclick="checkpointTapped('standard checkpoint')" class="checkpoint1btn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/checkpoint/checkpointFinishDrop.png)" onclick="checkpointTapped('final checkpoint')" class="checkpoint2btn"></button>
 		</div>
 	</div>
 
@@ -64,15 +63,17 @@
 	<div id="terrainDropdown">
 		<button onclick="typeTapped('terrains')" id="terrainbtn"></button>
 		<div id="terrains" class="dropdown-content">
-			<button style="background-image: url(../images/1x1Drop.png)" onclick="terrainTapped('1x1')" class="terrain1btn"></button>
-			<button style="background-image: url(../images/1x1Drop.png)" onclick="terrainTapped('1x1Breakable')" class="terrain2btn"></button>
+			<button style="background-image: url('../client/interface/img/levelEditor/buttons/terrain/1x1Drop.png')" onclick="terrainTapped('1x1')" class="terrain1btn"></button>
+			<button style="background-image: url('../client/interface/img/levelEditor/buttons/terrain/1x1BDrop.png')" onclick="terrainTapped('1x1Breakable')" class="terrain2btn"></button>
 			<button style="background-image: url(../images/3x2Drop.png)" onclick="terrainTapped('3x2')" class="terrain3btn"></button>
 			<button style="background-image: url(../images/3x2BDrop.png)" onclick="terrainTapped('3x2Breakable')" class="terrain4btn"></button>
 			<button style="background-image: url(../images/3x4Drop.png)" onclick="terrainTapped('3x4')" class="terrain5btn"></button>
 			<button style="background-image: url(../images/3x4BDrop.png)" onclick="terrainTapped('3x4Breakable')" class="terrain6btn"></button>
 			<button style="background-image: url(../images/3x6Drop.png)" onclick="terrainTapped('3x6')" class="terrain7btn"></button>
 			<button style="background-image: url(../images/3x6BDrop.png)" onclick="terrainTapped('3x6Breakable')" class="terrain8btn"></button>
-			<button style="background-image: url(../images/1x6BDrop.png)" onclick="terrainTapped('1x6Breakable')" class="terrain9btn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/1x6BDrop.png)" onclick="terrainTapped('1x6Breakable')" class="terrain9btn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/topSpikeDrop.png)" onclick="terrainTapped('topSpikeTrap')" class="terrain9btn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/platformDrop.png)" onclick="terrainTapped('platform')" class="terrain9btn"></button>
 		</div>
 	</div>
 
@@ -80,7 +81,7 @@
 		<button onclick="typeTapped('weapons')" id="weaponbtn"></button>
 		<div id="weapons" class="dropdown-content">
 			<button style="background-image: url(../../images/pistolDrop.png)" onclick="weaponTapped('pistol')" class="pistolbtn"></button>
-			<button style="background-image: url(../../images/assaultDrop.png)" onclick="weaponTapped('assault')" class="assaultbtn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/weapon/assaultDrop.png)" onclick="weaponTapped('assault')" class="assaultbtn"></button>
 			<button style="background-image: url(../../images/shottyDrop.png)" onclick="weaponTapped('shotgun')" class="shotgunbtn"></button>
 			<button style="background-image: url(../../images/swordDrop.png)" onclick="weaponTapped('sword')" class="swordbtn"></button>
 		</div>
@@ -281,12 +282,12 @@ var offsetY = 0;
 var fps = 60;
 var framecount = 0;
 var numClicks = 1;
-var entity;
 var pathToRoot = "../";
 var Img = Img(pathToRoot);
 var ani = Animation();
 var dropdownDisplayed = false;
 var visibleDropdown;
+var entity;
 var pos;
 var id;
 var x;
@@ -397,92 +398,179 @@ snapToGrid  = function(canvas,mouse){
 	var tempID = 0;
 	var tempTarget = Player(tempID,0,0,0,0,null,false);
 	var previewImage = new Image();
-	if(self.selectedButton === 'enemies'){
-		switch(self.selectedEnemy){
-			case "Basic Enemy":
-				entity = BasicEnemy(tempID,prev_x,prev_y,0,0,Img.basicEnemy1,'red',null);
-				break;
-			case "Flying Enemy":
-				entity = FlyingEnemy(tempID,prev_x,prev_y,0,0,Img.basicEnemy2,'red',null);
-				break;
-			case "Tank Enemy":
-				entity = TankEnemy(tempID,prev_x,prev_y,0,0,Img.basicEnemy3,'red',null);
-				break;
-		}
-		entity.draw(gui.ep_ctx,true);
+	switch(self.selectedButton){
+		case 'enemies':
+				switch(self.selectedEnemy){
+				case "Basic Enemy":
+					entity = BasicEnemy(tempID,prev_x,prev_y,0,0,Img.basicEnemy1,'red',null);
+					break;
+				case "Flying Enemy":
+					entity = FlyingEnemy(tempID,prev_x,prev_y,0,0,Img.basicEnemy2,'red',null);
+					break;
+				case "Tank Enemy":
+					entity = TankEnemy(tempID,prev_x,prev_y,0,0,Img.basicEnemy3,'red',null);
+					break;
+			}
+			entity.draw(gui.ep_ctx,true);
+			break;
+		case 'checkpoints':
+			switch(self.selectedCheckpoint){
+				case "standard checkpoint":
+					entity = StandardCheckpoint(tempID,prev_x,prev_y);
+					break;
+				case "final checkpoint":
+					entity = FinalCheckpoint(tempID,prev_x,prev_y);
+					break;
+			}
+			entity.draw(gui.ep_ctx,true);
+			break;
+		case 'character':
+			entity = Player(tempID,prev_x,prev_y,0,0,Img.playerSmall,null,false);
+			entity.draw(gui.ep_ctx,true);
+			break;
+		case 'terrains':
+			switch(self.selectedTerrain){
+				case "1x1":
+					entity = Terrain1x1(tempID,prev_x,prev_y);
+					break;
+				case "1x1Breakable":
+					entity = Terrain1x1Breakable(tempID,prev_x,prev_y);
+					break;
+				case "3x2":
+					entity = Terrain3x2(tempID,prev_x,prev_y);
+					break;
+				case "3x2Breakable":
+					entity = Terrain3x2Breakable(tempID,prev_x,prev_y);
+					break;
+				case "3x4":
+					entity = Terrain3x4(tempID,prev_x,prev_y);
+					break;
+				case "3x4Breakable":
+					entity = Terrain3x4Breakable(tempID,prev_x,prev_y);
+					break;
+				case "3x6":
+					entity = Terrain3x6(tempID,prev_x,prev_y);
+					break;
+				case "3x6Breakable":
+					entity = Terrain3x6Breakable(tempID,prev_x,prev_y);
+					break;
+				case "1x6Breakable":
+					entity = Terrain1x6Breakable(tempID,prev_x,prev_y);
+					break;
+				case "topSpikeTrap":
+					entity = SpikeTrap(tempID, prev_x, prev_y, 0, 0, 50, 50, Img.topSpikeTrap,'red', 20,'vertical');
+				case "platform":
+					entity = MovingPlatform(tempID, prev_x, prev_y, 0, 0, 50, 50, Img.platform, 'red', null, 5);
+			}
+			entity.draw(gui.ep_ctx,true);
+			break;
+		case 'weapons':
+			switch(self.selectedWeapon){
+	    		case "pistol":
+	    			entity = WeaponPickUp(tempID,prev_x,prev_y,"pistol",tempTarget);
+	    			break;
+	    		case "assault":
+	    			entity = WeaponPickUp(tempID,prev_x,prev_y,"assaultRifle",tempTarget);
+	    			break;
+	    		case "shotgun":
+	    			entity = WeaponPickUp(tempID,prev_x,prev_y,"shotgun",tempTarget);
+	    			break;
+	    		case "sword":
+	    			entity = WeaponPickUp(tempID,prev_x,prev_y,"sword",tempTarget);
+	    			break;
+	    	}
+	    	entity.draw(gui.ep_ctx,true);
+			break;
+		default:
+			gui.ep_ctx.fillRect(x,y,TILE_WIDTH,TILE_HEIGHT);
+			break;
 	}
-	else if(self.selectedButton === 'character'){
-		entity = Player(tempID,prev_x,prev_y,0,0,Img.playerSmall,null,false);
-		entity.draw(gui.ep_ctx,true);
-	}
-	else if(self.selectedButton === "checkpoints"){
-		switch(self.selectedCheckpoint){
-			case "standard checkpoint":
-				entity = StandardCheckpoint(tempID,prev_x,prev_y);
-				break;
-			case "final checkpoint":
-				entity = FinalCheckpoint(tempID,prev_x,prev_y);
-				break;
-		}
-		entity.draw(gui.ep_ctx,true);
-	}
-	else if(self.selectedButton === "music"){
-		previewImage.src = "../../images/placeCheckpoint.png";
-		gui.ep_ctx.drawImage(previewImage, prev_x, prev_y, TILE_WIDTH, TILE_HEIGHT);
-	}
-	else if(self.selectedButton === "terrains"){
-		switch(self.selectedTerrain){
-			case "1x1":
-				entity = Terrain1x1(tempID,prev_x,prev_y);
-				break;
-			case "1x1Breakable":
-				entity = Terrain1x1Breakable(tempID,prev_x,prev_y);
-				break;
-			case "3x2":
-				entity = Terrain3x2(tempID,prev_x,prev_y);
-				break;
-			case "3x2Breakable":
-				entity = Terrain3x2Breakable(tempID,prev_x,prev_y);
-				break;
-			case "3x4":
-				entity = Terrain3x4(tempID,prev_x,prev_y);
-				break;
-			case "3x4Breakable":
-				entity = Terrain3x4Breakable(tempID,prev_x,prev_y);
-				break;
-			case "3x6":
-				entity = Terrain3x6(tempID,prev_x,prev_y);
-				break;
-			case "3x6Breakable":
-				entity = Terrain3x6Breakable(tempID,prev_x,prev_y);
-				break;
-			case "1x6Breakable":
-				entity = Terrain1x6Breakable(tempID,prev_x,prev_y);
-				break;
-		}
-		entity.draw(gui.ep_ctx,true);
-    }
-    else if(self.selectedButton === "weapons"){
-    	switch(self.selectedWeapon){
-    		case "pistol":
-    			entity = WeaponPickUp(tempID,prev_x,prev_y,"pistol",tempTarget);
-    			break;
-    		case "assault":
-    			entity = WeaponPickUp(tempID,prev_x,prev_y,"assaultRifle",tempTarget);
-    			break;
-    		case "shotgun":
-    			entity = WeaponPickUp(tempID,prev_x,prev_y,"shotgun",tempTarget);
-    			break;
-    		case "sword":
-    			entity = WeaponPickUp(tempID,prev_x,prev_y,"sword",tempTarget);
-    			break;
-    	}
-    	console.log(entity);
-    	entity.draw(gui.ep_ctx,true);
-    }
-	else {
-		gui.ep_ctx.fillRect(x,y,TILE_WIDTH,TILE_HEIGHT);
-  	}
+	// if(self.selectedButton === 'enemies'){
+	// 	switch(self.selectedEnemy){
+	// 		case "Basic Enemy":
+	// 			entity = BasicEnemy(tempID,prev_x,prev_y,0,0,Img.basicEnemy1,'red',null);
+	// 			break;
+	// 		case "Flying Enemy":
+	// 			entity = FlyingEnemy(tempID,prev_x,prev_y,0,0,Img.basicEnemy2,'red',null);
+	// 			break;
+	// 		case "Tank Enemy":
+	// 			entity = TankEnemy(tempID,prev_x,prev_y,0,0,Img.basicEnemy3,'red',null);
+	// 			break;
+	// 	}
+	// 	entity.draw(gui.ep_ctx,true);
+	// }
+	// else if(self.selectedButton === 'character'){
+	// 	entity = Player(tempID,prev_x,prev_y,0,0,Img.playerSmall,null,false);
+	// 	entity.draw(gui.ep_ctx,true);
+	// }
+	// else if(self.selectedButton === "checkpoints"){
+	// 	switch(self.selectedCheckpoint){
+	// 		case "standard checkpoint":
+	// 			entity = StandardCheckpoint(tempID,prev_x,prev_y);
+	// 			break;
+	// 		case "final checkpoint":
+	// 			entity = FinalCheckpoint(tempID,prev_x,prev_y);
+	// 			break;
+	// 	}
+	// 	entity.draw(gui.ep_ctx,true);
+	// }
+	// else if(self.selectedButton === "music"){
+	// 	previewImage.src = "../../images/placeCheckpoint.png";
+	// 	gui.ep_ctx.drawImage(previewImage, prev_x, prev_y, TILE_WIDTH, TILE_HEIGHT);
+	// }
+	// else if(self.selectedButton === "terrains"){
+	// 	switch(self.selectedTerrain){
+	// 		case "1x1":
+	// 			entity = Terrain1x1(tempID,prev_x,prev_y);
+	// 			break;
+	// 		case "1x1Breakable":
+	// 			entity = Terrain1x1Breakable(tempID,prev_x,prev_y);
+	// 			break;
+	// 		case "3x2":
+	// 			entity = Terrain3x2(tempID,prev_x,prev_y);
+	// 			break;
+	// 		case "3x2Breakable":
+	// 			entity = Terrain3x2Breakable(tempID,prev_x,prev_y);
+	// 			break;
+	// 		case "3x4":
+	// 			entity = Terrain3x4(tempID,prev_x,prev_y);
+	// 			break;
+	// 		case "3x4Breakable":
+	// 			entity = Terrain3x4Breakable(tempID,prev_x,prev_y);
+	// 			break;
+	// 		case "3x6":
+	// 			entity = Terrain3x6(tempID,prev_x,prev_y);
+	// 			break;
+	// 		case "3x6Breakable":
+	// 			entity = Terrain3x6Breakable(tempID,prev_x,prev_y);
+	// 			break;
+	// 		case "1x6Breakable":
+	// 			entity = Terrain1x6Breakable(tempID,prev_x,prev_y);
+	// 			break;
+	// 	}
+	// 	entity.draw(gui.ep_ctx,true);
+ //    }
+ //    else if(self.selectedButton === "weapons"){
+ //    	switch(self.selectedWeapon){
+ //    		case "pistol":
+ //    			entity = WeaponPickUp(tempID,prev_x,prev_y,"pistol",tempTarget);
+ //    			break;
+ //    		case "assault":
+ //    			entity = WeaponPickUp(tempID,prev_x,prev_y,"assaultRifle",tempTarget);
+ //    			break;
+ //    		case "shotgun":
+ //    			entity = WeaponPickUp(tempID,prev_x,prev_y,"shotgun",tempTarget);
+ //    			break;
+ //    		case "sword":
+ //    			entity = WeaponPickUp(tempID,prev_x,prev_y,"sword",tempTarget);
+ //    			break;
+ //    	}
+ //    	console.log(entity);
+ //    	entity.draw(gui.ep_ctx,true);
+ //    }
+	// else {
+	// 	gui.ep_ctx.fillRect(x,y,TILE_WIDTH,TILE_HEIGHT);
+ //  	}
 };
 //function to place entity on the map
 putEntity = function() {
@@ -492,74 +580,92 @@ putEntity = function() {
 	id = Math.random();
 	if(mouseBelowUpperBound && mouseAboveLowerBound){
 		if(((x+entity.width) <= WIDTH) && ((y+entity.height) <= HEIGHT) && !dropdownDisplayed){
-			if(self.selectedButton !== null){
-				if(self.selectedButton === 'enemies'){
-					if(self.selectedEnemy === 'Basic Enemy'){
-						entity = BasicEnemy(id,x,y,0,0,Img.basicEnemy1,'red',null);
-					} else if(self.selectedEnemy === "Flying Enemy"){
-						entity = FlyingEnemy(id,x,y,0,0,Img.basicEnemy2,'red',null);
-					} else if(self.selectedEnemy === "Tank Enemy"){
-						entity = TankEnemy(id,x,y,0,0,Img.bearEnemy,'red',null);
-					} else {
-						console.log("enemy error");
+			switch(self.selectedButton){
+				case 'enemies':
+					switch(self.selectedEnemy){
+						case 'Basic Enemy':
+							entity = BasicEnemy(id,x,y,0,0,Img.basicEnemy1,'red',null);
+							break;
+						case 'Flying Enemy':
+							entity = FlyingEnemy(id,x,y,0,0,Img.basicEnemy2,'red',null);
+							break;
+						case 'Tank Enemy':
+							entity = TankEnemy(id,x,y,0,0,Img.bearEnemy,'red',null);
+							break;
 					}
-				}else if(self.selectedButton ==='checkpoints'){
-					console.log("selectedButton",self.selectedButton);
-					if(self.selectedCheckpoint === 'standard checkpoint'){
-						entity = StandardCheckpoint(id,x,y);
-						// console.log("STANDARD CHECKPOINT",entity);
-					} else if(self.selectedCheckpoint === 'final checkpoint'){
-						entity = FinalCheckpoint(id,x,y);
-						// console.log("FINAL CHECKPOINT",entity);
+					break;
+				case 'checkpoints':
+					switch(self.selectedCheckpoint){
+						case 'standard checkpoint':
+							entity = StandardCheckpoint(id,x,y);
+							break;
+						case 'final checkpoint':
+							entity = FinalCheckpoint(id,x,y);
+							break;
 					}
-				}else if(self.selectedButton === 'character'){
+					break;
+				case 'character':
 					entity = Player(id,x,y,0,0,Img.playerSmall,null,false);
-					console.log("PLAYER",entity);
-				}else if(self.selectedButton === 'terrains'){
-					if(self.selectedTerrain === "1x1"){
-						entity = Terrain1x1(id,x,y);
-					}else if(self.selectedTerrain === "1x1Breakable"){
-						entity = Terrain1x1Breakable(id,x,y);
-					}else if(self.selectedTerrain === "3x2"){
-						entity = Terrain3x2(id, x, y);
-					}else if(self.selectedTerrain === "3x2Breakable"){
-						entity = Terrain3x2Breakable(id, x, y);
-					}else if(self.selectedTerrain === "3x4"){
-						entity = Terrain3x4(id, x, y);
-					}else if(self.selectedTerrain === "3x4Breakable"){
-						entity = Terrain3x4Breakable(id, x, y);
-					}else if(self.selectedTerrain === "3x6"){
-						entity = Terrain3x6(id, x, y);
-              		}else if(self.selectedTerrain === "3x6Breakable"){
-						entity = Terrain3x6Breakable(id, x, y);
-					}else if(self.selectedTerrain === "1x6Breakable"){
-						entity = Terrain1x6Breakable(id, x, y);
-					}else{
-						console.log("terrain problem");
+					break;
+				case 'terrains':
+					switch(self.selectedTerrain){
+						case '1x1':
+							entity = Terrain1x1(id,x,y);
+							break;
+						case '1x1Breakable':
+							entity = Terrain1x1Breakable(id,x,y);
+							break;
+						case '3x2':
+							entity = Terrain3x2(id, x, y);
+							break;
+						case '3x2Breakable':
+							entity = Terrain3x2Breakable(id, x, y);
+							break;
+						case '3x4':
+							entity = Terrain3x4(id, x, y);
+							break;
+						case '3x4Breakable':
+							entity = Terrain3x4Breakable(id, x, y);
+							break;
+						case '3x6':
+							entity = Terrain3x6(id, x, y);
+							break;
+						case '3x6Breakable':
+							entity = Terrain3x6Breakable(id, x, y);
+							break;
+						case '1x6Breakable':
+							entity = Terrain1x6Breakable(id, x, y);
+							break;
+						case 'topSpike':
+							entity = SpikeTrap(id, x, y, 0, 0, 50, 50, Img.topSpikeTrap, 'red', 20, 'vertical');
+							break;
+						case 'platform':
+							entity = MovingPlatform(id, x, y, 0, 0, 50, 50, Img.platform, 'red', null, 5);
+							break;
 					}
-				}else if(self.selectedButton ==='weapons'){
-					console.log("PLACING WEAPON");
+					break;
+				case 'weapons':
 					switch(self.selectedWeapon){
-    					case "pistol":
-    						entity = WeaponPickUp(id,x,y,"pistol",tempTarget);
-    						break;
-			    		case "assault":
-			    			entity = WeaponPickUp(id,x,y,"assaultRifle",tempTarget);
-			    			break;
-			    		case "shotgun":
-			    			entity = WeaponPickUp(id,x,y,"shotgun",tempTarget);
-			    			break;
-			    		case "sword":
-			    			entity = WeaponPickUp(id,x,y,"sword",tempTarget);
-			    			break;
-			    	}
-				}
-				map.tryToPlaceEntity(entity);
-			}else{
-				console.log("No entity selected");
+						case 'pistol':
+							entity = WeaponPickUp(id,x,y,"pistol",tempTarget);
+							break;
+						case 'assault':
+							entity = WeaponPickUp(id,x,y,"assaultRifle",tempTarget);
+							break;
+						case 'shotgun':
+							entity = WeaponPickUp(id,x,y,"shotgun",tempTarget);
+							break;
+						case 'sword':
+							entity = WeaponPickUp(id,x,y,"sword",tempTarget);
+							break;
+					}
+					break;
+				default:
+					console.log("No entity selected");
+					break;
 			}
-		}
-		else{
+			map.tryToPlaceEntity(entity);
+		}else{
 			console.log("Can not place object there");
 		}
 	}
