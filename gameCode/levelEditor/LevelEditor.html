@@ -210,8 +210,22 @@ var button1 = document.getElementById("button1");
    console.log("this is cool");
    let level = data;
    console.log("result"+ level);
-   //let levelObject = EntityFactory(level,true);
-   //map = Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
+   var levelObject = EntityFactory(level,true);
+   console.log("LEVEL OBJECT",levelObject);
+   map = Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
+   for(let type in levelObject){
+     console.log("TYPE",levelObject[type]);
+     if(type.includes("terrain") || type.includes("enemies") || type.includes("player") || type.includes("weapon")){
+       for(let id in levelObject[type]){
+         console.log("ID",levelObject[type][id]);
+         map.tryToPlaceEntity(levelObject[type][id]);
+       }
+     }
+   }
+   updateWidth(parseInt(levelObject.width));
+
+
+   updateMap(map);
    //console.log(levelObject);
    Update(level);
  });
@@ -219,11 +233,26 @@ var button1 = document.getElementById("button1");
 socket.on('hey', function(data){
   let level = data;
   console.log("result"+ level);
-  //let levelObject = EntityFactory(level,true);
-  map = Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
+  let levelObject = EntityFactory(level,true);
+  console.log("LEVEL OBJECT",levelObject.width);
+  var map = Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
+  console.log("MAP",map);
+  updateWidth(levelObject.width);
   //console.log(levelObject);
   Update(level);
 });
+
+updateWidth = function(newWidth){
+  console.log("OLD WIDTH", WIDTH);
+  WIDTH = newWidth;
+  console.log("NEW WIDTH",WIDTH);
+
+};
+updateMap = function(newMap){
+  console.log("old map",map);
+  map = newMap;
+  console.log("NEW map",map);
+}
 var Update = function(level){
 	// var l = level;
 	 console.log("heeey"+JSON.stringify(level[0] ));
@@ -542,14 +571,14 @@ deleteEntity = function() {
 		map.removeEntity(x,y);
 	}
 };
-update = function() {
+updateLevel = function() {
 	gui.fg_ctx.clearRect(0,0,WIDTH,HEIGHT);
 	map.update();
 	doPressedAction();
 	framecount++;
 };
 // Calling update 60 times a second
-setInterval(update, 1000/fps);
+setInterval(updateLevel, 1000/fps);
 getMousePosition = function(canvas,mouse){
 	var rect = canvas.getBoundingClientRect();
 	return {
