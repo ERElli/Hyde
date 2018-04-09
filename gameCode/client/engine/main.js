@@ -126,17 +126,15 @@ var doPressedActions = function() {
 
 		if (player.isBig) {
 			
-			if (player.hasBoulder && player.pickUpBoulderTimer > 20) {
+			if (player.hasBoulder && player.pickUpBoulderTimer > 10) {
 				boulder = player.throwBoulder();
 				bullets[boulder.id] = boulder;
 			}
-			else if (!player.hasBoulder && player.throwBoulderTimer > 20) {
+			else if (!player.hasBoulder && player.throwBoulderTimer > 10) {
 				
 				for (var key in boulderPickUps) {
 
 					bp = boulderPickUps[key];
-
-					bp.draw();
 
 					pickUp_rect = {'x':bp.x-bp.width/2, 'y':bp.y-bp.height/2, 'width':bp.width, 'height':bp.height};
 
