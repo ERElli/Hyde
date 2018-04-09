@@ -78,34 +78,33 @@
 
 	<div id="weaponDropdown">
 		<button onclick="typeTapped('weapons')" id="weaponbtn"></button>
-  		<div id="weapons" class="dropdown-content">
+		<div id="weapons" class="dropdown-content">
 			<button style="background-image: url(../../images/pistolDrop.png)" onclick="weaponTapped('pistol')" class="pistolbtn"></button>
 			<button style="background-image: url(../../images/assaultDrop.png)" onclick="weaponTapped('assault')" class="assaultbtn"></button>
 			<button style="background-image: url(../../images/shottyDrop.png)" onclick="weaponTapped('shotgun')" class="shotgunbtn"></button>
 			<button style="background-image: url(../../images/swordDrop.png)" onclick="weaponTapped('sword')" class="swordbtn"></button>
-   		</div>
+		</div>
 	</div>
 
 
-  <div id="levelMenu"  style=" display:none; padding-top:10%; padding-left:40%;height:500px; background-color: lightblue;" >
-    Level Name: <input id="levelNameField" type="text"></input><br><br>
-    <br><br>
-    Choose Width (ex: 1200): <input id="widthValue" type="text"></input><br><br>
-      <br><br>
-    <button id="levelButton">Go to Level Editor</button>
+	<div id="levelMenu"  style=" display:none; padding-top:10%; padding-left:40%;height:500px; background-color: lightblue;" >
+		Level Name: <input id="levelNameField" type="text"></input><br><br>
+		<br><br>
+		Choose Width (ex: 1200): <input id="widthValue" type="text"></input><br><br>
+		<br><br>
+		<button id="levelButton">Go to Level Editor</button>
 	</div>
 
-  <div id="levelLoad"  style=" display:none; padding-top:10%; padding-left:40%;height:500px; background-color: lightblue;" >
-    Level Name: <input id="levelNameField2" type="text"></input><br><br>
-    <br><br>
-    <button id="levelButton2">Load in Level Editor</button>
+	<div id="levelLoad"  style=" display:none; padding-top:10%; padding-left:40%;height:500px; background-color: lightblue;" >
+		Level Name: <input id="levelNameField2" type="text"></input><br><br>
+		<br><br>
+		<button id="levelButton2">Load in Level Editor</button>
 	</div>
 
-  <div id="levelChoice"  style="   padding-top:10%; padding-left:40%;height:500px; background-color: lightblue;" >
-      <button id="levelNewButton">New Level</button>
-    <button id="levelLoadButton">Load Level</button>
+	<div id="levelChoice"  style="   padding-top:10%; padding-left:40%;height:500px; background-color: lightblue;" >
+		<button id="levelNewButton">New Level</button>
+		<button id="levelLoadButton">Load Level</button>
 	</div>
-
 </body>
 
 
@@ -142,26 +141,27 @@ var levelNameField2 = document.getElementById('levelNameField2');
 var levelLoad = document.getElementById('levelLoad');
 var levelButton2 = document.getElementById('levelButton2');
 var state;
+
 levelButton.onclick = function(){
-  state = "new";
-  if (levelNameField.value ==="" ){
-    alert("Please input a name for the level.");
-  }
-  else{
-    socket.emit('newLevel',{width:widthValue.value,  level: levelNameField.value});
-    container.style.display = 'block';
-    levelMaker.style.display = 'block';
-    enemiesDropdown.style.display = 'block';
-    levelMenu.style.display = 'none';
-    musicDropdown.style.display ='block';
-    backgroundDropdown.style.display = 'block';
-    checkpointDropdown.display = 'block';
-    characterDropdown.display = 'block';
-    terrainDropdown.display = 'block';
-    weaponDropdown.display = 'block';
-    //
-  }
+	state = "new";
+	if (levelNameField.value ==="" ){
+		alert("Please input a name for the level.");
+	}
+	else{
+		socket.emit('newLevel',{width:widthValue.value,  level: levelNameField.value});
+		container.style.display = 'block';
+		levelMaker.style.display = 'block';
+		enemiesDropdown.style.display = 'block';
+		levelMenu.style.display = 'none';
+		musicDropdown.style.display ='block';
+		backgroundDropdown.style.display = 'block';
+		checkpointDropdown.display = 'block';
+		characterDropdown.display = 'block';
+		terrainDropdown.display = 'block';
+		weaponDropdown.display = 'block';
+	}
 }
+
 levelButton2.onclick = function(){
   state = "load";
   if (levelNameField2.value ==="" ){
@@ -205,24 +205,24 @@ var button1 = document.getElementById("button1");
     console.log("result", JSON.parse(JSON.stringify(res)));
       location.href = "/client/interface/index.html";
  });
- socket.on('loadIt', function(data){
-   //setBackground("world 1");
-   console.log("this is cool");
-   let level = data;
-   console.log("result"+ level);
-   var levelObject = EntityFactory(level,true);
-   console.log("LEVEL OBJECT",levelObject);
-   map = Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
-   for(let type in levelObject){
-     console.log("TYPE",levelObject[type]);
-     if(type.includes("terrain") || type.includes("enemies") || type.includes("player") || type.includes("weapon")){
-       for(let id in levelObject[type]){
-         console.log("ID",levelObject[type][id]);
-         map.tryToPlaceEntity(levelObject[type][id]);
-       }
-     }
-   }
-   updateWidth(parseInt(levelObject.width));
+socket.on('loadIt', function(data){
+	//setBackground("world 1");
+	console.log("this is cool");
+	let level = data;
+	console.log("result"+ level);
+	var levelObject = EntityFactory(level,false);
+	console.log("LEVEL OBJECT",levelObject);
+	map = new Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
+	for(let type in levelObject){
+		console.log("TYPE",levelObject[type]);
+		if(type.includes("terrain") || type.includes("enemies") || type.includes("player") || type.includes("weapon")){
+		for(let id in levelObject[type]){
+			console.log("ID",levelObject[type][id]);
+			map.tryToPlaceEntity(levelObject[type][id]);
+		}
+	}
+}
+	updateWidth(parseInt(levelObject.width));
 
 
    updateMap(map);
@@ -314,7 +314,7 @@ var controls = {
 window.addEventListener("keydown",function(e){
 	switch(e.keyCode){
 		case 37:
- 			controls.left = true;
+			controls.left = true;
 			e.preventDefault();
 			break;
 		case 38:
