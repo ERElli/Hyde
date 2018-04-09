@@ -72,7 +72,7 @@ Map = function(width, height,tile_width, tile_height) {
 			let size = Object.keys(list).length;
 			if(size === 1){
 				for(var key in list){
-					self.makeFreeSpace(list[key]);
+					self.makeFreeSpace(self.tiles,list[key]);
 				}
 				delete list;
 				self.ObjectList['player'] = {};
