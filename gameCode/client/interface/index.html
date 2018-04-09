@@ -69,7 +69,7 @@
 				p = realLevel['player'][thing]
 			}
 
-			level['player'] = new Player(p.id, p.x, p.y-100, p.vx, p.vy, p.img, new Pistol(Math.random(), p.x, p.y, p.vx, p.vy, 50, 50,"pistol_image",null, p.id), p.isBig);
+			level['player'] = new Player(p.id, p.x, p.y-150, p.vx, p.vy, p.img, new Pistol(Math.random(), p.x, p.y, p.vx, p.vy, 50, 50,"pistol_image",null, p.id), p.isBig);
 			console.log("REAL LEVEL@@",realLevel);
 
 			level['enemies'] = {};
@@ -80,21 +80,21 @@
 				var enemy;
 
 				if (e.type == 'basic enemy') {
-					enemy =  new BasicEnemy(e.id, e.x, e.y-100, e.vx, e.vy, e.img, null, level['player']);
+					enemy =  new BasicEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
 				}
 				else if (e.type == 'tank enemy') {
-					enemy =  new TankEnemy(e.id, e.x, e.y-100, e.vx, e.vy, e.img, null, level['player']);
+					enemy =  new TankEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
 				}
 				else {
-					enemy =  new FlyingEnemy(e.id, e.x, e.y-100, e.vx, e.vy, e.img, null, level['player']);
+					enemy =  new FlyingEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
 				}
 
 				level['enemies'][e.id] = enemy;
 
 			}
-			
+
 			level['weapon'] = {};
-			
+
 			console.log("Weap: " + realLevel['weapon']);
 
 			for (let thing in realLevel['weapon']) {
@@ -103,12 +103,12 @@
 
 				var weapon;
 
-				weapon = new WeaponPickUp(w.id, w.x, w.y, w.weaponType, level['player']);
+				weapon = new WeaponPickUp(w.id, w.x, w.y-150, w.weaponType, level['player']);
 
 				level['weapon'][w.id] = weapon;
 
 			}
-			
+
 			level['terrain'] = {};
 			for (var thing in realLevel['terrain']) {
 				let t = realLevel['terrain'][thing]
@@ -117,33 +117,33 @@
 				var block;
 
 				if (t.type == 'Terrain1x1') {
-					block = Terrain1x1(t.id, t.x, t.y-100);
+					block = Terrain1x1(t.id, t.x, t.y-150);
 				}else if (t.type == 'Terrain3x2Breakable') {
-					block = Terrain3x2(t.id, t.x, t.y-100);
+					block = Terrain3x2(t.id, t.x, t.y-150);
 				}
 				else if (t.type == 'Terrain1x1Breakable') {
-					block = Terrain1x1Breakable(t.id, t.x, t.y-100);
+					block = Terrain1x1Breakable(t.id, t.x, t.y-150);
 				}
 				else if (t.type == 'Terrain3x2') {
-					block = Terrain3x2(t.id, t.x, t.y-100);
+					block = Terrain3x2(t.id, t.x, t.y-150);
 				}
 				else if (t.type == 'Terrain3x2Breakable') {
-					block = Terrain3x2Breakable(t.id, t.x, t.y-100);
+					block = Terrain3x2Breakable(t.id, t.x, t.y-150);
 				}
 				else if (t.type == 'Terrain3x4') {
-					block = Terrain3x4(t.id, t.x, t.y-100);
+					block = Terrain3x4(t.id, t.x, t.y-150);
 				}
 				else if (t.type == 'Terrain3x4Breakable') {
-					block = Terrain3x4Breakable(t.id, t.x, t.y-100);
+					block = Terrain3x4Breakable(t.id, t.x, t.y-150);
 				}
 				else if (t.type == 'Terrain3x6') {
-					block = Terrain3x6(t.id, t.x, t.y-100);
+					block = Terrain3x6(t.id, t.x, t.y-150);
 				}
 				else if (t.type == 'Terrain3x6Breakable') {
-					block = Terrain3x6Breakable(t.id, t.x, t.y-100);
+					block = Terrain3x6Breakable(t.id, t.x, t.y-150);
 				}
 				else if (t.type == 'Terrain1x6Breakable') {
-					block = Terrain1x6Breakable(t.id, t.x, t.y-100);
+					block = Terrain1x6Breakable(t.id, t.x, t.y-150);
 				}
 
 
@@ -217,8 +217,8 @@
 
 		//console.log(mydata);
 
-//#############################################################################	
-	//FOR GUI TESTING PURPOSES	
+//#############################################################################
+	//FOR GUI TESTING PURPOSES
 	/*
 
 

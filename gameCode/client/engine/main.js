@@ -109,7 +109,7 @@ var doPressedActions = function() {
 		}
 		hasReleasedCrouch = false;
 	}
-	
+
 	if (hasReleasedCrouch) {
 		player.height = player.crouchHeight*2;
 		player.isCrouching = false;
@@ -161,7 +161,7 @@ var inRange = function(thing) {
 * Main game loop
 */
 var update = function() {
-	
+
 	if (paused) {
 		return;
 	}
@@ -187,15 +187,15 @@ var update = function() {
 	if (player.y > 500) {
 		player.health = 0;
 	}
-	
+
 	if (player.health <= 0) {
 		player.reset(0, 0);
 	}
-	
+
 	if (player.x >= level_width) {
 		endGame();
 	}
-	
+
 	player.attackCounter++;
 	player.transformCounter++;
 	player.immuneCounter++;
@@ -256,7 +256,7 @@ var update = function() {
 		if (blockRightEntity(block, player) && player.vx >= 0){
 
 			console.log(block.type);
-		
+
 			if (!block.breakAt) {
 				player.x = block.x - player.xOffset;
 				player.blockedRight = true;
@@ -269,7 +269,7 @@ var update = function() {
 					b = new Boulder(Math.random(), block.x, block.y, 0, 0, 0 ,0, "", null, player.id);
 					bullets[b.id] = b;
 
-					
+
 					delete  terrain[key];
 				}
 				else {
@@ -336,12 +336,12 @@ var update = function() {
 				}
 			}
 			else if (bullet.type == 'boulder') {
-				
+
 				if (testCollision(block, bullet)) {
 					console.log("here");
 					bullet.y = block.y - bullet.height/2;
 				}
-				
+
 			}
 
 		}
@@ -402,7 +402,7 @@ var update = function() {
 	// Manage pick-ups ------------------------------------------------------------------
 
 	//console.log(pickUps);
-	
+
 	for (var key in pickUps) {
 
 		pickUp = pickUps[key];
@@ -432,7 +432,7 @@ var update = function() {
 	for (var key in bullets) {
 
 		var bullet = bullets[key];
-		
+
 
 		//If the bullet is very far away from the player, just delete it
 		if (!inRange(bullet)) {
@@ -450,7 +450,7 @@ var update = function() {
 
 			var isColliding = bullet.testCollision(enemies[key2]);
 			if (isColliding && bullet.ownerID != enemies[key2].id) {
-				
+
 				if (bullet.type == 'bullet') {
 					toRemove = true;
 				}
@@ -506,13 +506,13 @@ var update = function() {
 
 		if (enemy.health <= 0) {
 			delete enemies[key];
-			
+
 			if (Math.random() < 0.3) {
 				a = new AmmoPickUp(Math.random(), enemy.x, enemy.y, player);
 				pickUps[a.id] = a;
 
 			}
-			
+
 		}
 
 		enemy.attackCounter++;
@@ -659,7 +659,7 @@ var startGame = function(initial_level) {
 	frameCount = 0;
 	everyTenCount = 0;
 	//console.log(enemies['enemy2']);
-	
+
 	level_width = initial_level.width;
 	console.log(level_width);
 
@@ -669,16 +669,17 @@ var startGame = function(initial_level) {
 }
 
 var createPickUps = function() {
-	
+
 	w = new WeaponPickUp(Math.random(), 100, 100, 'sword', player);
-	
+
 	a = new AmmoPickUp(Math.random(), 300, 100, player);
-	
+
 	pickUps[w.id] = w;
 	pickUps[a.id] = a;
-	
+
 }
 
 var endGame = function() {
-	paused = !paused;	
+	gui.levelComplete();
+	paused = true;
 }

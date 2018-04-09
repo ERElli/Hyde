@@ -24,8 +24,8 @@ GUI = function(container){
 	var backgroundPositionCounter=0;
 	var editorBackgroundCounter=0;
 	self.create= function(type, id, left, top, width, height){
-		var element= document.createElement(type);		
-		
+		var element= document.createElement(type);
+
 		element.id=id;
 		element.style.position='absolute';
 		if(left!=0){element.style.left=left;}
@@ -111,7 +111,7 @@ GUI = function(container){
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*n,y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
-    /*		
+    /*
 		//reached the end of the level
 		if(backgroundPositionCounter ==3){
 			 document.getElementById('canvas').onkeypress=function()
@@ -215,13 +215,14 @@ GUI = function(container){
 				var fW=weapImg.width/5;
 				var fH=weapImg.height/2;
 
-				aniX=0
-				newX=0;
+
 				dir=1;
+				newX=ani.getWeaponPosition(en);
 				if (en.isFiring==true){
 					aniX=ani.fireAnimation(en,en.fireTimer,newX);
 				}
-
+				newX=0;
+				aniX=0;
 				if(!isLevelEditor){
 					xOffset=fW/2;
 					yOffset=fH/2;
@@ -229,21 +230,23 @@ GUI = function(container){
 					dir=ani.getPlayDirection(en);
 					self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newX,en.y);
 				}else{
+					aniX=0
+					newX=0;
 					self.editorWeaponDraw(weapImg,en,ctx,fW,fH);
 				}
-				
+
 				break;
 			case "shotgun":
 				weapImg=Img.shotgun;
 				var fW=weapImg.width/5;
 				var fH=weapImg.height/2;
-				ianiX=0
-				newX=0;
 				dir=1;
+				newX=ani.getWeaponPosition(en);
 				if (en.isFiring==true){
 					aniX=ani.fireAnimation(en,en.fireTimer,newX);
 				}
-
+				newX=0;
+				aniX=0;
 				if(!isLevelEditor){
 					xOffset=fW/2;
 					yOffset=fH/2;
@@ -251,41 +254,50 @@ GUI = function(container){
 					dir=ani.getPlayDirection(en);
 					self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newX,en.y);
 				}else{
+					aniX=0
+					newX=0;
 					self.editorWeaponDraw(weapImg,en,ctx,fW,fH);
 				}
+
 				break;
 			case "sword":
 				weapImg=Img.swordWeapon;
 				var fW=weapImg.width/5;
 				var fH=weapImg.height/2;
 				aniX=0
-				newX=0;
-				dir=1;
+				newX=ani.getWeaponPosition(en);
+				newY=en.y;
+				dir=ani.getPlayDirection(en);
 				if (en.isFiring==true){
-					aniX=ani.fireAnimation(en,en.fireTimer,newX);
+					ani.swordAnimation(en,en.fireTimer,newX,newY,weapImg,fW,fH,dir);
+				}
+				else{
+					aniX=0;
+					newX=0;
+					dir=1;
+					if(!isLevelEditor){
+						xOffset=fW/2;
+						yOffset=fH/2;
+						newX=ani.getWeaponPosition(en);
+						dir=ani.getPlayDirection(en);
+						self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newX,newY);
+					}else{
+						self.editorWeaponDraw(weapImg,en,ctx,fW,fH);
+					}
 				}
 
-				if(!isLevelEditor){
-					xOffset=fW/2;
-					yOffset=fH/2;
-					newX=ani.getWeaponPosition(en);
-					dir=ani.getPlayDirection(en);
-					self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newX,en.y);
-				}else{
-					self.editorWeaponDraw(weapImg,en,ctx,fW,fH);
-				}
 				break;
 			case "assaultRifle":
 				weapImg=Img.assaultWeapon
 				var fW=weapImg.width/9;
 				var fH=weapImg.height/2;
-				aniX=0
-				newX=0;
 				dir=1;
+				newX=ani.getWeaponPosition(en);
 				if (en.isFiring==true){
 					aniX=ani.fireAnimation(en,en.fireTimer,newX);
 				}
-
+				newX=0;
+				aniX=0;
 				if(!isLevelEditor){
 					xOffset=fW/2;
 					yOffset=fH/2;
@@ -293,8 +305,11 @@ GUI = function(container){
 					dir=ani.getPlayDirection(en);
 					self.quickAniWeaponDraw(weapImg,en,ctx,aniX,dir,fW,fH,newX,en.y);
 				}else{
+					aniX=0
+					newX=0;
 					self.editorWeaponDraw(weapImg,en,ctx,fW,fH);
 				}
+
 				break;
 			case "noWeapon":
 				break;
@@ -374,7 +389,7 @@ GUI = function(container){
 		terrain.img.onload=function(){};
 		ctx.restore();
 	};
-	
+
 	//Draws goal flag
 	self.drawGoal=function(){
 		img=Img.finalCheckpoint;
@@ -382,7 +397,7 @@ GUI = function(container){
 	};
 	//Checkpoint update
 	self.checkpointUpdate=function(checkpoint){
-		//Does not exist		
+		//Does not exist
 		//img=Img.activeCheckpoint;
 		//self.quickDraw(img,checkpoint,gui,fg_ctx,checkpoint.x,checkpoint.y);
 		ani.checkpointSound();
