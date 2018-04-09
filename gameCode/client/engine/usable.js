@@ -59,3 +59,27 @@ function AmmoPickUp(id, x, y, target) {
 
 }
 
+
+function BoulderPickUp(id, x, y, target) {
+	
+	var self = Usable("boulder", id, x, y, 0, 0, 25, 25, 'no', 'red');
+	
+	self.aniTimer = 0;
+
+	
+	self.applyEffect = function() {
+		if (target.isBig) {
+			target.pickUpBoulder();
+		}
+	}
+
+	self.draw = function(ctx,isLevelEditor) {
+		self.aniTimer++;
+		ani.breakable1x6(self, self.aniTimer);		
+		
+		
+		gui.drawEntity(self, gui.fg_ctx, false);
+	}
+
+	return self;
+}

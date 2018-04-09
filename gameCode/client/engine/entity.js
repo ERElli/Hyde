@@ -139,11 +139,9 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 
 
 		if (self.blockedLeft && self.vx < 0) {
-			//console.log("stopped left");
 			self.vx = 0;
 		}
 		if (self.blockedRight && self.vx > 0) {
-			//console.log("stopped right");
 			self.vx = 0;
 		}
 
@@ -330,16 +328,10 @@ function MeleeBullet(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	return self;
 }
 
-var Throwable = function() {
+
+function BoulderBullet(id, x, y, vx, vy, img, color, ownerID) {	
 	
-	
-}
-
-
-function Boulder(id, x, y, vx, vy, width, height, img, color, ownerID) {
-	var self = Entity("boulder", id, x, y, vx, vy, width, height, img, color);
-
-	self.aniTimer = 0;
+	var self = Entity("boulderBullet", id, x, y, vx, vy, 0, 0, img, color);
 	
 	self.width = 50;
 	self.height = 50;
@@ -347,7 +339,7 @@ function Boulder(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	self.xOffset = 0;
 	self.yOffset=0;
 	self.falling = false;
-	self.ay = g;
+	self.ay = 0;
 
 	self.ownerID = ownerID;
 
@@ -358,27 +350,27 @@ function Boulder(id, x, y, vx, vy, width, height, img, color, ownerID) {
 
 		self.vy += self.ay;
 		
-		ani.breakable1x6(self, self.aniTimer);
-		//console.log(self.aniTimer);
-		
-		self.aniTimer++;
-		
 		oldUpdate();
 		
 	}
 	
 	self.setAirMotion = function() {
 		self.ay = g;
-		self.ax /= 2;
 	}
 
 	self.setGroundMotion = function() {
 		self.ay = 0;
 		self.vy = 0;
 	}
-
-	//self.draw = function() {
-	//}
-
+	
 	return self;
 }
+
+
+var Throwable = function() {
+	
+	
+}
+
+
+

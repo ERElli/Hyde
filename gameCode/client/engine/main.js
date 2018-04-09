@@ -8,6 +8,8 @@ var bullets = {};
 var terrain;
 var sufaceMods;
 var pickUps;
+var boulderPickUps = {};
+
 
 var hasReleasedJump = false;
 var hasReleasedCrouch = true;
@@ -123,15 +125,29 @@ var doPressedActions = function() {
 	if (pressing['shoot']) {
 
 		if (player.isBig) {
-			if (player.hasBoulder && player.pickUpBoulderTimer > 10) {
+			
+			if (player.hasBoulder && player.pickUpBoulderTimer > 20) {
 				boulder = player.throwBoulder();
 				bullets[boulder.id] = boulder;
 			}
-			else if (!player.hasBoulder && player.throwBoulderTimer > 10) {
-				console.log("PIcking up");
+			else if (!player.hasBoulder && player.throwBoulderTimer > 20) {
+				
+				for (var key in boulderPickUps) {
 
-				player.pickUpBoulder();
-			}
+					bp = boulderPickUps[key];
+
+					bp.draw();
+
+					pickUp_rect = {'x':bp.x-bp.width/2, 'y':bp.y-bp.height/2, 'width':bp.width, 'height':bp.height};
+
+					player_rect = {'x':player.x-player.width/2, 'y':player.y-player.height/2, 'width':player.width, 'height':player.height};
+
+					if (testCollision(player_rect, pickUp_rect)) {
+						player.pickUpBoulder();
+						delete boulderPickUps[key];
+					}
+				}
+			}				
 			player.pickUpBoulderTimer++;
 			player.throwBoulderTimer++;
 		}
@@ -154,7 +170,7 @@ var doPressedActions = function() {
 */
 var inRange = function(thing) {
 	len = Math.sqrt( Math.pow(thing.x - player.x, 2) + Math.pow(thing.y - player.y, 2) ) //sqrt(delta_x^2 + delta_y^2)
-	return len < gameWidth;
+	return len < level_width;
 }
 
 /*
@@ -239,12 +255,11 @@ var update = function() {
 			}
 
 			else {
-				//player_damage = Math.abs(player.getMomentum()) / 100;
-				//block.health -= player_damage;
 				if (Math.abs(player.getMomentum()) >= block.breakAt) {
+					b = new BoulderPickUp(Math.random(), block.x, block.y, player);
+					boulderPickUps[b.id] = b;
+					console.log("Creating boulder");
 					delete  terrain[key];
-					b = new Boulder(Math.random(), block.x, block.y-100, 0, 0, 0 ,0, "", null, player.id);
-					bullets[b.id] = b;
 				}
 				else {
 					player.x = block.x + block.width+player.xOffset;
@@ -263,13 +278,11 @@ var update = function() {
 			}
 
 			else {
-				console.log("Hey");
 				if (Math.abs(player.getMomentum()) >= block.breakAt) {
 
-					b = new Boulder(Math.random(), block.x, block.y, 0, 0, 0 ,0, "", null, player.id);
-					bullets[b.id] = b;
-
-
+					b = new BoulderPickUp(Math.random(), block.x, block.y+block.height, player);
+					boulderPickUps[b.id] = b;
+					console.log("Creating boulder");
 					delete  terrain[key];
 				}
 				else {
@@ -338,7 +351,6 @@ var update = function() {
 			else if (bullet.type == 'boulder') {
 
 				if (testCollision(block, bullet)) {
-					console.log("here");
 					bullet.y = block.y - bullet.height/2;
 				}
 
@@ -350,8 +362,6 @@ var update = function() {
 
 
 	if (player.isLaunched) {
-		//console.log("Launched");
-		//console.log(player.vx);
 		player.launchTimer++;
 		if (player.launchTimer > 25) {
 			player.isLaunched = false;
@@ -401,14 +411,10 @@ var update = function() {
 
 	// Manage pick-ups ------------------------------------------------------------------
 
-	//console.log(pickUps);
 
 	for (var key in pickUps) {
 
 		pickUp = pickUps[key];
-		//console.log(pickUp);
-
-		//console.log(pickUp);
 
 		pickUp.draw();
 
@@ -417,12 +423,15 @@ var update = function() {
 		player_rect = {'x':player.x-player.width/2, 'y':player.y-player.height/2, 'width':player.width, 'height':player.height};
 
 		if (testCollision(player_rect, pickUp_rect)) {
-
-			//console.log("Picking up weapon");
 			pickUp.applyEffect();
 			delete pickUps[key];
 		}
 
+	}
+	
+	
+	for (var key in boulderPickUps) {
+		boulderPickUps[key].draw();
 	}
 
 
@@ -436,7 +445,6 @@ var update = function() {
 
 		//If the bullet is very far away from the player, just delete it
 		if (!inRange(bullet)) {
-			console.log("Deleting1 + " + bullet.type);
 			delete bullets[key];
 		}
 
@@ -473,17 +481,13 @@ var update = function() {
 
 		if (bullet.type == 'meleeBullet') {
 
-			//console.log("Position: " + bullet.x + ", " + bullet.y);
-
 			bullet.timer++;
-			//console.log(bullet.timer);
 			if (bullet.timer > 10) {
 				toRemove = true;
 			}
 		}
 
 		if(toRemove){
-			console.log("Deleting2 " + bullet.type);
 			delete bullets[key];
 		}
 	}
@@ -494,10 +498,7 @@ var update = function() {
 
 		var enemy = enemies[key];
 
-		//console.log(enemy.type + ": " + enemy.health);
-
 		if (!inRange(enemy)) {
-			//console.log("skipping " + enemy.id);
 			continue;
 		}
 
@@ -527,10 +528,8 @@ var update = function() {
 
 		if (enemy.type == "flying enemy") {
 			newBullets = enemy.shoot();
-			//console.log(newBullets);
 			for (i in newBullets) {
 				newBullet = newBullets[i];
-				//console.log(newBullet);
 				if (newBullet) {
 					bullets[newBullet.id] = newBullet;
 				}
@@ -557,20 +556,14 @@ var update = function() {
 					if (player_p > enemy_p) {
 						enemy.launch(Math.sign(player.vx)*delta_p/enemy.mass);
 						playerDeals += delta_p/150;
-						console.log(playerDeals);
-						//player.vx = 0;
-
-						//console.log(Math.sign(player.vx)*delta_p/enemy.mass)
 					}
 					else if (enemy_p > player_p) {
 						player.launch(Math.sign(enemy.vx)*delta_p/player.mass);
 
 						enemyDeals += delta_p/150;
-						//console.log(player.vx);
-						//enemy.vx = 0;
+
 					}
 					else {
-						//player.vx
 					}
 
 				}
@@ -592,7 +585,6 @@ var blockUnderEntity = function(terrain, entity) {
 
 	entity_rect = {'x':entity.x-entity.xOffset/2, 'y':entity.y+entity.yOffset, 'width':entity.xOffset, 'height':entity.yOffset/2};
 
-	//console.log(testCollision(terrain, entity_rect));
 	return testCollision(terrain_rect, entity_rect);
 
 }
@@ -601,7 +593,6 @@ var blockLeftEntity = function(terrain, entity) {
 
 	entity_rect = {'x':entity.x-entity.xOffset, 'y':entity.y-entity.yOffset/2, 'width':entity.xOffset/2, 'height':entity.yOffset};
 
-	//console.log(testCollision(terrain, entity_rect));
 	return testCollision(terrain, entity_rect);
 
 }
@@ -610,7 +601,6 @@ var blockRightEntity = function(terrain, entity) {
 
 	entity_rect = {'x':entity.x+entity.xOffset, 'y':entity.y-entity.yOffset/2, 'width':entity.xOffset/2, 'height':entity.yOffset};
 
-	//console.log(testCollision(terrain, entity_rect));
 	return testCollision(terrain, entity_rect);
 
 }
@@ -619,7 +609,6 @@ var blockOverEntity = function(terrain, entity) {
 
 	entity_rect = {'x':entity.x-entity.xOffset/2, 'y':entity.y-entity.yOffset, 'width':entity.xOffset, 'height':entity.yOffset/2};
 
-	//console.log(testCollision(terrain, entity_rect));
 	return testCollision(terrain, entity_rect);
 
 }
@@ -647,21 +636,17 @@ var testCollision = function(rect1, rect2) {
 var startGame = function(initial_level) {
 	level = initial_level;
 	player = level["player"];
-	//console.log(player);
 	enemies = level["enemies"];
 	terrain = level["terrain"];
 	breakable = new Terrain1x1Breakable(Math.random(), 500, 325);
 	// terrain[breakable.id] = breakable;
 	// console.log(terrain[breakable.id]['x'])
 	//surfaceMods = level["terrain"];
-	pickUps = level['weapon']
-	//console.log(pickUps['p1']);
+	pickUps = level['weapon'];
 	frameCount = 0;
 	everyTenCount = 0;
-	//console.log(enemies['enemy2']);
 
 	level_width = initial_level.width;
-	console.log(level_width);
 
 	//createPickUps();
 

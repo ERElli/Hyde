@@ -56,11 +56,7 @@
 		socket.on('receiveLevelObjects',function(data){
 			levelObjects = data;
 			//level objects should be in data, right now they are logged in console
-			console.log(JSON.parse(levelObjects));
 			let realLevel = EntityFactory(levelObjects,false);
-			console.log("REAL LEVEL",realLevel);
-			console.log("######################################################");
-
 
 			var level = {};
 			var p;
@@ -70,7 +66,6 @@
 			}
 
 			level['player'] = new Player(p.id, p.x, p.y-150, p.vx, p.vy, p.img, new Pistol(Math.random(), p.x, p.y, p.vx, p.vy, 50, 50,"pistol_image",null, p.id), p.isBig);
-			console.log("REAL LEVEL@@",realLevel);
 
 			level['enemies'] = {};
 
@@ -95,10 +90,8 @@
 
 			level['weapon'] = {};
 
-			console.log("Weap: " + realLevel['weapon']);
 
 			for (let thing in realLevel['weapon']) {
-				console.log("HERE: " + realLevel['weapon'][thing]);
 				w = realLevel['weapon'][thing]
 
 				var weapon;
@@ -112,14 +105,11 @@
 			level['terrain'] = {};
 			for (var thing in realLevel['terrain']) {
 				let t = realLevel['terrain'][thing]
-				console.log(t.type);
 
 				var block;
 
 				if (t.type == 'Terrain1x1') {
 					block = Terrain1x1(t.id, t.x, t.y-150);
-				}else if (t.type == 'Terrain3x2Breakable') {
-					block = Terrain3x2(t.id, t.x, t.y-150);
 				}
 				else if (t.type == 'Terrain1x1Breakable') {
 					block = Terrain1x1Breakable(t.id, t.x, t.y-150);
@@ -148,12 +138,10 @@
 
 
 				level['terrain'][t.id] = block;
-				//console.log(level['terrain']);
 
 			}
 
 			level.width = realLevel.width;
-			console.log(realLevel.width);
 
 			startGame(level);
 	  });
@@ -164,7 +152,6 @@
 			levelObjects = data;
 
 				//level objects should be in data, right now they are logged in console
-				console.log("ddd"+ levelObjects[0].enemies);
 				Update(levelObjects);
 			});
 
@@ -179,7 +166,7 @@
 
 
 
-		let gameWidth=2000
+		//let gameWidth=2000
 		// construct the gui with the container and the map
 		var gui;
 		var ani=Animation();
@@ -207,7 +194,6 @@
 
 
 		for (var id in levelFromFactory.enemies) {
-			//console.log(levelFromFactory.enemies[id]);
 			levelFromFactory.enemies[id].target = levelFromFactory.player;
 		}
 
@@ -215,7 +201,6 @@
 
 
 
-		//console.log(mydata);
 
 //#############################################################################
 	//FOR GUI TESTING PURPOSES
@@ -257,7 +242,6 @@
 
 		for (var thing in mydata['terrain']) {
 			t = mydata['terrain'][thing]
-			console.log(t.type);
 
 			var block;
 
@@ -267,12 +251,8 @@
 
 
 			level['terrain'][t.id] = block;
-			//console.log(level['terrain']);
 
 		}
-
-		console.log("BEFORE SOCKET",mydata);
-
 
 		startGame(level);
 		*/

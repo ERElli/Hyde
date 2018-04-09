@@ -33,7 +33,6 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	var self = Humanoid('player', id, x, y, vx, vy, smallWidth, smallHeight, img, 'red', smallAcceleration, smallMaxVX, smallMaxVY,
 						maxHealth, weapon, smallMass, smallJumpSpeed, meleeDamage, smallSlowDown);
 						
-	//console.log(self.width);
 	
 	self.maxHealth = maxHealth;
 	self.transformCounter = 100;
@@ -56,8 +55,8 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	self.maxMomentum = bigMass*bigMaxVX;
 	
 	self.hasBoulder = false;
-	self.pickUpBoulderTimer = 0;
-	self.throwBoulderTimer = 0;
+	self.pickUpBoulderTimer = 21;
+	self.throwBoulderTimer = 21;
 	
 	self.isStopped = false;
 	self.xOffset = self.width/2;
@@ -68,12 +67,10 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	var oldUpdate = self.updatePosition;
 	self.updatePosition = function() {
 
-		//console.log(self.vx);
 
 		self.transformAniTimer++;
 		
 		if (Math.sign(self.vx) != Math.sign(self.ax) && !self.isLaunched && !self.isStopped) {
-			//console.log("Slowing");
 			self.ax = self.slowDownFactor*self.ax;
 		}	
 		
@@ -110,6 +107,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	}
 	
 	self.pickUpBoulder = function() {
+		console.log("Picking up boulder");
 		self.hasBoulder = true;
 		self.pickUpBoulderTimer = 0;
 	}
@@ -121,11 +119,9 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 		var spdY = Math.sin(self.aimAngle/180*Math.PI)*5 * mpsTOppf + self.vy;
 
 		self.hasBoulder = false;
-		
 		self.throwBoulderTimer = 0;
 		
-		return new Boulder(Math.random(),self.x,self.y,spdX,spdY,0,0, "img", "gold", self.id);
-		
+		return new BoulderBullet(Math.random(),self.x,self.y,spdX,spdY, "img", "gold", self.id);
 	}
 	
 	self.reset = function(x, y) {
