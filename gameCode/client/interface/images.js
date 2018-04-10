@@ -68,6 +68,9 @@ Img = function(pathToRoot) {
 	self.finalCheckpoint.src = pathToRoot+"client/interface/img/goalFlag.png";
 	self.levelComplete=new Image();
 	self.levelComplete.src= pathToRoot+"client/interface/img/level_complete.png";
+	//Animation images
+	self.boulder=new Image();
+	self.boulder=pathToRoot+"client/interface/img/entity/boulderThrow.png"
 	self.transformAnimation=new Image();
 	self.transformAnimation.src= pathToRoot+"client/interface/img/Animations/transformAnimation.png";
 	//muzzle flash animations
@@ -80,6 +83,7 @@ Img = function(pathToRoot) {
 	self.muzzleFlash.stepThree.src= pathToRoot+"client/interface/img/Animations/muzzleFlash/FlashStage3.png";
 	self.muzzleFlash.stepFour= new Image();
 	self.muzzleFlash.stepFour.src= pathToRoot+"client/interface/img/Animations/muzzleFlash/FlashStage4.png";
+
 	console.log(self.muzzleFlash.stepOne);
 	return self;
 };

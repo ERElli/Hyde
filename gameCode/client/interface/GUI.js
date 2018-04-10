@@ -322,10 +322,10 @@ GUI = function(container){
 				//self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;
 			case "boulder":
-				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
+				self.quickDraw(Img.boulder,en,ctx,en.x,en.y);
 				break;
 			case "boulderBullet":
-				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
+				self.quickDraw(Img.boulder,en,ctx,en.x,en.y);
 			break;
 			case "ammo":
 				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);

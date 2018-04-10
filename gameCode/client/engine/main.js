@@ -7,7 +7,7 @@ var enemies;
 var bullets = {};
 var terrain;
 var sufaceMods;
-var pickUps;
+var pickUps={};
 var boulderPickUps = {};
 
 
