@@ -234,11 +234,9 @@ var update = function() {
 
 		if (blockUnderEntity(block, player)) {
 			
-			if (block.type == 'spike trap' && block.orientation == "up") {
-				if (!player.isImmune) {
-					player.takeDamage(block.damage);
-					player.vy = 10;
-				}
+			if (block.type == 'spike trap' && block.orientation == "up" && !player.isImmune) {
+				player.takeDamage(block.damage);
+				player.vy = 10;
 			}
 			else {
 				player.falling = false;
@@ -261,12 +259,9 @@ var update = function() {
 				player.blockedLeft = true;
 			}
 			
-			if (block.type == 'spike trap' && block.orientation == "right") {
-				console.log("Hurting from left");
-				if (!player.isImmune) {
-					player.takeDamage(block.damage);
-					player.vx = 10;
-				}
+			if (block.type == 'spike trap' && block.orientation == "right" && !player.isImmune) {
+				player.takeDamage(block.damage);
+				player.vx = 10;
 			}
 
 			else {
@@ -292,11 +287,9 @@ var update = function() {
 				player.blockedRight = true;
 			}
 			
-			if (block.type == 'spike trap' && block.orientation == "left") {
-				if (!player.isImmune) {
-					player.takeDamage(block.damage);
-					player.vx = -10;
-				}
+			if (block.type == 'spike trap' && block.orientation == "left" && !player.isImmune) {
+				player.takeDamage(block.damage);
+				player.vx = -10;
 			}
 
 			else {
@@ -318,11 +311,9 @@ var update = function() {
 
 		if (blockOverEntity(block, player)) {
 			
-			if (block.type == 'spike trap' && block.orientation == "down") {
-				if (!player.isImmune) {
-					player.takeDamage(block.damage);
-					player.vy = -10;
-				}
+			if (block.type == 'spike trap' && block.orientation == "down" && !player.isImmune) {
+				player.takeDamage(block.damage);
+				player.vy = -10;
 			}
 			else {
 				player.y = block.y+block.height+player.height/2;
@@ -446,93 +437,6 @@ var update = function() {
 	for (var key in boulderPickUps) {
 		boulderPickUps[key].draw();
 	}
-	
-	
-	
-	// Manage all the traps ----------------------------------------------------------------------------
-	/*
-	for (var key in traps) {
-		
-		var trap = traps[key];
-		
-		trap.draw(gui.fg_ctx, false);
-		
-		
-		// Check collisions with player ###############################
-		if (blockUnderEntity(trap, player)) {
-				
-			if (trap.orientation == "up") {
-				if (!player.isImmune) {
-					player.takeDamage(trap.damage);
-					player.vy = 10;
-				}
-				else {
-					
-				}
-			}
-			else {
-				putOnTerrain(trap, player);
-			}
-			
-		}
-		
-		else if (blockOverEntity(trap, player)) {
-			
-			if (trap.orientation == "down") {
-				if (!player.isImmune) {
-					player.takeDamage(trap.damage);
-					player.vy = -10;
-				}
-				else {
-					
-				}
-			}
-			else {
-				player.y = trap.y+trap.height+player.height/2;
-				player.vy = 0;
-			}
-			
-		}
-		
-		else if (blockLeftEntity(trap, player)) {
-			
-			if (trap.orientation == "right") {
-				if (!player.isImmune) {
-					player.takeDamage(trap.damage);
-					player.vx = 10;
-				}
-				else {
-					
-				}
-			}
-			else {
-				player.x = trap.x + trap.width+player.xOffset;
-				player.blockedLeft = true;
-			}
-			
-		}
-		
-		else if (blockRightEntity(trap, player)) {
-			
-			if (trap.orientation == "left") {
-				if (!player.isImmune) {
-					player.takeDamage(trap.damage);
-					player.vx = -10;
-				}
-				else {
-					
-				}
-			}
-			else {
-				player.x = trap.x - player.xOffset;
-				player.blockedRight = true;
-			}
-			
-		}
-	
-		
-	}
-	*/
 
 
 
@@ -767,9 +671,9 @@ var createPickUps = function() {
 
 var createTraps = function() {
 
-	w = new SpikeTrap(Math.random(), 100, 100, 'left');
+	w = new SpikeTrap(Math.random(), 100, 100, 'up');
 
-	a = new SpikeTrap(Math.random(), 300, 100, 'right');
+	a = new SpikeTrap(Math.random(), 300, 100, 'down');
 
 	terrain[w.id] = w;
 	terrain[a.id] = a;
