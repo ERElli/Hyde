@@ -122,3 +122,39 @@ function Terrain1x6Breakable(id, x, y){
 
 	return self;
 }
+
+function TerrainModifier(type) {
+	
+	var self = {};
+	
+	self.type = type;
+	
+	self.applyEffect = function(target) {
+		
+	}
+	
+	return self;
+	
+}
+
+function IceModifier() {
+	
+	self = TerrainModifier('ice');
+	
+	self.applyEffect = function(target) {
+		if (!target.slipping) {
+			target.ax /= 2;
+			target.slipping = true;
+		}
+	}
+	
+	self.reverseEffect = function(target) {
+		if (target.slipping) {
+			target.ax *= 2;
+			target.slipping = false;
+		}
+	}
+	
+	return self;
+	
+}
