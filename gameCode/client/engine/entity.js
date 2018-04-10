@@ -105,6 +105,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	self.justJumped = false;
 
 	self.isLaunched = false;
+	self.launchTimerMax = 25;
 
 	self.falling = false;
 
@@ -173,11 +174,12 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		//return 100;
 	}
 
-	self.launch = function(vx) {
+	self.launch = function(vx, time) {
 		self.isLaunched = true;
 		self.vx = vx;
 		self.ax = 0;
 		self.launchTimer = 0;
+		self.launchTimerMax = time;
 	}
 
 	self.jump = function() {
@@ -268,21 +270,29 @@ function FrictionModifier(id, x, y, vx, vy, width, height, img, color, mu) { //m
 	return self;
 }
 
-function SpikeTrap(id, x, y, vx, vy, width, height, img, color, damage, orientation) {
-	var self = Entity("spike trap", id, x, y, vx, vy, width, height, img, color);
+
+/*
+* Like Terrain, traps' coordinates refer to their top-left corner.
+*/ 
+function SpikeTrap(id, x, y, orientation) {
+	
+	var self = Entity("spike trap", id, x, y, 0, 0, 50, 50, '', '');
 
 
-	self.damage = damage;
-	self.orientation = damage;
+	self.damage = 25;
+	self.orientation = orientation;
 
-
-	self.dealDamage = function(target) {
-
-	}
 
 	//Temp drawing function for testing in level editor
+	/*
 	self.draw = function(ctx,isLevelEditor) {
 		ctx.drawImage(Img.topSpikeTrap,0,0,Img.topSpikeTrap.width,Img.topSpikeTrap.height,self.x,self.y,self.width,self.height);
+	}
+	*/
+	
+	//Temp function for engine (uses 1x1 breakable in GUI.js)
+	self.draw = function(ctx, isLevelEditor) {
+		gui.drawTerrain(self,ctx,isLevelEditor);
 	}
 
 	return self;
@@ -358,12 +368,3 @@ function BoulderBullet(id, x, y, vx, vy, img, color, ownerID) {
 	
 	return self;
 }
-
-
-var Throwable = function() {
-	
-	
-}
-
-
-

@@ -233,9 +233,16 @@ var update = function() {
 		//Check collisions with player ####################################
 
 		if (blockUnderEntity(block, player)) {
-			player.falling = false;
-			if (!player.justJumped) {
-				putOnTerrain(block, player);
+			
+			if (block.type == 'spike trap' && block.orientation == "up" && !player.isImmune) {
+				player.takeDamage(block.damage);
+				player.vy = 10;
+			}
+			else {
+				player.falling = false;
+				if (!player.justJumped) {
+					putOnTerrain(block, player);
+				}
 			}
 		}
 
@@ -250,6 +257,11 @@ var update = function() {
 			if (!block.breakAt) {
 				player.x = block.x + block.width+player.xOffset;
 				player.blockedLeft = true;
+			}
+			
+			if (block.type == 'spike trap' && block.orientation == "right" && !player.isImmune) {
+				player.takeDamage(block.damage);
+				player.vx = 10;
 			}
 
 			else {
@@ -274,6 +286,11 @@ var update = function() {
 				player.x = block.x - player.xOffset;
 				player.blockedRight = true;
 			}
+			
+			if (block.type == 'spike trap' && block.orientation == "left" && !player.isImmune) {
+				player.takeDamage(block.damage);
+				player.vx = -10;
+			}
 
 			else {
 				if (Math.abs(player.getMomentum()) >= block.breakAt) {
@@ -293,8 +310,15 @@ var update = function() {
 
 
 		if (blockOverEntity(block, player)) {
-			player.y = block.y+block.height+player.height/2;
-			player.vy = 0;
+			
+			if (block.type == 'spike trap' && block.orientation == "down" && !player.isImmune) {
+				player.takeDamage(block.damage);
+				player.vy = -10;
+			}
+			else {
+				player.y = block.y+block.height+player.height/2;
+				player.vy = 0;
+			}
 		}
 
 
@@ -354,7 +378,7 @@ var update = function() {
 
 	if (player.isLaunched) {
 		player.launchTimer++;
-		if (player.launchTimer > 25) {
+		if (player.launchTimer > player.launchTimerMax) {
 			player.isLaunched = false;
 		}
 	}
@@ -379,15 +403,6 @@ var update = function() {
 		}
 	}
 
-	//If they didn't just jump, and they are near terrain, put them on that terrain
-	/*
-	else if (nearTerrain(player.x, player.y+player.height/2)) {
-		player.inAir = false;
-		player.doubleJumped = false;
-		putOnTerrain(player);
-	}
-	*/
-
 	//Manage motion type
 	if (player.inAir) {
 		player.setAirMotion();
@@ -401,7 +416,6 @@ var update = function() {
 
 
 	// Manage pick-ups ------------------------------------------------------------------
-
 
 	for (var key in pickUps) {
 
@@ -419,7 +433,6 @@ var update = function() {
 		}
 
 	}
-	
 	
 	for (var key in boulderPickUps) {
 		boulderPickUps[key].draw();
@@ -482,7 +495,9 @@ var update = function() {
 			delete bullets[key];
 		}
 	}
+	
 
+	
 	//Manage all the enemies ----------------------------------------------------------------------------------------
 
 	for (var key in enemies) {
@@ -549,7 +564,7 @@ var update = function() {
 						playerDeals += delta_p/150;
 					}
 					else if (enemy_p > player_p) {
-						player.launch(Math.sign(enemy.vx)*delta_p/player.mass);
+						player.launch(Math.sign(enemy.vx)*delta_p/player.mass, 25);
 
 						enemyDeals += delta_p/150;
 
@@ -630,8 +645,6 @@ var startGame = function(initial_level) {
 	enemies = level["enemies"];
 	terrain = level["terrain"];
 	breakable = new Terrain1x1Breakable(Math.random(), 500, 325);
-	// terrain[breakable.id] = breakable;
-	// console.log(terrain[breakable.id]['x'])
 	//surfaceMods = level["terrain"];
 	pickUps = level['weapon'];
 	frameCount = 0;
@@ -640,6 +653,7 @@ var startGame = function(initial_level) {
 	level_width = initial_level.width;
 
 	//createPickUps();
+	createTraps();
 
 	setInterval(update, 1000/60)
 }
@@ -652,6 +666,17 @@ var createPickUps = function() {
 
 	pickUps[w.id] = w;
 	pickUps[a.id] = a;
+
+}
+
+var createTraps = function() {
+
+	w = new SpikeTrap(Math.random(), 100, 100, 'up');
+
+	a = new SpikeTrap(Math.random(), 300, 100, 'down');
+
+	terrain[w.id] = w;
+	terrain[a.id] = a;
 
 }
 
