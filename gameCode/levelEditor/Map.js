@@ -43,7 +43,8 @@ Map = function(width, height,tile_width, tile_height) {
 	//Function to return the list objects of type t are stored in.
 	self.getList = function(t){
 		//Checking if type matches a reg ex
-		if(t.includes("Terrain")){
+		if(t.includes("Terrain") || t.includes("spike trap")){
+			console.log("SPIKE TRAP LIST");
 			return self.ObjectList['terrain'];
 		}else if(t.includes("enemy")){
 			return self.ObjectList['enemies'];
@@ -128,7 +129,8 @@ Map = function(width, height,tile_width, tile_height) {
 		var tileMap;
 
 		//Referencing the appropriate tileMap;
-		if(type.includes("enemy") || type.includes("Terrain") || type.includes("player")){
+		if(type.includes("enemy") || type.includes("Terrain") || type.includes("player") || type.includes("spke trap")){
+			console.log("SPIKE TRAP TILEMAP");
 			tileMap = self.tiles;
 			//console.log("ENTITY TILE MAP",tileMap);
 		}else if(type.includes("checkpoint")){

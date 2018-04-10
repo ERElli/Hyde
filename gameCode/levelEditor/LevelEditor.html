@@ -72,8 +72,8 @@
 			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/3x6Drop.png)" onclick="terrainTapped('3x6')" class="terrain7btn"></button>
 			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/3x6BDrop.png)" onclick="terrainTapped('3x6Breakable')" class="terrain8btn"></button>
 			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/1x6BDrop.png)" onclick="terrainTapped('1x6Breakable')" class="terrain9btn"></button>
-			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/topSpikeDrop.png)" onclick="terrainTapped('topSpikeTrap')" class="terrain9btn"></button>
-			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/platformDrop.png)" onclick="terrainTapped('platform')" class="terrain9btn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/topSpikeDrop.png)" onclick="terrainTapped('topSpikeTrap')" class="terrain10btn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/platformDrop.png)" onclick="terrainTapped('platform')" class="terrain11btn"></button>
 		</div>
 	</div>
 
@@ -458,9 +458,13 @@ snapToGrid  = function(canvas,mouse){
 					entity = Terrain1x6Breakable(tempID,prev_x,prev_y);
 					break;
 				case "topSpikeTrap":
+					console.log("SPIKE TRAP");
 					entity = SpikeTrap(tempID, prev_x, prev_y, 0, 0, 50, 50, Img.topSpikeTrap,'red', 20,'vertical');
+					break;
 				case "platform":
+					console.log("PLATFORM");
 					entity = MovingPlatform(tempID, prev_x, prev_y, 0, 0, 50, 50, Img.platform, 'red', null, 5);
+					break;
 			}
 			entity.draw(gui.ep_ctx,true);
 			break;
@@ -946,7 +950,7 @@ function characterTapped() {
 
 
 function terrainTapped(id){
-
+	console.log(id);
 	self.selectedTerrain = id;
 
 	var parent = document.getElementById('terrains');

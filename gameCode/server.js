@@ -30,7 +30,6 @@ app.get('/client/interface/Animation.js',function(req, res) {
 app.get('/client/interface/index.html',function(req, res) {
     res.sendFile(__dirname + '/client/interface/index.html');
 });
-
 app.get('/client/engine/entity.js',function(req, res) {
     res.sendFile(__dirname + '/client/engine/entity.js');
 });
@@ -53,28 +52,69 @@ app.get('/client/interface/GUI.js',function(req, res) {
 app.get('/client/interface/sounds.js',function(req, res) {
     res.sendFile(__dirname + '/client/interface/sounds.js');
 });
+
+
+
+/*
+	CLIENT/INTERFACE/IMG FILES
+*/
+
+//client/interface/img
+app.get('/client/interface/img/inf.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/inf.png');
+});
+app.get('/client/interface/img/goalFlag.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/goalFlag.png');
+});
+app.get('/client/interface/img/level_complete.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/level_complete.png');
+});
+app.get('/client/interface/img/placeCheckpoint.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/placeCheckpoint.png');
+});
+
+//client/interface/img/animations
+app.get('/client/interface/img/Animations/muzzleFlash/FlashStage1.png',function(req, res) {
+	res.sendFile(__dirname + '/client/interface/img/Animations/muzzleFlash/FlashStage1.png');
+});
+app.get('/client/interface/img/Animations/muzzleFlash/FlashStage2.png',function(req, res) {
+	res.sendFile(__dirname + '/client/interface/img/Animations/muzzleFlash/FlashStage2.png');
+});
+app.get('/client/interface/img/Animations/muzzleFlash/FlashStage3.png',function(req, res) {
+	res.sendFile(__dirname + '/client/interface/img/Animations/muzzleFlash/FlashStage3.png');
+});
+app.get('/client/interface/img/Animations/muzzleFlash/FlashStage4.png',function(req, res) {
+	res.sendFile(__dirname + '/client/interface/img/Animations/muzzleFlash/FlashStage4.png');
+});
+app.get('/client/interface/img/Animations/transformAnimation.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/Animations/transformAnimation.png');
+});
+
+//client/interface/img/background
 app.get('/client/interface/img/background/worldOneBackground.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/background/worldOneBackground.png');
-});
-
-
-app.get('/images/loadlevelbutton.png',function(req, res) {
-    res.sendFile(__dirname + '/images/loadlevelbutton.png');
-});
-app.get('/images/newlevelbutton.png',function(req, res) {
-    res.sendFile(__dirname + '/images/newlevelbutton.png');
 });
 app.get('/client/interface/img/background/worldTwoBackground.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/background/worldTwoBackground.png');
 });
-app.get('/client/interface/img/entity/humanoid/movingCharacter.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/entity/humanoid/movingCharacter.png');
+app.get('/client/interface/img/background/worldThreeBackground.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/background/worldThreeBackground.png');
+});
+
+//client/interface/img/entity
+app.get('/client/interface/img/entity/bullet.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/bullet.png');
+});
+app.get('/client/interface/img/entity/bullet2.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/bullet2.png');
+});
+
+//client/interface/img/entity/humanoid
+app.get('/client/interface/img/entity/humanoid/basicEnemy.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/humanoid/basicEnemy.png');
 });
 app.get('/client/interface/img/entity/humanoid/bigGuy.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/entity/humanoid/bigGuy.png');
-});
-app.get('/client/interface/img/entity/humanoid/basicEnemy.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/entity/humanoid/basicEnemy.png');
 });
 app.get('/client/interface/img/entity/humanoid/flyingEnemy.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/entity/humanoid/flyingEnemy.png');
@@ -82,32 +122,124 @@ app.get('/client/interface/img/entity/humanoid/flyingEnemy.png',function(req, re
 app.get('/client/interface/img/entity/humanoid/shieldEnemy.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/entity/humanoid/shieldEnemy.png');
 });
+app.get('/client/interface/img/entity/humanoid/smallPlayer.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/humanoid/smallPlayer.png');
+});
+
+//client/interface/img/entity/weapon
 app.get('/client/interface/img/entity/weapon/pistolAttack.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/entity/weapon/pistolAttack.png');
 });
 app.get('/client/interface/img/entity/weapon/assaultAttack.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/entity/weapon/assaultAttack.png');
 });
-
 app.get('/client/interface/img/entity/weapon/swordAttack.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/entity/weapon/swordAttack.png');
 });
-
 app.get('/client/interface/img/entity/weapon/shotgunAttack.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/entity/weapon/shotgunAttack.png');
 });
-app.get('/client/interface/img/entity/weapon/shotgunAttack.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/entity/weapon/shotgunAttack.png');
+
+//client/interface/img/terrain
+app.get('/client/interface/img/terrain/1x6BreakableBuilding.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/1x6BreakableBuilding.png');
 });
 app.get('/client/interface/img/terrain/block.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/terrain/block.png');
 });
-
-
-app.get('/client/interface/img/background/worldThreeBackground.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/background/worldThreeBackground.png');
+app.get('/client/interface/img/terrain/breakableBlock.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/breakableBlock.png');
+});
+app.get('/client/interface/img/terrain/breakableBuildingAnimation.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/breakableBuildingAnimation.png');
+});
+app.get('/client/interface/img/terrain/breakableTerrain3x2.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/breakableTerrain3x2.png');
+});
+app.get('/client/interface/img/terrain/breakableTerrain3x4.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/breakableTerrain3x4.png');
+});
+app.get('/client/interface/img/terrain/breakableTerrain3x6.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/breakableTerrain3x6.png');
+});
+app.get('/client/interface/img/terrain/terrain3x2.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/terrain3x2.png');
+});
+app.get('/client/interface/img/terrain/terrain3x4.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/terrain3x4.png');
+});
+app.get('/client/interface/img/terrain/terrain3x6.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/terrain3x6.png');
 });
 
+
+
+/*	ALL FILES IN THIS SECTION ARE NOT IN THE REPO
+app.get('/client/interface/img/enemy3.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/enemy3.png');
+});
+app.get('/client/interface/img/entity/humanoid/movingCharacter.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/humanoid/movingCharacter.png');
+});
+app.get('/client/interface/img/entity/basicEnemy.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/basicEnemy.png');
+});
+app.get('/client/interface/img/entity/bigGuy.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/bigGuy.png');
+});
+app.get('/client/interface/img/entity/flyingEnemy.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/flyingEnemy.png');
+});
+app.get('/client/interface/img/entity/movingCharacter.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/flyingEnemy.png');
+});
+app.get('/client/interface/img/entity/shieldEnemy.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/shieldEnemy.png');
+});
+app.get('/client/interface/img/entity/humanoid/playerSmall.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/humanoid/playerSmall.png');
+});
+app.get('/client/interface/img/bear.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/bear.png');
+});
+app.get('/client/interface/img/shotgun.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/shotgun.png');
+});
+app.get('/client/interface/img/ovingCharacter.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/ovingCharacter.png');
+});
+app.get('/client/interface/img/bigGuy.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/bigGuy.png');
+});
+app.get('/client/interface/img/enemy1.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/enemy1.png');
+});
+app.get('/client/interface/img/enemy2.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/enemy2.png');
+});
+app.get('/client/interface/img/pistolWeapon.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/pistolWeapon.png');
+});
+app.get('/client/interface/img/assaultWeapon.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/assaultWeapon.png');
+});
+app.get('/client/interface/img/swordWeapon.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/swordWeapon.png');
+});
+app.get('/client/interface/img/bullet.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/bullet.png');
+});
+app.get('/client/interface/img/movingCharacter.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/movingCharacter.png');
+});
+*/
+
+app.get('/images/loadlevelbutton.png',function(req, res) {
+    res.sendFile(__dirname + '/images/loadlevelbutton.png');
+});
+app.get('/images/newlevelbutton.png',function(req, res) {
+    res.sendFile(__dirname + '/images/newlevelbutton.png');
+});
 app.get('/client/interface/level.json',function(req, res) {
     res.sendFile(__dirname + '/client/interface/level.json');
 });
@@ -115,27 +247,6 @@ app.get('/client/interface/jsonTest.js',function(req, res) {
     res.sendFile(__dirname + '/client/interface/jsonTest.js');
 });
 
-app.get('/client/interface/img/ovingCharacter.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/ovingCharacter.png');
-});
-
-app.get('/client/interface/img/bigGuy.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/bigGuy.png');
-});
-
-app.get('/client/interface/img/entity/basicEnemy.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/entity/basicEnemy.png');
-});
-app.get('/client/interface/img/entity/bigGuy.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/entity/bigGuy.png');
-});
-
-app.get('/client/interface/img/entity/flyingEnemy.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/entity/flyingEnemy.png');
-});
-app.get('/client/interface/img/entity/movingCharacter.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/entity/flyingEnemy.png');
-});
 app.get('/EntityFactory.js',function(req, res) {
     res.sendFile(__dirname + '/levelEditor/EntityFactory.js');
 });
@@ -147,46 +258,7 @@ app.get('/testLevel.js',function(req, res) {
     res.sendFile(__dirname + '/levelEditor/testLevel.js');
 });
 
-app.get('/client/interface/img/enemy1.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/enemy1.png');
-});
 
-app.get('/client/interface/img/enemy2.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/enemy2.png');
-});
-
-app.get('/client/interface/img/enemy3.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/enemy3.png');
-});
-
-app.get('/client/interface/img/pistolWeapon.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/pistolWeapon.png');
-});
-
-app.get('/client/interface/img/assaultWeapon.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/assaultWeapon.png');
-});
-
-app.get('/client/interface/img/swordWeapon.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/swordWeapon.png');
-});
-
-app.get('/client/interface/img/bullet.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/bullet.png');
-});
-app.get('/client/interface/img/placeCheckpoint.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/placeCheckpoint.png');
-});
-app.get('/client/interface/img/goalFlag.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/goalFlag.png');
-});
-
-app.get('/client/interface/img/level_complete.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/level_complete.png');
-});
-app.get('/client/interface/img/movingCharacter.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/movingCharacter.png');
-});
 ////////////////
 
 //for level editor
@@ -225,15 +297,8 @@ app.get('/client/interface/images.js',function(req, res) {
 });
 
 ///////////////
-app.get('/client/interface/img/terrain/terrain3x2.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/terrain/terrain3x2.png');
-});
-app.get('/client/interface/img/bear.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/bear.png');
-});
-app.get('/client/interface/img/shotgun.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/shotgun.png');
-});
+
+
 
 app.get('/images/placeCheckpoint.png',function(req, res) {
     res.sendFile(__dirname + '/images/placeCheckpoint.png');
@@ -345,26 +410,8 @@ app.get('/images/weaponButton.png',function(req, res) {
 app.get('/images/backgroundButton.png',function(req, res) {
     res.sendFile(__dirname + '/images/backgroundButton.png');
 });
-app.get('/client/interface/img/terrain/breakableTerrain3x4.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/terrain/breakableTerrain3x4.png');
-});
-app.get('/client/interface/img/terrain/terrain3x4.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/terrain/terrain3x4.png');
-});
-app.get('/client/interface/img/entity/humanoid/playerSmall.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/entity/humanoid/playerSmall.png');
-});
 
 
-app.get('/client/interface/img/entity/bullet.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/entity/bullet.png');
-});
-app.get('/client/interface/img/terrain/breakableTerrain3x2.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/terrain/breakableTerrain3x2.png');
-});
-app.get('/client/interface/img/inf.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/inf.png');
-});
 
 
 app.get('/images/terrainButton.png',function(req, res) {
@@ -420,28 +467,8 @@ app.get('/images/backgroundButton.png',function(req, res) {
     res.sendFile(__dirname + '/images/backgroundButton.png');
 });
 
-app.get('/client/interface/img/entity/humanoid/smallPlayer.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/entity/humanoid/smallPlayer.png');
-});
-app.get('/client/interface/img/entity/bullet2.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/entity/bullet2.png');
-});
-app.get('/client/interface/img/entity/shieldEnemy.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/entity/shieldEnemy.png');
-});
-app.get('/client/interface/img/Animations/muzzleFlash/FlashStage1.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/Animations/muzzleFlash/FlashStage1.png');
-});
 
-app.get('/client/interface/img/Animations/muzzleFlash/FlashStage2.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/Animations/muzzleFlash/FlashStage2.png');
-});
-app.get('/client/interface/img/Animations/muzzleFlash/FlashStage3.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/Animations/muzzleFlash/FlashStage3.png');
-});
-app.get('/client/interface/img/Animations/muzzleFlash/FlashStage4.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/Animations/muzzleFlash/FlashStage4.png');
-});
+
 
 app.get('/client/interface/img/entity/boulderThrow.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/entity/boulderThrow.png');
@@ -483,27 +510,12 @@ app.get('/images/smallSignInHover.png',function(req, res) {
 
 
 
-app.get('/client/interface/img/terrain/1x6BreakableBuilding.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/terrain/1x6BreakableBuilding.png');
-});
-app.get('/client/interface/img/terrain/breakableBuildingAnimation.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/terrain/breakableBuildingAnimation.png');
 
-});
 app.get('/mainStyle.css',function(req, res) {
     res.sendFile(__dirname + '/client/mainStyle.css');
 });
 
-app.get('/client/interface/img/terrain/breakableTerrain3x6.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/terrain/breakableTerrain3x6.png');
-});
-app.get('/client/interface/img/terrain/breakableBuildingAnimation.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/terrain/breakableBuildingAnimation.png');
-});
 
-app.get('/client/interface/img/terrain/terrain3x6.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/terrain/terrain3x6.png');
-});
 app.get('/images/background.png',function(req, res) {
     res.sendFile(__dirname + '/images/background.png');
 });
@@ -562,60 +574,11 @@ app.get('/client/interface/soundFX/playerSounds/bigPlayer/bigHurt.wav',function(
 app.get('/client/interface/soundFX/weaponEffects/weaponPickup.wav',function(req, res) {
     res.sendFile(__dirname + '/client/interface/soundFX/weaponEffects/weaponPickup.wav');
 });
-app.get('/client/interface/img/Animations/transformAnimation.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/Animations/transformAnimation.png');
-});
 
-app.get('/client/interface/img/terrain/breakableBlock.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/terrain/breakableBlock.png');
-});
 
 app.get('/images/buildingTerrain3x6.png',function(req, res) {
     res.sendFile(__dirname + '/images/buildingTerrain3x6.png');
 });
-
-
-app.get('/client/interface/img/terrain/topSpikeTrap.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/terrain/topSpikeTrap.png');
-});
-app.get('/client/interface/img/levelEditor/buttons/terrain/topSpikeDrop.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/terrain/topSpikeDrop.png');
-});
-app.get('/client/interface/img/levelEditor/buttons/terrain/1x1Drop.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/terrain/1x1Drop.png');
-});
-app.get('/client/interface/img/levelEditor/buttons/terrain/1x1BDrop.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/terrain/1x1BDrop.png');
-});
-app.get('/client/interface/img/levelEditor/buttons/terrain/1x6BDrop.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/terrain/1x6BDrop.png');
-});
-app.get('/client/interface/img/levelEditor/buttons/terrain/platformDrop.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/terrain/platformDrop.png');
-});
-app.get('/client/interface/img/terrain/platform.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/terrain/platform.png');
-});
-app.get('/client/interface/img/levelEditor/buttons/checkpoint/checkpointDrop.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/checkpoint/checkpointDrop.png');
-});
-app.get('/client/interface/img/levelEditor/buttons/checkpoint/checkpointFinishDrop.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/checkpoint/checkpointFinishDrop.png');
-});
-app.get('/client/interface/img/levelEditor/buttons/enemy/basicEnemyDrop.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/enemy/basicEnemyDrop.png');
-});
-app.get('/client/interface/img/levelEditor/buttons/enemy/flyingEnemyDrop.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/enemy/flyingEnemyDrop.png');
-});
-app.get('/client/interface/img/levelEditor/buttons/enemy/shieldEnemyDrop.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/enemy/shieldEnemyDrop.png');
-});
-app.get('/client/interface/img/levelEditor/buttons/weapon/assaultDrop.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/weapon/assaultDrop.png');
-});
-
-
 app.use('/',express.static('CS4770'));
 //app.use('/levelEditor',express.static(__dirname + '/levelEditor'));
 serv.listen(2000);
@@ -711,8 +674,6 @@ io.sockets.on('connection', function(socket){
    });
 
   });
-
-
 
 
 
