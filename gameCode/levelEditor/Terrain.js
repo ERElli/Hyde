@@ -142,16 +142,10 @@ function IceModifier() {
 	self = TerrainModifier('ice');
 	
 	self.applyEffect = function(target) {
-		if (!target.slipping) {
-			target.ax /= 2;
-			target.slipping = true;
-		}
-	}
-	
-	self.reverseEffect = function(target) {
-		if (target.slipping) {
-			target.ax *= 2;
-			target.slipping = false;
+		if (!target.isSlipping) {
+			console.log("Applying mod");
+			target.acceleration /= 15;
+			target.isSlipping = true;
 		}
 	}
 	

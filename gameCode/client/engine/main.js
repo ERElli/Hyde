@@ -223,6 +223,7 @@ var update = function() {
 	for (var key in terrain) {
 
 		block = terrain[key];
+		block.mod = new IceModifier();
 
 		gui.drawTerrain(block,gui.fg_ctx)
 
@@ -240,6 +241,18 @@ var update = function() {
 			}
 			else {
 				player.falling = false;
+				
+				if (block.mod) {
+					block.mod.applyEffect(player);
+				}
+				else {
+					console.log("Reversing mod");
+					if (player.isSlipping) {
+						player.isSlipping = false;
+						player.acceleration *= 5;
+					}
+				}
+				
 				if (!player.justJumped) {
 					putOnTerrain(block, player);
 				}

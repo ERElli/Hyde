@@ -7,7 +7,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	var smallMass = 80;
 	var smallWidth = 50;
 	var smallHeight = 50;
-	var smallAcceleration = 100*mpsTOppf/framesPerSecond;
+	var smallAcceleration = 50*mpsTOppf/framesPerSecond;
 	var smallMaxVX = 5*mpsTOppf;
 	var smallMaxVY = 15*mpsTOppf;
 	var smallJumpSpeed = 5*mpsTOppf;
@@ -67,6 +67,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	var oldUpdate = self.updatePosition;
 	self.updatePosition = function() {
 
+		console.log(self.acceleration);
 
 		self.transformAniTimer++;
 		
@@ -102,7 +103,9 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	self.setGroundMotion = function() {
 		self.ay = 0;
 		self.vy = 0;
-		self.acceleration = self.isBig ? bigAcceleration:smallAcceleration;
+		if (!self.isSlipping) {
+			self.acceleration = self.isBig ? bigAcceleration:smallAcceleration;
+		}
 		self.maxVelocityX = self.isBig ? bigMaxVX:smallMaxVX;
 	}
 	
