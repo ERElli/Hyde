@@ -443,6 +443,10 @@ app.get('/client/interface/img/Animations/muzzleFlash/FlashStage4.png',function(
     res.sendFile(__dirname + '/client/interface/img/Animations/muzzleFlash/FlashStage4.png');
 });
 
+app.get('/client/interface/img/entity/boulderThrow.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/boulderThrow.png');
+});
+
 app.get('/images/signUpBackground.png',function(req, res) {
     res.sendFile(__dirname + '/client/images/signUpBackground.png');
 });

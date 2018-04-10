@@ -16,7 +16,7 @@
 		</div>
 
 	</body>
-	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+		<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 		<script type="text/javascript" src="../engine/main.js"></script>
 		<script type="text/javascript" src="../engine/entity.js"></script>
 		<script type="text/javascript" src="../engine/player.js"></script>
@@ -36,144 +36,202 @@
 
 
 		<script>
-
-
-		var socket = io();
-
-
-		//call the socket to get the level objects from database
-		var  getLevelObjects = function() {
-			socket.emit('getLevelObject', {level:"level 1"});
-		};
-
-		var levelObjects;
-		getLevelObjects();
-
-
-
-		//the socket receive the level objects from the database
-
-		socket.on('receiveLevelObjects',function(data){
-			levelObjects = data;
-			//level objects should be in data, right now they are logged in console
-			let realLevel = EntityFactory(levelObjects,false);
-
-			var level = {};
-			var p;
-
-			for (var thing in realLevel['player']) {
-				p = realLevel['player'][thing]
-			}
-
-			level['player'] = new Player(p.id, p.x, p.y-150, p.vx, p.vy, p.img, new Pistol(Math.random(), p.x, p.y, p.vx, p.vy, 50, 50,"pistol_image",null, p.id), p.isBig);
-
-			level['enemies'] = {};
-
-			for (let thing in realLevel['enemies']) {
-				e = realLevel['enemies'][thing]
-
-				var enemy;
-
-				if (e.type == 'basic enemy') {
-					enemy =  new BasicEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
-				}
-				else if (e.type == 'tank enemy') {
-					enemy =  new TankEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
-				}
-				else {
-					enemy =  new FlyingEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
-				}
-
-				level['enemies'][e.id] = enemy;
-
-			}
-
-			level['weapon'] = {};
-
-
-			for (let thing in realLevel['weapon']) {
-				w = realLevel['weapon'][thing]
-
-				var weapon;
-
-				weapon = new WeaponPickUp(w.id, w.x, w.y-150, w.weaponType, level['player']);
-
-				level['weapon'][w.id] = weapon;
-
-			}
-
-			level['terrain'] = {};
-			for (var thing in realLevel['terrain']) {
-				let t = realLevel['terrain'][thing]
-
-				var block;
-
-				if (t.type == 'Terrain1x1') {
-					block = Terrain1x1(t.id, t.x, t.y-150);
-				}
-				else if (t.type == 'Terrain1x1Breakable') {
-					block = Terrain1x1Breakable(t.id, t.x, t.y-150);
-				}
-				else if (t.type == 'Terrain3x2') {
-					block = Terrain3x2(t.id, t.x, t.y-150);
-				}
-				else if (t.type == 'Terrain3x2Breakable') {
-					block = Terrain3x2Breakable(t.id, t.x, t.y-150);
-				}
-				else if (t.type == 'Terrain3x4') {
-					block = Terrain3x4(t.id, t.x, t.y-150);
-				}
-				else if (t.type == 'Terrain3x4Breakable') {
-					block = Terrain3x4Breakable(t.id, t.x, t.y-150);
-				}
-				else if (t.type == 'Terrain3x6') {
-					block = Terrain3x6(t.id, t.x, t.y-150);
-				}
-				else if (t.type == 'Terrain3x6Breakable') {
-					block = Terrain3x6Breakable(t.id, t.x, t.y-150);
-				}
-				else if (t.type == 'Terrain1x6Breakable') {
-					block = Terrain1x6Breakable(t.id, t.x, t.y-150);
-				}
-
-
-				level['terrain'][t.id] = block;
-
-			}
-
-			level.width = realLevel.width;
-
-			startGame(level);
-	  });
-
-
-		/*
-			socket.on('receiveLevelObjects',function(data){
-			levelObjects = data;
-
-				//level objects should be in data, right now they are logged in console
-				Update(levelObjects);
-			});
-
-
-			function Update(level){
-
-				var levelFromFactory = EntityFactory(level,false);
-			}
-			*/
-
-		//
-
-
-
-		//let gameWidth=2000
-		// construct the gui with the container and the map
+	
+		var isOfflineMode=true;
+		var level = {};
 		var gui;
 		var ani=Animation();
 		var Img=Img("../../");
 		var Sound = Sound("../../");
 		var HEIGHT=500;
 		var WIDTH=1250;
+
+		if (!isOfflineMode){
+			var socket = io();
+
+
+			//call the socket to get the level objects from database
+			var  getLevelObjects = function() {
+				socket.emit('getLevelObject', {level:"level 1"});
+			};
+
+			var levelObjects;
+			getLevelObjects();
+
+
+
+			//the socket receive the level objects from the database
+
+			socket.on('receiveLevelObjects',function(data){
+				levelObjects = data;
+				//level objects should be in data, right now they are logged in console
+				let realLevel = EntityFactory(levelObjects,false);
+
+				var p;
+
+				for (var thing in realLevel['player']) {
+					p = realLevel['player'][thing]
+				}
+
+				level['player'] = new Player(p.id, p.x, p.y-150, p.vx, p.vy, p.img, new Pistol(Math.random(), p.x, p.y, p.vx, p.vy, 50, 50,"pistol_image",null, p.id), p.isBig);
+
+				level['enemies'] = {};
+
+				for (let thing in realLevel['enemies']) {
+					e = realLevel['enemies'][thing]
+
+					var enemy;
+
+					if (e.type == 'basic enemy') {
+						enemy =  new BasicEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
+					}
+					else if (e.type == 'tank enemy') {
+						enemy =  new TankEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
+					}
+					else {
+						enemy =  new FlyingEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
+					}
+
+					level['enemies'][e.id] = enemy;
+
+				}
+
+				level['weapon'] = {};
+
+
+				for (let thing in realLevel['weapon']) {
+					w = realLevel['weapon'][thing]
+
+					var weapon;
+
+					weapon = new WeaponPickUp(w.id, w.x, w.y-150, w.weaponType, level['player']);
+
+					level['weapon'][w.id] = weapon;
+
+				}
+
+				level['terrain'] = {};
+				for (var thing in realLevel['terrain']) {
+					let t = realLevel['terrain'][thing]
+
+					var block;
+
+					if (t.type == 'Terrain1x1') {
+						block = Terrain1x1(t.id, t.x, t.y-150);
+					}
+					else if (t.type == 'Terrain1x1Breakable') {
+						block = Terrain1x1Breakable(t.id, t.x, t.y-150);
+					}
+					else if (t.type == 'Terrain3x2') {
+						block = Terrain3x2(t.id, t.x, t.y-150);
+					}
+					else if (t.type == 'Terrain3x2Breakable') {
+						block = Terrain3x2Breakable(t.id, t.x, t.y-150);
+					}
+					else if (t.type == 'Terrain3x4') {
+						block = Terrain3x4(t.id, t.x, t.y-150);
+					}
+					else if (t.type == 'Terrain3x4Breakable') {
+						block = Terrain3x4Breakable(t.id, t.x, t.y-150);
+					}
+					else if (t.type == 'Terrain3x6') {
+						block = Terrain3x6(t.id, t.x, t.y-150);
+					}
+					else if (t.type == 'Terrain3x6Breakable') {
+						block = Terrain3x6Breakable(t.id, t.x, t.y-150);
+					}
+					else if (t.type == 'Terrain1x6Breakable') {
+						block = Terrain1x6Breakable(t.id, t.x, t.y-150);
+					}
+
+
+					level['terrain'][t.id] = block;
+
+				}
+
+				level.width = realLevel.width;
+
+				startGame(level);
+		  });
+		}else{
+			//#############################################################################
+			//FOR GUI TESTING PURPOSES
+			
+			for (var thing in mydata['player']) {
+				p = mydata['player'][thing]
+			}
+			level['player'] = new Player(p.id, p.x, p.y, p.vx, p.vy, p.img, new Pistol(Math.random(), p.x, p.y, p.vx, p.vy, 50, 50,"pistol_image",null, p.id), p.isBig);
+
+
+			level['enemies'] = {}
+
+			for (var thing in mydata['enemies']) {
+				e = mydata['enemies'][thing]
+
+				var enemy;
+
+				if (e.type == 'basic enemy') {
+					enemy =  new BasicEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
+				}
+				else if (e.type == 'tank enemy') {
+					enemy =  new TankEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
+				}
+				else {
+					enemy =  new FlyingEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
+				}
+
+				level['enemies'][e.id] = enemy;
+
+			}
+
+
+			level['terrain'] = {};
+				for (var thing in mydata['terrain']) {
+					let t = mydata['terrain'][thing]
+
+					var block;
+
+					if (t.type == 'Terrain1x1') {
+						block = Terrain1x1(t.id, t.x, t.y);
+					}
+					else if (t.type == 'Terrain1x1Breakable') {
+						block = Terrain1x1Breakable(t.id, t.x, t.y-150);
+					}
+					else if (t.type == 'Terrain3x2') {
+						block = Terrain3x2(t.id, t.x, t.y-150);
+					}
+					else if (t.type == 'Terrain3x2Breakable') {
+						block = Terrain3x2Breakable(t.id, t.x, t.y-150);
+					}
+					else if (t.type == 'Terrain3x4') {
+						block = Terrain3x4(t.id, t.x, t.y-150);
+					}
+					else if (t.type == 'Terrain3x4Breakable') {
+						block = Terrain3x4Breakable(t.id, t.x, t.y-150);
+					}
+					else if (t.type == 'Terrain3x6') {
+						block = Terrain3x6(t.id, t.x, t.y-150);
+					}
+					else if (t.type == 'Terrain3x6Breakable') {
+						block = Terrain3x6Breakable(t.id, t.x, t.y-150);
+					}
+					else if (t.type == 'Terrain1x6Breakable') {
+						block = Terrain1x6Breakable(t.id, t.x, t.y-150);
+					}
+
+
+					level['terrain'][t.id] = block;
+
+				}
+			level.width=2000;
+			console.log(level);
+			startGame(level);
+		
+//######################################################################################
+		}
+
+		//let gameWidth=2000
+		// construct the gui with the container and the map
 
 		//-----------
 		init = function() {
@@ -185,101 +243,7 @@
 			gui.createCanvas(WIDTH,HEIGHT);
 		}
 		//Creates background and foreground Canvases
-		init();
-		
-
-		for (var id in levelObjects.player) {
-			levelObjects.player = levelObjects.player[id]
-		}
-
-
-		for (var id in levelFromFactory.enemies) {
-			levelFromFactory.enemies[id].target = levelFromFactory.player;
-		}
-
-		//startGame(levelObjects);
-
-
-
-
-//#############################################################################
-	//FOR GUI TESTING PURPOSES
-
-/*
-
-		var level = {}
-
-		for (var thing in mydata['player']) {
-			p = mydata['player'][thing]
-		}
-
-		level['player'] = new Player(p.id, p.x, p.y, p.vx, p.vy, p.img, new Pistol(Math.random(), p.x, p.y, p.vx, p.vy, 50, 50,"pistol_image",null, p.id), p.isBig);
-
-
-		level['enemies'] = {}
-
-		for (var thing in mydata['enemies']) {
-			e = mydata['enemies'][thing]
-
-			var enemy;
-
-			if (e.type == 'basic enemy') {
-				enemy =  new BasicEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
-			}
-			else if (e.type == 'tank enemy') {
-				enemy =  new TankEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
-			}
-			else {
-				enemy =  new FlyingEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
-			}
-
-			level['enemies'][e.id] = enemy;
-
-		}
-
-
-		level['terrain'] = {};
-			for (var thing in mydata['terrain']) {
-				let t = mydata['terrain'][thing]
-
-				var block;
-
-				if (t.type == 'Terrain1x1') {
-					block = Terrain1x1(t.id, t.x, t.y-150);
-				}
-				else if (t.type == 'Terrain1x1Breakable') {
-					block = Terrain1x1Breakable(t.id, t.x, t.y-150);
-				}
-				else if (t.type == 'Terrain3x2') {
-					block = Terrain3x2(t.id, t.x, t.y-150);
-				}
-				else if (t.type == 'Terrain3x2Breakable') {
-					block = Terrain3x2Breakable(t.id, t.x, t.y-150);
-				}
-				else if (t.type == 'Terrain3x4') {
-					block = Terrain3x4(t.id, t.x, t.y-150);
-				}
-				else if (t.type == 'Terrain3x4Breakable') {
-					block = Terrain3x4Breakable(t.id, t.x, t.y-150);
-				}
-				else if (t.type == 'Terrain3x6') {
-					block = Terrain3x6(t.id, t.x, t.y-150);
-				}
-				else if (t.type == 'Terrain3x6Breakable') {
-					block = Terrain3x6Breakable(t.id, t.x, t.y-150);
-				}
-				else if (t.type == 'Terrain1x6Breakable') {
-					block = Terrain1x6Breakable(t.id, t.x, t.y-150);
-				}
-
-
-				level['terrain'][t.id] = block;
-
-			}
-		console.log(level);
-		startGame(level);*/
-		
-//######################################################################################
+		init();		
 
 		</script>
 </html>
