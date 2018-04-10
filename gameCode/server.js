@@ -108,6 +108,10 @@ app.get('/client/interface/img/entity/bullet.png',function(req, res) {
 app.get('/client/interface/img/entity/bullet2.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/entity/bullet2.png');
 });
+app.get('/client/interface/img/entity/boulderThrow.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/entity/boulderThrow.png');
+});
+
 
 //client/interface/img/entity/humanoid
 app.get('/client/interface/img/entity/humanoid/basicEnemy.png',function(req, res) {
@@ -172,67 +176,6 @@ app.get('/client/interface/img/terrain/terrain3x6.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/terrain/terrain3x6.png');
 });
 
-
-
-/*	ALL FILES IN THIS SECTION ARE NOT IN THE REPO
-app.get('/client/interface/img/enemy3.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/enemy3.png');
-});
-app.get('/client/interface/img/entity/humanoid/movingCharacter.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/entity/humanoid/movingCharacter.png');
-});
-app.get('/client/interface/img/entity/basicEnemy.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/entity/basicEnemy.png');
-});
-app.get('/client/interface/img/entity/bigGuy.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/entity/bigGuy.png');
-});
-app.get('/client/interface/img/entity/flyingEnemy.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/entity/flyingEnemy.png');
-});
-app.get('/client/interface/img/entity/movingCharacter.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/entity/flyingEnemy.png');
-});
-app.get('/client/interface/img/entity/shieldEnemy.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/entity/shieldEnemy.png');
-});
-app.get('/client/interface/img/entity/humanoid/playerSmall.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/entity/humanoid/playerSmall.png');
-});
-app.get('/client/interface/img/bear.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/bear.png');
-});
-app.get('/client/interface/img/shotgun.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/shotgun.png');
-});
-app.get('/client/interface/img/ovingCharacter.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/ovingCharacter.png');
-});
-app.get('/client/interface/img/bigGuy.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/bigGuy.png');
-});
-app.get('/client/interface/img/enemy1.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/enemy1.png');
-});
-app.get('/client/interface/img/enemy2.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/enemy2.png');
-});
-app.get('/client/interface/img/pistolWeapon.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/pistolWeapon.png');
-});
-app.get('/client/interface/img/assaultWeapon.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/assaultWeapon.png');
-});
-app.get('/client/interface/img/swordWeapon.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/swordWeapon.png');
-});
-app.get('/client/interface/img/bullet.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/bullet.png');
-});
-app.get('/client/interface/img/movingCharacter.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/movingCharacter.png');
-});
-*/
 
 app.get('/images/loadlevelbutton.png',function(req, res) {
     res.sendFile(__dirname + '/images/loadlevelbutton.png');
@@ -300,126 +243,119 @@ app.get('/client/interface/images.js',function(req, res) {
 
 
 
-app.get('/images/placeCheckpoint.png',function(req, res) {
-    res.sendFile(__dirname + '/images/placeCheckpoint.png');
+app.get('/client/interface/img/levelEditor/buttons/checkpoint/checkpointDrop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/checkpoint/checkpointDrop.png');
 });
 
-app.get('/images/enemy2.png',function(req, res) {
-    res.sendFile(__dirname + '/images/enemy2.png');
+app.get('/client/interface/img/levelEditor/buttons/enemy/enemy2.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/enemy/enemy2.png');
 });
 
-app.get('/images/enemy1.png',function(req, res) {
-    res.sendFile(__dirname + '/images/enemy1.png');
+app.get('/client/interface/img/levelEditor/buttons/enemy/enemy1.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/enemy/enemy1.png');
 });
 
 
-app.get('/images/worldTwoBackground.png',function(req, res) {
-    res.sendFile(__dirname + '/images/worldTwoBackground.png');
-});
-app.get('/images/music3Drop.png',function(req, res) {
-    res.sendFile(__dirname + '/images/music3Drop.png');
+app.get('/client/interface/img/levelEditor/buttons/music/music3Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/music/music3Drop.png');
 });
 
-app.get('/images/music2Drop.png',function(req, res) {
+app.get('/client/interface/img/levelEditor/buttons/music/music2Drop.png',function(req, res) {
     res.sendFile(__dirname + '/images/music2Drop.png');
 });
 
-app.get('/images/enemy3Drop.png',function(req, res) {
-    res.sendFile(__dirname + '/images/enemy3Drop.png');
+app.get('/client/interface/img/levelEditor/buttons/enemy/enemy3Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/enemy/enemy3Drop.png');
 });
 
-app.get('/images/music1Drop.png',function(req, res) {
-    res.sendFile(__dirname + '/images/music1Drop.png');
+app.get('/client/interface/img/levelEditor/buttons/music/music1Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/music/music1Drop.png');
 });
 
-app.get('/images/world1Drop.png',function(req, res) {
-    res.sendFile(__dirname + '/images/world1Drop.png');
+app.get('/client/interface/img/levelEditor/buttons/world/world1Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/world/world1Drop.png');
 });
-app.get('/images/enemy1Drop.png',function(req, res) {
-    res.sendFile(__dirname + '/images/enemy1Drop.png');
-});
-
-app.get('/images/enemy2Drop.png',function(req, res) {
-    res.sendFile(__dirname + '/images/enemy2Drop.png');
+app.get('/client/interface/img/levelEditor/buttons/enemy/enemy1Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/enemy/enemy1Drop.png');
 });
 
-app.get('/images/world2Drop.png',function(req, res) {
-    res.sendFile(__dirname + '/images/world2Drop.png');
+app.get('/client/interface/img/levelEditor/buttons/enemy/enemy2Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/enemy/enemy2Drop.png');
 });
 
-app.get('/images/world3Drop.png',function(req, res) {
-    res.sendFile(__dirname + '/images/world3Drop.png');
+app.get('/client/interface/img/levelEditor/buttons/world/world2Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/world/world2Drop.png');
 });
 
-app.get('/images/3x2Drop.png',function(req, res) {
-    res.sendFile(__dirname + '/images/3x2Drop.png');
+app.get('/client/interface/img/levelEditor/buttons/world/world3Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/world/world3Drop.png');
 });
 
-app.get('/images/3x2BDrop.png',function(req, res) {
-    res.sendFile(__dirname + '/images/3x2BDrop.png');
+app.get('/client/interface/img/levelEditor/buttons/terrain/3x2Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/terrain/3x2Drop.png');
 });
 
-app.get('/images/3x4BDrop.png',function(req, res) {
-    res.sendFile(__dirname + '/images/3x4BDrop.png');
+app.get('/client/interface/img/levelEditor/buttons/terrain/3x2BDrop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/terrain/3x2BDrop.png');
 });
 
-app.get('/images/3x4Drop.png',function(req, res) {
-    res.sendFile(__dirname + '/images/3x4Drop.png');
+app.get('/client/interface/img/levelEditor/buttons/terrain/3x4BDrop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/terrain/3x4BDrop.png');
 });
 
-app.get('/images/3x6Drop.png',function(req, res) {
-    res.sendFile(__dirname + '/images/3x6Drop.png');
+app.get('/client/interface/img/levelEditor/buttons/terrain/3x4Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/terrain/3x4Drop.png');
 });
 
-app.get('/images/3x6BDrop.png',function(req, res) {
-    res.sendFile(__dirname + '/images/3x6BDrop.png');
+app.get('/client/interface/img/levelEditor/buttons/terrain/3x6Drop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/terrain/3x6Drop.png');
 });
 
-app.get('/images/pistolDrop.png',function(req, res) {
-    res.sendFile(__dirname + '/images/pistolDrop.png');
+app.get('/client/interface/img/levelEditor/buttons/terrain/3x6BDrop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/terrain/3x6BDrop.png');
 });
 
-app.get('/images/assaultDrop.png',function(req, res) {
-    res.sendFile(__dirname + '/images/assaultDrop.png');
+app.get('/client/interface/img/levelEditor/buttons/weapon/pistolDrop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/weapon/pistolDrop.png');
 });
 
-app.get('/images/swordDrop.png',function(req, res) {
-    res.sendFile(__dirname + '/images/swordDrop.png');
+app.get('/client/interface/img/levelEditor/buttons/weapon/assaultDrop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/weapon/assaultDrop.png');
 });
 
-app.get('/images/shottyDrop.png',function(req, res) {
-    res.sendFile(__dirname + '/images/shottyDrop.png');
+app.get('/client/interface/img/levelEditor/buttons/weapon/swordDrop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/weapon/terrain/swordDrop.png');
 });
 
-app.get('/images/enemiesButton.png',function(req, res) {
-    res.sendFile(__dirname + '/images/enemiesButton.png');
-});
-app.get('/images/musicButton.png',function(req, res) {
-    res.sendFile(__dirname + '/images/musicButton.png');
-});
-app.get('/images/checkPointButton.png',function(req, res) {
-    res.sendFile(__dirname + '/images/checkPointButton.png');
-});
-app.get('/images/characterButton.png',function(req, res) {
-    res.sendFile(__dirname + '/images/characterButton.png');
+app.get('/client/interface/img/levelEditor/buttons/weapon/shottyDrop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/weapon/shottyDrop.png');
 });
 
-app.get('/images/weaponButton.png',function(req, res) {
-    res.sendFile(__dirname + '/images/weaponButton.png');
+app.get('/client/interface/img/levelEditor/buttons/header/enemiesButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/header/enemiesButton.png');
 });
-app.get('/images/backgroundButton.png',function(req, res) {
-    res.sendFile(__dirname + '/images/backgroundButton.png');
+app.get('/client/interface/img/levelEditor/buttons/header/musicButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/header/musicButton.png');
+});
+app.get('/client/interface/img/levelEditor/buttons/header/checkPointButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/header/checkPointButton.png');
+});
+app.get('/client/interface/img/levelEditor/buttons/header/characterButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/header/characterButton.png');
+});
+
+app.get('/client/interface/img/levelEditor/buttons/header/weaponButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/header/weaponButton.png');
+});
+app.get('/client/interface/img/levelEditor/buttons/header/backgroundButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/header/backgroundButton.png');
 });
 
 
 
 
-app.get('/images/terrainButton.png',function(req, res) {
-    res.sendFile(__dirname + '/images/terrainButton.png');
-});
-
-app.get('/images/scientistMain.png',function(req, res) {
-    res.sendFile(__dirname + '/images/scientistMain.png');
+app.get('/client/interface/img/levelEditor/buttons/header/terrainButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/header/terrainButton.png');
 });
 
 app.get('/images/playStory.png',function(req, res) {
@@ -437,42 +373,10 @@ app.get('/images/achievements.png',function(req, res) {
     res.sendFile(__dirname + '/images/achievements.png');
 });
 
-app.get('/images/weaponButton.png',function(req, res) {
-    res.sendFile(__dirname + '/images/weaponButton.png');
-});
-
-app.get('/images/terrain3x2.png',function(req, res) {
-    res.sendFile(__dirname + '/images/terrain3x2.png');
-});
-
-app.get('/images/breakableTerrain3x2.png',function(req, res) {
-    res.sendFile(__dirname + '/images/breakableTerrain3x2.png');
-});
-
-app.get('/images/terrain3x4.png',function(req, res) {
-    res.sendFile(__dirname + '/images/terrain3x4.png');
-});
-app.get('/images/breakableTerrain3x4.png',function(req, res) {
-    res.sendFile(__dirname + '/images/breakableTerrain3x4.png');
-});
-
-app.get('/images/terrain3x6.png',function(req, res) {
-    res.sendFile(__dirname + '/images/terrain3x6.png');
-});
-app.get('/images/breakableTerrain3x6.png',function(req, res) {
-    res.sendFile(__dirname + '/images/breakableTerrain3x6.png');
-});
-
 app.get('/images/backgroundButton.png',function(req, res) {
     res.sendFile(__dirname + '/images/backgroundButton.png');
 });
 
-
-
-
-app.get('/client/interface/img/entity/boulderThrow.png',function(req, res) {
-    res.sendFile(__dirname + '/client/interface/img/entity/boulderThrow.png');
-});
 
 app.get('/images/signUpBackground.png',function(req, res) {
     res.sendFile(__dirname + '/client/images/signUpBackground.png');
