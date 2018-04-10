@@ -90,7 +90,7 @@ Map = function(width, height,tile_width, tile_height) {
 		}
 		console.log("the nameL is "+nameL);
 
-		console.log()
+		console.log("SPIKE being added",object);
 		list[id] = object;
 		var temp = type;
 		console.log("field 1: "+levelNameField.value+ " field 2:" + levelNameField2.value+ " name:"+ nameL);
