@@ -233,9 +233,18 @@ var update = function() {
 		//Check collisions with player ####################################
 
 		if (blockUnderEntity(block, player)) {
-			player.falling = false;
-			if (!player.justJumped) {
-				putOnTerrain(block, player);
+			
+			if (block.type == 'spike trap' && block.orientation == "up") {
+				if (!player.isImmune) {
+					player.takeDamage(block.damage);
+					player.vy = 10;
+				}
+			}
+			else {
+				player.falling = false;
+				if (!player.justJumped) {
+					putOnTerrain(block, player);
+				}
 			}
 		}
 
@@ -250,6 +259,14 @@ var update = function() {
 			if (!block.breakAt) {
 				player.x = block.x + block.width+player.xOffset;
 				player.blockedLeft = true;
+			}
+			
+			if (block.type == 'spike trap' && block.orientation == "right") {
+				console.log("Hurting from left");
+				if (!player.isImmune) {
+					player.takeDamage(block.damage);
+					player.vx = 10;
+				}
 			}
 
 			else {
@@ -274,6 +291,13 @@ var update = function() {
 				player.x = block.x - player.xOffset;
 				player.blockedRight = true;
 			}
+			
+			if (block.type == 'spike trap' && block.orientation == "left") {
+				if (!player.isImmune) {
+					player.takeDamage(block.damage);
+					player.vx = -10;
+				}
+			}
 
 			else {
 				if (Math.abs(player.getMomentum()) >= block.breakAt) {
@@ -293,8 +317,17 @@ var update = function() {
 
 
 		if (blockOverEntity(block, player)) {
-			player.y = block.y+block.height+player.height/2;
-			player.vy = 0;
+			
+			if (block.type == 'spike trap' && block.orientation == "down") {
+				if (!player.isImmune) {
+					player.takeDamage(block.damage);
+					player.vy = -10;
+				}
+			}
+			else {
+				player.y = block.y+block.height+player.height/2;
+				player.vy = 0;
+			}
 		}
 
 
@@ -379,15 +412,6 @@ var update = function() {
 		}
 	}
 
-	//If they didn't just jump, and they are near terrain, put them on that terrain
-	/*
-	else if (nearTerrain(player.x, player.y+player.height/2)) {
-		player.inAir = false;
-		player.doubleJumped = false;
-		putOnTerrain(player);
-	}
-	*/
-
 	//Manage motion type
 	if (player.inAir) {
 		player.setAirMotion();
@@ -401,7 +425,6 @@ var update = function() {
 
 
 	// Manage pick-ups ------------------------------------------------------------------
-
 
 	for (var key in pickUps) {
 
@@ -420,10 +443,96 @@ var update = function() {
 
 	}
 	
-	
 	for (var key in boulderPickUps) {
 		boulderPickUps[key].draw();
 	}
+	
+	
+	
+	// Manage all the traps ----------------------------------------------------------------------------
+	/*
+	for (var key in traps) {
+		
+		var trap = traps[key];
+		
+		trap.draw(gui.fg_ctx, false);
+		
+		
+		// Check collisions with player ###############################
+		if (blockUnderEntity(trap, player)) {
+				
+			if (trap.orientation == "up") {
+				if (!player.isImmune) {
+					player.takeDamage(trap.damage);
+					player.vy = 10;
+				}
+				else {
+					
+				}
+			}
+			else {
+				putOnTerrain(trap, player);
+			}
+			
+		}
+		
+		else if (blockOverEntity(trap, player)) {
+			
+			if (trap.orientation == "down") {
+				if (!player.isImmune) {
+					player.takeDamage(trap.damage);
+					player.vy = -10;
+				}
+				else {
+					
+				}
+			}
+			else {
+				player.y = trap.y+trap.height+player.height/2;
+				player.vy = 0;
+			}
+			
+		}
+		
+		else if (blockLeftEntity(trap, player)) {
+			
+			if (trap.orientation == "right") {
+				if (!player.isImmune) {
+					player.takeDamage(trap.damage);
+					player.vx = 10;
+				}
+				else {
+					
+				}
+			}
+			else {
+				player.x = trap.x + trap.width+player.xOffset;
+				player.blockedLeft = true;
+			}
+			
+		}
+		
+		else if (blockRightEntity(trap, player)) {
+			
+			if (trap.orientation == "left") {
+				if (!player.isImmune) {
+					player.takeDamage(trap.damage);
+					player.vx = -10;
+				}
+				else {
+					
+				}
+			}
+			else {
+				player.x = trap.x - player.xOffset;
+				player.blockedRight = true;
+			}
+			
+		}
+	
+		
+	}
+	*/
 
 
 
@@ -482,7 +591,9 @@ var update = function() {
 			delete bullets[key];
 		}
 	}
+	
 
+	
 	//Manage all the enemies ----------------------------------------------------------------------------------------
 
 	for (var key in enemies) {
@@ -630,8 +741,6 @@ var startGame = function(initial_level) {
 	enemies = level["enemies"];
 	terrain = level["terrain"];
 	breakable = new Terrain1x1Breakable(Math.random(), 500, 325);
-	// terrain[breakable.id] = breakable;
-	// console.log(terrain[breakable.id]['x'])
 	//surfaceMods = level["terrain"];
 	pickUps = level['weapon'];
 	frameCount = 0;
@@ -640,6 +749,7 @@ var startGame = function(initial_level) {
 	level_width = initial_level.width;
 
 	//createPickUps();
+	createTraps();
 
 	setInterval(update, 1000/60)
 }
@@ -652,6 +762,17 @@ var createPickUps = function() {
 
 	pickUps[w.id] = w;
 	pickUps[a.id] = a;
+
+}
+
+var createTraps = function() {
+
+	w = new SpikeTrap(Math.random(), 100, 100, 'left');
+
+	a = new SpikeTrap(Math.random(), 300, 100, 'right');
+
+	terrain[w.id] = w;
+	terrain[a.id] = a;
 
 }
 
