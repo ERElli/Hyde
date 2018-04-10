@@ -246,8 +246,9 @@ function MovingPlatform(id, x, y, vx, vy, width, height, img, color, path, delay
 
 	}
 
-	self.draw = function() {
-
+	//Temp drawing function for testing in level editor
+	self.draw = function(ctx,isLevelEditor) {
+		ctx.drawImage(Img.platform,0,0,Img.platform.width,Img.platform.height,self.x,self.y,self.width,self.height);
 	}
 
 	return self;
@@ -279,8 +280,9 @@ function SpikeTrap(id, x, y, vx, vy, width, height, img, color, damage, orientat
 
 	}
 
-	self.draw = function() {
-
+	//Temp drawing function for testing in level editor
+	self.draw = function(ctx,isLevelEditor) {
+		ctx.drawImage(Img.topSpikeTrap,0,0,Img.topSpikeTrap.width,Img.topSpikeTrap.height,self.x,self.y,self.width,self.height);
 	}
 
 	return self;

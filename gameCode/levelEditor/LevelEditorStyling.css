@@ -6,12 +6,13 @@
     background:transparent;
     border: none;
     color: black;
-    width: 62px;
-    height: 62px;
-    /*display: inline-block;*/
+    width: 100px;
+    height: 100px;
+    display: inline-block;
     display: block;
     background-size: 100%;
     z-index: 4;
+
 }
 
 /*Enemies Button*/
@@ -19,15 +20,15 @@
     background:transparent;
     background-image: url(../../images/enemiesButton.png);
     background-size: 100%;
-    top: 0px;
+    top: 8px;
     position: fixed;
-    left: 62px;
+    left: 58px;
     
     border: none;
     cursor: pointer;
     z-index: 4;
-    width: 62px;
-    height: 62px;
+    width: 100px;
+    height: 100px;
 }
 
 #enemiesbtn:hover, #enemiesbtn:focus {
@@ -44,9 +45,9 @@
 #enemies {
     display: none;
     position: fixed;
-    left: 62px;
-    top:62px;
-    min-width: 62px;
+    left: 58px;
+    top:108px;
+    min-width: 100px;
     overflow: auto;
     
     z-index: 4;
@@ -58,15 +59,15 @@
     background:transparent;
     background-image: url(../../images/musicButton.png);
     background-size: 100%;
-    top: 0px;
+    top: 8px;
     position: fixed;
-    left: 124px;
+    left: 158px;
     
     border: none;
     cursor: pointer;
     z-index: 4;
-    width: 62px;
-    height: 62px;
+    width: 100px;
+    height: 100px;
 }
 
 #musicbtn:hover, #musicbtn:focus {
@@ -84,9 +85,9 @@
 #music {
     display: none;
     position: fixed;
-    left: 124px;
-    top:62px;
-    min-width: 62px;
+    left: 158px;
+    top:108px;
+    min-width: 100px;
     overflow: auto;
     
     z-index: 4;
@@ -98,15 +99,15 @@
     background:transparent;
     background-image: url(../../images/backgroundButton.png);
     background-size: 100%;
-    top: 0px;
+    top: 8px;
     position: fixed;
-    left: 186px;
+    left: 258px;
     
     border: none;
     cursor: pointer;
     z-index: 4;
-    width: 62px;
-    height: 62px;
+    width: 100px;
+    height: 100px;
 }
 
 #backgroundbtn:hover, #backgroundbtn:focus {
@@ -125,9 +126,9 @@
 #backgrounds {
     display: none;
     position: fixed;
-    left: 186px;
-    top:62px;
-    min-width: 62px;
+    left: 258px;
+    top:108px;
+    min-width: 100px;
     overflow: auto;
     
     z-index: 4;
@@ -139,15 +140,15 @@
     background:transparent;
     background-image: url(../../images/checkpointButton.png);
     background-size: 100%;
-    top: 0px;
+    top: 8px;
     position: fixed;
-    left: 248px;
+    left: 358px;
     
     border: none;
     cursor: pointer;
     z-index: 4;
-    width: 62px;
-    height: 62px;
+    width: 100px;
+    height: 100px;
 }
 
 #checkpointbtn:hover, #checkpointbtn:focus {
@@ -165,9 +166,9 @@
 #checkpoints {
     display: none;
     position: fixed;
-    left: 248px;
-    top:62px;
-    min-width: 62px;
+    left: 358px;
+    top:108px;
+    min-width: 100px;
     overflow: auto;
     /*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);*/
     z-index: 4;
@@ -179,15 +180,15 @@
     background:transparent;
     background-image: url(../../images/characterButton.png);
     background-size: 100%;
-    top: 0px;
+    top: 8px;
     position: fixed;
-    left: 310px;
+    left: 458px;
     
     border: none;
     cursor: pointer;
     z-index: 4;
-    width: 62px;
-    height: 62px;
+    width: 100px;
+    height: 100px;
 }
 
 #characterbtn:hover, #dropbtn:focus {
@@ -205,9 +206,9 @@
 #character {
     display: none;
     position: fixed;
-    left: 186px;
-    top:62px;
-    min-width: 62px;
+    left: 458px;
+    top:108px;
+    min-width: 100px;
     overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);
     z-index: 4;
@@ -224,7 +225,7 @@
 
 .dropdown a:hover {background-color: #ddd}*/
 
-.show {display:block;}      
+   
 
 /*Terrain Button*/
 
@@ -232,25 +233,26 @@
     background:transparent;
     background-image: url(../../images/terrainButton.png);
     background-size: 100%;
-    top: 0px;
+    top: 8px;
     position: fixed;
-    left: 372px;
+    left: 558px;
     
     border: none;
     cursor: pointer;
     z-index: 4;
-    width: 62px;
-    height: 62px;
+    width: 100px;
+    height: 100px;
 }
 
 #terrainbtn:hover, #terrainbtn:focus {
     outline:0;
     z-index:4;
+
 }
 
 #terrainDropdown {
     position: fixed;
-    display: inline-block;
+   
     z-index:4;
 
 }
@@ -258,44 +260,45 @@
 #terrains{
     display: none;
     position: fixed;
-    left: 372px;
-    top:62px;
-    min-width: 62px;
-    overflow: auto;
+    left: 558px;
+    top:108px;
+
+    height: 50px;
     
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);
     z-index: 4;
 }
+
 
 #terrains.dropdown-content button {
     background:transparent;
     border: none;
     color: black;
-    width: 62px;
-    height: 31px;
+    width: 100px;
+    height: 50px;
+    display: inline-block;
     display: block;
+    background-size: 100%;
     z-index: 4;
+    
 }
 
-#terrains.dropdown-content button:hover {background-color: #ddd}
-
-.show {display:block;}       
 
 
-/*Weapon Button*/
 
 #weaponbtn {
     background:transparent;
     background-image: url(../../images/weaponButton.png);
     background-size: 100%;
-    top: 0px;
+    top: 8px;
     position: fixed;
-    left: 434px;
+    left: 658px;
     
     border: none;
     cursor: pointer;
     z-index: 4;
-    width: 62px;
-    height: 62px;
+    width: 100px;
+    height: 100px;
 }
 
 #weaponbtn:hover, #weaponbtn:focus {
@@ -313,9 +316,9 @@
 #weapons{
     display: none;
     position: fixed;
-    left: 434px;
-    top:62px;
-    min-width: 62px;
+    left: 658px;
+    top:108px;
+    min-width: 100px;
     overflow: auto;
     
     z-index: 4;

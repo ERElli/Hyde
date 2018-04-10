@@ -54,9 +54,13 @@ Img = function(pathToRoot) {
 	self.terrain3x6Breakable= new Image();
 	self.terrain3x6Breakable.src= pathToRoot+"client/interface/img/terrain/breakableTerrain3x6.png";
 	self.terrain1x6Breakable=new Image();
-	self.terrain1x6Breakable.src=pathToRoot+"client/interface/img/terrain/1x6BreakableBuilding.png"
+	self.terrain1x6Breakable.src=pathToRoot+"client/interface/img/terrain/1x6BreakableBuilding.png";
 	self.terrain1x6Ani=new Image();
-	self.terrain1x6Ani.src=pathToRoot+"client/interface/img/terrain/breakableBuildingAnimation.png"
+	self.terrain1x6Ani.src=pathToRoot+"client/interface/img/terrain/breakableBuildingAnimation.png";
+	self.topSpikeTrap=new Image();
+	self.topSpikeTrap.src = pathToRoot+"client/interface/img/terrain/topSpikeTrap.png";
+	self.platform=new Image();
+	self.platform.src = pathToRoot+"client/interface/img/terrain/platform.png";
 	//checkpoint images
 	self.standardCheckpoint= new Image();
 	self.standardCheckpoint.src = pathToRoot+"client/interface/img/placeCheckpoint.png";
