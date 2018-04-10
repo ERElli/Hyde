@@ -70,6 +70,10 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 
 		self.transformAniTimer++;
 		
+		if (self.isLaunched && Math.abs(self.vx) < 2) {
+			self.isLaunched = false;
+		}
+		
 		if (Math.sign(self.vx) != Math.sign(self.ax) && !self.isLaunched && !self.isStopped) {
 			self.ax = self.slowDownFactor*self.ax;
 		}	
@@ -173,7 +177,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 				self.xOffset = self.width*0.6;
 				self.yOffset = self.height/2;
 				
-				self.launch(px/self.mass * mpsTOppf/3);
+				self.launch(px/self.mass * mpsTOppf/3, 50);
 				self.vy = (py / self.mass) * mpsTOppf;
 			}
 			else {

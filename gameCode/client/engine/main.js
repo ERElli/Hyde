@@ -354,7 +354,7 @@ var update = function() {
 
 	if (player.isLaunched) {
 		player.launchTimer++;
-		if (player.launchTimer > 25) {
+		if (player.launchTimer > player.launchTimerMax) {
 			player.isLaunched = false;
 		}
 	}
@@ -549,7 +549,7 @@ var update = function() {
 						playerDeals += delta_p/150;
 					}
 					else if (enemy_p > player_p) {
-						player.launch(Math.sign(enemy.vx)*delta_p/player.mass);
+						player.launch(Math.sign(enemy.vx)*delta_p/player.mass, 25);
 
 						enemyDeals += delta_p/150;
 

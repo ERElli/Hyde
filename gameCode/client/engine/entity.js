@@ -105,6 +105,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	self.justJumped = false;
 
 	self.isLaunched = false;
+	self.launchTimerMax = 25;
 
 	self.falling = false;
 
@@ -173,11 +174,12 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		//return 100;
 	}
 
-	self.launch = function(vx) {
+	self.launch = function(vx, time) {
 		self.isLaunched = true;
 		self.vx = vx;
 		self.ax = 0;
 		self.launchTimer = 0;
+		self.launchTimerMax = time;
 	}
 
 	self.jump = function() {
@@ -358,12 +360,3 @@ function BoulderBullet(id, x, y, vx, vy, img, color, ownerID) {
 	
 	return self;
 }
-
-
-var Throwable = function() {
-	
-	
-}
-
-
-
