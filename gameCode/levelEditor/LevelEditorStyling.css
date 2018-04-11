@@ -12,13 +12,12 @@
     display: block;
     background-size: 100%;
     z-index: 4;
-
 }
 
 /*Enemies Button*/
 #enemiesbtn {
     background:transparent;
-    background-image: url(../../images/enemiesButton.png);
+    background-image: url(../client/interface/img/levelEditor/buttons/header/enemiesButton.png);
     background-size: 100%;
     top: 8px;
     position: fixed;
@@ -57,7 +56,7 @@
 
 #musicbtn {
     background:transparent;
-    background-image: url(../../images/musicButton.png);
+    background-image: url(../client/interface/img/levelEditor/buttons/header/musicButton.png);
     background-size: 100%;
     top: 8px;
     position: fixed;
@@ -97,7 +96,7 @@
 
 #backgroundbtn {
     background:transparent;
-    background-image: url(../../images/backgroundButton.png);
+    background-image: url(../client/interface/img/levelEditor/buttons/header/backgroundButton.png);
     background-size: 100%;
     top: 8px;
     position: fixed;
@@ -138,7 +137,7 @@
 
 #checkpointbtn {
     background:transparent;
-    background-image: url(../../images/checkpointButton.png);
+    background-image: url(../client/interface/img/levelEditor/buttons/header/checkPointButton.png);
     background-size: 100%;
     top: 8px;
     position: fixed;
@@ -178,7 +177,7 @@
 
 #characterbtn {
     background:transparent;
-    background-image: url(../../images/characterButton.png);
+    background-image: url(../client/interface/img/levelEditor/buttons/header/characterButton.png);
     background-size: 100%;
     top: 8px;
     position: fixed;
@@ -231,7 +230,7 @@
 
 #terrainbtn {
     background:transparent;
-    background-image: url(../../images/terrainButton.png);
+    background-image: url(../client/interface/img/levelEditor/buttons/header/terrainButton.png);
     background-size: 100%;
     top: 8px;
     position: fixed;
@@ -280,7 +279,6 @@
     display: block;
     background-size: 100%;
     z-index: 4;
-    
 }
 
 
@@ -288,7 +286,7 @@
 
 #weaponbtn {
     background:transparent;
-    background-image: url(../../images/weaponButton.png);
+    background-image: url(../client/interface/img/levelEditor/buttons/header/weaponButton.png);
     background-size: 100%;
     top: 8px;
     position: fixed;

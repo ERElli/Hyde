@@ -80,15 +80,15 @@
 	<div id="weaponDropdown">
 		<button onclick="typeTapped('weapons')" id="weaponbtn"></button>
 		<div id="weapons" class="dropdown-content">
-			<button style="background-image: url(../../images/pistolDrop.png)" onclick="weaponTapped('pistol')" class="pistolbtn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/weapon/pistolDrop.png)" onclick="weaponTapped('pistol')" class="pistolbtn"></button>
 			<button style="background-image: url(../client/interface/img/levelEditor/buttons/weapon/assaultDrop.png)" onclick="weaponTapped('assault')" class="assaultbtn"></button>
-			<button style="background-image: url(../../images/shottyDrop.png)" onclick="weaponTapped('shotgun')" class="shotgunbtn"></button>
-			<button style="background-image: url(../../images/swordDrop.png)" onclick="weaponTapped('sword')" class="swordbtn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/weapon/shottyDrop.png)" onclick="weaponTapped('shotgun')" class="shotgunbtn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/weapon/swordDrop.png)" onclick="weaponTapped('sword')" class="swordbtn"></button>
 		</div>
 	</div>
 
 
-	<div id="levelMenu"  style=" display:none; padding-top:10%; padding-left:40%;height:500px; background-color: lightblue;" >
+	<div id="levelMenu"  style=" display:none; padding-top:50%; padding-left:50%;height:500px; background-color: lightblue;" >
 		Level Name: <input id="levelNameField" type="text"></input><br><br>
 		<br><br>
 		Choose Width (ex: 1200): <input id="widthValue" type="text"></input><br><br>
@@ -96,13 +96,13 @@
 		<button id="levelButton">Go to Level Editor</button>
 	</div>
 
-	<div id="levelLoad"  style=" display:none; padding-top:10%; padding-left:40%;height:500px; background-color: lightblue;" >
+	<div id="levelLoad"  style=" display:none; padding-top:50%; padding-left:50%;height:500px; background-color: lightblue;" >
 		Level Name: <input id="levelNameField2" type="text"></input><br><br>
 		<br><br>
 		<button id="levelButton2">Load in Level Editor</button>
 	</div>
 
-	<div id="levelChoice"  style="   padding-top:10%; padding-left:40%;height:500px; background-color: lightblue;" >
+	<div id="levelChoice"  style="   padding-top:50%; padding-left:50%;height:500px; background-color: lightblue;" >
 		<button id="levelNewButton">New Level</button>
 		<button id="levelLoadButton">Load Level</button>
 	</div>
@@ -640,7 +640,7 @@ putEntity = function() {
 						case '1x6Breakable':
 							entity = Terrain1x6Breakable(id, x, y);
 							break;
-						case 'topSpike':
+						case 'topSpikeTrap':
 							entity = SpikeTrap(id, x, y, 0, 0, 50, 50, Img.topSpikeTrap, 'red', 20, 'vertical');
 							break;
 						case 'platform':
