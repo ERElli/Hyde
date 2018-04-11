@@ -224,7 +224,7 @@ var update = function() {
 
 		block = terrain[key];
 		if (block.x > 500) {
-			block.mod = new MudModifier();
+			block.mod = new IceModifier();
 		}
 		if (block.x > 750) {
 			block.mod = new IceModifier();
@@ -251,18 +251,8 @@ var update = function() {
 					block.mod.applyEffect(player);
 				}
 				else {
-					//console.log("Reversing mod");
-					if (player.isSlipping) {
-						player.isSlipping = false;
-						player.acceleration *= 15;
-					}
-					if (player.isMuddy) {
-						console.log("Reseting in main");
-						player.isMuddy = false;
-					}
-
+					block.clearEffects(player);
 				}
-				
 				if (!player.justJumped) {
 					putOnTerrain(block, player);
 				}
@@ -274,10 +264,6 @@ var update = function() {
 				player.isSlipping = false;
 				player.acceleration *= 15;
 			}
-			//if (player.isMuddy) {
-			//	player.isMuddy = false;
-			//	player.maxVelocityX = 10;
-			//}
 			player.inAir = true;
 			player.setAirMotion();
 		}
@@ -362,12 +348,26 @@ var update = function() {
 
 			if (blockUnderEntity(block, enemy)) {
 				enemy.falling = false;
+				
+				if (block.mod) {
+					block.mod.applyEffect(enemy);
+				}
+				else {
+					block.clearEffects(enemy);
+				}
+				
 				if (!enemy.justJumped) {
 					putOnTerrain(block, enemy);
 				}
 			}
 
 			if (enemy.falling) {
+				
+				if (enemy.isSlipping) {
+					enemy.isSlipping = false;
+					enemy.acceleration *= 15;
+				}
+				
 				enemy.inAir = true;
 				enemy.setAirMotion();
 			}

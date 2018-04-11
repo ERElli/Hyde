@@ -84,7 +84,7 @@ function BasicEnemy(id, x, y, vx, vy, img, color, target) {
 	
 	var basicWidth = 40;
 	var basicHeight = 40;
-	var basicAcceleration = 100*mpsTOppf/framesPerSecond;
+	var basicAcceleration = 50*mpsTOppf/framesPerSecond;
 	var basicMaxVX = 3*mpsTOppf;
 	var basicMaxVY = 20*mpsTOppf;
 	var basicMaxHP = 20;
