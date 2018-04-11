@@ -188,3 +188,61 @@ function MudModifier() {
 	return self;
 	
 }
+
+//SPECIAL SURFACES --------------------------------------------------------------------------------------------------------------------------
+function MovingPlatform(id, x, y, vx, vy, width, height, img, color, path, delay) {
+	var self = Entity("moving platform", id, x, y, vx, vy, width, height, img, color);
+
+
+	self.path = path;
+	self.delay = delay;
+
+
+	self.start = function() {
+
+	}
+
+	self.stop = function() {
+
+	}
+
+	//Temp drawing function for testing in level editor
+	self.draw = function(ctx,isLevelEditor) {
+		ctx.drawImage(Img.platform,0,0,Img.platform.width,Img.platform.height,self.x,self.y,self.width,self.height);
+	}
+
+	return self;
+}
+
+
+
+/*
+* Like Terrain, traps' coordinates refer to their top-left corner.
+*/ 
+function SpikeTrap(id, x, y, orientation) {
+	
+	var self = Terrain(id, x, y);
+
+
+	self.damage = 25;
+	self.orientation = orientation;
+	self.type = "spike trap"
+	self.width = 50;
+	self.height = 50;
+	self.img = Img.terrain1x1Breakable;
+
+
+	//Temp drawing function for testing in level editor
+	/*
+	self.draw = function(ctx,isLevelEditor) {
+		ctx.drawImage(Img.topSpikeTrap,0,0,Img.topSpikeTrap.width,Img.topSpikeTrap.height,self.x,self.y,self.width,self.height);
+	}
+	*/
+	
+	//Temp function for engine (uses 1x1 breakable in GUI.js)
+	self.draw = function(ctx, isLevelEditor) {
+		gui.drawTerrain(self,ctx,isLevelEditor);
+	}
+
+	return self;
+}
