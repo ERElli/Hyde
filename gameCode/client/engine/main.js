@@ -223,7 +223,12 @@ var update = function() {
 	for (var key in terrain) {
 
 		block = terrain[key];
-		block.mod = new IceModifier();
+		if (block.x > 500) {
+			block.mod = new MudModifier();
+		}
+		if (block.x > 750) {
+			block.mod = new IceModifier();
+		}
 
 		gui.drawTerrain(block,gui.fg_ctx)
 
@@ -246,11 +251,16 @@ var update = function() {
 					block.mod.applyEffect(player);
 				}
 				else {
-					console.log("Reversing mod");
+					//console.log("Reversing mod");
 					if (player.isSlipping) {
 						player.isSlipping = false;
-						player.acceleration *= 5;
+						player.acceleration *= 15;
 					}
+					if (player.isMuddy) {
+						console.log("Reseting in main");
+						player.isMuddy = false;
+					}
+
 				}
 				
 				if (!player.justJumped) {
@@ -260,6 +270,14 @@ var update = function() {
 		}
 
 		if (player.falling) {
+			if (player.isSlipping) {
+				player.isSlipping = false;
+				player.acceleration *= 15;
+			}
+			//if (player.isMuddy) {
+			//	player.isMuddy = false;
+			//	player.maxVelocityX = 10;
+			//}
 			player.inAir = true;
 			player.setAirMotion();
 		}
@@ -655,6 +673,9 @@ var testCollision = function(rect1, rect2) {
 var startGame = function(initial_level) {
 	level = initial_level;
 	player = level["player"];
+	
+	console.log(player);
+	
 	enemies = level["enemies"];
 	terrain = level["terrain"];
 	breakable = new Terrain1x1Breakable(Math.random(), 500, 325);

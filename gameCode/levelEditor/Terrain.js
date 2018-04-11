@@ -143,9 +143,32 @@ function IceModifier() {
 	
 	self.applyEffect = function(target) {
 		if (!target.isSlipping) {
-			console.log("Applying mod");
 			target.acceleration /= 15;
 			target.isSlipping = true;
+		}
+		else if (target.isMuddy) {
+			target.isMuddy = false;
+		}
+	}
+	
+	return self;
+	
+}
+
+function MudModifier() {
+	
+	self = TerrainModifier('mud');
+	
+	self.applyEffect = function(target) {
+		if (!target.isMuddy) {
+			console.log("Applying mud");
+			target.maxVelocityX /= 2;
+			console.log("In mud: " + target.maxVelocityX);
+			target.isMuddy = true;
+		}
+		else if (target.isSlipping) {
+			target.isSlipping = false;
+			target.acceleration *= 15;
 		}
 	}
 	

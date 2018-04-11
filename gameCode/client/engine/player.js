@@ -67,7 +67,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	var oldUpdate = self.updatePosition;
 	self.updatePosition = function() {
 
-		console.log(self.acceleration);
+		console.log(self.maxVelocityX);
 
 		self.transformAniTimer++;
 		
@@ -100,13 +100,15 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 		}
 	}
 	
-	self.setGroundMotion = function() {
+	self.setGroundMotion = function(skipMax) {
 		self.ay = 0;
 		self.vy = 0;
 		if (!self.isSlipping) {
 			self.acceleration = self.isBig ? bigAcceleration:smallAcceleration;
 		}
-		self.maxVelocityX = self.isBig ? bigMaxVX:smallMaxVX;
+		if (!self.isMuddy) {
+			self.maxVelocityX = self.isBig ? bigMaxVX:smallMaxVX;
+		}
 	}
 	
 	self.sprint = function() {
@@ -114,14 +116,14 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	}
 	
 	self.pickUpBoulder = function() {
-		console.log("Picking up boulder");
+		//console.log("Picking up boulder");
 		self.hasBoulder = true;
 		self.pickUpBoulderTimer = 0;
 	}
 	
 	self.throwBoulder = function() {
 		
-		console.log("Throwing boulder");
+		//console.log("Throwing boulder");
 		var spdX = Math.cos(self.aimAngle/180*Math.PI)*5 * mpsTOppf + self.vx;
 		var spdY = Math.sin(self.aimAngle/180*Math.PI)*5 * mpsTOppf + self.vy;
 
@@ -144,6 +146,8 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 			self.transform();
 		}
 		self.transformCounter = 101;
+		self.isSlipping = false;
+		self.isMuddy = false;
 		ani.deathSound();
 	}
 	
@@ -204,6 +208,8 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 			}
 			
 			self.y -= (self.height - oldHeight)/2;
+			self.isSlipping = false;
+			self.isMuddy = false;
 			
 		}	
 	}

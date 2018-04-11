@@ -4,7 +4,7 @@ Img = function(pathToRoot) {
 	self.background1= new Image();
 	self.background1.src= pathToRoot+"client/interface/img/background/worldOneBackground.png";
 	self.background2= new Image();
-	self.background2.src= pathToRoot+"client/interface/img/background/newWorldTwoBackground.png";
+	self.background2.src= pathToRoot+"client/interface/img/background/worldTwoBackground.png";
 	self.background3= new Image();
 	self.background3.src= pathToRoot+"client/interface/img/background/worldThreeBackground.png";
 	//player images
