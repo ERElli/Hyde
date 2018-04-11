@@ -10,6 +10,19 @@ function Terrain(id, x, y){
 	self.draw = function(ctx,isLevelEditor){
 		gui.drawTerrain(self,ctx,isLevelEditor);
 	}
+	
+	self.clearEffects = function(target) {
+		if (target.isSlipping) {
+			target.isSlipping = false;
+			target.acceleration *= 15;
+		}
+		if (target.isMuddy) {
+			target.isMuddy = false;
+			if (target.type != "player") {
+				target.maxVelocityX *= 2;
+			}
+		}
+	}
 
 	return self;
 }
