@@ -22,7 +22,7 @@
     top: 8px;
     position: fixed;
     left: 58px;
-    
+
     border: none;
     cursor: pointer;
     z-index: 4;
@@ -48,7 +48,7 @@
     top:108px;
     min-width: 100px;
     overflow: auto;
-    
+
     z-index: 4;
 }
 
@@ -61,7 +61,7 @@
     top: 8px;
     position: fixed;
     left: 158px;
-    
+
     border: none;
     cursor: pointer;
     z-index: 4;
@@ -88,7 +88,7 @@
     top:108px;
     min-width: 100px;
     overflow: auto;
-    
+
     z-index: 4;
 }
 
@@ -101,7 +101,7 @@
     top: 8px;
     position: fixed;
     left: 258px;
-    
+
     border: none;
     cursor: pointer;
     z-index: 4;
@@ -129,7 +129,7 @@
     top:108px;
     min-width: 100px;
     overflow: auto;
-    
+
     z-index: 4;
 }
 
@@ -142,7 +142,7 @@
     top: 8px;
     position: fixed;
     left: 358px;
-    
+
     border: none;
     cursor: pointer;
     z-index: 4;
@@ -182,7 +182,7 @@
     top: 8px;
     position: fixed;
     left: 458px;
-    
+
     border: none;
     cursor: pointer;
     z-index: 4;
@@ -191,11 +191,11 @@
 }
 
 #characterbtn:hover, #dropbtn:focus {
-    
+
     z-index:4;
 }
 
-#characterDropdown {
+.characterDropdown {
     position: absolute;
     display: inline-block;
     z-index:4;
@@ -224,7 +224,7 @@
 
 .dropdown a:hover {background-color: #ddd}*/
 
-   
+
 
 /*Terrain Button*/
 
@@ -235,7 +235,7 @@
     top: 8px;
     position: fixed;
     left: 558px;
-    
+
     border: none;
     cursor: pointer;
     z-index: 4;
@@ -251,7 +251,7 @@
 
 #terrainDropdown {
     position: fixed;
-   
+
     z-index:4;
 
 }
@@ -263,7 +263,7 @@
     top:108px;
 
     height: 50px;
-    
+
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);
     z-index: 4;
 }
@@ -291,7 +291,7 @@
     top: 8px;
     position: fixed;
     left: 658px;
-    
+
     border: none;
     cursor: pointer;
     z-index: 4;
@@ -318,7 +318,7 @@
     top:108px;
     min-width: 100px;
     overflow: auto;
-    
+
     z-index: 4;
 }
 
@@ -349,8 +349,8 @@
     position: fixed;
     left: 496px;
     background-size: 100%;
-    
-  
+
+
     border: none;
     cursor: pointer;
     z-index: 4;
@@ -363,7 +363,7 @@
     z-index:4;
 }
 
-/*Exit Button */ 
+/*Exit Button */
 
 .exitbtn {
     background:transparent;
@@ -373,7 +373,7 @@
     position: fixed;
     left: 0px;
     background-size: 100%;
-    
+
     border: none;
     cursor: pointer;
     z-index: 4;
