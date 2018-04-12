@@ -321,8 +321,8 @@ GUI = function(container){
 				//melee bullets shouldnt be drawn
 				//self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;
-			case "boulder":
-				fW=Img.boulder.width/5;
+      case "boulder":
+        fW=Img.boulder.width/5;
 				fH=0;
 				self.quickAnimatedDraw(Img.boulder,en,ctx,0,fW,fH);
 				break;
@@ -332,6 +332,7 @@ GUI = function(container){
 				ani.updateEntityAnimation(en,5);
 				self.quickAnimatedDraw(Img.boulder,en,ctx,0,fW,fH);
 				break;
+
 			case "ammo":
 				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;

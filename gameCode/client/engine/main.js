@@ -223,6 +223,12 @@ var update = function() {
 	for (var key in terrain) {
 
 		block = terrain[key];
+		if (block.x > 500) {
+			block.mod = new IceModifier();
+		}
+		if (block.x > 750) {
+			block.mod = new IceModifier();
+		}
 
 		gui.drawTerrain(block,gui.fg_ctx)
 
@@ -240,6 +246,13 @@ var update = function() {
 			}
 			else {
 				player.falling = false;
+				
+				if (block.mod) {
+					block.mod.applyEffect(player);
+				}
+				else {
+					block.clearEffects(player);
+				}
 				if (!player.justJumped) {
 					putOnTerrain(block, player);
 				}
@@ -247,6 +260,10 @@ var update = function() {
 		}
 
 		if (player.falling) {
+			if (player.isSlipping) {
+				player.isSlipping = false;
+				player.acceleration *= 15;
+			}
 			player.inAir = true;
 			player.setAirMotion();
 		}
@@ -331,12 +348,26 @@ var update = function() {
 
 			if (blockUnderEntity(block, enemy)) {
 				enemy.falling = false;
+				
+				if (block.mod) {
+					block.mod.applyEffect(enemy);
+				}
+				else {
+					block.clearEffects(enemy);
+				}
+				
 				if (!enemy.justJumped) {
 					putOnTerrain(block, enemy);
 				}
 			}
 
 			if (enemy.falling) {
+				
+				if (enemy.isSlipping) {
+					enemy.isSlipping = false;
+					enemy.acceleration *= 15;
+				}
+				
 				enemy.inAir = true;
 				enemy.setAirMotion();
 			}
@@ -642,6 +673,9 @@ var testCollision = function(rect1, rect2) {
 var startGame = function(initial_level) {
 	level = initial_level;
 	player = level["player"];
+	
+	console.log(player);
+	
 	enemies = level["enemies"];
 	terrain = level["terrain"];
 	breakable = new Terrain1x1Breakable(Math.random(), 500, 325);
