@@ -124,7 +124,7 @@ EntityFactory = function(levelString,isLevelEditor){
 	for(let id in self['weapon']){
 		self['weapon'][id].target = player;
 	}
-
+console.log("ggg "+ LevelObject[0].background);
 
 	self.name = LevelObject[0].level;
 self.background = LevelObject[0].background;

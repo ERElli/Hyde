@@ -1,6 +1,6 @@
 <head>
 
-  <link rel="stylesheet" type="text/css" href="mainStyle.css">
+  <link rel="stylesheet" href="mainStyle.css">
 
 </head>
 
@@ -183,7 +183,7 @@
    socket.on('signInResponse',function(data){
     if(data.success){
         signDiv.style.display = 'none';
-        location.href = "/client/gameMenu.html";
+        location.href = "/client/gameMenu2.html";
         //gameDiv.style.display = 'inline-block';
 
 
@@ -193,7 +193,7 @@
 socket.on('signUpResponse',function(data){
     if(data.success){
         //alert("Sign up successul.");
-          location.href = "/client/gameMenu.html";
+          location.href = "/client/gameMenu2.html";
     } else
         alert("Username already taken.");
 });

@@ -36,8 +36,8 @@
 
 
 		<script>
-	
-		var isOfflineMode=true;
+
+		var isOfflineMode=false;
 		var level = {};
 		var gui;
 		var ani=Animation();
@@ -156,7 +156,7 @@
 		}else{
 			//#############################################################################
 			//FOR GUI TESTING PURPOSES
-			
+
 			for (var thing in mydata['player']) {
 				p = mydata['player'][thing]
 			}
@@ -226,7 +226,7 @@
 			level.width=mydata.width;
 			console.log(level);
 			startGame(level);
-		
+
 //######################################################################################
 		}
 
@@ -243,7 +243,7 @@
 			gui.createCanvas(WIDTH,HEIGHT);
 		}
 		//Creates background and foreground Canvases
-		init();		
+		init();
 
 		</script>
 </html>
