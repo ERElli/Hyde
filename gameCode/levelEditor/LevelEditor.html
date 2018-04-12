@@ -744,7 +744,7 @@ doMouseAction = function(){
 		numClicks++;
 		console.log("Putting entity");
 		putEntity();
-		
+
 	} else if(mouseRight){
 		deleteEntity();
 	}
@@ -908,8 +908,11 @@ self.musicTapped = function(id){
 // }
 self.worldTapped = function(id){
 	self.selectedBackground = id;
+  //console.log("this is so awesome");
+  //socket.emit('addBackgroundItem',{background:self.selectedBackground,  });
 	console.log(self.selectedBackground);
 	map.setBackground = id;
+  map.setBackgroundImage(id);
 	gui.editorBackground(offsetX,offsetY,self.selectedBackground);
 
 	let parent = document.getElementById('backgrounds');

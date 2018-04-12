@@ -26,20 +26,37 @@ Database.addCheckpointItem = function(data, cb){
   db.saveLevel.update({level:data.level},   { $addToSet:{ checkpoint: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type} } } }, {upsert: true});
 }
 Database.addBackgroundItem = function(data, cb){
+  db.saveLevel.update(
+     { level: data.level },
+     { $set:
+        {
+          background: data.background
+
+        }
+     }
+  );
   console.log("add background");
-  db.saveLevel.update({level:data.level},   { $addToSet:{ background: { id: data, items: { background:data } } } }, {upsert: true});
+   //db.saveLevel.update({level:data.level}, {$pull: {background:{} } } , function(err,res){
+      // db.saveLevel.update({level:data.level},   { $addToSet:{ background: { id: data.background, items: { background:data.background } } } }, {upsert: true});
+    //  db.saveLevel.update({level:data.level},   { $addToSet:{background: data.background } }, {upsert: true});
+  // });
+//db.saveLevel.update({level:"h"},   { $addToSet:{background:"world1"  }}, {upsert: true});
+
 }
 Database.addWeaponItem = function(data, cb){
   console.log("add checkp");
   db.saveLevel.update({level:data.level},   { $addToSet:{ weapon: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type} } } }, {upsert: true});
 }
+///
+/**/
 
+//
 
 
  Database.newLevel = function(data, cb){
 
     levelName = data.level;
-    db.saveLevel.insert({width: data.width, level: data.level});
+    db.saveLevel.insert({width: data.width, level: data.level, background: "world1" });
 
   //  db.saveLevel.findOne({level:levelName},function(err,res){
   	//	if(res){
