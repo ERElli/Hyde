@@ -27,7 +27,11 @@ Database.addCheckpointItem = function(data, cb){
 }
 Database.addBackgroundItem = function(data, cb){
   console.log("add background");
-  db.saveLevel.update({level:data.level},   { $addToSet:{ background: { id: data, items: { background:data } } } }, {upsert: true});
+   //db.saveLevel.update({level:data.level}, {$pull: {background:{} } } , function(err,res){
+      // db.saveLevel.update({level:data.level},   { $addToSet:{ background: { id: data.background, items: { background:data.background } } } }, {upsert: true});
+      db.saveLevel.update({level:data.level},   { $addToSet:{background: data.background } }, {upsert: true});
+  // });
+
 }
 Database.addWeaponItem = function(data, cb){
   console.log("add checkp");

@@ -660,7 +660,7 @@ io.sockets.on('connection', function(socket){
   });
 
   socket.on('addBackgroundItem',function(data){
-    console.log(data);
+    console.log("oooooh" + data.level + data.background);
    Database.addBackgroundItem(data);
   });
   socket.on('deletePlayerItem',function(data){
