@@ -322,11 +322,16 @@ GUI = function(container){
 				//self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;
 			case "boulder":
-				self.quickDraw(Img.boulder,en,ctx,en.x,en.y);
+				fW=Img.boulder.width/5;
+				fH=0;
+				self.quickAnimatedDraw(Img.boulder,en,ctx,0,fW,fH);
 				break;
 			case "boulderBullet":
-				self.quickDraw(Img.boulder,en,ctx,en.x,en.y);
-			break;
+				fW=Img.boulder.width/5;
+				fH=0;
+				ani.updateEntityAnimation(en,5);
+				self.quickAnimatedDraw(Img.boulder,en,ctx,0,fW,fH);
+				break;
 			case "ammo":
 				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;
@@ -389,7 +394,7 @@ GUI = function(container){
 				self.quickDraw(img,t,gui.fg_ctx,t.x,t.y);
 				break;
 			case "spike trap":
-				self.quickDraw(Img.terrain1x1Breakable,t,ctx,t.x,t.y);
+				self.quickDraw(Img.spikeTrap,t,ctx,t.x,t.y);
 				break;
 		}
 		terrain.img.onload=function(){};
@@ -411,7 +416,7 @@ GUI = function(container){
 	//LevelComplete
 	self.levelComplete=function(){
 		img=Img.levelComplete;
-		gui.gr_ctx.drawImage(img,400,150,450,350);
+		gui.gr_ctx.drawImage(img,400,50,450,400);
 		ani.winGameSound();
 	};
 	//QuickDraw Methods(For improved readability)
