@@ -397,6 +397,9 @@ GUI = function(container){
 			case "spike trap":
 				self.quickDraw(Img.spikeTrap,t,ctx,t.x,t.y);
 				break;
+			case "platform":
+				self.quickDraw(Img.platform,t,ctx,t.x,t.y);
+				break;
 		}
 		terrain.img.onload=function(){};
 		ctx.restore();
