@@ -223,12 +223,12 @@ var update = function() {
 	for (var key in terrain) {
 
 		block = terrain[key];
-		if (block.x > 500) {
-			block.mod = new IceModifier();
-		}
-		if (block.x > 750) {
-			block.mod = new IceModifier();
-		}
+		//if (block.x > 500) {
+		//	block.mod = new IceModifier();
+		//}
+		//if (block.x > 750) {
+		//	block.mod = new IceModifier();
+		//}
 
 		gui.drawTerrain(block,gui.fg_ctx)
 		

@@ -70,7 +70,7 @@ Img = function(pathToRoot) {
 	self.levelComplete.src= pathToRoot+"client/interface/img/level_complete.png";
 	//Animation images
 	self.boulder=new Image();
-	self.boulder=pathToRoot+"client/interface/img/entity/boulderThrow.png"
+	self.boulder.src=pathToRoot+"client/interface/img/entity/boulderThrow.png";
 	self.transformAnimation=new Image();
 	self.transformAnimation.src= pathToRoot+"client/interface/img/Animations/transformAnimation.png";
 	//muzzle flash animations
