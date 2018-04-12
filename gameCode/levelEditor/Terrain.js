@@ -190,25 +190,110 @@ function MudModifier() {
 }
 
 //SPECIAL SURFACES --------------------------------------------------------------------------------------------------------------------------
-function MovingPlatform(id, x, y, vx, vy, width, height, img, color, path, delay) {
-	var self = Entity("moving platform", id, x, y, vx, vy, width, height, img, color);
+function MovingPlatform(id, x, y, direction, finalVal) {
+	
+	
+	var self = Terrain(id, x, y);
 
 
-	self.path = path;
-	self.delay = delay;
+	self.type = "moving platform";
+	self.width = 50;
+	self.height = 50;
+	self.direction = direction;
+	self.finalVal = finalVal;
+	self.startVal = x;
+	self.v = 1*mpsTOppf
+	self.delaying = false;
+	self.delayTimer = 0;
+	self.maxDelay = 250;
+	self.img = Img.terrain1x1Breakable;
 
 
-	self.start = function() {
-
+	self.increasing = true;
+	if ( (direction == "horizontal" && self.x > finalVal) ||(direction == "vertical" && self.y > finalVal) ) {
+		self.increasing = false;
 	}
-
-	self.stop = function() {
-
+	
+	
+	self.updatePosition = function() {
+		
+		//console.log(self.x + ", Delaying: " + self.delaying + ", Increasing: " + self.increasing);
+		if (self.delaying) {
+			if (self.delayTimer < self.maxDelay) {
+				self.vx = 0;
+				self.vy = 0;
+				self.delayTimer++;
+			}
+			else {
+				self.delaying = false;
+			}
+		}
+		else {
+			if (self.direction == "horizontal") {
+				
+				self.vy = 0;
+				if (self.increasing) {
+					if (self.x > self.finalVal) {
+						self.vx = 0;
+						self.increasing = false;
+						self.delaying = true;
+						self.delayTimer = 0;
+					}
+					else {
+						self.vx = self.v;
+					}
+				}
+				else {
+					if (self.x < self.startVal) {
+						self.vx = 0;
+						self.increasing = true;
+						self.delaying = true;
+						self.delayTimer = 0;
+					}
+					else {
+						self.vx = -self.v
+					}
+				}
+				
+			}
+			else {
+				
+				self.vx = 0;
+				if (self.increasing) {
+					if (self.y > self.finalVal) {
+						self.vy = 0;
+						self.increasing = false;
+						self.delaying = true;
+						self.delayTimer = 0;
+					}
+					else {
+						self.vy = self.v;
+					}
+				}
+				else {
+					if (self.y < self.startVal) {
+						self.vy = 0;
+						self.increasing = true;
+						self.delaying = true;
+						self.delayTimer = 0;
+					}
+					else {
+						self.vy = -self.v
+					}
+				}
+				
+			}
+		}
+		
+		self.x += self.vx;
+		self.y += self.vy;
+		
 	}
+	
 
 	//Temp drawing function for testing in level editor
 	self.draw = function(ctx,isLevelEditor) {
-		ctx.drawImage(Img.platform,0,0,Img.platform.width,Img.platform.height,self.x,self.y,self.width,self.height);
+		ctx.drawTerrain(self, ctx, isLevelEditor);
 	}
 
 	return self;

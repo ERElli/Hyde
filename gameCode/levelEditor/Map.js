@@ -290,7 +290,7 @@ Map = function(width, height,tile_width, tile_height) {
 		Level.player = self.ObjectList.player;
 		for(var type in Level){
 			for(var key in Level[type]){
-				Level[type][key].y = (Level[type][key].y)-100;
+				Level[type][key].y = (Level[type][key].y);
 			}
 		}
 		console.log("Level Object:",Level);

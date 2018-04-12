@@ -288,7 +288,11 @@ function BoulderBullet(id, x, y, vx, vy, img, color, ownerID) {
 
 	self.ownerID = ownerID;
 
-	
+	self.aniCount=0;
+
+	self.setAniCount=function(newCount){
+		self.aniCount=newCount;
+	}
 	var oldUpdate = self.updatePosition;
 	
 	self.updatePosition = function() {
