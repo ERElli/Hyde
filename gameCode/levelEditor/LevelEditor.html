@@ -88,7 +88,7 @@
 	</div>
 
 
-	<div id="levelMenu"  style=" display:none; padding-top:50%; padding-left:50%;height:500px; background-color: lightblue;" >
+	<div id="levelMenu"  style=" display:none; padding-top:20%; padding-left:50%;height:500px; background-color: lightblue;" >
 		Level Name: <input id="levelNameField" type="text"></input><br><br>
 		<br><br>
 		Choose Width (ex: 1200): <input id="widthValue" type="text"></input><br><br>
@@ -96,13 +96,13 @@
 		<button id="levelButton">Go to Level Editor</button>
 	</div>
 
-	<div id="levelLoad"  style=" display:none; padding-top:50%; padding-left:50%;height:500px; background-color: lightblue;" >
+	<div id="levelLoad"  style=" display:none; padding-top:20%; padding-left:50%;height:500px; background-color: lightblue;" >
 		Level Name: <input id="levelNameField2" type="text"></input><br><br>
 		<br><br>
 		<button id="levelButton2">Load in Level Editor</button>
 	</div>
 
-	<div id="levelChoice"  style="   padding-top:50%; padding-left:50%;height:500px; background-color: lightblue;" >
+	<div id="levelChoice"  style="   padding-top:20%; padding-left:50%;height:500px; background-color: lightblue;" >
 		<button id="levelNewButton">New Level</button>
 		<button id="levelLoadButton">Load Level</button>
 	</div>
@@ -303,12 +303,14 @@ var map = Map(WIDTH,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
 /*
 	Controls
 */
+
 var controls = {
 	left: false,
 	up: false,
 	right: false,
 	down: false,
 };
+
 /*
 	Keydown Listener
 */
@@ -696,12 +698,22 @@ getMousePosition = function(canvas,mouse){
 		y: mouse.clientY - rect.top,
 	};
 };
-// var finalPos;
+var finalPos;
 // var pathStart;
 // var pathEnd;
-// var flyingAmplitude;
 doMouseAction = function(){
 	if(mouseLeft){
+		x = pos.x - (pos.x % TILE_HEIGHT) - offsetX;
+		y = pos.y - (pos.y % TILE_WIDTH) - offsetY;
+		if((self.selectedButton === 'terrains') && (self.selectedTerrain === 'platform')){
+			if(numClicks ===1){
+				console.log("FIRST CLICK at",x,y);
+			}
+			if(numClicks ===2){
+				putEntity();
+				numClicks = 0;
+			}
+		}
 		// if(self.selectedEnemy ==='Flying Enemy'){
 		// 	if(numClicks===1){
 		// 		console.log("1st CLICK",numClicks);
@@ -725,8 +737,11 @@ doMouseAction = function(){
 		// } else {
 			// putEntity();
 		// }
+
+		numClicks++;
 		console.log("Putting entity");
 		putEntity();
+		
 	} else if(mouseRight){
 		deleteEntity();
 	}
