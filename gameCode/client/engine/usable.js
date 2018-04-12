@@ -62,7 +62,7 @@ function AmmoPickUp(id, x, y, target) {
 
 function BoulderPickUp(id, x, y, target) {
 	
-	var self = Usable("boulder", id, x, y, 0, 0, 25, 25, 'no', 'red');
+	var self = Usable("boulder", id, x, y, 0, 0, 50, 50, 'no', 'red');
 	
 	self.aniTimer = 0;
 

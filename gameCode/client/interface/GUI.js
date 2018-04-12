@@ -321,16 +321,22 @@ GUI = function(container){
 				//melee bullets shouldnt be drawn
 				//self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;
-      case "boulder":
-        fW=Img.boulder.width/5;
-				fH=0;
-				self.quickAnimatedDraw(Img.boulder,en,ctx,0,fW,fH);
+			case "boulder":
+				console.log(en.width,en.height,en.x,en.y);
+				fW=Img.boulder.width/5;
+				fH=Img.boulder.height;
+				console.log(fW,Img.boulder);
+				//self.quickDraw(Img.boulder,en,ctx,en.x,en.y);
+				//gui.quickAniWeaponDraw(Img.boulder,en,ctx,0,0,fW,fH,en.x,en.y);
+				ctx.drawImage(Img.boulder,0,0,fW,Img.boulder.height,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
 				break;
 			case "boulderBullet":
+				console.log(en.width,en.height,en.x,en.y);
 				fW=Img.boulder.width/5;
-				fH=0;
+				fH=Img.boulder.height;
 				ani.updateEntityAnimation(en,5);
-				self.quickAnimatedDraw(Img.boulder,en,ctx,0,fW,fH);
+				console.log(fW,en);
+				gui.quickAnimatedDraw(Img.boulder,en,ctx,0,fW,fH);
 				break;
 
 			case "ammo":
