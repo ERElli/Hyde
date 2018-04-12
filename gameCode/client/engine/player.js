@@ -32,7 +32,6 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	//type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, health, weapon, mass, jumpSpeed, meleeDamage
 	var self = Humanoid('player', id, x, y, vx, vy, smallWidth, smallHeight, img, 'red', smallAcceleration, smallMaxVX, smallMaxVY,
 						maxHealth, weapon, smallMass, smallJumpSpeed, meleeDamage, smallSlowDown);
-						
 	
 	self.maxHealth = maxHealth;
 	self.transformCounter = 100;
@@ -67,8 +66,6 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	var oldUpdate = self.updatePosition;
 	self.updatePosition = function() {
 
-		console.log(self.maxVelocityX);
-
 		self.transformAniTimer++;
 		
 		if (self.isLaunched && Math.abs(self.vx) < 2) {
@@ -98,6 +95,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 		else {
 			self.ax /= 4;
 		}
+		self.onPlatform = false;
 	}
 	
 	self.setGroundMotion = function(skipMax) {
