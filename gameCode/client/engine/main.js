@@ -82,7 +82,7 @@ var doPressedActions = function() {
 			player.ax = player.acceleration;
 		}
 	}
-	else {
+	else if (!player.onPlatform) {
 		if (Math.abs(player.vx) < 2 && !player.isLaunched) {
 			//console.log("Stopping");
 			player.vx = 0;
@@ -231,6 +231,10 @@ var update = function() {
 		//}
 
 		gui.drawTerrain(block,gui.fg_ctx)
+		
+		if (block.type == "moving platform") {
+			block.updatePosition();
+		}
 
 		if (!inRange(block)) {
 			continue;
@@ -256,6 +260,19 @@ var update = function() {
 				if (!player.justJumped) {
 					putOnTerrain(block, player);
 				}
+			}
+			if (block.type == 'moving platform') {
+				if (block.direction == "horizontal" && !pressing['left'] && !pressing['right']) {
+					player.vx = block.vx;
+					player.onPlatform = true;
+				}
+				else if (block.direction == "vertical" && !pressing['jump']) {
+					player.vy = block.vy;
+					player.onPlatform = true;
+				}
+			}
+			else {
+				player.onPlatform = false;
 			}
 		}
 
@@ -687,7 +704,7 @@ var startGame = function(initial_level) {
 	level_width = initial_level.width;
 
 	//createPickUps();
-	createTraps();
+	createPlatforms();
 
 	setInterval(update, 1000/60)
 }
@@ -711,6 +728,17 @@ var createTraps = function() {
 
 	terrain[w.id] = w;
 	terrain[a.id] = a;
+
+}
+
+var createPlatforms = function() {
+
+	w = new MovingPlatform(Math.random(), 100, 50, 'vertical', 200);
+
+	//a = new SpikeTrap(Math.random(), 300, 100, 'down');
+
+	terrain[w.id] = w;
+	//terrain[a.id] = a;
 
 }
 

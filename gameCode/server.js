@@ -100,6 +100,15 @@ app.get('/client/interface/img/background/worldTwoBackground.png',function(req, 
 app.get('/client/interface/img/background/worldThreeBackground.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/background/worldThreeBackground.png');
 });
+app.get('/client/interface/img/terrain/topSpikeTrap.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/topSpikeTrap.png');
+});
+app.get('/images/worldTwoBackground.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/background/worldTwoBackground.png');
+});
+app.get('/images/newWorldTwoBackground.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/newWorldTwoBackground.png');
+});
 
 //client/interface/img/entity
 app.get('/client/interface/img/entity/bullet.png',function(req, res) {
