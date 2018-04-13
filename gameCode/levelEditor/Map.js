@@ -99,17 +99,19 @@ Map = function(width, height,tile_width, tile_height) {
 
 
 		if (type.includes("enemy") ){
+			console.log("adding enemy");
 			socket.emit('addLevelItem', {level:nameL, x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
 		}else if(type.includes("player")){
 			socket.emit('addPlayerItem', {level:nameL, x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
 		}else if(type.includes("Terrain")){
 			socket.emit('addTerrainItem', {level:nameL,x: object.x, y:object.y, id: object.id, type: object.type});
-		}
-		else if (type.includes("checkpoint")){
+		}else if (type.includes("checkpoint")){
 			socket.emit('addCheckpointItem', {level:nameL,x: object.x, y:object.y, id: object.id, type: object.type});
-		}
-		else if (type.includes("weapon")){
+		}else if (type.includes("weapon")){
 			socket.emit('addWeaponItem', {level:nameL,x: object.x, y:object.y, id: object.id, type: object.weaponType});
+		}else if (type.includes("platform")){
+			console.log("Adding platform");
+			socket.emit('addPlatform',{level:nameL, x:object.x, y:object.y, id:object.id, type: object.type, direction: object.direction, finalPos: object.finalpos});
 		}
 		//{x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type}
 		console.log("Adding "+type+": ", object);

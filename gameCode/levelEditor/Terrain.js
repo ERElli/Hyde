@@ -293,7 +293,7 @@ function MovingPlatform(id, x, y, direction, finalVal) {
 
 	//Temp drawing function for testing in level editor
 	self.draw = function(ctx,isLevelEditor) {
-		ctx.drawTerrain(self, ctx, isLevelEditor);
+		gui.drawTerrain(self, ctx, isLevelEditor);
 	}
 
 	return self;
