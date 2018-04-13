@@ -10,7 +10,7 @@ function Terrain(id, x, y){
 	self.draw = function(ctx,isLevelEditor){
 		gui.drawTerrain(self,ctx,isLevelEditor);
 	}
-	
+
 	self.clearEffects = function(target) {
 		if (target.isSlipping) {
 			target.isSlipping = false;
@@ -137,23 +137,23 @@ function Terrain1x6Breakable(id, x, y){
 }
 
 function TerrainModifier(type) {
-	
+
 	var self = {};
-	
+
 	self.type = type;
-	
+
 	self.applyEffect = function(target) {
-		
+
 	}
-	
+
 	return self;
-	
+
 }
 
 function IceModifier() {
-	
+
 	self = TerrainModifier('ice');
-	
+
 	self.applyEffect = function(target) {
 		if (!target.isSlipping) {
 			target.acceleration /= 15;
@@ -163,15 +163,15 @@ function IceModifier() {
 			target.isMuddy = false;
 		}
 	}
-	
+
 	return self;
-	
+
 }
 
 function MudModifier() {
-	
+
 	self = TerrainModifier('mud');
-	
+
 	self.applyEffect = function(target) {
 		if (!target.isMuddy) {
 			console.log("Applying mud");
@@ -184,15 +184,15 @@ function MudModifier() {
 			target.acceleration *= 15;
 		}
 	}
-	
+
 	return self;
-	
+
 }
 
 //SPECIAL SURFACES --------------------------------------------------------------------------------------------------------------------------
 function MovingPlatform(id, x, y, direction, finalVal) {
-	
-	
+
+
 	var self = Terrain(id, x, y);
 
 
@@ -207,16 +207,22 @@ function MovingPlatform(id, x, y, direction, finalVal) {
 	self.delayTimer = 0;
 	self.maxDelay = 250;
 	self.img = Img.terrain1x1Breakable;
+	
+	if (self.finalVal < self.startVal) {
+		temp = self.finalVal;
+		self.finalVal = self.startVal;
+		self.startVal = temp;
+	}
 
 
 	self.increasing = true;
 	if ( (direction == "horizontal" && self.x > finalVal) ||(direction == "vertical" && self.y > finalVal) ) {
 		self.increasing = false;
 	}
-	
-	
+
+
 	self.updatePosition = function() {
-		
+
 		//console.log(self.x + ", Delaying: " + self.delaying + ", Increasing: " + self.increasing);
 		if (self.delaying) {
 			if (self.delayTimer < self.maxDelay) {
@@ -230,7 +236,7 @@ function MovingPlatform(id, x, y, direction, finalVal) {
 		}
 		else {
 			if (self.direction == "horizontal") {
-				
+
 				self.vy = 0;
 				if (self.increasing) {
 					if (self.x > self.finalVal) {
@@ -254,10 +260,10 @@ function MovingPlatform(id, x, y, direction, finalVal) {
 						self.vx = -self.v
 					}
 				}
-				
+
 			}
 			else {
-				
+
 				self.vx = 0;
 				if (self.increasing) {
 					if (self.y > self.finalVal) {
@@ -281,15 +287,15 @@ function MovingPlatform(id, x, y, direction, finalVal) {
 						self.vy = -self.v
 					}
 				}
-				
+
 			}
 		}
-		
+
 		self.x += self.vx;
 		self.y += self.vy;
-		
+
 	}
-	
+
 
 	//Temp drawing function for testing in level editor
 	self.draw = function(ctx,isLevelEditor) {
@@ -302,9 +308,9 @@ function MovingPlatform(id, x, y, direction, finalVal) {
 
 /*
 * Like Terrain, traps' coordinates refer to their top-left corner.
-*/ 
+*/
 function SpikeTrap(id, x, y, orientation) {
-	
+
 	var self = Terrain(id, x, y);
 
 
@@ -322,7 +328,7 @@ function SpikeTrap(id, x, y, orientation) {
 		ctx.drawImage(Img.topSpikeTrap,0,0,Img.topSpikeTrap.width,Img.topSpikeTrap.height,self.x,self.y,self.width,self.height);
 	}
 	*/
-	
+
 	//Temp function for engine (uses 1x1 breakable in GUI.js)
 	self.draw = function(ctx, isLevelEditor) {
 		gui.drawTerrain(self,ctx,isLevelEditor);

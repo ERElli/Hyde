@@ -647,6 +647,14 @@ io.sockets.on('connection', function(socket){
       });
    });
 
+   socket.on('getTheLevels',function(){
+     console.log("getting the levels");
+      Database.getLevels( function(res){
+        console.log('the levels are'+ res);
+        socket.emit('receiveLevels', res);
+      });
+   });
+
    socket.on('levelLoadButton',function(data){
      console.log('levelLoadButtonB'+ data.level);
 
@@ -674,6 +682,11 @@ io.sockets.on('connection', function(socket){
     console.log(data);
    Database.addTerrainItem(data);
   });
+  socket.on('addPlatformItem',function(data){
+    console.log(data);
+   Database.addPlatformItem(data);
+  });
+
   socket.on('addWeaponItem',function(data){
     console.log(data);
    Database.addWeaponItem(data);

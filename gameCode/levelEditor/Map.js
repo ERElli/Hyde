@@ -86,6 +86,8 @@ Map = function(width, height,tile_width, tile_height) {
 		}
 		else if (state == "load"){
 			nameL =levelNameField2.value;
+		}else{
+			nameL = hh;
 		}
 		console.log("the nameL is "+nameL);
 
@@ -112,6 +114,10 @@ Map = function(width, height,tile_width, tile_height) {
 		}else if (type.includes("platform")){
 			socket.emit('addPlatform',{level:nameL, x:object.x, y:object.y, id:object.id, type: object.type, direction: object.direction, finalPos: object.finalpos});
 		}
+		else if (type.includes("platform")){
+			console.log( "object.finalpos is");
+      socket.emit('addPlatformItem',{level:nameL, x:object.x, y:object.y, id:object.id, type: object.type, direction: object.direction, finalVal: object.finalVal});
+    }
 		//{x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type}
 		console.log("Adding "+type+": ", object);
 		console.log("Updated ObjectList",self.ObjectList);
@@ -287,6 +293,7 @@ Map = function(width, height,tile_width, tile_height) {
 		Level.terrain = self.ObjectList.terrain;
 		Level.player = self.ObjectList.player;
 		Level.background = self.background;
+
 		for(var type in Level){
 			for(var key in Level[type]){
 				Level[type][key].y = (Level[type][key].y);

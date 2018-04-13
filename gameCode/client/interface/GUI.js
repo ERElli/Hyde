@@ -99,18 +99,35 @@ GUI = function(container){
 	//draws gameplay background
 	self.drawMap=function(){
 		gui.bg_ctx.clearRect(0,0,self.bg.width,self.bg.height);
+		img=Img.background2;
+		sound=Sound.worldTwo;
+		console.log(level.background);		
+		switch(level.background){
+			case 'world1':
+				sound=Sound.worldOne;
+				img=Img.background1;
+				break;
+			case 'world2':
+				sound=Sound.worldTwo;
+				img=Img.background2;
+				break;
+			case 'world3':
+				sound=Sound.worldThree;
+				img=Img.background3;
+				break;
+		}
 		n=backgroundPositionCounter;
 		x=self.bg.width-level['player'].x;
 		y=0;
 		//if(
-		Img.background2.onload=function(){
+		img.onload=function(){
 		}
 		//console.log(Sound.worldTwo);
-		Sound.worldTwo.play();
+		sound.play();
 		//continuously loops backgrounds
-		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
-		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*n,y,self.bg.width,self.bg.height);
-		gui.bg_ctx.drawImage(Img.background2,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
+		gui.bg_ctx.drawImage(img,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
+		gui.bg_ctx.drawImage(img,x+self.bg.width*n,y,self.bg.width,self.bg.height);
+		gui.bg_ctx.drawImage(img,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
     /*
 		//reached the end of the level
 		if(backgroundPositionCounter ==3){
@@ -162,7 +179,13 @@ GUI = function(container){
 					var fW=Img.playerBig.width/5;
 					var fH=Img.playerBig.height/3;
 					//ani.updateEntityAnimation(en,5);
-					self.quickAnimatedDraw(Img.playerBig,en,ctx,playDir,fW,fH);
+					if(en.isImmune && en.immuneCounter%6==0){
+						//self.quickAnimatedDraw(Img.playerBig,en,ctx,playDir,fW,fH);
+						
+					}
+					else{
+						self.quickAnimatedDraw(Img.playerBig,en,ctx,playDir,fW,fH);
+					}
 				}else{
 					var fW=Img.playerSmall.width/5;
 					var fH=Img.playerSmall.height/3;
@@ -180,8 +203,12 @@ GUI = function(container){
 					}else{
 						playDir=0;
 					}
-          				self.quickAnimatedDraw(Img.playerSmall,en,ctx,playDir,fW,fH);
-				}
+					if(en.isImmune && en.immuneCounter%6==0){
+		      			//self.quickAnimatedDraw(Img.playerSmall,en,ctx,playDir,fW,fH);
+					}else{
+						self.quickAnimatedDraw(Img.playerSmall,en,ctx,playDir,fW,fH);
+					}
+				}			
 				break;
 			case "basic enemy":
 				enemyImg=Img.basicEnemy1;
@@ -216,7 +243,10 @@ GUI = function(container){
 				self.quickAnimatedDraw(enemyImg,en,ctx,dir,fW,fH);
 				break;
 			case "ghost":
-				self.quickDraw(Img,en,ctx,en.x,en.y);
+				var fW=Img.playerSmall.width/5;
+				var fH=Img.playerSmall.height/3;
+				ani.updateEntityAnimation(en,5);
+				self.quickAnimatedDraw(enemyImg,en,gui.ep_ctx,0,fW,fH);
 				break;
 			case "pistol":
 				var weapImg=Img.pistol;
@@ -330,20 +360,15 @@ GUI = function(container){
 				//self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;
 			case "boulder":
-				console.log(en.width,en.height,en.x,en.y);
+				//console.log(en.width,en.height,en.x,en.y);
 				fW=Img.boulder.width/5;
 				fH=Img.boulder.height;
-				console.log(fW,Img.boulder);
-				//self.quickDraw(Img.boulder,en,ctx,en.x,en.y);
-				//gui.quickAniWeaponDraw(Img.boulder,en,ctx,0,0,fW,fH,en.x,en.y);
 				ctx.drawImage(Img.boulder,0,0,fW,Img.boulder.height,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
 				break;
 			case "boulderBullet":
-				console.log(en.width,en.height,en.x,en.y);
 				fW=Img.boulder.width/5;
 				fH=Img.boulder.height;
 				ani.updateEntityAnimation(en,5);
-				console.log(fW,en);
 				gui.quickAnimatedDraw(Img.boulder,en,ctx,0,fW,fH);
 				break;
 
@@ -370,6 +395,10 @@ GUI = function(container){
 
 		}
 		ctx.save();
+		//Drawing terrain modifiers
+		/*if(terrain.mod.type!='none'){
+			gui.drawTerrainMod(terrain);
+		}*/
 		switch(terrain.type){
 			case "Terrain1x1":
 				self.quickDraw(Img.terrain1x1,t,ctx,t.x,t.y);
@@ -420,7 +449,18 @@ GUI = function(container){
 		terrain.img.onload=function(){};
 		ctx.restore();
 	};
-
+	//draw modified terrain 
+	self.drawTerrainMod=function(terrain){
+		t=terrain;
+		if(t.mod.type=='ice'){
+			img=Img.iceTerrain;
+		}
+		else if(t.mod.type=='mud'){
+			img=Img.mudTerrain;
+		}
+		gui.modDraw(img,t,ctx,t.x,t.y);
+		
+	};
 	//Draws goal flag
 	self.drawGoal=function(){
 		img=Img.finalCheckpoint;
@@ -432,7 +472,7 @@ GUI = function(container){
 		//img=Img.activeCheckpoint;
 		//self.quickDraw(img,checkpoint,gui,fg_ctx,checkpoint.x,checkpoint.y);
 		ani.checkpointSound();
-	}
+	};
 	//LevelComplete
 	self.levelComplete=function(){
 		img=Img.levelComplete;
@@ -442,6 +482,9 @@ GUI = function(container){
 	//QuickDraw Methods(For improved readability)
 	self.quickDraw=function(img,entity,ctx,x,y){
 		ctx.drawImage(img,(x-xOffset)-playX,y-yOffset,entity.width,entity.height);
+	};
+	self.modDraw=function(img,entity,ctx,x,y){
+		ctx.drawImage(img,(x-xOffset)-playX,y-yOffset,entity.width,15);
 	};
 	self.aniDraw=function(img,x,y,width,height){
 		gui.fg_ctx.drawImage(img,(x-xOffset)-playX,y-yOffset,width,height);
@@ -506,27 +549,44 @@ GUI = function(container){
 		ctx.fillText('Time: '+ minutes +" min "+ seconds+ " seconds ",timeX,timeY);
 
 		//draw ammo
-		if(player.weapon.type=="sword"){
+		if(!player.isBig){
+			if(player.weapon.type=="sword" || player.weapon.type=="pistol"){
+				ammo=Img.infinity;
+				ctx.fillText('Ammo: ',ammoX,ammoY);
+				ctx.drawImage(ammo,ammoX+75,ammoY-25,75,40);
+				ammo.onload=function(){};
+			}else{
+				ammo=player.weapon.ammo;
+				//draw ammo
+				ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
+				ctx.fillText('Weapon: ',weaponX,weaponY);
+			}
+			//ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
+			ctx.fillText('Weapon: ',weaponX,weaponY);
+			//draw current weapon image
+			fW=weaponImg.width/5;
+			fH=weaponImg.height/2;
+			if(player.weapon.type=="assaultRifle"){
+				fW=weaponImg.width/9;
+			}
+	 		ctx.drawImage(weaponImg,0,0,fW,fH,weaponImgX,weaponImgY,50,50);
+			weaponImg.onload=function(){};
+		}
+		else{
 			ammo=Img.infinity;
 			ctx.fillText('Ammo: ',ammoX,ammoY);
 			ctx.drawImage(ammo,ammoX+75,ammoY-25,75,40);
 			ammo.onload=function(){};
-		}else{
-			ammo=player.weapon.ammo;
-			//draw ammo
-			ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
 			ctx.fillText('Weapon: ',weaponX,weaponY);
+			if(player.hasBoulder){
+				fW=Img.boulder.width/5;
+				fH=Img.boulder.height;
+				ctx.drawImage(Img.boulder,0,0,fW,fH,weaponImgX,weaponImgY,50,50);
+			}
+			else{
+
+			}
 		}
-		//ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
-		ctx.fillText('Weapon: ',weaponX,weaponY);
-		//draw current weapon image
-		fW=weaponImg.width/5;
-		fH=weaponImg.height/2;
-		if(player.weapon.type=="assaultRifle"){
-			fW=weaponImg.width/9;
-		}
- 		ctx.drawImage(weaponImg,0,0,fW,fH,weaponImgX,weaponImgY,50,50);
-		weaponImg.onload=function(){};
 	};
 	return self;
 }

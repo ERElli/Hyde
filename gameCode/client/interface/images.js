@@ -18,12 +18,8 @@ Img = function(pathToRoot) {
 	self.basicEnemy2= new Image();
 	self.basicEnemy2.src= pathToRoot+"client/interface/img/entity/humanoid/flyingEnemy.png";
 	self.basicEnemy3= new Image();
-
 	self.basicEnemy3.src= pathToRoot+"client/interface/img/entity/humanoid/shieldEnemy.png"
 
-
-	self.infinity=new Image();
-	self.infinity.src= pathToRoot+"client/interface/img/inf.png";
 	//weapons and ammo
 	self.pistol= new Image();
 	self.pistol.src= pathToRoot+"client/interface/img/entity/weapon/pistolAttack.png";
@@ -61,6 +57,11 @@ Img = function(pathToRoot) {
 	self.spikeTrap.src = pathToRoot+"client/interface/img/terrain/topSpikeTrap.png";
 	self.platform=new Image();
 	self.platform.src = pathToRoot+"client/interface/img/terrain/platform.png";
+	//terrain modifiers
+	self.iceTerrain=new Image();
+	self.iceTerrain.src=pathToRoot+"client/interface/img/terrain/modifier/ice.png"
+	self.mudTerrain=new Image();
+	self.mudTerrain.src=pathToRoot+"client/interface/img/terrain/modifier/mud.png"
 	//checkpoint images
 	self.standardCheckpoint= new Image();
 	self.standardCheckpoint.src = pathToRoot+"client/interface/img/placeCheckpoint.png";
@@ -83,7 +84,8 @@ Img = function(pathToRoot) {
 	self.muzzleFlash.stepThree.src= pathToRoot+"client/interface/img/Animations/muzzleFlash/FlashStage3.png";
 	self.muzzleFlash.stepFour= new Image();
 	self.muzzleFlash.stepFour.src= pathToRoot+"client/interface/img/Animations/muzzleFlash/FlashStage4.png";
-
-	console.log(self.muzzleFlash.stepOne);
+	//Misc images
+	self.infinity=new Image();
+	self.infinity.src= pathToRoot+"client/interface/img/inf.png";
 	return self;
 };

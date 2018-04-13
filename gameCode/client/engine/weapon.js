@@ -39,7 +39,7 @@ function Pistol(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	var pistolRate = 2;
 	var pistolSpeed = 12;
 	var img=Img.pistol;
-	var self = Weapon("pistol", id, x, y, vx, vy, width, height, img, color, pistolRate, pistolSpeed, "normal", 100, 20);
+	var self = Weapon("pistol", id, x, y, vx, vy, width, height, img, color, pistolRate, pistolSpeed, "normal", 100, 1000000);
 	
 	
 	self.fire = function(angle) {

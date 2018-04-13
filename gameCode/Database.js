@@ -25,6 +25,11 @@ Database.addCheckpointItem = function(data, cb){
   console.log("add checkp");
   db.saveLevel.update({level:data.level},   { $addToSet:{ checkpoint: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type} } } }, {upsert: true});
 }
+Database.addPlatformItem = function(data, cb){
+  console.log("add platform");
+  db.saveLevel.update({level:data.level},   { $addToSet:{ terrain: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type, direction:data.direction, finalVal: data.finalVal} } } }, {upsert: true});
+}
+
 Database.addBackgroundItem = function(data, cb){
   db.saveLevel.update(
      { level: data.level },
@@ -88,6 +93,7 @@ Database.getLevelObject = function(data, cb){
    });
 }
 Database.getLevelObjectInterface = function(data, cb){
+  console.log("wen "+ n);
   //console.log("nice"+data.x, data.y, data.w, data.h, data.id, data.type);
   //db.saveLevel.remove({id:data.rand}, { $addToSet:{ items: {x:data.x, y: data.y, w: data.w,h: data.h,id: data.id,type: data.type} } }, {upsert: true});
   //db.saveLevel.update({id:data.id},   { $addToSet:{ items: {x:data.x, y: data.y, vx: data.vx,vy: data.vy,id: data.id,type: data.type} } }, {upsert: true});
@@ -103,10 +109,10 @@ Database.getLevelObjectInterface = function(data, cb){
    });
 }
 Database.getLevels = function(cb){
-
-  db.saveLevel.find({},function(err,res){
+//db.saveLevel.find({}, {level: 1, _id: 0} );
+  db.saveLevel.find({}, {level: 1, _id: 0}, function(err,res){
 		  var arr  = JSON.stringify(res);
-			cb(arr);
+			cb({result: arr, levels: res});
 
 	});
 }

@@ -173,13 +173,13 @@
 				var enemy;
 
 				if (e.type == 'basic enemy') {
-					enemy =  new BasicEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
+					enemy =  new BasicEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
 				}
 				else if (e.type == 'tank enemy') {
-					enemy =  new TankEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
+					enemy =  new TankEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
 				}
 				else {
-					enemy =  new FlyingEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
+					enemy =  new FlyingEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
 				}
 
 				level['enemies'][e.id] = enemy;
@@ -233,7 +233,8 @@
 
 				}
 			level.width=mydata.width;
-			console.log(level);
+			level.background=mydata.background;
+			console.log(mydata);
 			startGame(level);
 
 //######################################################################################
