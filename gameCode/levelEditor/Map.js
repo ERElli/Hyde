@@ -112,7 +112,6 @@ Map = function(width, height,tile_width, tile_height) {
 		}else if (type.includes("weapon")){
 			socket.emit('addWeaponItem', {level:nameL,x: object.x, y:object.y, id: object.id, type: object.weaponType});
 		}else if (type.includes("platform")){
-			console.log("Adding platform");
 			socket.emit('addPlatform',{level:nameL, x:object.x, y:object.y, id:object.id, type: object.type, direction: object.direction, finalPos: object.finalpos});
 		}
 		else if (type.includes("platform")){
@@ -293,7 +292,8 @@ Map = function(width, height,tile_width, tile_height) {
 		Level.enemies = self.ObjectList.enemies;
 		Level.terrain = self.ObjectList.terrain;
 		Level.player = self.ObjectList.player;
-		Level.background=self.background;
+		Level.background = self.background;
+
 		for(var type in Level){
 			for(var key in Level[type]){
 				Level[type][key].y = (Level[type][key].y);

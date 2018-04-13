@@ -25,7 +25,8 @@
 		<script type="text/javascript" src="../engine/usable.js"></script>
 		<script type="text/javascript" src="../../levelEditor/EntityFactory.js"></script>
 
-		<script type="text/javascript" src="level.json"></script>
+		<script type="text/javascript" src="testLevel.json"></script>
+		<!-- <script type="text/javascript" src="level.json"></script> -->
 		<script type="text/javascript" src="jsonTest.js"></script>
 
 		<script type="text/javascript" src="../../levelEditor/Terrain.js"></script>
@@ -218,8 +219,15 @@
 					}
 					else if (t.type == 'Terrain1x6Breakable') {
 						block = Terrain1x6Breakable(t.id, t.x, t.y-150);
+					}else if(t.type == 'moving platform'){
+						console.log("moving platform");
+						console.log(t.direction);
+						if(t.direction === "vertical"){
+							console.log(t.finalVal);
+							t.finalVal = t.finalVal-150;
+						}
+						block = MovingPlatform(t.id,t.x,t.y-150,t.direction,t.finalVal);
 					}
-
 
 					level['terrain'][t.id] = block;
 
