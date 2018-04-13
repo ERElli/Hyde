@@ -228,3 +228,37 @@ function TankEnemy(id, x, y, vx, vy, img, color, target) {
 	
 	return self;
 }
+
+
+
+function BasicBoss(id, x, y, target) {
+	
+	var basicWidth = 250;
+	var basicHeight = 250;
+	var basicAcceleration = 50*mpsTOppf/framesPerSecond;
+	var basicMaxVX = 5*mpsTOppf;
+	var basicMaxVY = 20*mpsTOppf;
+	var basicMaxHP = 200;
+	var basicWeapon = new NoWeapon("w1", x, y, 0, 0, 5, 5,'img','black', id);
+	var basicMass = 500;
+	var basicJumpSpeed = 3*mpsTOppf;
+	var basicMeleeDamage = 15;
+	var basicPatrolRange = 20000;
+	var basicSlowDown = 3;
+	
+	
+	//type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, maxHealth, weapon, mass, jumpSpeed, meleeDamage, patrolRange, slowDown, target
+	var self = Enemy("basic enemy", id, x, y, 0, 0, basicWidth, basicHeight, 'img', 'color', basicAcceleration, basicMaxVX, basicMaxVY, basicMaxHP, basicWeapon, basicMass,
+					basicJumpSpeed, basicMeleeDamage, basicPatrolRange, basicSlowDown, target);
+	
+	
+	self.spawnMinions = function() {
+		
+	}
+	
+	//self.draw = function() {
+		
+	//}
+	
+	return self;
+}
