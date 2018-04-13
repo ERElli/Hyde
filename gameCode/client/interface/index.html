@@ -37,7 +37,7 @@
 
 		<script>
 
-		var isOfflineMode=false;
+		var isOfflineMode=true;
 		var level = {};
 		var gui;
 		var ani=Animation();
@@ -161,7 +161,7 @@
 			for (var thing in mydata['player']) {
 				p = mydata['player'][thing]
 			}
-			level['player'] = new Player(p.id, p.x, p.y, p.vx, p.vy, p.img, new Pistol(Math.random(), p.x, p.y, p.vx, p.vy, 50, 50,"pistol_image",null, p.id), p.isBig);
+			level['player'] = new Player(p.id, p.x, p.y-150, p.vx, p.vy, p.img, new Pistol(Math.random(), p.x, p.y, p.vx, p.vy, 50, 50,"pistol_image",null, p.id), p.isBig);
 
 
 			level['enemies'] = {}
@@ -172,13 +172,13 @@
 				var enemy;
 
 				if (e.type == 'basic enemy') {
-					enemy =  new BasicEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
+					enemy =  new BasicEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
 				}
 				else if (e.type == 'tank enemy') {
-					enemy =  new TankEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
+					enemy =  new TankEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
 				}
 				else {
-					enemy =  new FlyingEnemy(e.id, e.x, e.y, e.vx, e.vy, e.img, null, level['player']);
+					enemy =  new FlyingEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
 				}
 
 				level['enemies'][e.id] = enemy;

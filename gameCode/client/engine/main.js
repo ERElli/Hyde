@@ -699,7 +699,7 @@ var startGame = function(initial_level) {
 
 	//createPickUps();
 	//createPlatforms();
-	createBoss();
+	//createBoss();
 
 	setInterval(update, 1000/60)
 }
