@@ -1,40 +1,54 @@
-<body background="../../images/Background.png" style="margin-left:50px; background-repeat: no-repeat; ">
-<div id="levelDiv"  style="  padding-top:10%; padding-left:40%; color: #ddeeff;">
-    Level Name: <input id="levelName" type="text"></input><br><br>
-    <br><br>
-    Choose Width (ex: 1200): <input id="widthValue" type="text"></input><br><br>
-      <br><br>
-    <button id="levelButton">Go to Level Editor</button>
+<html>
+<head>
+    <meta charset="utf-8"/>
 
-</div>
+	<!-- <script src="jquery-3.3.1.min.js"></script> -->
+
+</head>
+<body>
+  <div id="levelChoose"  style=" display:none; padding-top:10%; padding-left:40%;height:500px;  background-image: url('/images/newWorldTwoBackground.png') " >
+		<p id="theLevels"> Levels go here </p>
+		<br><br>
+	</div>
+</body>
+
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 <script>
 
     var socket = io();
-    var levelName = document.getElementById('levelName');
-    var widthValue = document.getElementById('widthValue');
-    var levelButton = document.getElementById('levelButton');
+    var levelChoose = document.getElementById('levelChoose');
 
-    levelButton.onclick = function(){
-      if (levelName.value ==="" ){
-        alert("Please input a name for the level.");
-      }
-      else{
-        socket.emit('newLevel',{width:widthValue.value,  level: levelName.value});
-          location.href = "/levelEditor";
-      	//
-      }
-    }
-  /*  socket.on('checkLevelName', function(data){
-      if(!data.success){
-        alert("Name already taken");
-      }
-      else if (data.success){
-          location.href = "/levelEditor";
+    /// Adding levels here ////
+    socket.on('receiveTheLevels' ,function(res){
+      var  arrayOfLevels = res.result;
+      var num =res.levels.length;
+        console.log("let check  "+ JSON.stringify(res.levels[0])+ "  num"+ num);
 
-      }
+        var toAdd = document.createDocumentFragment();
+        for(var i=0; i < num; i++){
+          var btn = document.createElement("BUTTON");
+          btn.id = 'r'+i;
 
-    }); */
+          //btn.onclick = function(){console.log('hello btn'+btn.innerHTML );  };
+          var t = document.createTextNode(res.levels[i].level);
+          btn.appendChild(t);
+          document.getElementById('levelChoose').appendChild(btn);
+          doSomething('r'+i);
+        }
+
+        function doSomething(i) {
+            var ki = document.getElementById(i);
+            ki.onclick= function(){
+              console.log(ki.innerHTML );
+              hh = ki.innerHTML;
+              socket.emit('levelLoadButton', {level:ki.innerHTML });
+              location.href = "/client/interface/index.html";
+
+            };
+          //  console.log(i);
+        };
+
+    });
 
 
 </script>
