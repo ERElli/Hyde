@@ -103,10 +103,10 @@ Database.getLevelObjectInterface = function(data, cb){
    });
 }
 Database.getLevels = function(cb){
-
-  db.saveLevel.find({},function(err,res){
+//db.saveLevel.find({}, {level: 1, _id: 0} );
+  db.saveLevel.find({}, {level: 1, _id: 0}, function(err,res){
 		  var arr  = JSON.stringify(res);
-			cb(arr);
+			cb({result: arr, levels: res});
 
 	});
 }

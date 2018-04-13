@@ -14,7 +14,7 @@
 		</form>
     	<p id="newLevelName"> Level </p>
     	<button id="button1" > Save </button>
-      	<button id="button2"> Save  Me</button>
+      	<button id="button2"> Save  and Test</button>
 	</div>
 
  	<div id="enemiesDropdown" style="display:none; ">
@@ -105,11 +105,17 @@
 		<button id="levelButton2">Load in Level Editor</button>
 	</div>
 
+  <div id="levelChoose"  style=" display:none; padding-top:10%; padding-left:40%;height:500px;  background-image: url('/images/newWorldTwoBackground.png') " >
+		<p id="theLevels"> Levels go here </p>
+		<br><br>
+	</div>
+
 
 	<div id="levelChoice"  style="   padding-top:10%; padding-left:40%;height:500px;  background-image: url('/images/newWorldTwoBackground.png')" >
 
 		<button id="levelNewButton">New Level</button>
 		<button id="levelLoadButton">Load Level</button>
+    <button id="levelChooseButton">Choose a Level</button>
 	</div>
 </body>
 
@@ -135,6 +141,8 @@
 var socket = io();
 var level;
 var newLevelName = document.getElementById("newLevelName");
+var levelChoose= document.getElementById("levelChoose");
+var levelChooseButton = document.getElementById("levelChooseButton");
 var levelChoice = document.getElementById("levelChoice");
 var levelNameField = document.getElementById('levelNameField');
 var widthValue = document.getElementById('widthValue');
@@ -147,6 +155,7 @@ var levelNameField2 = document.getElementById('levelNameField2');
 var levelLoad = document.getElementById('levelLoad');
 var levelButton2 = document.getElementById('levelButton2');
 var state;
+var theLevels= document.getElementById('theLevels');
 
 
 
@@ -197,6 +206,43 @@ levelLoadButton.onclick = function(){
       levelLoad.style.display = 'block';
       button2.style.display = 'none';
 }
+levelChooseButton.onclick = function(){
+      //socket.emit('levelLoadButton', {level:"hey"});
+      levelChoose.style.display = 'block';
+      levelLoad.style.display = 'none';
+      levelChoice.style.display = 'none';
+      socket.emit('getTheLevels');
+}
+
+/// Adding levels here ////
+socket.on('receiveLevels' ,function(res){
+  var  arrayOfLevels = res.result;
+  var num =res.levels.length;
+    console.log("in level editor the levels are "+ JSON.stringify(res.levels[0])+ "  num"+ num);
+
+    var toAdd = document.createDocumentFragment();
+    for(var i=0; i < num; i++){
+       var newDiv = document.createElement('div');
+       newDiv.id = 'r'+i;
+       var ID  = newDiv.id ;
+       newDiv.innerHTML = JSON.stringify(res.levels[i].level);
+       console.log("  "+ JSON.stringify(res.levels[i].level));
+       newDiv.className = 'ansbox';
+       
+       newDiv.onclick = function(){console.log('hello '+newDiv.innerHTML );  };
+
+       toAdd.appendChild(newDiv);
+    }
+    document.getElementById('levelChoose').appendChild(toAdd);
+    //document.getElementById(r1).onclick =  function(){
+    //  console.log('hello');
+    //};
+
+});
+var array = ["level 1", "level 2", "level 3"];
+
+//////////////////////////
+
 levelNewButton.onclick = function(){
     //  socket.emit('levelNewButton', {level:"hey"});
       levelChoice.style.display = 'none';
