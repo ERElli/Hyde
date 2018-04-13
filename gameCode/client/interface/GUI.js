@@ -514,27 +514,44 @@ GUI = function(container){
 		ctx.fillText('Time: '+ minutes +" min "+ seconds+ " seconds ",timeX,timeY);
 
 		//draw ammo
-		if(player.weapon.type=="sword"){
+		if(!player.isBig){
+			if(player.weapon.type=="sword" || player.weapon.type=="pistol"){
+				ammo=Img.infinity;
+				ctx.fillText('Ammo: ',ammoX,ammoY);
+				ctx.drawImage(ammo,ammoX+75,ammoY-25,75,40);
+				ammo.onload=function(){};
+			}else{
+				ammo=player.weapon.ammo;
+				//draw ammo
+				ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
+				ctx.fillText('Weapon: ',weaponX,weaponY);
+			}
+			//ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
+			ctx.fillText('Weapon: ',weaponX,weaponY);
+			//draw current weapon image
+			fW=weaponImg.width/5;
+			fH=weaponImg.height/2;
+			if(player.weapon.type=="assaultRifle"){
+				fW=weaponImg.width/9;
+			}
+	 		ctx.drawImage(weaponImg,0,0,fW,fH,weaponImgX,weaponImgY,50,50);
+			weaponImg.onload=function(){};
+		}
+		else{
 			ammo=Img.infinity;
 			ctx.fillText('Ammo: ',ammoX,ammoY);
 			ctx.drawImage(ammo,ammoX+75,ammoY-25,75,40);
 			ammo.onload=function(){};
-		}else{
-			ammo=player.weapon.ammo;
-			//draw ammo
-			ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
 			ctx.fillText('Weapon: ',weaponX,weaponY);
+			if(player.hasBoulder){
+				fW=Img.boulder.width/5;
+				fH=Img.boulder.height;
+				ctx.drawImage(Img.boulder,0,0,fW,fH,weaponImgX,weaponImgY,50,50);
+			}
+			else{
+
+			}
 		}
-		//ctx.fillText('Ammo: '+ammo,ammoX,ammoY);
-		ctx.fillText('Weapon: ',weaponX,weaponY);
-		//draw current weapon image
-		fW=weaponImg.width/5;
-		fH=weaponImg.height/2;
-		if(player.weapon.type=="assaultRifle"){
-			fW=weaponImg.width/9;
-		}
- 		ctx.drawImage(weaponImg,0,0,fW,fH,weaponImgX,weaponImgY,50,50);
-		weaponImg.onload=function(){};
 	};
 	return self;
 }
