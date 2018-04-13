@@ -36,7 +36,7 @@
 
 
 		<script>
-	
+
 		var isOfflineMode=false;
 		var level = {};
 		var gui;
@@ -52,6 +52,7 @@
 
 			//call the socket to get the level objects from database
 			var  getLevelObjects = function() {
+				//it says "level 1" but in reality its getting level Objects for the specified level name in Database
 				socket.emit('getLevelObject', {level:"level 1"});
 			};
 
@@ -156,7 +157,7 @@
 		}else{
 			//#############################################################################
 			//FOR GUI TESTING PURPOSES
-			
+
 			for (var thing in mydata['player']) {
 				p = mydata['player'][thing]
 			}
@@ -192,7 +193,7 @@
 					var block;
 
 					if (t.type == 'Terrain1x1') {
-						block = Terrain1x1(t.id, t.x, t.y);
+						block = Terrain1x1(t.id, t.x, t.y-150);
 					}
 					else if (t.type == 'Terrain1x1Breakable') {
 						block = Terrain1x1Breakable(t.id, t.x, t.y-150);
@@ -223,10 +224,10 @@
 					level['terrain'][t.id] = block;
 
 				}
-			level.width=1400;
+			level.width=mydata.width;
 			console.log(level);
 			startGame(level);
-		
+
 //######################################################################################
 		}
 
@@ -243,7 +244,7 @@
 			gui.createCanvas(WIDTH,HEIGHT);
 		}
 		//Creates background and foreground Canvases
-		init();		
+		init();
 
 		</script>
 </html>
