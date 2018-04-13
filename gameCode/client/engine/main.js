@@ -368,7 +368,13 @@ var update = function() {
 				}
 				
 				if (!enemy.justJumped) {
-					putOnTerrain(block, enemy);
+					if (enemy.type == 'flying enemy' || enemy.type == 'flying boss') {
+						enemy.y = block.y - block.height*0.75;
+						enemy.vy = 0;
+					}
+					else {
+						putOnTerrain(block, enemy);
+					}
 				}
 			}
 
@@ -699,7 +705,7 @@ var startGame = function(initial_level) {
 
 	//createPickUps();
 	//createPlatforms();
-	createBoss();
+	//createBoss();
 
 	setInterval(update, 1000/60)
 }
@@ -728,7 +734,7 @@ var createTraps = function() {
 
 var createPlatforms = function() {
 
-	w = new MovingPlatform(Math.random(), 100, 50, 'vertical', 200);
+	w = new MovingPlatform(Math.random(), 100, 200, 'vertical', 50);
 
 	//a = new SpikeTrap(Math.random(), 300, 100, 'down');
 
@@ -738,7 +744,7 @@ var createPlatforms = function() {
 }
 
 var createBoss = function() {
-	b = new BasicBoss(Math.random(), 100, 100, player);
+	b = new FlyingBoss(Math.random(), 100, 100, player);
 	enemies[b.id] = b;
 }
 

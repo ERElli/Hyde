@@ -289,3 +289,90 @@ function BasicBoss(id, x, y, target) {
 	
 	return self;
 }
+
+
+function FlyingBoss(id, x, y, target) {
+	
+	//kamakazee with shotguns
+	
+	var flyingWidth = 50;
+	var flyingHeight = 50;
+	var flyingAcceleration = 5*mpsTOppf/framesPerSecond;
+	var flyingMaxVX = 7*mpsTOppf;
+	var flyingMaxVY = 10*mpsTOppf;
+	var flyingMaxHP = 10;
+	var flyingWeapon = new Shotgun("w1", x, y, 0, 0, 5, 5,'img','black', id);
+	var flyingMass = 20;
+	var flyingJumpSpeed = 3*mpsTOppf;
+	var flyingMeleeDamage = 50;
+	var flyingPatrolRange = 20000;
+	var flyingSlowDown = 3;
+	
+	//id, x, y, vx, vy, img, color, target
+	var self = Enemy("flying enemy", id, x, y, 0, 0, flyingWidth, flyingHeight, 'img', 'color', flyingAcceleration, flyingMaxVX, flyingMaxVY, flyingMaxHP, flyingWeapon, flyingMass,
+					flyingJumpSpeed, flyingMeleeDamage, flyingPatrolRange, flyingSlowDown, target);
+	
+	self.width = 50;
+	self.height = 50;
+	self.health = 10;
+	self.weapon = new Shotgun(Math.random(), x, y, 0, 0, 5, 5,'img','black', self.id);
+	self.meleeDamage = 50;
+	self.patrolRange = 20000;
+	
+	self.vyStandard = 5 * mpsTOppf;
+	
+	self.kiting = true;
+	self.diving = false;
+	
+	self.kiteTimer = 0;
+	self.maxKite = 500;
+	self.diveTimer = 0;
+	self.maxDive = 200;
+	
+	var superUpdate = self.updatePosition;
+	self.updatePosition = function() {
+		
+		superUpdate();
+		
+		if (self.kiting) {
+			if (self.kiteTimer < self.maxKite) {
+				console.log("kiting");
+				
+				if (self.target.y - self.y < 500) {
+					self.vy = self.vyStandard;
+				}
+				else {
+					self.vy = 0;
+				}
+				
+				self.kiteTimer++;
+			}
+			else {
+				self.kiting = false;
+				self.diving = true;
+				self.diveTimer = 0;
+				console.log("kiting -> diving");
+			}
+		}
+		else if (self.diving) {
+			self.vy = 0;
+			if (self.diveTimer < self.maxDive) {
+				console.log("diving");
+				
+				
+				
+				self.diveTimer++;
+			}
+			else {
+				self.diving = false;
+				self.kiting = true;
+				self.kiteTimer = 0;
+				console.log("diving -> kiting");
+			}
+		}
+				
+	}
+	
+	
+	return self;
+}
