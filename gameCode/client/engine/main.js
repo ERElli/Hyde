@@ -82,7 +82,7 @@ var doPressedActions = function() {
 			player.ax = player.acceleration;
 		}
 	}
-	else {
+	else if (!player.onPlatform) {
 		if (Math.abs(player.vx) < 2 && !player.isLaunched) {
 			//console.log("Stopping");
 			player.vx = 0;
@@ -225,6 +225,10 @@ var update = function() {
 		block = terrain[key];
 
 		gui.drawTerrain(block,gui.fg_ctx)
+		
+		if (block.type == "moving platform") {
+			block.updatePosition();
+		}
 
 		if (!inRange(block)) {
 			continue;
@@ -240,13 +244,37 @@ var update = function() {
 			}
 			else {
 				player.falling = false;
+				
+				if (block.mod) {
+					block.mod.applyEffect(player);
+				}
+				else {
+					block.clearEffects(player);
+				}
 				if (!player.justJumped) {
 					putOnTerrain(block, player);
 				}
 			}
+			if (block.type == 'moving platform') {
+				if (block.direction == "horizontal" && !pressing['left'] && !pressing['right']) {
+					player.vx = block.vx;
+					player.onPlatform = true;
+				}
+				else if (block.direction == "vertical" && !pressing['jump']) {
+					player.vy = block.vy;
+					player.onPlatform = true;
+				}
+			}
+			else {
+				player.onPlatform = false;
+			}
 		}
 
 		if (player.falling) {
+			if (player.isSlipping) {
+				player.isSlipping = false;
+				player.acceleration *= 15;
+			}
 			player.inAir = true;
 			player.setAirMotion();
 		}
@@ -331,12 +359,26 @@ var update = function() {
 
 			if (blockUnderEntity(block, enemy)) {
 				enemy.falling = false;
+				
+				if (block.mod) {
+					block.mod.applyEffect(enemy);
+				}
+				else {
+					block.clearEffects(enemy);
+				}
+				
 				if (!enemy.justJumped) {
 					putOnTerrain(block, enemy);
 				}
 			}
 
 			if (enemy.falling) {
+				
+				if (enemy.isSlipping) {
+					enemy.isSlipping = false;
+					enemy.acceleration *= 15;
+				}
+				
 				enemy.inAir = true;
 				enemy.setAirMotion();
 			}
@@ -642,6 +684,9 @@ var testCollision = function(rect1, rect2) {
 var startGame = function(initial_level) {
 	level = initial_level;
 	player = level["player"];
+	
+	console.log(player);
+	
 	enemies = level["enemies"];
 	terrain = level["terrain"];
 	breakable = new Terrain1x1Breakable(Math.random(), 500, 325);
@@ -653,7 +698,8 @@ var startGame = function(initial_level) {
 	level_width = initial_level.width;
 
 	//createPickUps();
-	createTraps();
+	//createPlatforms();
+	createBoss();
 
 	setInterval(update, 1000/60)
 }
@@ -678,6 +724,22 @@ var createTraps = function() {
 	terrain[w.id] = w;
 	terrain[a.id] = a;
 
+}
+
+var createPlatforms = function() {
+
+	w = new MovingPlatform(Math.random(), 100, 50, 'vertical', 200);
+
+	//a = new SpikeTrap(Math.random(), 300, 100, 'down');
+
+	terrain[w.id] = w;
+	//terrain[a.id] = a;
+
+}
+
+var createBoss = function() {
+	b = new BasicBoss(Math.random(), 100, 100, player);
+	enemies[b.id] = b;
 }
 
 var endGame = function() {

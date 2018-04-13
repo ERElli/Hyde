@@ -1,10 +1,10 @@
 <head>
 
-  <link rel="stylesheet" type="text/css" href="mainStyle.css">
+  <link rel="stylesheet" href="mainStyle.css">
 
 </head>
 
-<body background="../../images/Background.png" style="margin-left:50px; background-repeat: no-repeat; ">
+<body background="images/newWorldTwoBackground.png" style="margin-left:50px; background-repeat: no-repeat; ">
 <div id="signDiv" class="signInDiv" style="display: none;">
     <input id="signDiv-username" class="usernameTextfield" placeholder="Username" type="text"></input><br><br>
     <input id="signDiv-password" class="passwordTextfield" placeholder="Password" type="password"></input><br><br>
@@ -14,15 +14,6 @@
     <br><br>
 
 </div>
-
-<!-- <div id="gameMenu" class="gameMenu">
-
-    <button id="playStory" class="playStoryButton"></button>
-    <button id="playOnline" class="playOnlineButton"></button>
-    <button id="levelEditor" class="levelEditorButton"></button>
-    <button id="achievements" class="achievementsButton"></button>
-
-</div> -->
 
 <div id="main" style="padding-top:10%; padding-left:40%;" >
   <br><br><br>
@@ -183,7 +174,7 @@
    socket.on('signInResponse',function(data){
     if(data.success){
         signDiv.style.display = 'none';
-        location.href = "/client/gameMenu.html";
+        location.href = "/client/gameMenu2.html";
         //gameDiv.style.display = 'inline-block';
 
 
@@ -193,7 +184,7 @@
 socket.on('signUpResponse',function(data){
     if(data.success){
         //alert("Sign up successul.");
-          location.href = "/client/gameMenu.html";
+          location.href = "/client/gameMenu2.html";
     } else
         alert("Username already taken.");
 });

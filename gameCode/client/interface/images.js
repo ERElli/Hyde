@@ -57,8 +57,8 @@ Img = function(pathToRoot) {
 	self.terrain1x6Breakable.src=pathToRoot+"client/interface/img/terrain/1x6BreakableBuilding.png";
 	self.terrain1x6Ani=new Image();
 	self.terrain1x6Ani.src=pathToRoot+"client/interface/img/terrain/breakableBuildingAnimation.png";
-	self.topSpikeTrap=new Image();
-	self.topSpikeTrap.src = pathToRoot+"client/interface/img/terrain/topSpikeTrap.png";
+	self.spikeTrap=new Image();
+	self.spikeTrap.src = pathToRoot+"client/interface/img/terrain/topSpikeTrap.png";
 	self.platform=new Image();
 	self.platform.src = pathToRoot+"client/interface/img/terrain/platform.png";
 	//checkpoint images
@@ -70,7 +70,7 @@ Img = function(pathToRoot) {
 	self.levelComplete.src= pathToRoot+"client/interface/img/level_complete.png";
 	//Animation images
 	self.boulder=new Image();
-	self.boulder=pathToRoot+"client/interface/img/entity/boulderThrow.png"
+	self.boulder.src=pathToRoot+"client/interface/img/entity/boulderThrow.png";
 	self.transformAnimation=new Image();
 	self.transformAnimation.src= pathToRoot+"client/interface/img/Animations/transformAnimation.png";
 	//muzzle flash animations

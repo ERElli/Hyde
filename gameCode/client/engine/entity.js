@@ -231,73 +231,6 @@ function Ghost(id, x, y, vx, vy, width, height, img, color) {
 }
 
 
-//SPECIAL SURFACES --------------------------------------------------------------------------------------------------------------------------
-function MovingPlatform(id, x, y, vx, vy, width, height, img, color, path, delay) {
-	var self = Entity("moving platform", id, x, y, vx, vy, width, height, img, color);
-
-
-	self.path = path;
-	self.delay = delay;
-
-
-	self.start = function() {
-
-	}
-
-	self.stop = function() {
-
-	}
-
-	//Temp drawing function for testing in level editor
-	self.draw = function(ctx,isLevelEditor) {
-		ctx.drawImage(Img.platform,0,0,Img.platform.width,Img.platform.height,self.x,self.y,self.width,self.height);
-	}
-
-	return self;
-}
-
-function FrictionModifier(id, x, y, vx, vy, width, height, img, color, mu) { //mu is coefficient of kinetic friction
-	var self = Entity("friction modifier", id, x, y, vx, vy, width, height, img, color);
-
-
-	self.mu = mu;
-
-
-	self.draw = function() {
-
-	}
-
-	return self;
-}
-
-
-/*
-* Like Terrain, traps' coordinates refer to their top-left corner.
-*/ 
-function SpikeTrap(id, x, y, orientation) {
-	
-	var self = Entity("spike trap", id, x, y, 0, 0, 50, 50, '', '');
-
-
-	self.damage = 25;
-	self.orientation = orientation;
-
-
-	//Temp drawing function for testing in level editor
-	/*
-	self.draw = function(ctx,isLevelEditor) {
-		ctx.drawImage(Img.topSpikeTrap,0,0,Img.topSpikeTrap.width,Img.topSpikeTrap.height,self.x,self.y,self.width,self.height);
-	}
-	*/
-	
-	//Temp function for engine (uses 1x1 breakable in GUI.js)
-	self.draw = function(ctx, isLevelEditor) {
-		gui.drawTerrain(self,ctx,isLevelEditor);
-	}
-
-	return self;
-}
-
 
 //PROJECTILE ------------------------------------------------------------------------------------------------------------------
 function Bullet(id, x, y, vx, vy, width, height, img, color, ownerID) {
@@ -320,7 +253,7 @@ function Bullet(id, x, y, vx, vy, width, height, img, color, ownerID) {
 function MeleeBullet(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	var self = Entity("meleeBullet", id, x, y, vx, vy, width, height, img, color);
 
-	self.damage = 20;
+	self.damage = 5;
 	self.timer = 0;
 
 	self.ownerID = ownerID;
@@ -355,7 +288,11 @@ function BoulderBullet(id, x, y, vx, vy, img, color, ownerID) {
 
 	self.ownerID = ownerID;
 
-	
+	self.aniCount=0;
+
+	self.setAniCount=function(newCount){
+		self.aniCount=newCount;
+	}
 	var oldUpdate = self.updatePosition;
 	
 	self.updatePosition = function() {

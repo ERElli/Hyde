@@ -13,10 +13,11 @@
 			<input type="submit" value="Submit">
 		</form>
     	<p id="newLevelName"> Level </p>
-    	<button id="button1"> Save </button>
+    	<button id="button1" > Save </button>
+      	<button id="button2"> Save  Me</button>
 	</div>
 
- 	<div id="enemiesDropdown">
+ 	<div id="enemiesDropdown" style="display:none; ">
 		<button onclick="typeTapped('enemies')" id="enemiesbtn"></button>
 		<div id="enemies" class="dropdown-content">
 			<button style="background-image: url(../client/interface/img/levelEditor/buttons/enemy/basicEnemyDrop.png)" onclick="enemyTapped('Basic Enemy')" class="enemy1btn"></button>
@@ -25,7 +26,7 @@
 		</div>
 	</div>
 
-	<div id="musicDropdown">
+	<div id="musicDropdown" style="display:none; ">
 		<button onclick="typeTapped('music')" id="musicbtn"></button>
 		<div id="music" class="dropdown-content">
 			<button style="background-image: url(../client/interface/img/levelEditor/buttons/music/music1Drop.png)" onclick="self.musicTapped('music1')" class="music1btn"></button>
@@ -34,7 +35,7 @@
 		</div>
 	</div>
 
-	<div id="backgroundDropdown">
+	<div id="backgroundDropdown" style="display:none; ">
 		<button onclick="typeTapped('backgrounds')" id="backgroundbtn"></button>
 		<div id="backgrounds" class="dropdown-content">
 			<button style="background-image: url(../client/interface/img/levelEditor/buttons/world/world1Drop.png)" onclick="worldTapped('world1')" class="world1btn"></button>
@@ -43,7 +44,7 @@
 	  	</div>
 	</div>
 
-	<div id="checkpointDropdown">
+	<div id="checkpointDropdown" style="display:none; ">
 		<button onclick="typeTapped('checkpoints')" id="checkpointbtn"></button>
 		<div id="checkpoints" class="dropdown-content">
 			<button style="background-image: url(../client/interface/img/levelEditor/buttons/checkpoint/checkpointDrop.png)" onclick="checkpointTapped('standard checkpoint')" class="checkpoint1btn"></button>
@@ -51,7 +52,7 @@
 		</div>
 	</div>
 
-	<div class="characterDropdown">
+	<div id="characterDropdown" style="display:none; ">
 		<button onclick="typeTapped('character')" id="characterbtn"></button>
 		<div id="character" class="dropdown-content">
 			<a href="#World1">World 1</a>
@@ -60,7 +61,7 @@
 		</div>
 	</div>
 
-	<div id="terrainDropdown">
+	<div id="terrainDropdown" style="display:none; ">
 		<button onclick="typeTapped('terrains')" id="terrainbtn"></button>
 		<div id="terrains" class="dropdown-content">
 			<button style="background-image: url('../client/interface/img/levelEditor/buttons/terrain/1x1Drop.png')" onclick="terrainTapped('1x1')" class="terrain1btn"></button>
@@ -77,7 +78,7 @@
 		</div>
 	</div>
 
-	<div id="weaponDropdown">
+	<div id="weaponDropdown" style="display:none; ">
 		<button onclick="typeTapped('weapons')" id="weaponbtn"></button>
 		<div id="weapons" class="dropdown-content">
 			<button style="background-image: url(../client/interface/img/levelEditor/buttons/weapon/pistolDrop.png)" onclick="weaponTapped('pistol')" class="pistolbtn"></button>
@@ -88,7 +89,8 @@
 	</div>
 
 
-	<div id="levelMenu"  style=" display:none; padding-top:20%; padding-left:50%;height:500px; background-color: lightblue;" >
+	<div id="levelMenu"  style=" display:none; margin:0px; padding-top:10%; padding-left:40%;height:500px; background-image: url('/images/newWorldTwoBackground.png')" >
+
 		Level Name: <input id="levelNameField" type="text"></input><br><br>
 		<br><br>
 		Choose Width (ex: 1200): <input id="widthValue" type="text"></input><br><br>
@@ -96,13 +98,16 @@
 		<button id="levelButton">Go to Level Editor</button>
 	</div>
 
-	<div id="levelLoad"  style=" display:none; padding-top:20%; padding-left:50%;height:500px; background-color: lightblue;" >
+	<div id="levelLoad"  style=" display:none; padding-top:10%; padding-left:40%;height:500px;  background-image: url('/images/newWorldTwoBackground.png') " >
+
 		Level Name: <input id="levelNameField2" type="text"></input><br><br>
 		<br><br>
 		<button id="levelButton2">Load in Level Editor</button>
 	</div>
 
-	<div id="levelChoice"  style="   padding-top:20%; padding-left:50%;height:500px; background-color: lightblue;" >
+
+	<div id="levelChoice"  style="   padding-top:10%; padding-left:40%;height:500px;  background-image: url('/images/newWorldTwoBackground.png')" >
+
 		<button id="levelNewButton">New Level</button>
 		<button id="levelLoadButton">Load Level</button>
 	</div>
@@ -143,6 +148,8 @@ var levelLoad = document.getElementById('levelLoad');
 var levelButton2 = document.getElementById('levelButton2');
 var state;
 
+
+
 levelButton.onclick = function(){
 	state = "new";
 	if (levelNameField.value ==="" ){
@@ -150,16 +157,16 @@ levelButton.onclick = function(){
 	}
 	else{
 		socket.emit('newLevel',{width:widthValue.value,  level: levelNameField.value});
+    levelMenu.style.display = 'none';
 		container.style.display = 'block';
 		levelMaker.style.display = 'block';
-		enemiesDropdown.style.display = 'block';
-		levelMenu.style.display = 'none';
-		musicDropdown.style.display ='block';
-		backgroundDropdown.style.display = 'block';
-		checkpointDropdown.display = 'block';
-		characterDropdown.display = 'block';
-		terrainDropdown.display = 'block';
-		weaponDropdown.display = 'block';
+		enemiesDropdown.style.display = 'inline-block';
+		musicDropdown.style.display ='inline-block';
+		backgroundDropdown.style.display = 'inline-block';
+		checkpointDropdown.style.display = 'inline-block';
+		characterDropdown.style.display = 'inline-block';
+		terrainDropdown.style.display = 'inline-block';
+		weaponDropdown.style.display = 'inline-block';
 	}
 }
 
@@ -172,34 +179,39 @@ levelButton2.onclick = function(){
 
     socket.emit('levelLoadButton', {level: levelNameField2.value});
     //socket.emit('newLevel',{width:widthValue.value,  level: levelNameField.value});
+    levelLoad.style.display = 'none';
     container.style.display = 'block';
     levelMaker.style.display = 'block';
-    enemiesDropdown.style.display = 'block';
-    levelLoad.style.display = 'none';
-    musicDropdown.style.display ='block';
-    backgroundDropdown.style.display = 'block';
-    checkpointDropdown.display = 'block';
-    characterDropdown.display = 'block';
-    terrainDropdown.display = 'block';
-    weaponDropdown.display = 'block';
-    //
+    enemiesDropdown.style.display = 'inline-block';
+		musicDropdown.style.display ='inline-block';
+		backgroundDropdown.style.display = 'inline-block';
+		checkpointDropdown.style.display = 'inline-block';
+		characterDropdown.style.display = 'inline-block';
+		terrainDropdown.style.display = 'inline-block';
+		weaponDropdown.style.display = 'inline-block';
   }
 }
 levelLoadButton.onclick = function(){
       //socket.emit('levelLoadButton', {level:"hey"});
       levelChoice.style.display = 'none';
       levelLoad.style.display = 'block';
+      button2.style.display = 'none';
 }
 levelNewButton.onclick = function(){
     //  socket.emit('levelNewButton', {level:"hey"});
       levelChoice.style.display = 'none';
       levelMenu.style.display = 'block';
+      button1.style.display = 'none';
 }
 //newLevelName.innerHTML= "blue";
 var button1 = document.getElementById("button1");
+var button2 = document.getElementById("button2");
 //request
  button1.onclick = function(){
        socket.emit('button', {level:levelNameField2.value});
+ }
+ button2.onclick = function(){
+       socket.emit('button', {level:levelNameField.value});
  }
 //receive
  socket.on('result',function(res){
@@ -854,8 +866,11 @@ self.musicTapped = function(id){
 // }
 self.worldTapped = function(id){
 	self.selectedBackground = id;
+  //console.log("this is so awesome");
+  //socket.emit('addBackgroundItem',{background:self.selectedBackground,  });
 	console.log(self.selectedBackground);
 	map.setBackground = id;
+  map.setBackgroundImage(id);
 	gui.editorBackground(offsetX,offsetY,self.selectedBackground);
 
 	let parent = document.getElementById('backgrounds');
