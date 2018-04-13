@@ -207,6 +207,12 @@ function MovingPlatform(id, x, y, direction, finalVal) {
 	self.delayTimer = 0;
 	self.maxDelay = 250;
 	self.img = Img.terrain1x1Breakable;
+	
+	if (self.finalVal < self.startVal) {
+		temp = self.finalVal;
+		self.finalVal = self.startVal;
+		self.startVal = temp;
+	}
 
 
 	self.increasing = true;
