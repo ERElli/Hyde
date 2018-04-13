@@ -654,6 +654,15 @@ io.sockets.on('connection', function(socket){
         socket.emit('receiveLevels', res);
       });
    });
+   socket.on('getLevels',function(){
+     console.log("getting the  2 levels");
+      Database.getLevels( function(res){
+        console.log('the levels are'+ res);
+        socket.emit('receiveTheLevels', res);
+      });
+   });
+
+
 
    socket.on('levelLoadButton',function(data){
      console.log('levelLoadButtonB'+ data.level);
