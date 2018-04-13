@@ -75,6 +75,8 @@
 			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/1x6BDrop.png)" onclick="terrainTapped('1x6Breakable')" class="terrain9btn"></button>
 			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/topSpikeDrop.png)" onclick="terrainTapped('topSpikeTrap')" class="terrain10btn"></button>
 			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/platformDrop.png)" onclick="terrainTapped('platform')" class="terrain11btn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/platformDrop.png)" onclick="terrainTapped('ice')" class="terrain11btn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/platformDrop.png)" onclick="terrainTapped('mud')" class="terrain11btn"></button>
 		</div>
 	</div>
 
@@ -481,7 +483,7 @@ snapToGrid  = function(canvas,mouse){
 					entity = SpikeTrap(tempID, prev_x, prev_y, 0, 0, 50, 50, Img.topSpikeTrap,'red', 20,'vertical');
 					break;
 				case "platform":
-					entity = MovingPlatform(tempID, prev_x, prev_y, "",0);
+					entity = MovingPlatform(tempID, prev_x, prev_y, "horizontal",0);
 					break;
 			}
 			entity.draw(gui.ep_ctx,true);
@@ -587,6 +589,7 @@ putEntity = function() {
 								direction = "horizontal";
 							}
 							entity = MovingPlatform(id, startPos.x,startPos.y,direction,finalPos);
+							console.log(entity);
 							break;
 					}
 					break;
@@ -878,8 +881,8 @@ self.worldTapped = function(id){
   //console.log("this is so awesome");
   //socket.emit('addBackgroundItem',{background:self.selectedBackground,  });
 	console.log(self.selectedBackground);
-	map.setBackground = id;
-  map.setBackgroundImage(id);
+	// map.setBackground = id;
+  	map.setBackgroundImage(id);
 	gui.editorBackground(offsetX,offsetY,self.selectedBackground);
 
 	let parent = document.getElementById('backgrounds');

@@ -23,7 +23,7 @@ function Terrain(id, x, y){
 			}
 		}
 	}
-
+	console.log(self);
 	return self;
 }
 
@@ -298,7 +298,6 @@ function MovingPlatform(id, x, y, direction, finalVal) {
 
 	return self;
 }
-
 
 
 /*

@@ -61,6 +61,7 @@ EntityFactory = function(levelString,isLevelEditor){
 							case "moving platform":
 								console.log("MOVING PLATFORM");
 								mObject[mID] = MovingPlatform(mID,mX,mY,object.direction,object.finalVal);
+								break;
 						}
 						break;
 					case "player":
