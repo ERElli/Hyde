@@ -1,0 +1,47 @@
+<!DOCTYPE html><!DOCTYPE html>
+<html>
+<head>
+   <link rel="stylesheet" type="text/css" href="levelSelectionStyle.css">
+    <title>Level Selection</title>
+</head>
+
+<body background="images/newWorldTwoBackground.png" style="margin-left:50px; background-repeat: no-repeat; ">
+  <div id="main">
+
+  	<img src="images/levelSelectLabel.png" style="position: fixed; left:380px; top:50px;" alt="Level Select Label">
+  	<img src="images/levelSelectPanel.png" style="position: fixed; left:375px; top:160px;" alt="Level Select Panel">
+
+    <button id="playOne" class="playLevelOne"></button>
+    <button id="playTwo" class="playLevelTwo"></button>
+    <button id="playThree" class="playLevelThree"></button>
+  </div>
+
+
+  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+  <script>
+
+    var socket = io();
+
+    var main = document.getElementById('main');
+
+    var playOne = document.getElementById('playOne');
+   	var playTwo = document.getElementById('playTwo');
+   	var playThree = document.getElementById('playThree');
+
+    playOne.onclick = function(){
+    	location.href = "interface/index.html";
+    	//emit level one
+    }
+
+    playTwo.onclick = function(){
+    	//emit level two
+    }
+
+    playThree.onclick = function(){
+    	//emit level three
+    }
+
+    </script>
+
+  </body>
+  </html>
