@@ -100,6 +100,15 @@ app.get('/client/interface/img/background/worldTwoBackground.png',function(req, 
 app.get('/client/interface/img/background/worldThreeBackground.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/background/worldThreeBackground.png');
 });
+app.get('/client/interface/img/terrain/topSpikeTrap.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/topSpikeTrap.png');
+});
+app.get('/images/worldTwoBackground.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/background/worldTwoBackground.png');
+});
+app.get('/images/newWorldTwoBackground.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/newWorldTwoBackground.png');
+});
 
 //client/interface/img/entity
 app.get('/client/interface/img/entity/bullet.png',function(req, res) {
@@ -421,14 +430,42 @@ app.get('/images/smallSignUpHover.png',function(req, res) {
 app.get('/images/smallSignInHover.png',function(req, res) {
     res.sendFile(__dirname + '/client/images/smallSignInHover.png');
 });
-
-
-
-
-
 app.get('/mainStyle.css',function(req, res) {
     res.sendFile(__dirname + '/client/mainStyle.css');
 });
+app.get('/client/mainStyle.css',function(req, res) {
+    res.sendFile(__dirname + '/client/mainStyle.css');
+});
+app.get('/client/images/playonlineButtonHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/playonlineButtonHover.png');
+});
+app.get('/client/images/achievementsButtonHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/achievementsButtonHover.png');
+});
+app.get('/client/images/levelEditorButtonHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/levelEditorButtonHover.png');
+});
+app.get('/client/images/playStoryButtonHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/playStoryButtonHover.png');
+});
+
+
+app.get('/client/images/achievementsButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/achievementsButton.png');
+});
+app.get('/client/images/newWorldTwoBackground.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/newWorldTwoBackground.png');
+});
+app.get('/client/images/levelEditorButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/levelEditorButton.png');
+});
+app.get('/client/images/playOnlineButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/playOnlineButton.png');
+});
+app.get('/client/images/playStoryButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/playStoryButton.png');
+});
+
 
 
 app.get('/images/background.png',function(req, res) {
@@ -603,7 +640,7 @@ io.sockets.on('connection', function(socket){
 //   });
 
    socket.on('button',function(data){
-     console.log("console" +data.level);
+     console.log("console new" +data.level);
      Database.getLevelObject(data.level, function(res){
      socket.emit('result', res);
 
@@ -651,7 +688,7 @@ io.sockets.on('connection', function(socket){
   });
 
   socket.on('addBackgroundItem',function(data){
-    console.log(data);
+    console.log("oooooh" + data.level + data.background);
    Database.addBackgroundItem(data);
   });
   socket.on('deletePlayerItem',function(data){

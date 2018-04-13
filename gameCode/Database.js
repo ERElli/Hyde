@@ -26,20 +26,37 @@ Database.addCheckpointItem = function(data, cb){
   db.saveLevel.update({level:data.level},   { $addToSet:{ checkpoint: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type} } } }, {upsert: true});
 }
 Database.addBackgroundItem = function(data, cb){
+  db.saveLevel.update(
+     { level: data.level },
+     { $set:
+        {
+          background: data.background
+
+        }
+     }
+  );
   console.log("add background");
-  db.saveLevel.update({level:data.level},   { $addToSet:{ background: { id: data, items: { background:data } } } }, {upsert: true});
+   //db.saveLevel.update({level:data.level}, {$pull: {background:{} } } , function(err,res){
+      // db.saveLevel.update({level:data.level},   { $addToSet:{ background: { id: data.background, items: { background:data.background } } } }, {upsert: true});
+    //  db.saveLevel.update({level:data.level},   { $addToSet:{background: data.background } }, {upsert: true});
+  // });
+//db.saveLevel.update({level:"h"},   { $addToSet:{background:"world1"  }}, {upsert: true});
+
 }
 Database.addWeaponItem = function(data, cb){
   console.log("add checkp");
   db.saveLevel.update({level:data.level},   { $addToSet:{ weapon: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type} } } }, {upsert: true});
 }
+///
+/**/
 
+//
 
 
  Database.newLevel = function(data, cb){
 
     levelName = data.level;
-    db.saveLevel.insert({width: data.width, level: data.level});
+    db.saveLevel.insert({width: data.width, level: data.level, background: "world1" });
 
   //  db.saveLevel.findOne({level:levelName},function(err,res){
   	//	if(res){
@@ -55,7 +72,7 @@ Database.addWeaponItem = function(data, cb){
 
 
   //}
-  var n;
+var n;
 Database.getLevelObject = function(data, cb){
   n = data;
   //console.log("nice"+data.x, data.y, data.w, data.h, data.id, data.type);
@@ -77,7 +94,8 @@ Database.getLevelObjectInterface = function(data, cb){
 
   //db.saveLevel.find( function(err,res){
   //db.saveLevel.find({level: "ww"});
-  console.log("this is gooo "+n);
+
+  console.log("this is gooo "+ n);
   db.saveLevel.find({level: n}, function(err,res){
     var arr  = JSON.stringify(res);
       console.log("we are getting" + arr);
@@ -85,6 +103,7 @@ Database.getLevelObjectInterface = function(data, cb){
    });
 }
 Database.getLevels = function(cb){
+
   db.saveLevel.find({},function(err,res){
 		  var arr  = JSON.stringify(res);
 			cb(arr);
@@ -185,7 +204,13 @@ Database.levelUpdate = function(username,data){
   db.progress.findOne({username:username},function(err,res){
     if(res){
       console.log("true "+ data.level);
-      db.progress.update({username:username},{  $addToSet: {items: {level : "level 1", time: 130} }});
+      db.progress.update(
+        {username:username},
+        {  $addToSet:
+          {
+            items: {level : "level 1", time: 130}
+          }
+        });
 
     }
   });

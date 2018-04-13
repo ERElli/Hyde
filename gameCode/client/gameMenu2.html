@@ -1,20 +1,17 @@
 <!DOCTYPE html><!DOCTYPE html>
 <html>
 <head>
-<title>Game Title</title>
+   <link rel="stylesheet" href="mainStyle.css">
 </head>
 
-<body background="../../images/Background.png" style="margin-left:50px; background-repeat: no-repeat; ">
+<body background="images/newWorldTwoBackground.png" style="margin-left:50px; background-repeat: no-repeat; ">
   <div id="main">
-    <button id="play"> Play Story</button><br>
-    <button id="levelEditor"> Level Editor</button><br>
-    <button id="Achievements"> Achievements</button><br>
+    <button id="play" class="playStoryButton"></button>
+    <button id="playOnline" class="playOnlineButton"></button>
+    <button id="levelEditor" class="levelEditorButton"></button>
+    <button id="Achievements" class="achievementsButton"></button>
   </div>
 
-  <div id="level" style="display:none;">
-    <button id="newLevel"> Create new Level</button><br>
-    <button id="loadLevel"> Load Level</button><br>
-  </div>
 
   <div id="achievementsMenu" style="display:none;">
     <p> You are awesome </p>
@@ -26,42 +23,33 @@
   <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
   <script>
 
-      var socket = io();
+    var socket = io();
 
 
     var main = document.getElementById('main');
-    var level = document.getElementById('level');
     var play = document.getElementById('play');
     var levelEditor = document.getElementById('levelEditor');
     var Achievements = document.getElementById('Achievements');
     var achievementsMenu = document.getElementById('achievementsMenu');
-    var newLevel = document.getElementById('newLevel');
-    var loadLevel = document.getElementById('loadLevel');
 
     play.onclick = function(){
-    location.href = "/client/interface/index.html";
+      location.href = "/client/interface/index.html";
     }
 
     levelEditor.onclick = function(){
-      main.style.display = 'none';
-      level.style.display = 'inline-block';
+      location.href = "/levelEditor";
     }
     Achievements.onclick = function(){
       main.style.display = 'none';
       achievementsMenu.style.display = 'inline-block';
     }
-    loadLevel.onclick = function(){
-      socket.emit('load',{level: "level1"});
-    }
-    newLevel.onclick = function(){
-      socket.emit('newMee',{level: "level1"});
-    }
 
-    socket.on('changeMe', function(data){
+
+    /* socket.on('changeMe', function(data){
       location.href = "/levelEditor";
     //  socket.emit('loadIt', data);
     //  socket.emit('do');
-    });
+  }); */
 
     </script>
 

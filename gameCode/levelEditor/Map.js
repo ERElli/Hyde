@@ -220,7 +220,8 @@ Map = function(width, height,tile_width, tile_height) {
 	};
 
 	self.setBackgroundImage = function(worldName){
-		socket.emit('addBackgroundItem', imageName);
+		console.log("this is so awesome");
+		socket.emit('addBackgroundItem',{background: worldName, level: nameL });
 		self.Background = worldName;
 	};
 
@@ -286,7 +287,7 @@ Map = function(width, height,tile_width, tile_height) {
 		Level.player = self.ObjectList.player;
 		for(var type in Level){
 			for(var key in Level[type]){
-				Level[type][key].y = (Level[type][key].y)-100;
+				Level[type][key].y = (Level[type][key].y);
 			}
 		}
 		console.log("Level Object:",Level);
