@@ -645,6 +645,7 @@ putEntity = function() {
 							entity = SpikeTrap(id, x, y, 0, 0, 50, 50, Img.topSpikeTrap, 'red', 20, 'vertical');
 							break;
 						case 'platform':
+
 							if(endPos.x == startPos.x){
 								finalPos = endPos.y;
 								direction = "vertical";
@@ -654,6 +655,7 @@ putEntity = function() {
 							}
 							entity = MovingPlatform(id, startPos.x,startPos.y,direction,finalPos);
 							break;
+
 					}
 					break;
 				case 'weapons':
