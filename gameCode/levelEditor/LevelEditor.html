@@ -206,6 +206,7 @@ levelLoadButton.onclick = function(){
       levelChoice.style.display = 'none';
       levelLoad.style.display = 'block';
       button2.style.display = 'none';
+        button3.style.display = 'none';
 }
 levelChooseButton.onclick = function(){
       //socket.emit('levelLoadButton', {level:"hey"});
@@ -213,6 +214,9 @@ levelChooseButton.onclick = function(){
       levelLoad.style.display = 'none';
       levelChoice.style.display = 'none';
       socket.emit('getTheLevels');
+      button1.style.display = 'none';
+      button2.style.display = 'none';
+      button3.style.display = 'none';
 }
 
 /// Adding levels here ////
@@ -263,6 +267,7 @@ levelNewButton.onclick = function(){
       levelChoice.style.display = 'none';
       levelMenu.style.display = 'block';
       button1.style.display = 'none';
+      button3.style.display = 'none';
 }
 //newLevelName.innerHTML= "blue";
 var hh;
@@ -547,7 +552,7 @@ snapToGrid  = function(canvas,mouse){
 					entity = SpikeTrap(tempID, prev_x, prev_y, 0, 0, 50, 50, Img.topSpikeTrap,'red', 20,'vertical');
 					break;
 				case "platform":
-					entity = MovingPlatform(tempID, prev_x, prev_y, 0, 0, 50, 50, Img.platform, 'red', null, 5);
+					entity = MovingPlatform(tempID, prev_x, prev_y, "",0);
 					break;
 			}
 			entity.draw(gui.ep_ctx,true);
@@ -580,6 +585,8 @@ putEntity = function() {
 	var mouseBelowUpperBound = pos.x<gui.fg.width && pos.y<gui.fg.height+(2*TILE_HEIGHT);
 	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
 	var tempTarget = Player(0,0,0,0,0,null,false);
+	let finalPos;
+	let diretion;
 	id = Math.random();
 	if(mouseBelowUpperBound && mouseAboveLowerBound){
 		if(((x+entity.width) <= WIDTH) && ((y+entity.height) <= HEIGHT) && !dropdownDisplayed){
@@ -643,16 +650,17 @@ putEntity = function() {
 							entity = SpikeTrap(id, x, y, 0, 0, 50, 50, Img.topSpikeTrap, 'red', 20, 'vertical');
 							break;
 						case 'platform':
-              if(endPos.x == startPos.x){
-                finalPos = endPos.y;
-                direction = "vertical";
-              }else if(endPos.y == startPos.y){
-                finalPos = endPos.x;
-                direction = "horizontal";
-              }
-              entity = MovingPlatform(id, startPos.x,startPos.y,direction,finalPos);
-              console.log(entity);
-              break;
+
+							if(endPos.x == startPos.x){
+								finalPos = endPos.y;
+								direction = "vertical";
+							}else if(endPos.y == startPos.y){
+								finalPos = endPos.x;
+								direction = "horizontal";
+							}
+							entity = MovingPlatform(id, startPos.x,startPos.y,direction,finalPos);
+							break;
+
 					}
 					break;
 				case 'weapons':

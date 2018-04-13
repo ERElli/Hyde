@@ -131,7 +131,7 @@ EntityFactory = function(levelString,isLevelEditor){
 	}
 //console.log("ggg "+ LevelObject[0].background);
 	self.name = LevelObject[0].level;
-self.background = LevelObject[0].background;
+	self.background = LevelObject[0].background;
 	self.width = LevelObject[0].width;
 	self.height = LevelObject[0].height;
 
