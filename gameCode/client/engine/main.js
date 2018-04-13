@@ -223,12 +223,6 @@ var update = function() {
 	for (var key in terrain) {
 
 		block = terrain[key];
-		//if (block.x > 500) {
-		//	block.mod = new IceModifier();
-		//}
-		//if (block.x > 750) {
-		//	block.mod = new IceModifier();
-		//}
 
 		gui.drawTerrain(block,gui.fg_ctx)
 		
@@ -704,7 +698,8 @@ var startGame = function(initial_level) {
 	level_width = initial_level.width;
 
 	//createPickUps();
-	createPlatforms();
+	//createPlatforms();
+	createBoss();
 
 	setInterval(update, 1000/60)
 }
@@ -740,6 +735,11 @@ var createPlatforms = function() {
 	terrain[w.id] = w;
 	//terrain[a.id] = a;
 
+}
+
+var createBoss = function() {
+	b = new BasicBoss(Math.random(), 100, 100, player);
+	enemies[b.id] = b;
 }
 
 var endGame = function() {

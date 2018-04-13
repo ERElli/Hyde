@@ -228,3 +228,64 @@ function TankEnemy(id, x, y, vx, vy, img, color, target) {
 	
 	return self;
 }
+
+
+
+function BasicBoss(id, x, y, target) {
+	
+	var basicWidth = 250;
+	var basicHeight = 250;
+	var basicAcceleration = 50*mpsTOppf/framesPerSecond;
+	var basicMaxVX = 2*mpsTOppf;
+	var basicMaxVY = 20*mpsTOppf;
+	var basicMaxHP = 200;
+	var basicWeapon = new NoWeapon("w1", x, y, 0, 0, 5, 5,'img','black', id);
+	var basicMass = 500;
+	var basicJumpSpeed = 3*mpsTOppf;
+	var basicMeleeDamage = 15;
+	var basicPatrolRange = 20000;
+	var basicSlowDown = 3;
+	
+	
+	//type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, maxHealth, weapon, mass, jumpSpeed, meleeDamage, patrolRange, slowDown, target
+	var self = Enemy("basic boss", id, x, y, 0, 0, basicWidth, basicHeight, 'img', 'color', basicAcceleration, basicMaxVX, basicMaxVY, basicMaxHP, basicWeapon, basicMass,
+					basicJumpSpeed, basicMeleeDamage, basicPatrolRange, basicSlowDown, target);
+	
+	
+	self.spawnTimer = 0;
+	self.maxSpawnTimer = 100;
+	
+	var superUpdate = self.updatePosition;
+	self.updatePosition = function() {
+		
+		superUpdate();
+		
+		self.spawnTimer++;
+		
+		if (self.spawnTimer > self.maxSpawnTimer) {
+			self.spawnMinion();
+			self.spawnTimer = 0;
+		}
+
+		
+	}
+	
+	
+	self.spawnMinion = function() {
+		
+		console.log(self.aimAngle);
+		
+		var spdX = Math.cos(self.aimAngle/180*Math.PI)*10 * mpsTOppf + self.vx;
+		var spdY = Math.sin(self.aimAngle/180*Math.PI)*10 * mpsTOppf + self.vy;
+		
+		m = new BasicEnemy(Math.random(), self.x, self.y, spdX, spdY, 'img', 'color', self.target);
+		enemies[m.id] = m;
+		
+	}
+	
+	//self.draw = function() {
+		
+	//}
+	
+	return self;
+}

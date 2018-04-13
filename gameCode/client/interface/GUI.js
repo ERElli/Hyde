@@ -191,6 +191,14 @@ GUI = function(container){
 				ani.updateEntityAnimation(en,4);
 				self.quickAnimatedDraw(enemyImg,en,ctx,dir,fW,fH);
 				break;
+			case "basic boss":
+				enemyImg=Img.basicEnemy1;
+				var fW=Img.basicEnemy1.width/4;
+				var fH=Img.basicEnemy1.height/2;
+				dir=ani.getPlayDirection(en);
+				ani.updateEntityAnimation(en,4);
+				self.quickAnimatedDraw(enemyImg,en,ctx,dir,fW,fH);
+				break;	
 			case "flying enemy":
 				enemyImg=Img.basicEnemy2;
 				var fW=Img.basicEnemy2.width/4;
