@@ -369,7 +369,6 @@ var update = function() {
 				
 				if (!enemy.justJumped) {
 					if (enemy.type == 'flying enemy' || enemy.type == 'flying boss') {
-						console.log("HERE");
 						enemy.y = block.y - block.height*0.75;
 						enemy.vy = 0;
 					}
@@ -705,8 +704,8 @@ var startGame = function(initial_level) {
 	level_width = initial_level.width;
 
 	//createPickUps();
-	createPlatforms();
-	//createBoss();
+	//createPlatforms();
+	createBoss();
 
 	setInterval(update, 1000/60)
 }

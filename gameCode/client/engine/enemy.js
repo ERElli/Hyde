@@ -309,7 +309,8 @@ function FlyingBoss(id, x, y, target) {
 	var flyingSlowDown = 3;
 	
 	//id, x, y, vx, vy, img, color, target
-	var self = FlyingEnemy(id, x, y, 0, 0, 'img', 'color', target);
+	var self = Enemy("flying enemy", id, x, y, 0, 0, flyingWidth, flyingHeight, 'img', 'color', flyingAcceleration, flyingMaxVX, flyingMaxVY, flyingMaxHP, flyingWeapon, flyingMass,
+					flyingJumpSpeed, flyingMeleeDamage, flyingPatrolRange, flyingSlowDown, target);
 	
 	self.width = 50;
 	self.height = 50;
@@ -318,23 +319,33 @@ function FlyingBoss(id, x, y, target) {
 	self.meleeDamage = 50;
 	self.patrolRange = 20000;
 	
+	self.vyStandard = 5 * mpsTOppf;
+	
 	self.kiting = true;
 	self.diving = false;
 	
 	self.kiteTimer = 0;
 	self.maxKite = 500;
 	self.diveTimer = 0;
-	self.maxDive = 300;
-	
+	self.maxDive = 200;
 	
 	var superUpdate = self.updatePosition;
 	self.updatePosition = function() {
 		
 		superUpdate();
-
+		
 		if (self.kiting) {
 			if (self.kiteTimer < self.maxKite) {
 				console.log("kiting");
+				
+				if (self.target.y - self.y < 500) {
+					self.vy = self.vyStandard;
+				}
+				else {
+					self.vy = 0;
+				}
+				
+				self.kiteTimer++;
 			}
 			else {
 				self.kiting = false;
@@ -344,8 +355,13 @@ function FlyingBoss(id, x, y, target) {
 			}
 		}
 		else if (self.diving) {
+			self.vy = 0;
 			if (self.diveTimer < self.maxDive) {
 				console.log("diving");
+				
+				
+				
+				self.diveTimer++;
 			}
 			else {
 				self.diving = false;
@@ -354,8 +370,7 @@ function FlyingBoss(id, x, y, target) {
 				console.log("diving -> kiting");
 			}
 		}
-		
-		
+				
 	}
 	
 	
