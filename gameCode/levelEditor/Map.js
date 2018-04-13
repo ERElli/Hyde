@@ -86,6 +86,8 @@ Map = function(width, height,tile_width, tile_height) {
 		}
 		else if (state == "load"){
 			nameL =levelNameField2.value;
+		}else{
+			nameL = hh;
 		}
 		console.log("the nameL is "+nameL);
 
