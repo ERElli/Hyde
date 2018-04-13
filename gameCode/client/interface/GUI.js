@@ -162,7 +162,13 @@ GUI = function(container){
 					var fW=Img.playerBig.width/5;
 					var fH=Img.playerBig.height/3;
 					//ani.updateEntityAnimation(en,5);
-					self.quickAnimatedDraw(Img.playerBig,en,ctx,playDir,fW,fH);
+					if(en.isImmune && en.immuneCounter%6==0){
+						//self.quickAnimatedDraw(Img.playerBig,en,ctx,playDir,fW,fH);
+						
+					}
+					else{
+						self.quickAnimatedDraw(Img.playerBig,en,ctx,playDir,fW,fH);
+					}
 				}else{
 					var fW=Img.playerSmall.width/5;
 					var fH=Img.playerSmall.height/3;
@@ -180,8 +186,15 @@ GUI = function(container){
 					}else{
 						playDir=0;
 					}
-          				self.quickAnimatedDraw(Img.playerSmall,en,ctx,playDir,fW,fH);
+					if(en.isImmune && en.immuneCounter%6==0){
+		      			//self.quickAnimatedDraw(Img.playerSmall,en,ctx,playDir,fW,fH);
+					}else{
+						self.quickAnimatedDraw(Img.playerSmall,en,ctx,playDir,fW,fH);
+					}
 				}
+				
+				
+				
 				break;
 			case "basic enemy":
 				enemyImg=Img.basicEnemy1;
@@ -330,20 +343,15 @@ GUI = function(container){
 				//self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;
 			case "boulder":
-				console.log(en.width,en.height,en.x,en.y);
+				//console.log(en.width,en.height,en.x,en.y);
 				fW=Img.boulder.width/5;
 				fH=Img.boulder.height;
-				console.log(fW,Img.boulder);
-				//self.quickDraw(Img.boulder,en,ctx,en.x,en.y);
-				//gui.quickAniWeaponDraw(Img.boulder,en,ctx,0,0,fW,fH,en.x,en.y);
 				ctx.drawImage(Img.boulder,0,0,fW,Img.boulder.height,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
 				break;
 			case "boulderBullet":
-				console.log(en.width,en.height,en.x,en.y);
 				fW=Img.boulder.width/5;
 				fH=Img.boulder.height;
 				ani.updateEntityAnimation(en,5);
-				console.log(fW,en);
 				gui.quickAnimatedDraw(Img.boulder,en,ctx,0,fW,fH);
 				break;
 
