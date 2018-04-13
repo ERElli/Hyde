@@ -6,7 +6,7 @@ var player;
 var enemies;
 var bullets = {};
 var terrain;
-var sufaceMods;
+var surfaceMods;
 var pickUps={};
 var boulderPickUps = {};
 
@@ -696,7 +696,7 @@ var startGame = function(initial_level) {
 	enemies = level["enemies"];
 	terrain = level["terrain"];
 	breakable = new Terrain1x1Breakable(Math.random(), 500, 325);
-	//surfaceMods = level["terrain"];
+	surfaceMods = level["terrain"];
 	pickUps = level['weapon'];
 	frameCount = 0;
 	everyTenCount = 0;
