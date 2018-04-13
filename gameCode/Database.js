@@ -25,6 +25,11 @@ Database.addCheckpointItem = function(data, cb){
   console.log("add checkp");
   db.saveLevel.update({level:data.level},   { $addToSet:{ checkpoint: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type} } } }, {upsert: true});
 }
+Database.addPlatformItem = function(data, cb){
+  console.log("add platform");
+  db.saveLevel.update({level:data.level},   { $addToSet:{ terrain: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type, direction:data.direction, finalVal: data.finalVal} } } }, {upsert: true});
+}
+
 Database.addBackgroundItem = function(data, cb){
   db.saveLevel.update(
      { level: data.level },

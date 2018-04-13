@@ -682,6 +682,11 @@ io.sockets.on('connection', function(socket){
     console.log(data);
    Database.addTerrainItem(data);
   });
+  socket.on('addPlatformItem',function(data){
+    console.log(data);
+   Database.addPlatformItem(data);
+  });
+
   socket.on('addWeaponItem',function(data){
     console.log(data);
    Database.addWeaponItem(data);

@@ -643,8 +643,16 @@ putEntity = function() {
 							entity = SpikeTrap(id, x, y, 0, 0, 50, 50, Img.topSpikeTrap, 'red', 20, 'vertical');
 							break;
 						case 'platform':
-							entity = MovingPlatform(id, startPos.x,startPos.y , 0, 0, 50, 50, Img.platform, 'red', endPos, 5);
-							break;
+              if(endPos.x == startPos.x){
+                finalPos = endPos.y;
+                direction = "vertical";
+              }else if(endPos.y == startPos.y){
+                finalPos = endPos.x;
+                direction = "horizontal";
+              }
+              entity = MovingPlatform(id, startPos.x,startPos.y,direction,finalPos);
+              console.log(entity);
+              break;
 					}
 					break;
 				case 'weapons':
