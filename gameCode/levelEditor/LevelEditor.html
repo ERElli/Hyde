@@ -14,7 +14,8 @@
 		</form>
     	<p id="newLevelName"> Level </p>
     	<button id="button1" > Save </button>
-      	<button id="button2"> Save  and Test</button>
+      <button id="button2"> Save  and Test</button>
+      <button id="button3"> Save  Choice</button>
 	</div>
 
  	<div id="enemiesDropdown" style="display:none; ">
@@ -222,25 +223,39 @@ socket.on('receiveLevels' ,function(res){
 
     var toAdd = document.createDocumentFragment();
     for(var i=0; i < num; i++){
-       var newDiv = document.createElement('div');
-       newDiv.id = 'r'+i;
-       var ID  = newDiv.id ;
-       newDiv.innerHTML = JSON.stringify(res.levels[i].level);
-       console.log("  "+ JSON.stringify(res.levels[i].level));
-       newDiv.className = 'ansbox';
-       
-       newDiv.onclick = function(){console.log('hello '+newDiv.innerHTML );  };
+      var btn = document.createElement("BUTTON");
+      btn.id = 'r'+i;
 
-       toAdd.appendChild(newDiv);
+      //btn.onclick = function(){console.log('hello btn'+btn.innerHTML );  };
+      var t = document.createTextNode(res.levels[i].level);
+      btn.appendChild(t);
+      document.getElementById('levelChoose').appendChild(btn);
+      doSomething('r'+i);
     }
-    document.getElementById('levelChoose').appendChild(toAdd);
-    //document.getElementById(r1).onclick =  function(){
-    //  console.log('hello');
-    //};
+
+    function doSomething(i) {
+        var ki = document.getElementById(i);
+        ki.onclick= function(){
+          console.log(ki.innerHTML );
+          hh = ki.innerHTML;
+          socket.emit('levelLoadButton', {level:ki.innerHTML });
+          levelChoose.style.display = 'none';
+          container.style.display = 'block';
+          levelMaker.style.display = 'block';
+          enemiesDropdown.style.display = 'inline-block';
+      		musicDropdown.style.display ='inline-block';
+      		backgroundDropdown.style.display = 'inline-block';
+      		checkpointDropdown.style.display = 'inline-block';
+      		characterDropdown.style.display = 'inline-block';
+      		terrainDropdown.style.display = 'inline-block';
+      		weaponDropdown.style.display = 'inline-block';
+
+        };
+      //  console.log(i);
+    };
 
 });
-var array = ["level 1", "level 2", "level 3"];
-
+//var array = ["level 1", "level 2", "level 3"];
 //////////////////////////
 
 levelNewButton.onclick = function(){
@@ -250,9 +265,14 @@ levelNewButton.onclick = function(){
       button1.style.display = 'none';
 }
 //newLevelName.innerHTML= "blue";
+var hh;
 var button1 = document.getElementById("button1");
 var button2 = document.getElementById("button2");
+var button3 = document.getElementById("button3");
 //request
+button3.onclick = function(){
+    location.href = "/client/interface/index.html";
+}
  button1.onclick = function(){
        socket.emit('button', {level:levelNameField2.value});
  }
@@ -711,7 +731,7 @@ doMouseAction = function(){
 					gui.ep_ctx.clearRect(0,0,gui.ep.width,gui.ep.height);
 					console.log("NOT VALID FINAL POSITION");
 				}
-				
+
 				numClicks = 1;
 			}
 		}else{
@@ -739,7 +759,7 @@ doMouseAction = function(){
 		// 	numClicks++;
 		// } else {
 			// putEntity();
-		// }		
+		// }
 	} else if(mouseRight){
 		if((self.selectedButton === 'terrains') && (self.selectedTerrain === 'platform') && numClicks != 1){
 			numClicks = 1;
