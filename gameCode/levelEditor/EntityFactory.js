@@ -59,13 +59,11 @@ EntityFactory = function(levelString,isLevelEditor){
 								mObject[mID] = Terrain1x6Breakable(mID,mX,mY);
 								break;
 
-
 							case "moving platform":
                 console.log("MOVING PLATFORM");
                 mObject[mID] = MovingPlatform(mID,mX,mY,object.direction,object.finalVal);
 								break;
 							}
-
 						break;
 					case "player":
 						let weapID = Math.random();

@@ -206,6 +206,7 @@ levelLoadButton.onclick = function(){
       levelChoice.style.display = 'none';
       levelLoad.style.display = 'block';
       button2.style.display = 'none';
+        button3.style.display = 'none';
 }
 levelChooseButton.onclick = function(){
       //socket.emit('levelLoadButton', {level:"hey"});
@@ -213,6 +214,9 @@ levelChooseButton.onclick = function(){
       levelLoad.style.display = 'none';
       levelChoice.style.display = 'none';
       socket.emit('getTheLevels');
+      button1.style.display = 'none';
+      button2.style.display = 'none';
+      button3.style.display = 'none';
 }
 
 /// Adding levels here ////
@@ -263,6 +267,7 @@ levelNewButton.onclick = function(){
       levelChoice.style.display = 'none';
       levelMenu.style.display = 'block';
       button1.style.display = 'none';
+      button3.style.display = 'none';
 }
 //newLevelName.innerHTML= "blue";
 var hh;
