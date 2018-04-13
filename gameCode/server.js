@@ -640,7 +640,7 @@ io.sockets.on('connection', function(socket){
 //   });
 
    socket.on('button',function(data){
-     console.log("console" +data.level);
+     console.log("console new" +data.level);
      Database.getLevelObject(data.level, function(res){
      socket.emit('result', res);
 
