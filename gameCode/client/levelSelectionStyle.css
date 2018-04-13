@@ -1,0 +1,47 @@
+/* LEVEL SELECTION STYLING */
+
+
+.playLevelOne{
+	background: transparent;
+	background-image: url(images/levelOneButton.png); 
+	outline: none;
+	border: none;
+	background-size: cover; 
+	position: fixed; 
+	left: 450px; 
+	top: 240px;
+	width: 110px;
+	height: 180px;
+
+}
+
+.playLevelTwo{
+
+	background: transparent;
+	background-image: url(images/levelTwoButton.png); 
+	outline: none;
+	border: none;
+	background-size: cover; 
+	position: fixed; 
+	left: 590px; 
+	top: 240px;
+	width: 110px;
+	height: 180px;
+	
+}
+
+
+.playLevelThree{
+
+	background: transparent;
+	background-image: url(images/levelThreeButton.png); 
+	outline: none;
+	border: none;
+	background-size: cover; 
+	position: fixed; 
+	left: 730px; 
+	top: 240px;
+	width: 110px;
+	height: 180px;
+	
+}

@@ -44,7 +44,6 @@ Map = function(width, height,tile_width, tile_height) {
 	self.getList = function(t){
 		//Checking if type matches a reg ex
 		if(t.includes("Terrain") || t.includes("spike") || t.includes("platform")){
-			console.log("PLATFORM LIST");
 			return self.ObjectList['terrain'];
 		}else if(t.includes("enemy")){
 			return self.ObjectList['enemies'];
@@ -90,7 +89,6 @@ Map = function(width, height,tile_width, tile_height) {
 		}
 		console.log("the nameL is "+nameL);
 
-		console.log("PLATFORM being added",object);
 		list[id] = object;
 		var temp = type;
 		console.log("field 1: "+levelNameField.value+ " field 2:" + levelNameField2.value+ " name:"+ nameL);
@@ -120,7 +118,6 @@ Map = function(width, height,tile_width, tile_height) {
 
 	//Function to check if the object, o, can be placed in the spot where the user clicks
 	self.tryToPlaceEntity = function(object){
-		console.log(object);
 		var x = object.x/tile_width;
 		var y = (object.y/tile_height) - gridShiftDown;
 		var w = x + (object.width/tile_width);
@@ -131,16 +128,14 @@ Map = function(width, height,tile_width, tile_height) {
 
 		//Referencing the appropriate tileMap;
 		if(type.includes("enemy") || type.includes("Terrain") || type.includes("player") || type.includes("spike") || type.includes("platform")){
-			console.log("SPIKE TRAP TILEMAP");
 			tileMap = self.tiles;
-			//console.log("ENTITY TILE MAP",tileMap);
+			console.log("ENTITY TILE MAP",tileMap);
 		}else if(type.includes("checkpoint")){
 			tileMap = self.checkpointTiles;
 			console.log("CHECKPOINT TILE MAP",tileMap);
 		}else if(type.includes("weapon") || type.includes("assault") || type.includes("shotgun") || type.includes("sword")){
-			console.log("TRY TO PLACE WEAPONS");
-
 			tileMap = self.weaponTiles;
+			console.log("Weapon Tile Map", tileMap);
 		}
 
 		//Checking if tiles in tileMap are filled
@@ -180,7 +175,7 @@ Map = function(width, height,tile_width, tile_height) {
 		let toBeRemoved;
 
 		for(let map in tileMaps){
-			console.log("MAP COUNT",map);
+			// console.log("MAP COUNT",map);
 			currentMap = tileMaps[map];
 
 			let type = currentMap[i][j].type;
@@ -267,6 +262,8 @@ Map = function(width, height,tile_width, tile_height) {
 		Level.name = levelName;
 
 		var str = JSON.stringify(Level).toString();
+		var str = "level='"+str;
+		var str = str + "'";
 		var a = document.createElement("a");
 		document.body.appendChild(a);
 		var file = new Blob([str],{type: 'application/json'});
