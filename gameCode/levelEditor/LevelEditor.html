@@ -13,7 +13,8 @@
 			<input type="submit" value="Submit">
 		</form>
     	<p id="newLevelName"> Level </p>
-    	<button id="button1"> Save </button>
+    	<button id="button1" > Save </button>
+      	<button id="button2"> Save  Me</button>
 	</div>
 
  	<div id="enemiesDropdown" style="display:none; ">
@@ -147,6 +148,8 @@ var levelLoad = document.getElementById('levelLoad');
 var levelButton2 = document.getElementById('levelButton2');
 var state;
 
+
+
 levelButton.onclick = function(){
 	state = "new";
 	if (levelNameField.value ==="" ){
@@ -192,17 +195,23 @@ levelLoadButton.onclick = function(){
       //socket.emit('levelLoadButton', {level:"hey"});
       levelChoice.style.display = 'none';
       levelLoad.style.display = 'block';
+      button2.style.display = 'none';
 }
 levelNewButton.onclick = function(){
     //  socket.emit('levelNewButton', {level:"hey"});
       levelChoice.style.display = 'none';
       levelMenu.style.display = 'block';
+      button1.style.display = 'none';
 }
 //newLevelName.innerHTML= "blue";
 var button1 = document.getElementById("button1");
+var button2 = document.getElementById("button2");
 //request
  button1.onclick = function(){
        socket.emit('button', {level:levelNameField2.value});
+ }
+ button2.onclick = function(){
+       socket.emit('button', {level:levelNameField.value});
  }
 //receive
  socket.on('result',function(res){

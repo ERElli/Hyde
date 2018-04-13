@@ -52,6 +52,7 @@
 
 			//call the socket to get the level objects from database
 			var  getLevelObjects = function() {
+				//it says "level 1" but in reality its getting level Objects for the specified level name in Database
 				socket.emit('getLevelObject', {level:"level 1"});
 			};
 

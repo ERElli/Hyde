@@ -72,7 +72,7 @@ Database.addWeaponItem = function(data, cb){
 
 
   //}
-  var n;
+var n;
 Database.getLevelObject = function(data, cb){
   n = data;
   //console.log("nice"+data.x, data.y, data.w, data.h, data.id, data.type);
@@ -94,7 +94,8 @@ Database.getLevelObjectInterface = function(data, cb){
 
   //db.saveLevel.find( function(err,res){
   //db.saveLevel.find({level: "ww"});
-  console.log("this is gooo "+n);
+
+  console.log("this is gooo "+ n);
   db.saveLevel.find({level: n}, function(err,res){
     var arr  = JSON.stringify(res);
       console.log("we are getting" + arr);
@@ -102,6 +103,7 @@ Database.getLevelObjectInterface = function(data, cb){
    });
 }
 Database.getLevels = function(cb){
+
   db.saveLevel.find({},function(err,res){
 		  var arr  = JSON.stringify(res);
 			cb(arr);
@@ -202,7 +204,13 @@ Database.levelUpdate = function(username,data){
   db.progress.findOne({username:username},function(err,res){
     if(res){
       console.log("true "+ data.level);
-      db.progress.update({username:username},{  $addToSet: {items: {level : "level 1", time: 130} }});
+      db.progress.update(
+        {username:username},
+        {  $addToSet:
+          {
+            items: {level : "level 1", time: 130}
+          }
+        });
 
     }
   });
