@@ -266,6 +266,7 @@ function BasicBoss(id, x, y, target) {
 			self.spawnMinion();
 			self.spawnTimer = 0;
 		}
+
 		
 	}
 	
@@ -274,8 +275,8 @@ function BasicBoss(id, x, y, target) {
 		
 		console.log(self.aimAngle);
 		
-		var spdX = Math.cos(self.aimAngle/180*Math.PI)*5 * mpsTOppf + self.vx;
-		var spdY = Math.sin(self.aimAngle/180*Math.PI)*5 * mpsTOppf + self.vy;
+		var spdX = Math.cos(self.aimAngle/180*Math.PI)*10 * mpsTOppf + self.vx;
+		var spdY = Math.sin(self.aimAngle/180*Math.PI)*10 * mpsTOppf + self.vy;
 		
 		m = new BasicEnemy(Math.random(), self.x, self.y, spdX, spdY, 'img', 'color', self.target);
 		enemies[m.id] = m;
