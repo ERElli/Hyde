@@ -477,10 +477,28 @@ GUI = function(container){
 		gui.modDraw(img,t,ctx,t.x,t.y);
 		
 	};
+	self.drawMedal=function(medal){
+		img=Img.medals;
+		fW=img.width/3;
+		fH=img.height;
+		if(medal=="gold"){
+			medalType=0;
+		}else if(medal=="silver"){
+			medalType=1;
+		}else if(medal=="bronze"){
+			medalType=2;
+		}
+		else{
+			medalType=3;
+		}
+		if (medalType!=3){
+			gui.gr_ctx.drawImage(img,fW*medalType,0,fW,fH,500,100,100,200);
+		}
+	}
 	//Draws goal flag
 	self.drawGoal=function(){
 		img=Img.finalCheckpoint;
-		gui.fg_ctx.drawImage(img,(level.width-50)-playX,100,50,400);
+		gui.fg_ctx.drawImage(img,(level.width)-playX,100,50,500);
 	};
 	//Checkpoint update
 	self.checkpointUpdate=function(checkpoint){
