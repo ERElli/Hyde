@@ -220,16 +220,21 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 
 
 //GHOST --------------------------------------------------------------------------------------------------------------------------------------
-function Ghost(id, x, y) {
+function Ghost(id, x, y, path) {
+	self = Entity("ghost", id, x, y, 0, 0, self.width, self.height, "", "red");
 	self.width = 50;
 	self.height = 50;
+	self.path = path;
 
-	var self = Entity("ghost", id, x, y, 0, 0, self.width, self.heigh, "", "red");
 
 	self.aniCount=0;
 
 	self.setAniCount=function(newCount){
 		self.aniCount=newCount;
+	}
+
+	self.setPath = function(newPath){
+		self.path = newPath;
 	}
 
 	return self;
