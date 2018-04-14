@@ -9,8 +9,7 @@ var terrain;
 var surfaceMods;
 var pickUps={};
 var boulderPickUps = {};
-
-
+var playerPositionLog={};
 var hasReleasedJump = false;
 var hasReleasedCrouch = true;
 var paused = false;
@@ -188,6 +187,7 @@ var update = function() {
 	frameCount++;
 	if (frameCount % 10 == 0) {
 		everyTenCount++;
+		
 	}
 
 	//Draw HUD
@@ -751,4 +751,6 @@ var createBoss = function() {
 var endGame = function() {
 	gui.levelComplete();
 	paused = true;
+	//Creates ghost object
+	//level.ghost=ghostArray
 }

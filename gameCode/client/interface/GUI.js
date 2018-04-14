@@ -101,7 +101,6 @@ GUI = function(container){
 		gui.bg_ctx.clearRect(0,0,self.bg.width,self.bg.height);
 		img=Img.background2;
 		sound=Sound.worldTwo;
-		console.log(level.background);		
 		switch(level.background){
 			case 'world1':
 				sound=Sound.worldOne;
