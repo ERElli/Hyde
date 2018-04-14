@@ -228,7 +228,7 @@ var update = function() {
 		player.reset(0, 0);
 	}
 
-	if (player.x >= level_width) {
+	if (player.x >= level_width && !level.hasBoss) {
 		endGame();
 	}
 
@@ -586,7 +586,12 @@ var update = function() {
 		enemy.updateAim(player);
 
 		if (enemy.health <= 0) {
+			
 			delete enemies[key];
+			
+			if (enemy.type == 'basic boss' || enemy.type == 'flying boss' || enemy.type == 'tank boss') {
+				endGame();
+			}
 
 			if (Math.random() < 0.3) {
 				a = new AmmoPickUp(Math.random(), enemy.x, enemy.y, player);

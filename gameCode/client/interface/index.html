@@ -42,6 +42,7 @@
 
 		var isOfflineMode=false;
 		var level = {};
+		level.hasBoss = false;
 		var gui;
 		var ani=Animation();
 		var Img=Img("../../");
@@ -92,8 +93,20 @@
 					else if (e.type == 'tank enemy') {
 						enemy =  new TankEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
 					}
-					else {
+					else if (e.type == 'flying enemy') {
 						enemy =  new FlyingEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
+					}
+					if (e.type == 'basic boss') {
+						level.hasBoss = true;
+						enemy =  new BasicBoss(e.id, e.x, e.y-150, level['player']);
+					}
+					else if (e.type == 'tank boss') {
+						level.hasBoss = true;
+						enemy =  new TankBoss(e.id, e.x, e.y-150, level['player']);
+					}
+					else {
+						level.hasBoss = true;
+						enemy =  new FlyingBoss(e.id, e.x, e.y-150, level['player']);
 					}
 
 					level['enemies'][e.id] = enemy;
