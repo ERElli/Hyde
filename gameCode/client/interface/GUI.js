@@ -101,7 +101,7 @@ GUI = function(container){
 		gui.bg_ctx.clearRect(0,0,self.bg.width,self.bg.height);
 		img=Img.background2;
 		sound=Sound.worldTwo;
-		console.log(level.background);		
+		// console.log(level.background);		
 		switch(level.background){
 			case 'world1':
 				sound=Sound.worldOne;
@@ -243,10 +243,11 @@ GUI = function(container){
 				self.quickAnimatedDraw(enemyImg,en,ctx,dir,fW,fH);
 				break;
 			case "ghost":
+				ghostImg = Img.playerSmall;
 				var fW=Img.playerSmall.width/5;
 				var fH=Img.playerSmall.height/3;
 				ani.updateEntityAnimation(en,5);
-				self.quickAnimatedDraw(enemyImg,en,gui.ep_ctx,0,fW,fH);
+				self.quickAnimatedDraw(ghostImg,en,gui.ep_ctx,0,fW,fH);
 				break;
 			case "pistol":
 				var weapImg=Img.pistol;
