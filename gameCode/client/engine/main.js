@@ -3,13 +3,16 @@ var frameCount;
 
 var level;
 var player;
+var ghost;
 var enemies;
 var bullets = {};
 var terrain;
-var surfaceMods;
+var sufaceMods;
 var pickUps={};
 var boulderPickUps = {};
+
 var playerPositionLog={};
+
 var hasReleasedJump = false;
 var hasReleasedCrouch = true;
 var paused = false;
@@ -185,16 +188,30 @@ var update = function() {
 
 	//Update counters
 	frameCount++;
-	if (frameCount % 10 == 0) {
+	if (frameCount % 3 == 0) {
+		playerPositionLog[everyTenCount] = {};
+		playerPositionLog[everyTenCount].x = player.x;
+		playerPositionLog[everyTenCount].y = player.y;
+		if(ghost != null){
+			console.log("GHOST PATH",ghost.path);
+			if((everyTenCount<Object.keys(ghost.path).length)){
+				gui.ep_ctx.clearRect(0,0,gui.ep.width,gui.ep.height);
+				ghost.x = ghost.path[everyTenCount].x;
+				ghost.y = ghost.path[everyTenCount].y;
+				// gui.fg_ctx.fillRect(ghost.x,ghost.y,ghost.width,ghost.height);
+				ghost.update();
+			}
+		}
 		everyTenCount++;
 		
 	}
 
+	//ghost.update();
 	//Draw HUD
 	//draws background
 	gui.drawMap();
 	gui.HUD(gui.gr_ctx,player);
-
+	gui.drawGoal();
 
 	//Manage player -----------------------------------------------------------------------------------
 
@@ -368,8 +385,12 @@ var update = function() {
 				}
 				
 				if (!enemy.justJumped) {
-					if (enemy.type == 'flying enemy' || enemy.type == 'flying boss') {
+					if (enemy.type == 'flying enemy') {
 						enemy.y = block.y - block.height*0.75;
+						enemy.vy = 0;
+					}
+					else if (enemy.type == 'flying boss') {
+						enemy.y = block.y - block.height;
 						enemy.vy = 0;
 					}
 					else {
@@ -580,7 +601,7 @@ var update = function() {
 		}
 
 
-		if (enemy.type == "flying enemy") {
+		if (enemy.type == "flying enemy" || enemy.type == "flying boss") {
 			newBullets = enemy.shoot();
 			for (i in newBullets) {
 				newBullet = newBullets[i];
@@ -600,7 +621,7 @@ var update = function() {
 
 			if (!player.isImmune) {
 
-				if (player.isBig || enemy.type=="tank enemy") {
+				if (player.isBig || enemy.type=="tank enemy" || enemy.type == "tank boss") {
 
 					player_p = Math.abs(player.getMomentum());
 					enemy_p = Math.abs(enemy.getMomentum());
@@ -690,13 +711,21 @@ var testCollision = function(rect1, rect2) {
 var startGame = function(initial_level) {
 	level = initial_level;
 	player = level["player"];
-	
+	if(level['ghost'] == null){
+		console.log("GHOST NULL");
+		ghost = null;
+		//DO NOTHING
+	}else{
+		console.log("GHOST",level['ghost']);
+		ghost = level['ghost'];
+	}
+
 	console.log(player);
 	
 	enemies = level["enemies"];
 	terrain = level["terrain"];
 	breakable = new Terrain1x1Breakable(Math.random(), 500, 325);
-	surfaceMods = level["terrain"];
+	//surfaceMods = level["terrain"];
 	pickUps = level['weapon'];
 	frameCount = 0;
 	everyTenCount = 0;
@@ -705,7 +734,7 @@ var startGame = function(initial_level) {
 
 	//createPickUps();
 	//createPlatforms();
-	//createBoss();
+	// createBoss();
 
 	setInterval(update, 1000/60)
 }
@@ -734,7 +763,7 @@ var createTraps = function() {
 
 var createPlatforms = function() {
 
-	w = new MovingPlatform(Math.random(), 100, 200, 'vertical', 50);
+	w = new MovingPlatform(Math.random(), 100, 50, 'vertical', 200);
 
 	//a = new SpikeTrap(Math.random(), 300, 100, 'down');
 
@@ -744,13 +773,64 @@ var createPlatforms = function() {
 }
 
 var createBoss = function() {
-	b = new FlyingBoss(Math.random(), 100, 100, player);
+	b = new BasicBoss(Math.random(), 1000, 100, player);
 	enemies[b.id] = b;
 }
 
+
 var endGame = function() {
 	gui.levelComplete();
+	console.log("PLAYER POSTIION",playerPositionLog);
+	ghost = new Ghost(Math.random(),0,0,{});
+	ghost.setPath(playerPositionLog);
+
+	makeLevel();
+	convertToString();
 	paused = true;
 	//Creates ghost object
 	//level.ghost=ghostArray
 }
+
+var makeLevel = function(){
+	let Level = {};
+	Level.player = {};
+
+	Level.width = level.width;
+	Level.height = level.height;
+	Level.enemies = level.enemies;
+	Level.terrain = level.terrain;
+	Level.player = mydata.player;
+	Level.background = level.background;
+	Level.ghost = ghost;
+
+	for(id in Level.enemies){
+		Level.enemies[id].y = Level.enemies[id].y+150;
+	}
+	for(id in Level.terrain){
+		Level.terrain[id].y = Level.terrain[id].y+150;
+	}
+	for(id in Level.player){
+		Level.player[id].y = Level.player[id].y+150;
+	}
+	return Level;
+}
+
+var convertToString = function(){
+	// var form = document.getElementById("form");
+	var levelName = "ghostDemo"
+	var filename = levelName+".json";
+	var Level = makeLevel();
+	console.log("CTS LEVEL",Level);
+	console.log("CTS MYDATA",mydata);
+	Level.name = levelName;
+
+	var str = JSON.stringify(Level).toString();
+	var str = "level='"+str;
+	var str = str + "'";
+	var a = document.createElement("a");
+	document.body.appendChild(a);
+	var file = new Blob([str],{type: 'application/json'});
+	a.href = URL.createObjectURL(file);
+	a.download = filename;
+	a.click();
+};

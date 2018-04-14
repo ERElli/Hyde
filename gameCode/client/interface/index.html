@@ -25,8 +25,9 @@
 		<script type="text/javascript" src="../engine/usable.js"></script>
 		<script type="text/javascript" src="../../levelEditor/EntityFactory.js"></script>
 
-		<script type="text/javascript" src="testLevel.json"></script>
-		<!-- <script type="text/javascript" src="level.json"></script> -->
+		<!--<script type="text/javascript" src="level.json"></script>-->
+		<script type="text/javascript" src="ghostDemo.json"></script> 
+
 		<script type="text/javascript" src="jsonTest.js"></script>
 
 		<script type="text/javascript" src="../../levelEditor/Terrain.js"></script>
@@ -158,6 +159,15 @@
 		}else{
 			//#############################################################################
 			//FOR GUI TESTING PURPOSES
+			if(mydata.ghost != null){
+				console.log("GHOST",mydata.ghost);
+				let g = mydata['ghost'];
+				// console.log("G PATH",g.path);
+				level['ghost'] = Ghost(g.id,g.x,g.y,g.path);
+				// level['ghost'].setPath(g.path);
+				console.log("LEVEL GHOST PATH",level['ghost'].path);
+			}
+
 
 			for (var thing in mydata['player']) {
 				p = mydata['player'][thing]
@@ -233,6 +243,7 @@
 
 				}
 			level.width=mydata.width;
+			level.height= mydata.height;
 			level.background=mydata.background;
 			console.log(mydata);
 			startGame(level);

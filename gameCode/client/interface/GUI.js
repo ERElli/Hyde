@@ -233,6 +233,14 @@ GUI = function(container){
 				ani.updateEntityAnimation(en,4);
 				self.quickAnimatedDraw(enemyImg,en,ctx,dir,fW,fH);
 				break;
+			case "flying boss":
+				enemyImg=Img.basicEnemy2;
+				var fW=Img.basicEnemy2.width/4;
+				var fH=Img.basicEnemy2.height/2;
+				dir=ani.getPlayDirection(en);
+				ani.updateEntityAnimation(en,4);
+				self.quickAnimatedDraw(enemyImg,en,ctx,dir,fW,fH);
+				break;
 			case "tank enemy":
 				enemyImg=Img.basicEnemy3;
 				var fW=Img.basicEnemy3.width/5;
@@ -241,11 +249,20 @@ GUI = function(container){
 				ani.updateEntityAnimation(en,5);
 				self.quickAnimatedDraw(enemyImg,en,ctx,dir,fW,fH);
 				break;
+			case "tank boss":
+				enemyImg=Img.basicEnemy3;
+				var fW=Img.basicEnemy3.width/5;
+				var fH=Img.basicEnemy3.height/2;
+				dir=ani.getPlayDirection(en);
+				ani.updateEntityAnimation(en,5);
+				self.quickAnimatedDraw(enemyImg,en,ctx,dir,fW,fH);
+				break;
 			case "ghost":
+				ghostImg = Img.playerSmall;
 				var fW=Img.playerSmall.width/5;
 				var fH=Img.playerSmall.height/3;
 				ani.updateEntityAnimation(en,5);
-				self.quickAnimatedDraw(enemyImg,en,gui.ep_ctx,0,fW,fH);
+				self.quickAnimatedDraw(ghostImg,en,gui.ep_ctx,0,fW,fH);
 				break;
 			case "pistol":
 				var weapImg=Img.pistol;
@@ -463,7 +480,7 @@ GUI = function(container){
 	//Draws goal flag
 	self.drawGoal=function(){
 		img=Img.finalCheckpoint;
-		gui.fg_ctx.drawImage(img,(level.width-50)-playX,100,50,400);
+		gui.fg_ctx.drawImage(img,(level.width)-playX,100,50,500);
 	};
 	//Checkpoint update
 	self.checkpointUpdate=function(checkpoint){

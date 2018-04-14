@@ -12,6 +12,10 @@
     <button id="Achievements" class="achievementsButton"></button>
   </div>
 
+  <div id="levelChoose"  style=" display:none; padding-top:10%; padding-left:40%;height:500px;  background-image: url('/images/newWorldTwoBackground.png') " >
+		<p id="theLevels"> Levels go here </p>
+		<br><br>
+	</div>
 
   <div id="achievementsMenu" style="display:none;">
     <p> You are awesome </p>
@@ -20,12 +24,12 @@
 
 
 
+
   <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
   <script>
 
     var socket = io();
-
-
+    var levelChoose = document.getElementById('levelChoose');
     var main = document.getElementById('main');
     var play = document.getElementById('play');
     var levelEditor = document.getElementById('levelEditor');
@@ -33,7 +37,9 @@
     var achievementsMenu = document.getElementById('achievementsMenu');
 
     play.onclick = function(){
-      location.href = "/client/interface/index.html";
+      main.style.display = 'none';
+      levelChoose.style.display = 'inline-block';
+      socket.emit('getLevels');
     }
 
     levelEditor.onclick = function(){
@@ -43,6 +49,37 @@
       main.style.display = 'none';
       achievementsMenu.style.display = 'inline-block';
     }
+    /// Adding levels here ////
+    socket.on('receiveTheLevels' ,function(res){
+      var  arrayOfLevels = res.result;
+      var num =res.levels.length;
+        console.log("let check  "+ JSON.stringify(res.levels[0])+ "  num"+ num);
+
+        var toAdd = document.createDocumentFragment();
+        for(var i=0; i < num; i++){
+          var btn = document.createElement("BUTTON");
+          btn.id = 'r'+i;
+
+          //btn.onclick = function(){console.log('hello btn'+btn.innerHTML );  };
+          var t = document.createTextNode(res.levels[i].level);
+          btn.appendChild(t);
+          document.getElementById('levelChoose').appendChild(btn);
+          doSomething('r'+i);
+        }
+
+        function doSomething(i) {
+            var ki = document.getElementById(i);
+            ki.onclick= function(){
+              console.log(ki.innerHTML );
+              hh = ki.innerHTML;
+              socket.emit('levelLoadButton', {level:ki.innerHTML });
+              location.href = "/client/interface/index.html";
+
+            };
+          //  console.log(i);
+        };
+
+    });
 
 
     /* socket.on('changeMe', function(data){
