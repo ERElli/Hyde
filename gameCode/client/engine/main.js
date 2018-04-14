@@ -11,15 +11,23 @@ var sufaceMods;
 var pickUps={};
 var boulderPickUps = {};
 
+var difficulty = 'normal';
+
 var playerPositionLog={};
 
 var hasReleasedJump = false;
 var hasReleasedCrouch = true;
 var paused = false;
 
-var charCodes = {65:"left", 87:"jump", 68:"right", 83:"crouch", 32:"transform",};
+var charCodes ={}; // {65:"left", 87:"jump", 68:"right", 83:"crouch", 32:"transform",};
 
 var pressing = { "left": 0, "right":0, "jump":0, "crouch":0, "transform":0, "shoot":0 };
+
+var updateControls = function() {
+	for (var key in codeToChar) {
+		charCodes[codeToChar[key]] = key;
+	}
+}
 
 
 document.onkeydown = function(event) {
@@ -179,6 +187,7 @@ var inRange = function(thing) {
 var update = function() {
 
 	if (paused) {
+		console.log("paused");
 		return;
 	}
 
@@ -223,7 +232,7 @@ var update = function() {
 		player.reset(0, 0);
 	}
 
-	if (player.x >= level_width) {
+	if (player.x >= level_width && !level.hasBoss) {
 		endGame();
 	}
 
@@ -581,7 +590,12 @@ var update = function() {
 		enemy.updateAim(player);
 
 		if (enemy.health <= 0) {
+			
 			delete enemies[key];
+			
+			if (enemy.type == 'basic boss' || enemy.type == 'flying boss' || enemy.type == 'tank boss') {
+				endGame();
+			}
 
 			if (Math.random() < 0.3) {
 				a = new AmmoPickUp(Math.random(), enemy.x, enemy.y, player);
@@ -734,7 +748,9 @@ var startGame = function(initial_level) {
 
 	//createPickUps();
 	//createPlatforms();
-	// createBoss();
+	createBoss();
+	
+	updateControls();
 
 	setInterval(update, 1000/60)
 }
@@ -799,7 +815,7 @@ var makeLevel = function(){
 	Level.height = level.height;
 	Level.enemies = level.enemies;
 	Level.terrain = level.terrain;
-	Level.player = mydata.player;
+	Level.player = level.player;
 	Level.background = level.background;
 	Level.ghost = ghost;
 

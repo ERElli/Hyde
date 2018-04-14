@@ -411,7 +411,6 @@ GUI = function(container){
 
 		}
 		ctx.save();
-		//Drawing terrain modifiers
 		switch(terrain.type){
 			case "Terrain1x1":
 				self.quickDraw(Img.terrain1x1,t,ctx,t.x,t.y);
@@ -459,6 +458,8 @@ GUI = function(container){
 
 				break;
 		}
+		//Drawing terrain modifiers
+
 		if(terrain.mod.type!='none'){
 			gui.drawTerrainMod(terrain,ctx);
 		}

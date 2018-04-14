@@ -207,6 +207,18 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	}
 
 	self.takeDamage = function(amount) {
+		if (self.type == 'player') {
+			if (difficulty == 'easy') { 
+				amount /= 2; 
+			}
+			else if (difficulty == 'hard') {
+				amount *= 2; 
+			}
+		}
+		else {
+			if (difficulty == 'easy') { amount *= 2; }
+			else if (difficulty == 'hard') { amount /= 2; }
+		}
 		self.health -= amount;
 		self.isImmune = true;
 		self.immuneCounter = 0;
