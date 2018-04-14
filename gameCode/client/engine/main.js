@@ -10,8 +10,8 @@ var terrain;
 var sufaceMods;
 var pickUps={};
 var boulderPickUps = {};
-var playerPositionLog = {};
 
+var playerPositionLog={};
 
 var hasReleasedJump = false;
 var hasReleasedCrouch = true;
@@ -203,6 +203,7 @@ var update = function() {
 			}
 		}
 		everyTenCount++;
+		
 	}
 
 	//ghost.update();
@@ -210,7 +211,7 @@ var update = function() {
 	//draws background
 	gui.drawMap();
 	gui.HUD(gui.gr_ctx,player);
-
+	gui.drawGoal();
 
 	//Manage player -----------------------------------------------------------------------------------
 
@@ -782,10 +783,12 @@ var endGame = function() {
 	console.log("PLAYER POSTIION",playerPositionLog);
 	ghost = new Ghost(Math.random(),0,0,{});
 	ghost.setPath(playerPositionLog);
-
+	setTimeout(function(){gui.drawMedal("gold")},5000);
 	makeLevel();
 	convertToString();
 	paused = true;
+	//Creates ghost object
+	//level.ghost=ghostArray
 }
 
 var makeLevel = function(){

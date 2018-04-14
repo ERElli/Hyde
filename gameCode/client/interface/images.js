@@ -87,5 +87,7 @@ Img = function(pathToRoot) {
 	//Misc images
 	self.infinity=new Image();
 	self.infinity.src= pathToRoot+"client/interface/img/inf.png";
+	self.medals=new Image();
+	self.medals.src=pathToRoot+"client/interface/img/medals.png";
 	return self;
 };
