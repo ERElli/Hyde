@@ -477,6 +477,7 @@ GUI = function(container){
 		gui.modDraw(img,t,ctx,t.x,t.y);
 		
 	};
+	//draw medals at end of game
 	self.drawMedal=function(medal){
 		img=Img.medals;
 		fW=img.width/3;

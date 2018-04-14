@@ -5,8 +5,9 @@ function Terrain(id, x, y){
 		id: id,
 		x: x,
 		y: y,
+		mod: NoModifier(),
 	};
-	self.mod=IceModifier();
+	//self.mod=NoModifier();
 	self.draw = function(ctx,isLevelEditor){
 		gui.drawTerrain(self,ctx,isLevelEditor);
 	}
@@ -184,6 +185,13 @@ function MudModifier() {
 			target.acceleration *= 15;
 		}
 	}
+	
+	return self;
+	
+}
+function NoModifier() {
+	
+	self = TerrainModifier('none');
 	
 	return self;
 	
