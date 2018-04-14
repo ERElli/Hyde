@@ -384,7 +384,17 @@ var update = function() {
 				}
 				
 				if (!enemy.justJumped) {
-					putOnTerrain(block, enemy);
+					if (enemy.type == 'flying enemy') {
+						enemy.y = block.y - block.height*0.75;
+						enemy.vy = 0;
+					}
+					else if (enemy.type == 'flying boss') {
+						enemy.y = block.y - block.height;
+						enemy.vy = 0;
+					}
+					else {
+						putOnTerrain(block, enemy);
+					}
 				}
 			}
 
@@ -590,7 +600,7 @@ var update = function() {
 		}
 
 
-		if (enemy.type == "flying enemy") {
+		if (enemy.type == "flying enemy" || enemy.type == "flying boss") {
 			newBullets = enemy.shoot();
 			for (i in newBullets) {
 				newBullet = newBullets[i];
@@ -610,7 +620,7 @@ var update = function() {
 
 			if (!player.isImmune) {
 
-				if (player.isBig || enemy.type=="tank enemy") {
+				if (player.isBig || enemy.type=="tank enemy" || enemy.type == "tank boss") {
 
 					player_p = Math.abs(player.getMomentum());
 					enemy_p = Math.abs(enemy.getMomentum());
@@ -762,7 +772,7 @@ var createPlatforms = function() {
 }
 
 var createBoss = function() {
-	b = new BasicBoss(Math.random(), 100, 100, player);
+	b = new BasicBoss(Math.random(), 1000, 100, player);
 	enemies[b.id] = b;
 }
 

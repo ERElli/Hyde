@@ -101,7 +101,6 @@ GUI = function(container){
 		gui.bg_ctx.clearRect(0,0,self.bg.width,self.bg.height);
 		img=Img.background2;
 		sound=Sound.worldTwo;
-		// console.log(level.background);		
 		switch(level.background){
 			case 'world1':
 				sound=Sound.worldOne;
@@ -234,7 +233,23 @@ GUI = function(container){
 				ani.updateEntityAnimation(en,4);
 				self.quickAnimatedDraw(enemyImg,en,ctx,dir,fW,fH);
 				break;
+			case "flying boss":
+				enemyImg=Img.basicEnemy2;
+				var fW=Img.basicEnemy2.width/4;
+				var fH=Img.basicEnemy2.height/2;
+				dir=ani.getPlayDirection(en);
+				ani.updateEntityAnimation(en,4);
+				self.quickAnimatedDraw(enemyImg,en,ctx,dir,fW,fH);
+				break;
 			case "tank enemy":
+				enemyImg=Img.basicEnemy3;
+				var fW=Img.basicEnemy3.width/5;
+				var fH=Img.basicEnemy3.height/2;
+				dir=ani.getPlayDirection(en);
+				ani.updateEntityAnimation(en,5);
+				self.quickAnimatedDraw(enemyImg,en,ctx,dir,fW,fH);
+				break;
+			case "tank boss":
 				enemyImg=Img.basicEnemy3;
 				var fW=Img.basicEnemy3.width/5;
 				var fH=Img.basicEnemy3.height/2;
