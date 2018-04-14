@@ -5,9 +5,10 @@ function Terrain(id, x, y){
 		id: id,
 		x: x,
 		y: y,
+		mod: NoModifier(),
 	};
 
-	self.mod = new NoModifier();
+	// self.mod = new NoModifier();
 
 	self.draw = function(ctx,isLevelEditor){
 		gui.drawTerrain(self,ctx,isLevelEditor);
@@ -25,7 +26,7 @@ function Terrain(id, x, y){
 			}
 		}
 	}
-
+	console.log(self);
 	return self;
 }
 
@@ -145,7 +146,7 @@ function TerrainModifier(type) {
 	self.type = type;
 	
 	self.applyEffect = function(target) {
-		
+		//DO NOTHING
 	}
 	
 	return self;
@@ -194,8 +195,9 @@ function MudModifier() {
 function NoModifier() {
 	self = TerrainModifier('none');
 
-	console.log("No modifier");
-
+	self.applyEffect = function(target) {
+		//DO NOTHING
+	}
 	return self;
 }
 

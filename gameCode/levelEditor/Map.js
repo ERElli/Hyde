@@ -246,6 +246,20 @@ Map = function(width, height,tile_width, tile_height) {
 		}
 	};
 
+	self.applyTerrainMod = function(mod,x,y){
+		let i = x/tile_width;
+		let j = y/tile_height - gridShiftDown;
+		let type= self.tiles[i][j].type;
+		let id = self.tiles[i][j].id;
+		console.log("TYPE",mod);
+		if(self.tiles[i][j].type.includes("Terrain")){
+			let block = self.ObjectList['terrain'][id];
+			console.log("BLOCK",block);
+			block.mod=new IceModifier();
+			console.log("NEW BLOCK",block);
+		}
+	}
+
 	//function to draw all objects in ObjectList
 	self.update = function(){
 		var object = null;

@@ -65,6 +65,9 @@
 	<div id="terrainDropdown" style="display:none; ">
 		<button onclick="typeTapped('terrains')" id="terrainbtn"></button>
 		<div id="terrains" class="dropdown-content">
+			<!-- <div id="regular">
+			</div>
+			<div id="breakable"></div> -->
 			<button style="background-image: url('../client/interface/img/levelEditor/buttons/terrain/1x1Drop.png')" onclick="terrainTapped('1x1')" class="terrain1btn"></button>
 			<button style="background-image: url('../client/interface/img/levelEditor/buttons/terrain/1x1BDrop.png')" onclick="terrainTapped('1x1Breakable')" class="terrain2btn"></button>
 			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/3x2Drop.png)" onclick="terrainTapped('3x2')" class="terrain3btn"></button>
@@ -453,25 +456,25 @@ doPressedAction = function() {
 		translateCanvases(-offsetX,-offsetY);
 		(offsetX===0)? offsetX = 0 : (offsetX += TILE_WIDTH);
 		translateCanvases(offsetX,offsetY);
-		gui.editorBackground(offsetX,offsetY,self.selectedBackground);
+		gui.editorBackground(offsetX,offsetY,selectedBackground);
 	}
 	if(controls.right){
 		translateCanvases(-offsetX,-offsetY);
 		(offsetX===(gui.bg.width-WIDTH))? (offsetX = gui.bg.width-WIDTH) : offsetX -= TILE_WIDTH;
 		translateCanvases(offsetX,offsetY);
-		gui.editorBackground(offsetX,offsetY,self.selectedBackground);
+		gui.editorBackground(offsetX,offsetY,selectedBackground);
 	}
 	if(controls.up){
 		translateCanvases(-offsetX,-offsetY);
 		(offsetY===0)? offsetY = 0 : (offsetY += TILE_HEIGHT);
 		translateCanvases(offsetX,offsetY);
-		gui.editorBackground(offsetX,offsetY,self.selectedBackground);
+		gui.editorBackground(offsetX,offsetY,selectedBackground);
 	}
 	if(controls.down){
 		translateCanvases(-offsetX,-offsetY);
 		(offsetY===gui.bg.height-HEIGHT)? (offsetY = gui.bg.height-HEIGHT) : offsetY -= TILE_HEIGHT;
 		translateCanvases(offsetX,offsetY);
-		gui.editorBackground(offsetX,offsetY,self.selectedBackground);
+		gui.editorBackground(offsetX,offsetY,selectedBackground);
 	}
 };
 
@@ -480,20 +483,18 @@ translateCanvases = function(xOffset,yOffset){
 	gui.ep_ctx.translate(xOffset,yOffset);
 };
 
-var entity;
+
 //Drawing a preview of the object to be placed on the level
 //and snapping the top right corner of the preview to the grid lines
 snapToGrid  = function(canvas,mouse){
 	var pos = getMousePosition(canvas,mouse);
 	var prev_x = pos.x - (pos.x % TILE_HEIGHT)-offsetX;
 	var prev_y = pos.y - (pos.y % TILE_WIDTH)-offsetY;
-	entity = null;
 	var tempID = 0;
 	var tempTarget = Player(tempID,0,0,0,0,null,false);
-	var previewImage = new Image();
-	switch(self.selectedButton){
+	switch(selectedButton){
 		case 'enemies':
-				switch(self.selectedEnemy){
+				switch(selectedEnemy){
 				case "Basic Enemy":
 					entity = BasicEnemy(tempID,prev_x,prev_y,0,0,Img.basicEnemy1,'red',null);
 					break;
@@ -507,7 +508,7 @@ snapToGrid  = function(canvas,mouse){
 			entity.draw(gui.ep_ctx,true);
 			break;
 		case 'checkpoints':
-			switch(self.selectedCheckpoint){
+			switch(selectedCheckpoint){
 				case "standard checkpoint":
 					entity = StandardCheckpoint(tempID,prev_x,prev_y);
 					break;
@@ -522,15 +523,21 @@ snapToGrid  = function(canvas,mouse){
 			entity.draw(gui.ep_ctx,true);
 			break;
 		case 'terrains':
-			switch(self.selectedTerrain){
+			switch(selectedTerrain){
 				case "1x1":
-					entity = Terrain1x1(tempID,prev_x,prev_y);
+					// console.log("STG 1X1");
+					entity = new Terrain1x1(tempID,prev_x,prev_y);
+					// selectedButton = 'terrains';
+					// selectedTerrain = '1x1';
+					// console.log("SELECTEDBUTTON",entity);
 					break;
 				case "1x1Breakable":
 					entity = Terrain1x1Breakable(tempID,prev_x,prev_y);
 					break;
 				case "3x2":
 					entity = Terrain3x2(tempID,prev_x,prev_y);
+					// selectedButton = 'terrains';
+					// selectedTerrain = '3x2';
 					break;
 				case "3x2Breakable":
 					entity = Terrain3x2Breakable(tempID,prev_x,prev_y);
@@ -556,11 +563,15 @@ snapToGrid  = function(canvas,mouse){
 				case "platform":
 					entity = MovingPlatform(tempID, prev_x, prev_y, "horizontal",0);
 					break;
+				default:
+					gui.ep_ctx.fillRect(x,y,TILE_WIDTH,TILE_HEIGHT);
+					break;
 			}
+			// console.log("ENTITY",entity);
 			entity.draw(gui.ep_ctx,true);
 			break;
 		case 'weapons':
-			switch(self.selectedWeapon){
+			switch(selectedWeapon){
 	    		case "pistol":
 	    			entity = WeaponPickUp(tempID,prev_x,prev_y,"pistol",tempTarget);
 	    			break;
@@ -584,17 +595,25 @@ snapToGrid  = function(canvas,mouse){
 
 //function to place entity on the map
 putEntity = function() {
+	console.log("PUTENTITY CALL");
+	console.log("BEFORE",entity);
 	var mouseBelowUpperBound = pos.x<gui.fg.width && pos.y<gui.fg.height+(2*TILE_HEIGHT);
 	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
+
+	// console.log("POS",pos);
 	var tempTarget = Player(0,0,0,0,0,null,false);
 	let finalPos;
-	let diretion;
+	let direction;
 	id = Math.random();
+
 	if(mouseBelowUpperBound && mouseAboveLowerBound){
+		console.log("Within mouse bounds");
 		if(((x+entity.width) <= WIDTH) && ((y+entity.height) <= HEIGHT) && !dropdownDisplayed){
-			switch(self.selectedButton){
+			console.log("entity can be placed");
+			console.log(selectedButton);
+			switch(selectedButton){
 				case 'enemies':
-					switch(self.selectedEnemy){
+					switch(selectedEnemy){
 						case 'Basic Enemy':
 							entity = BasicEnemy(id,x,y,0,0,Img.basicEnemy1,'red',null);
 							break;
@@ -607,7 +626,7 @@ putEntity = function() {
 					}
 					break;
 				case 'checkpoints':
-					switch(self.selectedCheckpoint){
+					switch(selectedCheckpoint){
 						case 'standard checkpoint':
 							entity = StandardCheckpoint(id,x,y);
 							break;
@@ -620,15 +639,20 @@ putEntity = function() {
 					entity = Player(id,x,y,0,0,Img.playerSmall,null,false);
 					break;
 				case 'terrains':
-					switch(self.selectedTerrain){
+					switch(selectedTerrain){
 						case '1x1':
-							entity = Terrain1x1(id,x,y);
+							console.log("PUTENTITY 1X1");
+							entity = new Terrain1x1(id,x,y);
+							selectedButton = 'terrains';
+							// selectedTerrain = '1x1';
 							break;
 						case '1x1Breakable':
 							entity = Terrain1x1Breakable(id,x,y);
 							break;
 						case '3x2':
 							entity = Terrain3x2(id, x, y);
+							selectedButton = 'terrains';
+							// selectedTerrain = '3x2';
 							break;
 						case '3x2Breakable':
 							entity = Terrain3x2Breakable(id, x, y);
@@ -652,7 +676,6 @@ putEntity = function() {
 							entity = SpikeTrap(id, x, y, 0, 0, 50, 50, Img.topSpikeTrap, 'red', 20, 'vertical');
 							break;
 						case 'platform':
-
 							if(endPos.x == startPos.x){
 								finalPos = endPos.y;
 								direction = "vertical";
@@ -663,11 +686,15 @@ putEntity = function() {
 							entity = MovingPlatform(id, startPos.x,startPos.y,direction,finalPos);
 							console.log(entity);
 							break;
+						case "ice":
+							console.log("POS",x,y);
+							map.applyTerrainMod("ice",x,y);
+							break;
 
 					}
 					break;
 				case 'weapons':
-					switch(self.selectedWeapon){
+					switch(selectedWeapon){
 						case 'pistol':
 							entity = WeaponPickUp(id,x,y,"pistol",tempTarget);
 							break;
@@ -686,7 +713,10 @@ putEntity = function() {
 					console.log("No entity selected");
 					break;
 			}
-			map.tryToPlaceEntity(entity);
+			console.log("AFTER",entity);
+			if(!selectedButton === ("terrains") || !selectedTerrain.includes("ice")){
+				map.tryToPlaceEntity(entity);
+			}
 		}else{
 			console.log("Can not place object there");
 		}
@@ -722,9 +752,12 @@ var startPos = {};
 var endPos = {};
 doMouseAction = function(){
 	if(mouseLeft){
+		// console.log("SELECTEDBUTTON",selectedButton);
 		x = pos.x - (pos.x % TILE_HEIGHT) - offsetX;
 		y = pos.y - (pos.y % TILE_WIDTH) - offsetY;
-		if((self.selectedButton === 'terrains') && (self.selectedTerrain === 'platform') && !dropdownDisplayed){
+
+		console.log("DOMOUSEACTION",pos);
+		if((selectedButton === 'terrains') && (selectedTerrain === 'platform') && !dropdownDisplayed){
 			if(numClicks == 1){
 				startPos.x = x;
 				startPos.y = y;
@@ -756,31 +789,8 @@ doMouseAction = function(){
 		}else{
 			putEntity();
 		}
-		// if(self.selectedEnemy ==='Flying Enemy'){
-		// 	if(numClicks===1){
-		// 		console.log("1st CLICK",numClicks);
-		// 		finalPos = pos;
-		// 		self.selectedButton = null;
-		// 		console.log("FINAL POS",finalPos);
-		// 	}
-		// 	if(numClicks===2){
-		// 		console.log("2nd CLICK",numClicks);
-		// 		pathStart = pos;
-		// 		console.log("PATH START",pathStart);
-		// 	}
-		// 	if(numClicks===3){
-		// 		console.log("3rd CLICK",numClicks);
-		// 		pathEnd = pos;
-		// 		console.log("PATH END",pathEnd);
-		// 		numClicks = 0;
-		// 		self.selectedButton = "enemies";
-		// 	}
-		// 	numClicks++;
-		// } else {
-			// putEntity();
-		// }
 	} else if(mouseRight){
-		if((self.selectedButton === 'terrains') && (self.selectedTerrain === 'platform') && numClicks != 1){
+		if((selectedButton === 'terrains') && (selectedTerrain === 'platform') && numClicks != 1){
 			numClicks = 1;
 		}else{
 			deleteEntity();
@@ -844,13 +854,13 @@ init();
 /***********************
 DROP DOWN FUNCTIONALITY
 ***********************/
-self.selectedButton = null;
-self.selectedEnemy = null;
-self.selectedBackground = null;
-self.selectedCheckpoint = null;
-self.selectedCharacter = null;
-self.selectedTerrain = null;
-self.selectedWeapon = null;
+var selectedButton = null;
+var selectedEnemy = null;
+var selectedBackground = null;
+var selectedCheckpoint = null;
+var selectedCharacter = null;
+var selectedTerrain = null;
+var selectedWeapon = null;
 /*
 	Toggles style.display of an element
 */
@@ -871,11 +881,11 @@ function toggleDisplay(element) {
 	Detects what button is pressed and toggles the style.display of the corresponding
 	dropdown menu
 */
-function typeTapped(id){
-	// console.log("TYPE TAPPED",id);
-	self.selectedButton = id;
+function typeTapped(thing){
+	console.log("TYPE TAPPED",thing);
+	selectedButton = thing;
 	if(id !== 'character'){
-		let element = document.getElementById(id);
+		let element = document.getElementById(thing);
 		toggleDisplay(element);
 		// visibleDropdown = element.id;
 	}
@@ -909,9 +919,9 @@ window.onclick = function(event){
 // 		}
 // 	}
 // }
-self.enemyTapped = function(id){
-	self.selectedEnemy = id;
-	console.log(self.selectedEnemy);
+self.enemyTapped = function(thing){
+	selectedEnemy = thing;
+	console.log(selectedEnemy);
 	let parent = document.getElementById('enemies')
 	toggleDisplay(parent);
 }
@@ -929,8 +939,8 @@ self.enemyTapped = function(id){
 // }
 
 
-self.musicTapped = function(id){
-  self.selectedMusic = id;
+self.musicTapped = function(thing){
+  selectedMusic = thing;
   let parent = document.getElementById("music");
   toggleDisplay(parent);
 }
@@ -949,14 +959,14 @@ self.musicTapped = function(id){
 // 		}
 // 	}
 // }
-self.worldTapped = function(id){
-	self.selectedBackground = id;
+self.worldTapped = function(thing){
+	selectedBackground = thing;
   //console.log("this is so awesome");
-  //socket.emit('addBackgroundItem',{background:self.selectedBackground,  });
-	console.log(self.selectedBackground);
+  //socket.emit('addBackgroundItem',{background:selectedBackground,  });
+	console.log(selectedBackground);
 	// map.setBackground = id;
-  	map.setBackgroundImage(id);
-	gui.editorBackground(offsetX,offsetY,self.selectedBackground);
+  	map.setBackgroundImage(thing);
+	gui.editorBackground(offsetX,offsetY,selectedBackground);
 
 	let parent = document.getElementById('backgrounds');
 	toggleDisplay(parent);
@@ -966,9 +976,9 @@ self.worldTapped = function(id){
 **************************/
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
-function checkpointTapped(id) {
-	self.selectedCheckpoint = id;
-	console.log(id);
+function checkpointTapped(thing) {
+	selectedCheckpoint = thing;
+	console.log(thing);
 
 	let parent = document.getElementById('checkpoints');
 	toggleDisplay(parent);
@@ -987,7 +997,7 @@ function checkpointTapped(id) {
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
 function characterTapped() {
-	self.selectedButton = "character";
+	selectedButton = "character";
 	var element = document.getElementById("characterDropdown");
 	toggleDisplay(element);
 }
@@ -1013,9 +1023,9 @@ function characterTapped() {
 // }
 
 
-function terrainTapped(id){
-	console.log(id);
-	self.selectedTerrain = id;
+function terrainTapped(thing){
+	console.log(thing);
+	selectedTerrain = thing;
 
 	var parent = document.getElementById('terrains');
 	toggleDisplay(parent);
@@ -1024,7 +1034,7 @@ function terrainTapped(id){
 toggle between hiding and showing the dropdown content */
 
 // function weaponTapped() {
-// 	self.selectedButton = "weapon";
+// 	selectedButton = "weapon";
 // 	var element = document.getElementById("myWeaponDropdown");
 // 	toggleDisplay(element);
 // }
@@ -1038,9 +1048,9 @@ toggle between hiding and showing the dropdown content */
 // 		}
 // 	}
 // }
-self.weaponTapped = function(id){
-	self.selectedWeapon = id;
-	console.log(self.selectedWeapon);
+self.weaponTapped = function(thing){
+	selectedWeapon = thing;
+	console.log(selectedWeapon);
 
 	var parent = document.getElementById('weapons');
 	toggleDisplay(weapons);
