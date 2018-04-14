@@ -7,7 +7,7 @@ function Terrain(id, x, y){
 		y: y,
 	};
 
-	self.mod = new MudModifier();
+	self.mod = new NoModifier();
 
 	self.draw = function(ctx,isLevelEditor){
 		gui.drawTerrain(self,ctx,isLevelEditor);
