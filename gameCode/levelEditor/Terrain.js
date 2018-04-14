@@ -5,7 +5,10 @@ function Terrain(id, x, y){
 		id: id,
 		x: x,
 		y: y,
+		mod: NoModifier(),
 	};
+
+	// self.mod = new NoModifier();
 
 	self.draw = function(ctx,isLevelEditor){
 		gui.drawTerrain(self,ctx,isLevelEditor);
@@ -23,7 +26,7 @@ function Terrain(id, x, y){
 			}
 		}
 	}
-	
+	console.log(self);
 	return self;
 }
 
@@ -143,7 +146,7 @@ function TerrainModifier(type) {
 	self.type = type;
 	
 	self.applyEffect = function(target) {
-		
+		//DO NOTHING
 	}
 	
 	return self;
@@ -187,6 +190,15 @@ function MudModifier() {
 	
 	return self;
 	
+}
+
+function NoModifier() {
+	self = TerrainModifier('none');
+
+	self.applyEffect = function(target) {
+		//DO NOTHING
+	}
+	return self;
 }
 
 //SPECIAL SURFACES --------------------------------------------------------------------------------------------------------------------------

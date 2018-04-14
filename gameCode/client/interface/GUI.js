@@ -411,10 +411,7 @@ GUI = function(container){
 
 		}
 		ctx.save();
-		//Drawing terrain modifiers
-		/*if(terrain.mod.type!='none'){
-			gui.drawTerrainMod(terrain);
-		}*/
+		
 		switch(terrain.type){
 			case "Terrain1x1":
 				self.quickDraw(Img.terrain1x1,t,ctx,t.x,t.y);
@@ -462,11 +459,15 @@ GUI = function(container){
 
 				break;
 		}
+		//Drawing terrain modifiers
+		if(terrain.mod.type!='none'){
+			gui.drawTerrainMod(terrain,ctx);
+		}
 		terrain.img.onload=function(){};
 		ctx.restore();
 	};
 	//draw modified terrain 
-	self.drawTerrainMod=function(terrain){
+	self.drawTerrainMod=function(terrain,ctx){
 		t=terrain;
 		if(t.mod.type=='ice'){
 			img=Img.iceTerrain;
