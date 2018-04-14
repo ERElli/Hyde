@@ -709,7 +709,7 @@ var startGame = function(initial_level) {
 
 	//createPickUps();
 	//createPlatforms();
-	createBoss();
+	//createBoss();
 
 	setInterval(update, 1000/60)
 }
@@ -748,7 +748,7 @@ var createPlatforms = function() {
 }
 
 var createBoss = function() {
-	b = new TankBoss(Math.random(), 100, 100, player);
+	b = new BasicBoss(Math.random(), 1000, 100, player);
 	enemies[b.id] = b;
 }
 
