@@ -12,6 +12,8 @@ var pickUps={};
 var boulderPickUps = {};
 var playerPositionLog = {};
 
+var difficulty = 'normal';
+
 
 var hasReleasedJump = false;
 var hasReleasedCrouch = true;
@@ -185,6 +187,7 @@ var inRange = function(thing) {
 var update = function() {
 
 	if (paused) {
+		console.log("paused");
 		return;
 	}
 
@@ -744,7 +747,7 @@ var startGame = function(initial_level) {
 
 	//createPickUps();
 	//createPlatforms();
-	// createBoss();
+	createBoss();
 	
 	updateControls();
 
@@ -809,7 +812,7 @@ var makeLevel = function(){
 	Level.height = level.height;
 	Level.enemies = level.enemies;
 	Level.terrain = level.terrain;
-	Level.player = mydata.player;
+	Level.player = level.player;
 	Level.background = level.background;
 	Level.ghost = ghost;
 
