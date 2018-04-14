@@ -412,9 +412,6 @@ GUI = function(container){
 		}
 		ctx.save();
 		//Drawing terrain modifiers
-		/*if(terrain.mod.type!='none'){
-			gui.drawTerrainMod(terrain);
-		}*/
 		switch(terrain.type){
 			case "Terrain1x1":
 				self.quickDraw(Img.terrain1x1,t,ctx,t.x,t.y);
@@ -462,11 +459,14 @@ GUI = function(container){
 
 				break;
 		}
+		if(terrain.mod.type!='none'){
+			gui.drawTerrainMod(terrain,ctx);
+		}
 		terrain.img.onload=function(){};
 		ctx.restore();
 	};
 	//draw modified terrain 
-	self.drawTerrainMod=function(terrain){
+	self.drawTerrainMod=function(terrain,ctx){
 		t=terrain;
 		if(t.mod.type=='ice'){
 			img=Img.iceTerrain;
@@ -497,6 +497,7 @@ GUI = function(container){
 	}
 	//Draws goal flag
 	self.drawGoal=function(){
+		playX=level['player'].x-self.fg.width/2;
 		img=Img.finalCheckpoint;
 		gui.fg_ctx.drawImage(img,(level.width)-playX,100,50,500);
 	};
@@ -518,7 +519,7 @@ GUI = function(container){
 		ctx.drawImage(img,(x-xOffset)-playX,y-yOffset,entity.width,entity.height);
 	};
 	self.modDraw=function(img,entity,ctx,x,y){
-		ctx.drawImage(img,(x-xOffset)-playX,y-yOffset,entity.width,15);
+		ctx.drawImage(img,(x-xOffset)-playX,y-yOffset,entity.width,25);
 	};
 	self.aniDraw=function(img,x,y,width,height){
 		gui.fg_ctx.drawImage(img,(x-xOffset)-playX,y-yOffset,width,height);

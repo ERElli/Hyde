@@ -6,7 +6,7 @@ function Terrain(id, x, y){
 		x: x,
 		y: y,
 	};
-
+	self.mod=IceModifier();
 	self.draw = function(ctx,isLevelEditor){
 		gui.drawTerrain(self,ctx,isLevelEditor);
 	}
