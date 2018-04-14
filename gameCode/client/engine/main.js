@@ -17,11 +17,15 @@ var hasReleasedJump = false;
 var hasReleasedCrouch = true;
 var paused = false;
 
-var codeToChar = {"left":65, "jump":87, "right":68, "crouch":83, "transform":32,};
-
-var charCodes = {65:"left", 87:"jump", 68:"right", 83:"crouch", 32:"transform",};
+var charCodes ={}; // {65:"left", 87:"jump", 68:"right", 83:"crouch", 32:"transform",};
 
 var pressing = { "left": 0, "right":0, "jump":0, "crouch":0, "transform":0, "shoot":0 };
+
+var updateControls = function() {
+	for (var key in codeToChar) {
+		charCodes[codeToChar[key]] = key;
+	}
+}
 
 
 document.onkeydown = function(event) {
@@ -736,6 +740,8 @@ var startGame = function(initial_level) {
 	//createPickUps();
 	//createPlatforms();
 	// createBoss();
+	
+	updateControls();
 
 	setInterval(update, 1000/60)
 }

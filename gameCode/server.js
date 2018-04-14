@@ -24,6 +24,9 @@ app.get('/client/gameMenu2.html',function(req, res) {
 app.get('/client/engine/usable.js',function(req, res) {
     res.sendFile(__dirname + '/client/engine/usable.js');
 });
+app.get('/client/engine/controls.js',function(req, res) {
+    res.sendFile(__dirname + '/client/engine/controls.js');
+});
 app.get('/client/interface/Animation.js',function(req, res) {
     res.sendFile(__dirname + '/client/interface/Animation.js');
 });
