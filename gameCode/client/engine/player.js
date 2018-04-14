@@ -13,7 +13,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	var smallJumpSpeed = 5*mpsTOppf;
 	var smallSlowDown = 3;
 	
-	var bigMass = 400;
+	var bigMass = 300;
 	var bigWidth = 100;
 	var bigHeight = 100;
 	var bigAcceleration = 2*mpsTOppf/framesPerSecond;

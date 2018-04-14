@@ -178,7 +178,7 @@ function TankEnemy(id, x, y, vx, vy, img, color, target) {
 	var tankMaxVY = 20*mpsTOppf;
 	var tankMaxHP = 50;
 	var tankWeapon = new NoWeapon("w1", x, y, 0, 0, 5, 5,'img','black', id);
-	var tankMass = 300;
+	var tankMass = 200;
 	var tankJumpSpeed = 2*mpsTOppf;
 	var tankMeleeDamage = 10;
 	var tankPatrolRange = 1000;
@@ -222,10 +222,6 @@ function TankEnemy(id, x, y, vx, vy, img, color, target) {
 		}
 	}
 	
-	//self.draw = function() {
-		
-	//}
-	
 	return self;
 }
 
@@ -233,12 +229,12 @@ function TankEnemy(id, x, y, vx, vy, img, color, target) {
 
 function BasicBoss(id, x, y, target) {
 	
-	var basicWidth = 250;
-	var basicHeight = 250;
+	var basicWidth = 100;
+	var basicHeight = 100;
 	var basicAcceleration = 50*mpsTOppf/framesPerSecond;
 	var basicMaxVX = 2*mpsTOppf;
 	var basicMaxVY = 20*mpsTOppf;
-	var basicMaxHP = 200;
+	var basicMaxHP = 75;
 	var basicWeapon = new NoWeapon("w1", x, y, 0, 0, 5, 5,'img','black', id);
 	var basicMass = 500;
 	var basicJumpSpeed = 3*mpsTOppf;
@@ -297,10 +293,10 @@ function FlyingBoss(id, x, y, target) {
 	
 	var flyingWidth = 50;
 	var flyingHeight = 50;
-	var flyingAcceleration = 5*mpsTOppf/framesPerSecond;
+	var flyingAcceleration = 15*mpsTOppf/framesPerSecond;
 	var flyingMaxVX = 7*mpsTOppf;
 	var flyingMaxVY = 10*mpsTOppf;
-	var flyingMaxHP = 10;
+	var flyingMaxHP = 25;
 	var flyingWeapon = new Shotgun("w1", x, y, 0, 0, 5, 5,'img','black', id);
 	var flyingMass = 20;
 	var flyingJumpSpeed = 3*mpsTOppf;
@@ -309,13 +305,14 @@ function FlyingBoss(id, x, y, target) {
 	var flyingSlowDown = 3;
 	
 	//id, x, y, vx, vy, img, color, target
-	var self = Enemy("flying enemy", id, x, y, 0, 0, flyingWidth, flyingHeight, 'img', 'color', flyingAcceleration, flyingMaxVX, flyingMaxVY, flyingMaxHP, flyingWeapon, flyingMass,
+	var self = Enemy("flying boss", id, x, y, 0, 0, flyingWidth, flyingHeight, 'img', 'color', flyingAcceleration, flyingMaxVX, flyingMaxVY, flyingMaxHP, flyingWeapon, flyingMass,
 					flyingJumpSpeed, flyingMeleeDamage, flyingPatrolRange, flyingSlowDown, target);
 	
 	self.width = 50;
 	self.height = 50;
 	self.health = 10;
 	self.weapon = new Shotgun(Math.random(), x, y, 0, 0, 5, 5,'img','black', self.id);
+	self.weapon.ammo = 100000;
 	self.meleeDamage = 50;
 	self.patrolRange = 20000;
 	
@@ -327,7 +324,7 @@ function FlyingBoss(id, x, y, target) {
 	self.kiteTimer = 0;
 	self.maxKite = 500;
 	self.diveTimer = 0;
-	self.maxDive = 200;
+	self.maxDive = 60;
 	
 	var superUpdate = self.updatePosition;
 	self.updatePosition = function() {
@@ -335,8 +332,8 @@ function FlyingBoss(id, x, y, target) {
 		superUpdate();
 		
 		if (self.kiting) {
+			
 			if (self.kiteTimer < self.maxKite) {
-				console.log("kiting");
 				
 				if (self.target.y - self.y < 500) {
 					self.vy = self.vyStandard;
@@ -351,28 +348,87 @@ function FlyingBoss(id, x, y, target) {
 				self.kiting = false;
 				self.diving = true;
 				self.diveTimer = 0;
-				console.log("kiting -> diving");
 			}
+			
 		}
+		
 		else if (self.diving) {
-			self.vy = 0;
+			
 			if (self.diveTimer < self.maxDive) {
-				console.log("diving");
 				
-				
+				self.vy = -self.vyStandard*2;
 				
 				self.diveTimer++;
 			}
+			
 			else {
 				self.diving = false;
 				self.kiting = true;
 				self.kiteTimer = 0;
-				console.log("diving -> kiting");
+				//console.log("diving -> kiting");
 			}
+			
 		}
 				
 	}
 	
+	
+	return self;
+}
+
+
+function TankBoss(id, x, y, target) {
+
+	var tankWidth = 250;
+	var tankHeight = 250;
+	var tankAcceleration = 5*mpsTOppf/framesPerSecond;
+	var tankMaxVX = 8*mpsTOppf;
+	var tankMaxVY = 20*mpsTOppf;
+	var tankMaxHP = 100;
+	var tankWeapon = new NoWeapon("w1", x, y, 0, 0, 5, 5,'img','black', id);
+	var tankMass = 400;
+	var tankJumpSpeed = 2*mpsTOppf;
+	var tankMeleeDamage = 15;
+	var tankPatrolRange = 1000;
+	var tankSlowDown = 5;
+	
+	var self = Enemy("tank boss", id, x, y, 0, 0, tankWidth, tankHeight, 'img', 'color', tankAcceleration, tankMaxVX, tankMaxVY, tankMaxHP, tankWeapon, tankMass,
+					tankJumpSpeed, tankMeleeDamage, tankPatrolRange, tankSlowDown, target);
+	
+	
+	var superUpdate = self.updatePosition;
+	self.updatePosition = function() {
+		
+		if (self.health <= 5) {
+			self.block();
+		}
+		
+		if (self.isBlocking) {
+			self.vx *= 0.9;
+		}
+		superUpdate();
+	}
+	
+	var superTakeDamage = self.takeDamage;
+	self.takeDamage = function(amount) {
+		if (self.isBlocking) {
+			amount /= 10;
+		}
+		superTakeDamage(amount);
+	}
+	
+	self.block = function() {
+		self.isBlocking = true;
+	}
+	
+	self.getMomentum = function() {
+		if (!self.isBlocking) {
+			return self.vx*self.mass;
+		}
+		else {
+			return self.mass*5;
+		}
+	}
 	
 	return self;
 }

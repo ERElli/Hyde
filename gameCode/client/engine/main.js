@@ -368,8 +368,12 @@ var update = function() {
 				}
 				
 				if (!enemy.justJumped) {
-					if (enemy.type == 'flying enemy' || enemy.type == 'flying boss') {
+					if (enemy.type == 'flying enemy') {
 						enemy.y = block.y - block.height*0.75;
+						enemy.vy = 0;
+					}
+					else if (enemy.type == 'flying boss') {
+						enemy.y = block.y - block.height;
 						enemy.vy = 0;
 					}
 					else {
@@ -580,7 +584,7 @@ var update = function() {
 		}
 
 
-		if (enemy.type == "flying enemy") {
+		if (enemy.type == "flying enemy" || enemy.type == "flying boss") {
 			newBullets = enemy.shoot();
 			for (i in newBullets) {
 				newBullet = newBullets[i];
@@ -600,7 +604,7 @@ var update = function() {
 
 			if (!player.isImmune) {
 
-				if (player.isBig || enemy.type=="tank enemy") {
+				if (player.isBig || enemy.type=="tank enemy" || enemy.type == "tank boss") {
 
 					player_p = Math.abs(player.getMomentum());
 					enemy_p = Math.abs(enemy.getMomentum());
@@ -705,7 +709,7 @@ var startGame = function(initial_level) {
 
 	//createPickUps();
 	//createPlatforms();
-	//createBoss();
+	createBoss();
 
 	setInterval(update, 1000/60)
 }
@@ -744,7 +748,7 @@ var createPlatforms = function() {
 }
 
 var createBoss = function() {
-	b = new FlyingBoss(Math.random(), 100, 100, player);
+	b = new TankBoss(Math.random(), 100, 100, player);
 	enemies[b.id] = b;
 }
 
