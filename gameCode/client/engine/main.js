@@ -825,8 +825,8 @@ var endGame = function() {
 	//socket for signaling user has finished a level and sends level name and score
 	socket.emit('updateLevel', { level: "level 1", score: "score"});
 	setTimeout(function(){gui.drawMedal("gold")},5000);
-	makeLevel();
-	convertToString();
+	//makeLevel();
+	//convertToString();
 	paused = true;
 	//Creates ghost object
 	//level.ghost=ghostArray
