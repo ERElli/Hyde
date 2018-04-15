@@ -19,7 +19,7 @@ Map = function(width, height,tile_width, tile_height) {
 		checkpoints: {},
 		weapons: {},
 		// music: {},
-		// ghost: {},
+		ghost: {},
 	};
 	//self.ObjectList is a list of lists of objects. There will be list for terrain, one for enemies, one for weapons, etc.
 	//The format of this list is still flexible
@@ -321,12 +321,15 @@ Map = function(width, height,tile_width, tile_height) {
 		Level.terrain = self.ObjectList.terrain;
 		Level.player = self.ObjectList.player;
 		Level.background = self.background;
+		Level.weapons = self.ObjectList.weapons;
+		Level.ghost = self.ObjectList.ghost;
 
 		for(var type in Level){
 			for(var key in Level[type]){
 				Level[type][key].y = (Level[type][key].y);
 			}
 		}
+		
 		console.log("Level Object:",Level);
 		return Level;
 	}

@@ -27,6 +27,15 @@
 		</div>
 	</div>
 
+	<div id="bossDropdown" style="display:none;">
+		<button onclick="typeTapped('bosses')" id="bossesbtn"></button>
+		<div id="bosses" class="dropdown-content">
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/enemy/basicEnemyDrop.png)" onclick="bossTapped('Basic Boss')" class="boss1btn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/enemy/flyingEnemyDrop.png)" onclick="bossTapped('Flying boss')" class="boss2btn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/enemy/shieldEnemyDrop.png)" onclick="bossTapped('Tank boss')" class="boss3btn"></button>
+		</div>
+	</div>
+
 	<div id="musicDropdown" style="display:none; ">
 		<!-- <button onclick="typeTapped('music')" id="musicbtn"></button>
 		<div id="music" class="dropdown-content">
