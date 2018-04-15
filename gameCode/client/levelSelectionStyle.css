@@ -15,6 +15,13 @@
 
 }
 
+.playLevelOne:hover{
+	background: transparent;
+	background-image: url(images/levelOneHover.png); 
+	
+
+}
+
 .playLevelTwo{
 
 	background: transparent;
@@ -30,6 +37,12 @@
 	
 }
 
+.playLevelTwo:hover{
+	background: transparent;
+	background-image: url(images/levelTwoHover.png); 
+	
+
+}
 
 .playLevelThree{
 
@@ -44,4 +57,11 @@
 	width: 110px;
 	height: 180px;
 	
+}
+
+.playLevelThree:hover{
+	background: transparent;
+	background-image: url(images/levelThreeHover.png); 
+	
+
 }
