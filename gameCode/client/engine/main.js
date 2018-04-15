@@ -725,6 +725,8 @@ var testCollision = function(rect1, rect2) {
 }
 
 var startGame = function(initial_level) {
+	Timer.start();
+	console.log(Timer.startTime);
 	level = initial_level;
 	player = level["player"];
 	if(level['ghost'] == null){

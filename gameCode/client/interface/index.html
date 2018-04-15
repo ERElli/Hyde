@@ -25,7 +25,7 @@
 		<script type="text/javascript" src="../engine/usable.js"></script>
 		<script type="text/javascript" src="../engine/controls.js"></script>
 		<script type="text/javascript" src="../../levelEditor/EntityFactory.js"></script>
-
+		<script type="text/javascript" src="../engine/timer.js"></script>
 		<script type="text/javascript" src="storyLevels/levelEight.json"></script>
 
 
@@ -52,7 +52,7 @@
 		var Sound = Sound("../../");
 		var HEIGHT=500;
 		var WIDTH=1250;
-
+		var Timer= timer();
 		if (!isOfflineMode){
 			var socket = io();
 
