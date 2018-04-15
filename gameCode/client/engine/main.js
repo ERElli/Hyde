@@ -271,7 +271,7 @@ var update = function() {
 			else {
 				player.falling = false;
 				
-				if (block.mod) {
+				if (block.mod.type!='none') {
 					block.mod.applyEffect(player);
 				}
 				else {
@@ -742,7 +742,7 @@ var startGame = function(initial_level) {
 	terrain = level["terrain"];
 	breakable = new Terrain1x1Breakable(Math.random(), 500, 325);
 	//surfaceMods = level["terrain"];
-	pickUps = level['weapon'];
+	pickUps = level['weapons'];
 	frameCount = 0;
 	everyTenCount = 0;
 
