@@ -54,7 +54,7 @@
 
 /*Music Button*/
 
-#musicbtn {
+/*#musicbtn {
     background:transparent;
     background-image: url(../client/interface/img/levelEditor/buttons/header/musicButton.png);
     background-size: 100%;
@@ -90,7 +90,7 @@
     overflow: auto;
 
     z-index: 4;
-}
+}*/
 
 /*Background Button*/
 
@@ -169,7 +169,7 @@
     top:108px;
     min-width: 100px;
     overflow: auto;
-    /*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);*/
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);
     z-index: 4;
 }
 
