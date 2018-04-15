@@ -271,13 +271,8 @@ var update = function() {
 			}
 			else {
 				player.falling = false;
-<<<<<<< HEAD
 
-				if (block.mod) {
-=======
-				
 				if (block.mod.type!='none') {
->>>>>>> 0b9881c0daf223d07ed406dd9324570bdc7952fd
 					block.mod.applyEffect(player);
 				}
 				else {
@@ -804,7 +799,7 @@ var createBoss = function() {
 
 var endGame = function() {
 	//should be a varianle for level name and time
-	console.log("level is: "+ JSON.stringify(level.level)); //level.level doesn't work
+	console.log("level is: "+ JSON.stringify(level.name)); //level.level doesn't work
 	socket.emit('updateLevel', { level: "level 3", time: "score"});
 	gui.levelComplete();
 	//console.log("PLAYER POSTIION",playerPositionLog);

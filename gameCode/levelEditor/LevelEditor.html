@@ -171,7 +171,6 @@ var state;
 var theLevels= document.getElementById('theLevels');
 
 
-
 levelButton.onclick = function(){
 	state = "new";
 	if (levelNameField.value ==="" ){
@@ -183,12 +182,14 @@ levelButton.onclick = function(){
 		container.style.display = 'block';
 		levelMaker.style.display = 'block';
 		enemiesDropdown.style.display = 'inline-block';
+    bossDropdown.style.display = 'inline-block';
 		musicDropdown.style.display ='inline-block';
 		backgroundDropdown.style.display = 'inline-block';
 		checkpointDropdown.style.display = 'inline-block';
 		characterDropdown.style.display = 'inline-block';
 		terrainDropdown.style.display = 'inline-block';
 		weaponDropdown.style.display = 'inline-block';
+
 	}
 }
 
@@ -205,12 +206,14 @@ levelButton2.onclick = function(){
     container.style.display = 'block';
     levelMaker.style.display = 'block';
     enemiesDropdown.style.display = 'inline-block';
+    bossDropdown.style.display = 'inline-block';
 		musicDropdown.style.display ='inline-block';
 		backgroundDropdown.style.display = 'inline-block';
 		checkpointDropdown.style.display = 'inline-block';
 		characterDropdown.style.display = 'inline-block';
 		terrainDropdown.style.display = 'inline-block';
 		weaponDropdown.style.display = 'inline-block';
+    bossDropdown.style.display = 'inline-block';
   }
 }
 levelLoadButton.onclick = function(){
@@ -260,12 +263,14 @@ socket.on('receiveLevels' ,function(res){
           container.style.display = 'block';
           levelMaker.style.display = 'block';
           enemiesDropdown.style.display = 'inline-block';
+          bossDropdown.style.display = 'inline-block';
       		musicDropdown.style.display ='inline-block';
       		backgroundDropdown.style.display = 'inline-block';
       		checkpointDropdown.style.display = 'inline-block';
       		characterDropdown.style.display = 'inline-block';
       		terrainDropdown.style.display = 'inline-block';
       		weaponDropdown.style.display = 'inline-block';
+
 
         };
       //  console.log(i);

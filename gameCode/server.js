@@ -763,6 +763,15 @@ io.sockets.on('connection', function(socket){
     console.log(data);
    Database.addCheckpointItem(data);
   });
+  socket.on('addBossItem',function(data){
+    console.log(data);
+   Database.addBossItem(data);
+  });
+  socket.on('addSpikeItem',function(data){
+    console.log(data);
+   Database.addSpikeItem(data);
+  });
+
   socket.on('deleteLevelItem',function(data){
     console.log(data);
    Database.deleteLevelItem(data);
@@ -793,7 +802,21 @@ io.sockets.on('connection', function(socket){
     console.log('received socket to dlt platform');
    Database.deletePlatformItem(data);
   });
-
+  socket.on('deleteBossItem',function(data){
+    console.log(data);
+    console.log('received socket to dlt boss');
+   Database.deleteBossItem(data);
+  });
+  socket.on('deleteSpikeItem',function(data){
+    console.log(data);
+    console.log('received socket to dlt spike');
+   Database.deleteSpikeItem(data);
+  });
+  socket.on('changeMod',function(data){
+    console.log(data);
+    console.log('received socket to change mod');
+   Database.changeMod(data);
+  });
   /*socket.on('deleteLevelItem',function(data){
    Database.deleteLevelItem(data);
  }); */
