@@ -182,7 +182,7 @@ levelButton.onclick = function(){
 		container.style.display = 'block';
 		levelMaker.style.display = 'block';
 		enemiesDropdown.style.display = 'inline-block';
-    bossDropdown.style.display = 'inline-block';
+    bossesDropdown.style.display = 'inline-block';
 		musicDropdown.style.display ='inline-block';
 		backgroundDropdown.style.display = 'inline-block';
 		checkpointDropdown.style.display = 'inline-block';
@@ -206,7 +206,7 @@ levelButton2.onclick = function(){
     container.style.display = 'block';
     levelMaker.style.display = 'block';
     enemiesDropdown.style.display = 'inline-block';
-    bossDropdown.style.display = 'inline-block';
+    bossesDropdown.style.display = 'inline-block';
 		musicDropdown.style.display ='inline-block';
 		backgroundDropdown.style.display = 'inline-block';
 		checkpointDropdown.style.display = 'inline-block';
@@ -254,6 +254,7 @@ socket.on('receiveLevels' ,function(res){
 
     function doSomething(i) {
         var ki = document.getElementById(i);
+        
         //ki.style.background  = "blue";
         ki.onclick= function(){
           console.log(ki.innerHTML );
@@ -263,7 +264,7 @@ socket.on('receiveLevels' ,function(res){
           container.style.display = 'block';
           levelMaker.style.display = 'block';
           enemiesDropdown.style.display = 'inline-block';
-          bossDropdown.style.display = 'inline-block';
+          bossesDropdown.style.display = 'inline-block';
       		musicDropdown.style.display ='inline-block';
       		backgroundDropdown.style.display = 'inline-block';
       		checkpointDropdown.style.display = 'inline-block';
