@@ -579,6 +579,13 @@ app.get('/client/interface/testLevel.json',function(req, res) {
 app.get('/images/textfieldBackground.png',function(req, res) {
     res.sendFile(__dirname + '/images/textfieldBackground.png');
 });
+app.get('/client/interface/storyLevels/levelEight.json',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/storyLevels/levelEight.json');
+});
+app.get('/client/engine/timer.js',function(req, res) {
+    res.sendFile(__dirname + '/client/engine/timer.js');
+});
+
 
 
 
