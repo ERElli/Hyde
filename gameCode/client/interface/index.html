@@ -25,9 +25,9 @@
 		<script type="text/javascript" src="../engine/usable.js"></script>
 		<script type="text/javascript" src="../engine/controls.js"></script>
 		<script type="text/javascript" src="../../levelEditor/EntityFactory.js"></script>
-
-
-		<script type="text/javascript" src="level.json"></script>
+		<script type="text/javascript" src="storyLevels/LevelOne.json"></script>
+		
+		<!--<script type="text/javascript" src="level.json"></script>-->
 		<!--<script type="text/javascript" src="ghostDemo.json"></script>-->
 		<script type="text/javascript" src="jsonTest.js"></script>
 
@@ -40,7 +40,7 @@
 
 		<script>
 
-		var isOfflineMode=false;
+		var isOfflineMode=true;
 		var level = {};
 		level.hasBoss = false;
 		var gui;
@@ -173,6 +173,7 @@
 		}else{
 			//#############################################################################
 			//FOR GUI TESTING PURPOSES
+			
 			if(mydata.ghost != null){
 				console.log("GHOST",mydata.ghost);
 				let g = mydata['ghost'];
@@ -210,10 +211,23 @@
 
 			}
 
+			level['weapon'] = {};
+				console.log(mydata);
 
+				for (let thing in mydata['weapon']) {
+					w = mydata['weapon'][thing]
+
+					var weapon;
+
+					weapon = new WeaponPickUp(w.id, w.x, w.y-150, w.weaponType, level['player']);
+
+					level['weapon'][w.id] = weapon;
+
+			}
 			level['terrain'] = {};
 				for (var thing in mydata['terrain']) {
 					let t = mydata['terrain'][thing]
+					console.log("MOD",t.mod);
 
 					var block;
 
@@ -252,7 +266,18 @@
 						}
 						block = MovingPlatform(t.id,t.x,t.y-150,t.direction,t.finalVal);
 					}
-					console.log(block.mod);
+					switch(t.mod.type){
+						case 'ice':
+							block.mod = new IceModifier();
+							break;
+						case 'mud':
+							block.mod = new MudModifier();
+							break;
+						default:
+							block.mod = new NoModifier();
+							break;
+					}
+					//console.log(block.mod);
 					level['terrain'][t.id] = block;
 
 				}

@@ -187,7 +187,7 @@ var inRange = function(thing) {
 var update = function() {
 
 	if (paused) {
-		console.log("paused");
+		//console.log("paused");
 		return;
 	}
 
@@ -348,7 +348,8 @@ var update = function() {
 
 			else {
 				if (Math.abs(player.getMomentum()) >= block.breakAt) {
-
+					//Plays break sound when building is destoryed
+					ani.buildingBreakSound();
 					b = new BoulderPickUp(Math.random(), block.x, block.y+block.height, player);
 					boulderPickUps[b.id] = b;
 					console.log("Creating boulder");
@@ -590,7 +591,8 @@ var update = function() {
 		enemy.updateAim(player);
 
 		if (enemy.health <= 0) {
-			
+			//plays enemy death animation sound
+			ani.enemyDeathSound();
 			delete enemies[key];
 			
 			if (enemy.type == 'basic boss' || enemy.type == 'flying boss' || enemy.type == 'tank boss') {
@@ -748,7 +750,7 @@ var startGame = function(initial_level) {
 
 	//createPickUps();
 	//createPlatforms();
-	createBoss();
+	//createBoss();
 	
 	updateControls();
 
@@ -796,7 +798,7 @@ var createBoss = function() {
 
 var endGame = function() {
 	gui.levelComplete();
-	console.log("PLAYER POSTIION",playerPositionLog);
+	//console.log("PLAYER POSTIION",playerPositionLog);
 	ghost = new Ghost(Math.random(),0,0,{});
 	ghost.setPath(playerPositionLog);
 	setTimeout(function(){gui.drawMedal("gold")},5000);

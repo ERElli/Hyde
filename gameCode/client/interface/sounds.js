@@ -41,6 +41,7 @@ Sound=function(pathToRoot){
 	self.transform=new sound(pathToRoot+"client/interface/soundFX/transform.wav");
 	self.winGame=new sound(pathToRoot+"client/interface/soundFX/WinGame.wav");
 	self.checkpoint=new sound(pathToRoot+"client/interface/soundFX/checkpoint.wav");
-	
+	self.buildingBreak=new sound(pathToRoot+"client/interface/soundFX/buildingBreak.wav");
+	self.enemyDeath=new sound(pathToRoot+"client/interface/soundFX/enemyDeath.wav");
 	return self;
 }
