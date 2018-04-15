@@ -259,8 +259,17 @@ Map = function(width, height,tile_width, tile_height) {
 		console.log("TYPE",mod);
 		if(self.tiles[i][j].type.includes("Terrain")){
 			let block = self.ObjectList['terrain'][id];
-			console.log("BLOCK",block);
-			block.mod=new IceModifier();
+			switch(mod){
+				case 'ice':
+					block.mod = new IceModifier();
+					break;
+				case 'mud':
+					block.mod = new MudModifier();
+					break;
+				case 'none':
+					block.mod = new NoModifier();
+					break;
+			}
 			console.log("NEW BLOCK",block);
 		}
 	}

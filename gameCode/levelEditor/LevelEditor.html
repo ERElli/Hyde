@@ -28,12 +28,12 @@
 	</div>
 
 	<div id="musicDropdown" style="display:none; ">
-		<button onclick="typeTapped('music')" id="musicbtn"></button>
+		<!-- <button onclick="typeTapped('music')" id="musicbtn"></button>
 		<div id="music" class="dropdown-content">
-			<button style="background-image: url(../client/interface/img/levelEditor/buttons/music/music1Drop.png)" onclick="self.musicTapped('music1')" class="music1btn"></button>
-			<button style="background-image: url(../client/interface/img/levelEditor/buttons/music/music2Drop.png)" onclick="self.musicTapped('music2')" class="music2btn"></button>
-			<button style="background-image: url(../client/interface/img/levelEditor/buttons/music/music3Drop.png)" onclick="self.musicTapped('music3')" class="music3btn"></button>
-		</div>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/music/music1Drop.png)" onclick="musicTapped('music1')" class="music1btn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/music/music2Drop.png)" onclick="musicTapped('music2')" class="music2btn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/music/music3Drop.png)" onclick="musicTapped('music3')" class="music3btn"></button>
+		</div> -->
 	</div>
 
 	<div id="backgroundDropdown" style="display:none; ">
@@ -56,9 +56,6 @@
 	<div id="characterDropdown" style="display:none; ">
 		<button onclick="typeTapped('character')" id="characterbtn"></button>
 		<div id="character" class="dropdown-content">
-			<a href="#World1">World 1</a>
-			<a href="#World2">World 2</a>
-			<a href="#World3">World 3</a>
 		</div>
 	</div>
 
@@ -79,8 +76,9 @@
 			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/1x6BDrop.png)" onclick="terrainTapped('1x6Breakable')" class="terrain9btn"></button>
 			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/topSpikeDrop.png)" onclick="terrainTapped('topSpikeTrap')" class="terrain10btn"></button>
 			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/platformDrop.png)" onclick="terrainTapped('platform')" class="terrain11btn"></button>
-			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/platformDrop.png)" onclick="terrainTapped('ice')" class="terrain11btn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/topSpikeDrop.png)" onclick="terrainTapped('ice')" class="terrain11btn"></button>
 			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/platformDrop.png)" onclick="terrainTapped('mud')" class="terrain11btn"></button>
+			<button style="background-image: url(../client/interface/img/levelEditor/buttons/terrain/topSpikeDrop.png)" onclick="terrainTapped('none')" class="terrain11btn"></button>
 		</div>
 	</div>
 
@@ -221,7 +219,7 @@ levelChooseButton.onclick = function(){
       socket.emit('getTheLevels');
       button1.style.display = 'none';
       button2.style.display = 'none';
-
+      button3.style.display = 'none';
 }
 
 /// Adding levels here ////
@@ -595,8 +593,6 @@ snapToGrid  = function(canvas,mouse){
 
 //function to place entity on the map
 putEntity = function() {
-	console.log("PUTENTITY CALL");
-	console.log("BEFORE",entity);
 	var mouseBelowUpperBound = pos.x<gui.fg.width && pos.y<gui.fg.height+(2*TILE_HEIGHT);
 	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
 
@@ -607,10 +603,7 @@ putEntity = function() {
 	id = Math.random();
 
 	if(mouseBelowUpperBound && mouseAboveLowerBound){
-		console.log("Within mouse bounds");
 		if(((x+entity.width) <= WIDTH) && ((y+entity.height) <= HEIGHT) && !dropdownDisplayed){
-			console.log("entity can be placed");
-			console.log(selectedButton);
 			switch(selectedButton){
 				case 'enemies':
 					switch(selectedEnemy){
@@ -641,18 +634,13 @@ putEntity = function() {
 				case 'terrains':
 					switch(selectedTerrain){
 						case '1x1':
-							console.log("PUTENTITY 1X1");
 							entity = new Terrain1x1(id,x,y);
-							selectedButton = 'terrains';
-							// selectedTerrain = '1x1';
 							break;
 						case '1x1Breakable':
 							entity = Terrain1x1Breakable(id,x,y);
 							break;
 						case '3x2':
 							entity = Terrain3x2(id, x, y);
-							selectedButton = 'terrains';
-							// selectedTerrain = '3x2';
 							break;
 						case '3x2Breakable':
 							entity = Terrain3x2Breakable(id, x, y);
@@ -686,11 +674,16 @@ putEntity = function() {
 							entity = MovingPlatform(id, startPos.x,startPos.y,direction,finalPos);
 							console.log(entity);
 							break;
-						case "ice":
+						case 'ice':
 							console.log("POS",x,y);
 							map.applyTerrainMod("ice",x,y);
 							break;
-
+						case 'mud':
+							map.applyTerrainMod("mud",x,y);
+							break;
+						case 'none':
+							map.applyTerrainMod("none",x,y);
+							break;
 					}
 					break;
 				case 'weapons':
@@ -713,8 +706,7 @@ putEntity = function() {
 					console.log("No entity selected");
 					break;
 			}
-			console.log("AFTER",entity);
-			if(!selectedButton === ("terrains") || !selectedTerrain.includes("ice")){
+			if(!(selectedButton==='terrains' && (selectedTerrain==='ice' || selectedTerrain==='mud')||selectedTerrain==='none')){
 				map.tryToPlaceEntity(entity);
 			}
 		}else{
@@ -756,7 +748,6 @@ doMouseAction = function(){
 		x = pos.x - (pos.x % TILE_HEIGHT) - offsetX;
 		y = pos.y - (pos.y % TILE_WIDTH) - offsetY;
 
-		console.log("DOMOUSEACTION",pos);
 		if((selectedButton === 'terrains') && (selectedTerrain === 'platform') && !dropdownDisplayed){
 			if(numClicks == 1){
 				startPos.x = x;
@@ -884,7 +875,7 @@ function toggleDisplay(element) {
 function typeTapped(thing){
 	console.log("TYPE TAPPED",thing);
 	selectedButton = thing;
-	if(id !== 'character'){
+	if(thing !== 'character'){
 		let element = document.getElementById(thing);
 		toggleDisplay(element);
 		// visibleDropdown = element.id;
@@ -919,7 +910,7 @@ window.onclick = function(event){
 // 		}
 // 	}
 // }
-self.enemyTapped = function(thing){
+enemyTapped = function(thing){
 	selectedEnemy = thing;
 	console.log(selectedEnemy);
 	let parent = document.getElementById('enemies')
@@ -939,7 +930,7 @@ self.enemyTapped = function(thing){
 // }
 
 
-self.musicTapped = function(thing){
+musicTapped = function(thing){
   selectedMusic = thing;
   let parent = document.getElementById("music");
   toggleDisplay(parent);
@@ -959,7 +950,7 @@ self.musicTapped = function(thing){
 // 		}
 // 	}
 // }
-self.worldTapped = function(thing){
+worldTapped = function(thing){
 	selectedBackground = thing;
   //console.log("this is so awesome");
   //socket.emit('addBackgroundItem',{background:selectedBackground,  });
@@ -976,7 +967,7 @@ self.worldTapped = function(thing){
 **************************/
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
-function checkpointTapped(thing) {
+checkpointTapped = function(thing) {
 	selectedCheckpoint = thing;
 	console.log(thing);
 
@@ -996,10 +987,10 @@ function checkpointTapped(thing) {
 **************************/
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
-function characterTapped() {
+characterTapped = function() {
 	selectedButton = "character";
-	var element = document.getElementById("characterDropdown");
-	toggleDisplay(element);
+	// var element = document.getElementById("characterDropdown");
+	// toggleDisplay(element);
 }
 // window.onclick = function(event) {
 // 	var divToHide = document.getElementById("characterDropdown");
@@ -1023,7 +1014,7 @@ function characterTapped() {
 // }
 
 
-function terrainTapped(thing){
+terrainTapped = function(thing){
 	console.log(thing);
 	selectedTerrain = thing;
 
@@ -1048,12 +1039,12 @@ toggle between hiding and showing the dropdown content */
 // 		}
 // 	}
 // }
-self.weaponTapped = function(thing){
+weaponTapped = function(thing){
 	selectedWeapon = thing;
 	console.log(selectedWeapon);
 
 	var parent = document.getElementById('weapons');
-	toggleDisplay(weapons);
+	toggleDisplay(parent);
 }
 </script>
 </html>

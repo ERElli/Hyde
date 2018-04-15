@@ -23,7 +23,6 @@ function Terrain(id, x, y){
 			}
 		}
 	}
-	console.log(self);
 	return self;
 }
 
