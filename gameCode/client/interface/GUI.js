@@ -526,7 +526,7 @@ GUI = function(container){
 		ctx.drawImage(img,0,0,fW,fH,en.x,en.y,50,50);
 	};
 	self.formatTime=function(time){
-		calcTime=time/1000;		
+		calcTime=time/1000;
 		minutes=Math.floor(calcTime/60);
 		seconds=Math.floor(calcTime-minutes*60);
 		milliseconds=(time-seconds*1000-minutes*60000)%1000;
