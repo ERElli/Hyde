@@ -516,8 +516,6 @@ GUI = function(container){
 	self.levelComplete=function(){
 		img=Img.levelComplete;
 		gui.gr_ctx.drawImage(img,400,50,450,400);
-		//socket for signaling user has finished a level and sends level name and score
-		socket.emit('updateLevel', { level: "level 1", score: "score"});
 		ani.winGameSound();
 	};
 	//QuickDraw Methods(For improved readability)
@@ -545,7 +543,13 @@ GUI = function(container){
 	self.editorWeaponDraw = function(img,en,ctx,fW,fH){
 		ctx.drawImage(img,0,0,fW,fH,en.x,en.y,50,50);
 	};
-
+	self.formatTime=function(time){
+		calcTime=time/1000;		
+		minutes=Math.floor(calcTime/60);
+		seconds=Math.floor(calcTime-minutes*60);
+		milliseconds=(time-seconds*1000-minutes*60000)%1000;
+		console.log("Min",minutes,"sec",seconds,"mil",milliseconds);
+	};
 	self.HUD=function(ctx,player){
 
 		var timeX=0;
