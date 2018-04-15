@@ -1,5 +1,7 @@
+var socket = io();
 
 GUI = function(container){
+
 
 	var seconds = 0;
 	var minutes = 0;
@@ -180,7 +182,7 @@ GUI = function(container){
 					//ani.updateEntityAnimation(en,5);
 					if(en.isImmune && en.immuneCounter%6==0){
 						//self.quickAnimatedDraw(Img.playerBig,en,ctx,playDir,fW,fH);
-						
+
 					}
 					else{
 						self.quickAnimatedDraw(Img.playerBig,en,ctx,playDir,fW,fH);
@@ -207,7 +209,7 @@ GUI = function(container){
 					}else{
 						self.quickAnimatedDraw(Img.playerSmall,en,ctx,playDir,fW,fH);
 					}
-				}			
+				}
 				break;
 			case "basic enemy":
 				enemyImg=Img.basicEnemy1;
@@ -224,7 +226,7 @@ GUI = function(container){
 				dir=ani.getPlayDirection(en);
 				ani.updateEntityAnimation(en,4);
 				self.quickAnimatedDraw(enemyImg,en,ctx,dir,fW,fH);
-				break;	
+				break;
 			case "flying enemy":
 				enemyImg=Img.basicEnemy2;
 				var fW=Img.basicEnemy2.width/4;
@@ -466,7 +468,7 @@ GUI = function(container){
 		terrain.img.onload=function(){};
 		ctx.restore();
 	};
-	//draw modified terrain 
+	//draw modified terrain
 	self.drawTerrainMod=function(terrain,ctx){
 		t=terrain;
 		if(t.mod.type=='ice'){
@@ -476,7 +478,7 @@ GUI = function(container){
 			img=Img.mudTerrain;
 		}
 		gui.modDraw(img,t,ctx,t.x,t.y);
-		
+
 	};
 	//draw medals at end of game
 	self.drawMedal=function(medal){
@@ -514,6 +516,8 @@ GUI = function(container){
 	self.levelComplete=function(){
 		img=Img.levelComplete;
 		gui.gr_ctx.drawImage(img,400,50,450,400);
+		//socket for signaling user has finished a level and sends level name and score
+		socket.emit('updateLevel', { level: "level 1", score: "score"});
 		ani.winGameSound();
 	};
 	//QuickDraw Methods(For improved readability)

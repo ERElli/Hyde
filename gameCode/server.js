@@ -491,6 +491,18 @@ app.get('/client/interface/soundFX/atmospheric/worldOne.mp3',function(req, res) 
 app.get('/client/interface/soundFX/atmospheric/worldTwo.wav',function(req, res) {
     res.sendFile(__dirname + '/client/interface/soundFX/atmospheric/worldTwo.wav');
 });
+app.get('/client/interface/soundFX/buildingBreak.wav',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/soundFX/buildingBreak.wav');
+});
+app.get('/client/interface/soundFX/enemyDeath.wav',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/soundFX/enemyDeath.wav');
+});
+app.get('/client/interface/storyLevels/LevelOne.json',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/storyLevels/LevelOne.json');
+});
+
+
+
 app.get('/client/interface/soundFX/atmospheric/worldThree.wav',function(req, res) {
     res.sendFile(__dirname + '/client/interface/soundFX/atmospheric/worldThree.wav');
 });
@@ -556,6 +568,10 @@ app.get('/client/interface/ghostDemo.json',function(req, res) {
 app.get('/client/interface/testLevel.json',function(req, res) {
     res.sendFile(__dirname + '/client/interface/testLevel.json');
 });
+app.get('/images/textfieldBackground.png',function(req, res) {
+    res.sendFile(__dirname + '/images/textfieldBackground.png');
+});
+
 
 
 
@@ -639,6 +655,9 @@ io.sockets.on('connection', function(socket){
 
       });
   });
+  socket.on('updateScore', function(data){
+    console.log("username are" + data.level);
+  });
 
 /*  socket.on('getLevelNames',function(){
    //Database.levelUpdate(user, data);
@@ -687,6 +706,15 @@ io.sockets.on('connection', function(socket){
         socket.emit('receiveLevels', res);
       });
    });
+
+   socket.on('getTheAchievements',function(){
+     console.log("getting the Achievements");
+      Database.getPlayerProgress(user, function(res){
+        console.log('the Achievements are'+ JSON.stringify(res));
+        socket.emit('receiveTheAchievements', res);
+      });
+   });
+
    socket.on('getLevels',function(){
      console.log("getting the  2 levels");
       Database.getLevels( function(res){
