@@ -55,6 +55,13 @@ app.get('/client/interface/GUI.js',function(req, res) {
 app.get('/client/interface/sounds.js',function(req, res) {
     res.sendFile(__dirname + '/client/interface/sounds.js');
 });
+app.get('/client/interface/StoryLevels.json',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/StoryLevels.json');
+});
+app.get('/signUpStyle.css',function(req, res) {
+    res.sendFile(__dirname + '/client/signUpStyle.css');
+});
+
 
 
 
