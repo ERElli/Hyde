@@ -5,6 +5,9 @@
 		<br>
 		<div id="menu">
 			<a href='../gameMenu2.html'>Quit</a>
+			<a href='../gameMenu2.html'>Restart</a>
+			<a href='../gameMenu2.html'>Main Menu</a>
+			<a href='../gameMenu2.html'>Level Editor</a>
 		</div>
 
 		<div id="container">
@@ -28,9 +31,11 @@
 		<script type="text/javascript" src="../engine/timer.js"></script>
 		<script type="text/javascript" src="storyLevels/levelEight.json"></script>
 
+		<script type="text/javascript" src="world2level3.json"></script>
+		
 
 
-		<!--<script type="text/javascript" src="level.json"></script>-->
+		<!--<script type="text/javascript" src="world2level1.json"></script>-->
 		<!--<script type="text/javascript" src="ghostDemo.json"></script>-->
 		<script type="text/javascript" src="jsonTest.js"></script>
 
@@ -179,8 +184,9 @@
 			//#############################################################################
 			//FOR GUI TESTING PURPOSES
 
+			
+			if(mydata.ghost != undefined){
 
-			if(mydata.ghost.path != undefined){
 
 				console.log("GHOST",mydata.ghost);
 				let g = mydata['ghost'];
