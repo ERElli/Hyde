@@ -1,0 +1,12 @@
+<html>
+	<script type="text/javascript" src="timer.js"></script>
+	<script>
+		var time = timer();
+		setTimeout(function(){
+			time.getCurrentTime();
+		},5000);
+		setTimeout(function(){ 
+			time.end();
+		 }, 10000);
+	</script>
+</html>
