@@ -149,34 +149,34 @@ Animation=function(){
 			}else if(numAnimation%8<=2){
 
 				if(entity.x>x){
-					gui.aniDraw(Img.muzzleFlash.stepFour,x-entity.width/2,entity.y-entity.height/7,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepFour,x-20,entity.y+entity.height/7,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepFour,x+entity.width/2,entity.y-entity.height/7,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepFour,x+40,entity.y+entity.height/7,40,25);
 				}
 			}
 			else if(numAnimation%8<5){
 				if(entity.x>x){
-					gui.aniDraw(Img.muzzleFlash.stepTwo,x-entity.width/2,entity.y-entity.height/7,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepTwo,x-20,entity.y+entity.height/7,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepTwo,x+entity.width/2,entity.y-entity.height/7,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepTwo,x+40,entity.y+entity.height/7,40,25);
 				}
 			}
 			else if(numAnimation%8<7){
 				if(entity.x>x){
-					gui.aniDraw(Img.muzzleFlash.stepThree,x-entity.width/2,entity.y-entity.height/7,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepThree,x-20,entity.y+entity.height/7,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepThree,x+entity.width/2,entity.y-entity.height/7,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepThree,x+40,entity.y+entity.height/7,40,25);
 				}
 			}
 			else{
 				if(entity.x>x){
-					gui.aniDraw(Img.muzzleFlash.stepFour,x-entity.width/2,entity.y-entity.height/4.5,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepFour,x-20,entity.y+entity.height/7,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepFour,x+entity.width/2,entity.y-entity.height/7,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepFour,x+40,entity.y+entity.height/7,40,25);
 				}
 			}
 		}
@@ -185,38 +185,40 @@ Animation=function(){
 			}else if(numAnimation<=2){
 				if (entity.type=="pistol"){
 					Sound.pistol.play();
+					yAniOffset=0;
 				}else{
 					Sound.shotgun.play();
+					yAniOffset=entity.height/7;
 				}
 				if(entity.x>x){
-					gui.aniDraw(Img.muzzleFlash.stepOne,x-entity.width/2,entity.y-entity.height/7,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepOne,x-20,entity.y+yAniOffset,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepOne,x+entity.width/2,entity.y-entity.height/7,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepOne,x+30,entity.y+yAniOffset,40,25);
 				}
 			}
 			else if(numAnimation<5){
 				if(entity.x>x){
-					gui.aniDraw(Img.muzzleFlash.stepTwo,x-entity.width/2,entity.y-entity.height/7,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepTwo,x-20,entity.y+yAniOffset,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepTwo,x+entity.width/2,entity.y-entity.height/7,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepTwo,x+30,entity.y+yAniOffset7,40,25);
 				}
 			}
 			else if(numAnimation<7){
 				if(entity.x>x){
-					gui.aniDraw(Img.muzzleFlash.stepThree,x-entity.width/2,entity.y-entity.height/7,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepThree,x-20,entity.y+yAniOffset,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepThree,x+entity.width/2,entity.y-entity.height/7,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepThree,x+30,entity.y+yAniOffset,40,25);
 				}
 			}
 			else{
 				if(entity.x>x){
-					gui.aniDraw(Img.muzzleFlash.stepFour,x-entity.width/2,entity.y-entity.height/7,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepFour,x-20,entity.y+yAniOffset,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepFour,x+entity.width/2,entity.y-entity.height/7,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepFour,x+30,entity.y+yAniOffset,40,25);
 				}
 			}
 		}
@@ -293,6 +295,9 @@ Animation=function(){
 	self.deathSound=function(){
 		Sound.death.play();
 	};
+	self.enemyDeathSound=function(){
+		Sound.enemyDeath.play();
+	};
 	self.checkpointSound=function(){
 		Sound.checkpoint.play();
 	};
@@ -304,6 +309,9 @@ Animation=function(){
 	};
 	self.weaponPickUpSound=function(){
 		Sound.weaponPickUp.play();
+	};
+	self.buildingBreakSound=function(){
+		Sound.buildingBreak.play();
 	};
 	self.playBackgroundMusic=function(worldnum){
 		if (worldnum==1){
