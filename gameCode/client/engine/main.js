@@ -271,6 +271,7 @@ var update = function() {
 				player.falling = false;
 				
 				if (block.mod.type != 'none') {
+
 					block.mod.applyEffect(player);
 				}
 				else {
@@ -347,7 +348,8 @@ var update = function() {
 
 			else {
 				if (Math.abs(player.getMomentum()) >= block.breakAt) {
-
+					//Plays break sound when building is destoryed
+					ani.buildingBreakSound();
 					b = new BoulderPickUp(Math.random(), block.x, block.y+block.height, player);
 					boulderPickUps[b.id] = b;
 					console.log("Creating boulder");
@@ -589,7 +591,8 @@ var update = function() {
 		enemy.updateAim(player);
 
 		if (enemy.health <= 0) {
-			
+			//plays enemy death animation sound
+			ani.enemyDeathSound();
 			delete enemies[key];
 			
 			if (enemy.type == 'basic boss' || enemy.type == 'flying boss' || enemy.type == 'tank boss') {
@@ -739,7 +742,7 @@ var startGame = function(initial_level) {
 	terrain = level["terrain"];
 	breakable = new Terrain1x1Breakable(Math.random(), 500, 325);
 	//surfaceMods = level["terrain"];
-	pickUps = level['weapon'];
+	pickUps = level['weapons'];
 	frameCount = 0;
 	everyTenCount = 0;
 
@@ -797,7 +800,7 @@ var createBoss = function() {
 
 var endGame = function() {
 	gui.levelComplete();
-	console.log("PLAYER POSTIION",playerPositionLog);
+	//console.log("PLAYER POSTIION",playerPositionLog);
 	ghost = new Ghost(Math.random(),0,0,{});
 	ghost.setPath(playerPositionLog);
 	setTimeout(function(){gui.drawMedal("gold")},5000);

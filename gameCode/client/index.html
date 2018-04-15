@@ -173,6 +173,7 @@
 
    socket.on('signInResponse',function(data){
     if(data.success){
+      socket.emit('username', {username: signDivUsername.value} );
         signDiv.style.display = 'none';
         location.href = "/client/gameMenu2.html";
         //gameDiv.style.display = 'inline-block';
