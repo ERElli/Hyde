@@ -549,14 +549,20 @@ var update = function() {
 
 			var isColliding = bullet.testCollision(enemies[key2]);
 			if (isColliding && bullet.ownerID != enemies[key2].id) {
+				
+				if (enemies[key2].type == 'basic boss' || enemies[key2].type == 'flying boss' || enemies[key2].type == 'tank boss') {
+					if (bullet.ownerID == player.id) {
+						if (bullet.type == 'bullet') {
+							toRemove = true;
+						}
 
-				if (bullet.type == 'bullet') {
-					toRemove = true;
+						//Enemy takes damage, maybe apply effect (like knockback)
+						enemies[key2].takeDamage(bullet.damage);
+						break;
+					}
 				}
 
-				//Enemy takes damage, maybe apply effect (like knockback)
-				enemies[key2].takeDamage(bullet.damage);
-				break;
+				
 			}
 		}
 
