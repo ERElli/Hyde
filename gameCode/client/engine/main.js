@@ -749,6 +749,7 @@ var startGame = function(initial_level) {
 	//createPlatforms();
 	//createBoss();
 	
+	
 	updateControls();
 
 	setInterval(update, 1000/60)
