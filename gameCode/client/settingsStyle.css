@@ -1,0 +1,94 @@
+/* Settings Style */
+
+.saveSettingsButton{
+
+    background:transparent;
+    background-image: url(images/saveSettingsButton.png);
+    background-size: cover;
+    position: fixed;
+
+    outline: none;
+    border: none;
+    width: 82px;
+    height: 33px;
+
+    left: 790px;
+    top: 85px;
+}
+
+.difficultySetting{
+
+	background:transparent;
+	position: fixed;
+    left: 700px;
+    top: 410px;
+    height: 50px;
+    outline: none;
+    border: none;
+    font-size: large;
+    color: white;
+
+}
+
+.upControl{
+	background: transparent;
+	position: fixed;
+	outline: none;
+	color: white;
+	border:none;
+	font-size: 36px;
+	top: 216px;
+	left: 555px;
+	width: 30px;
+}
+
+.downControl{
+	background: transparent;
+	position: fixed;
+	outline: none;
+	color: white;
+	border:none;
+	font-size: 36px;
+	top: 216px;
+	left: 765px;
+	width: 30px;
+
+}
+
+.rightControl{
+	background: transparent;
+	position: fixed;
+	outline: none;
+	color: white;
+	border:none;
+	font-size: 36px;
+	top: 312px;
+	left: 765px;
+	width: 30px;
+
+}
+
+.leftControl{
+	background: transparent;
+	position: fixed;
+	outline: none;
+	color: white;
+	border:none;
+	font-size: 36px;
+	top: 312px;
+	left: 555px;
+	width: 30px;
+
+}
+
+.transformControl{
+	background: transparent;
+	position: fixed;
+	outline: none;
+	color: white;
+	border:none;
+	font-size: 36px;
+	top: 412px;
+	left: 555px;
+	width: 30px;
+}
