@@ -19,7 +19,7 @@ Database.addPlayerItem = function(data, cb){
 }
 Database.addTerrainItem = function(data, cb){
   console.log("it works");
-  db.saveLevel.update({level:data.level},   { $addToSet:{ terrain: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type} } } }, {upsert: true});
+  db.saveLevel.update({level:data.level},   { $addToSet:{ terrain: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type, mod: data.mod} } } }, {upsert: true});
 }
 Database.addCheckpointItem = function(data, cb){
   console.log("add checkp");
@@ -27,7 +27,15 @@ Database.addCheckpointItem = function(data, cb){
 }
 Database.addPlatformItem = function(data, cb){
   console.log("add platform");
-  db.saveLevel.update({level:data.level},   { $addToSet:{ terrain: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type, direction:data.direction, finalVal: data.finalVal} } } }, {upsert: true});
+  db.saveLevel.update({level:data.level},   { $addToSet:{ terrain: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type, direction:data.direction,mod: data.mod, finalVal: data.finalVal} } } }, {upsert: true});
+}
+Database.addBossItem = function(data, cb){
+  console.log("add boss");
+  db.saveLevel.update({level:data.level},   { $addToSet:{ boss: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type} } } }, {upsert: true});
+}
+Database.addSpikeItem = function(data, cb){
+  console.log("add spike");
+  db.saveLevel.update({level:data.level},   { $addToSet:{ spike: { id: data.id, items: {x:data.x, y: data.y,id: data.id, orientation: data.orientation} } } }, {upsert: true});
 }
 
 Database.addBackgroundItem = function(data, cb){
@@ -145,7 +153,25 @@ Database.deletePlatformItem = function(data, cb){
   console.log("removing deletePlatformItem");
     db.saveLevel.update({ level:data.level},{$pull: {terrain : {id:data.id }  }    } );
 }
+Database.deleteBossItem = function(data, cb){
+  //db.saveLevel.update({ level:"level 3"}, {$pull: {player: {id: "0.32591480354017077" } } } );
+  console.log("removing deleteBossItem");
+    db.saveLevel.update({ level:data.level},{$pull: {boss : {id:data.id }  }    } );
+}
+Database.deleteSpikeItem = function(data, cb){
+  //db.saveLevel.update({ level:"level 3"}, {$pull: {player: {id: "0.32591480354017077" } } } );
+  console.log("removing deleteSpikeItem");
+    db.saveLevel.update({ level:data.level},{$pull: {spike : {id:data.id }  }    } );
+}
+Database.changeMod = function(data, cb){
+  //db.saveLevel.update({ level:"level 3"}, {$pull: {player: {id: "0.32591480354017077" } } } );
+  console.log("changing mod");
+  db.saveLevel.update({ level:data.level},{$pull: {terrain : {id:data.id }  }    } );
+  db.saveLevel.update({level:data.level},   { $addToSet:{ terrain: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type, mod: data.mod} } } }, {upsert: true});
 
+    //db.saveLevel.update({ level:data.level},{$set: {spike : {id:data.id }  }    } );
+    //db.saveLevel.update({ level:"new"},{$set: {terrain : {mod:"somtet"}  }    } );
+}
 //Database.deleteLevelItem = function(data, cb){
 
   //console.log("nice"+data.x, data.y, data.w, data.h, data.id, data.type);
@@ -213,6 +239,7 @@ Database.savePlayerProgress = function(data,cb){
 }
 
 Database.levelUpdate = function(username,data){
+  console.log("hereeee  "+ data.level + " " + data.time);
   db.progress.findOne({username:username},function(err,res){
     if(res){
       console.log("true "+ data.level);
@@ -220,9 +247,9 @@ Database.levelUpdate = function(username,data){
         {username:username},
         {  $addToSet:
           {
-            items: {level : "level 1", time: 130}
+            items: {level : data.level, time: data.time}
           }
-        });
+        }, {upsert: true});
 
     }
   });

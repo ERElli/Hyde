@@ -71,6 +71,7 @@
 			//the socket receive the level objects from the database
 
 			socket.on('receiveLevelObjects',function(data){
+				console.log("loooik"+ data['level']);
 				levelObjects = data;
 				//level objects should be in data, right now they are logged in console
 				let realLevel = EntityFactory(levelObjects,false);
@@ -170,6 +171,7 @@
 				}
 
 				level.width = realLevel.width;
+				level.name = realLevel.name;
 
 				startGame(level);
 		  });
@@ -177,7 +179,7 @@
 			//#############################################################################
 			//FOR GUI TESTING PURPOSES
 
-			
+
 			if(mydata.ghost.path != undefined){
 
 				console.log("GHOST",mydata.ghost);
@@ -232,7 +234,7 @@
 				console.log(mydata);
 
 				for (let thing in mydata['weapons']) {
-					
+
 					w = mydata['weapons'][thing]
 					console.log("WEAPONS",level['player']);
 					var weapon;
@@ -294,7 +296,7 @@ console.log(level['weapons']);
 						case 'mud':
 							block.mod = new MudModifier();
 							break;
-						case 'none':						
+						case 'none':
 						default:
 							block.mod = new NoModifier();
 							break;

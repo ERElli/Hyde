@@ -579,6 +579,13 @@ app.get('/client/interface/testLevel.json',function(req, res) {
 app.get('/images/textfieldBackground.png',function(req, res) {
     res.sendFile(__dirname + '/images/textfieldBackground.png');
 });
+app.get('/client/interface/storyLevels/levelEight.json',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/storyLevels/levelEight.json');
+});
+app.get('/client/engine/timer.js',function(req, res) {
+    res.sendFile(__dirname + '/client/engine/timer.js');
+});
+
 
 
 
@@ -663,9 +670,6 @@ io.sockets.on('connection', function(socket){
 
       });
   });
-  socket.on('updateScore', function(data){
-    console.log("username are" + data.level);
-  });
 
 /*  socket.on('getLevelNames',function(){
    //Database.levelUpdate(user, data);
@@ -675,6 +679,7 @@ io.sockets.on('connection', function(socket){
   */
 
   socket.on('updateLevel',function(data){
+    console.log("i was called");
    Database.levelUpdate(user, data);
   });
 
@@ -773,6 +778,15 @@ io.sockets.on('connection', function(socket){
     console.log(data);
    Database.addCheckpointItem(data);
   });
+  socket.on('addBossItem',function(data){
+    console.log(data);
+   Database.addBossItem(data);
+  });
+  socket.on('addSpikeItem',function(data){
+    console.log(data);
+   Database.addSpikeItem(data);
+  });
+
   socket.on('deleteLevelItem',function(data){
     console.log(data);
    Database.deleteLevelItem(data);
@@ -803,7 +817,21 @@ io.sockets.on('connection', function(socket){
     console.log('received socket to dlt platform');
    Database.deletePlatformItem(data);
   });
-
+  socket.on('deleteBossItem',function(data){
+    console.log(data);
+    console.log('received socket to dlt boss');
+   Database.deleteBossItem(data);
+  });
+  socket.on('deleteSpikeItem',function(data){
+    console.log(data);
+    console.log('received socket to dlt spike');
+   Database.deleteSpikeItem(data);
+  });
+  socket.on('changeMod',function(data){
+    console.log(data);
+    console.log('received socket to change mod');
+   Database.changeMod(data);
+  });
   /*socket.on('deleteLevelItem',function(data){
    Database.deleteLevelItem(data);
  }); */
