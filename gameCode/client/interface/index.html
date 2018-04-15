@@ -25,7 +25,9 @@
 		<script type="text/javascript" src="../engine/usable.js"></script>
 		<script type="text/javascript" src="../engine/controls.js"></script>
 		<script type="text/javascript" src="../../levelEditor/EntityFactory.js"></script>
-		<script type="text/javascript" src="storyLevels/LevelOne.json"></script>
+
+		<script type="text/javascript" src="storyLevels/levelOne.json"></script>
+		
 
 		<!--<script type="text/javascript" src="level.json"></script>-->
 		<!--<script type="text/javascript" src="ghostDemo.json"></script>-->
@@ -174,7 +176,9 @@
 			//#############################################################################
 			//FOR GUI TESTING PURPOSES
 
-			if(mydata.ghost != null){
+			
+			if(mydata.ghost.path != undefined){
+
 				console.log("GHOST",mydata.ghost);
 				let g = mydata['ghost'];
 				// console.log("G PATH",g.path);
@@ -211,19 +215,21 @@
 
 			}
 
-			level['weapon'] = {};
+			level['weapons'] = {};
 				console.log(mydata);
 
-				for (let thing in mydata['weapon']) {
-					w = mydata['weapon'][thing]
-
+				for (let thing in mydata['weapons']) {
+					
+					w = mydata['weapons'][thing]
+					console.log("WEAPONS",level['player']);
 					var weapon;
 
 					weapon = new WeaponPickUp(w.id, w.x, w.y-150, w.weaponType, level['player']);
 
-					level['weapon'][w.id] = weapon;
+					level['weapons'][w.id] = weapon;
 
-			}
+				}
+console.log(level['weapons']);
 			level['terrain'] = {};
 				for (var thing in mydata['terrain']) {
 					let t = mydata['terrain'][thing]
@@ -273,6 +279,7 @@
 						case 'mud':
 							block.mod = new MudModifier();
 							break;
+						case 'none':						
 						default:
 							block.mod = new NoModifier();
 							break;
