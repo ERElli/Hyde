@@ -1,5 +1,5 @@
-var socket = io();
 
+var socket = io();
 var frameCount;
 
 var level;
@@ -178,8 +178,15 @@ var doPressedActions = function() {
 * Return true if the given entity is within the renderable radius
 */
 var inRange = function(thing) {
-	len = Math.sqrt( Math.pow(thing.x - player.x, 2) + Math.pow(thing.y - player.y, 2) ) //sqrt(delta_x^2 + delta_y^2)
-	return len < level_width;
+	var len = 0;
+	if (thing.type == 'basic boss' || thing.type == 'flying boss' || thing.type == 'tank boss') {
+		console.log("YEAH");
+		len = 0;
+	}
+	else {
+		len = Math.sqrt( Math.pow(thing.x - player.x, 2) + Math.pow(thing.y - player.y, 2) ) //sqrt(delta_x^2 + delta_y^2)
+	}
+	return len < 1500;
 }
 
 /*
@@ -201,7 +208,7 @@ var update = function() {
 		playerPositionLog[everyTenCount] = {};
 		playerPositionLog[everyTenCount].x = player.x;
 		playerPositionLog[everyTenCount].y = player.y;
-		if(ghost != null){
+		if(ghost != undefined && ghost.path != null){
 			//console.log("GHOST PATH",ghost.path);
 			if((everyTenCount<Object.keys(ghost.path).length)){
 				gui.ep_ctx.clearRect(0,0,gui.ep.width,gui.ep.height);
@@ -229,7 +236,7 @@ var update = function() {
 	}
 
 	if (player.health <= 0) {
-		player.reset(0, 0);
+		player.reset(50, 50);
 	}
 
 	if (player.x >= level_width && !level.hasBoss) {
@@ -256,9 +263,9 @@ var update = function() {
 			block.updatePosition();
 		}
 
-		if (!inRange(block)) {
-			continue;
-		}
+		//if (!inRange(block)) {
+			//continue;
+		//}
 
 		//Check collisions with player ####################################
 
@@ -542,14 +549,20 @@ var update = function() {
 
 			var isColliding = bullet.testCollision(enemies[key2]);
 			if (isColliding && bullet.ownerID != enemies[key2].id) {
+				
+				if (enemies[key2].type == 'basic boss' || enemies[key2].type == 'flying boss' || enemies[key2].type == 'tank boss') {
+					if (bullet.ownerID == player.id) {
+						if (bullet.type == 'bullet') {
+							toRemove = true;
+						}
 
-				if (bullet.type == 'bullet') {
-					toRemove = true;
+						//Enemy takes damage, maybe apply effect (like knockback)
+						enemies[key2].takeDamage(bullet.damage);
+						break;
+					}
 				}
 
-				//Enemy takes damage, maybe apply effect (like knockback)
-				enemies[key2].takeDamage(bullet.damage);
-				break;
+				
 			}
 		}
 
@@ -585,6 +598,7 @@ var update = function() {
 		var enemy = enemies[key];
 
 		if (!inRange(enemy)) {
+			console.log("Skipping enemy");
 			continue;
 		}
 

@@ -10,6 +10,8 @@
     <button id="playOnline" class="playOnlineButton"></button>
     <button id="levelEditor" class="levelEditorButton"></button>
     <button id="Achievements" class="achievementsButton"></button>
+    <button id="Settings" class="settingsButton"></button>
+    <button id="Logout" class="logoutButton"></button>
   </div>
 
   <div id="levelChoose"  style=" display:none; padding-top:10%; padding-left:40%;height:500px;  background-image: url('/images/newWorldTwoBackground.png') " >
@@ -38,19 +40,26 @@
     var achievementsMenu = document.getElementById('achievementsMenu');
 
     play.onclick = function(){
-      main.style.display = 'none';
-      levelChoose.style.display = 'inline-block';
-      socket.emit('getLevels');
+      location.href = "storyLevelSelection.html";
     }
-
+    
     levelEditor.onclick = function(){
-      location.href = "/levelEditor";
+      location.href = "../levelEditor/levelEditor.html";
     }
     Achievements.onclick = function(){
       socket.emit('getTheAchievements');
       main.style.display = 'none';
       achievementsMenu.style.display = 'inline-block';
     }
+
+  Settings.onclick = function(){
+      location.href = "settingsMenu.html";
+    }
+
+    Logout.onclick = function(){
+      location.href = "index.html";
+    }
+
     /// Adding levels here ////
     socket.on('receiveTheLevels' ,function(res){
       var  arrayOfLevels = res.result;
@@ -92,12 +101,6 @@
 
     });
 
-
-    /* socket.on('changeMe', function(data){
-      location.href = "/levelEditor";
-    //  socket.emit('loadIt', data);
-    //  socket.emit('do');
-  }); */
 
     </script>
 
