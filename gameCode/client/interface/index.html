@@ -29,8 +29,8 @@
 		<script type="text/javascript" src="../engine/controls.js"></script>
 		<script type="text/javascript" src="../../levelEditor/EntityFactory.js"></script>
 		<script type="text/javascript" src="../engine/timer.js"></script>
-		
-		<script type="text/javascript" src="storyLevels/levelEight.json"></script>
+
+		<script type="text/javascript" src="StoryLevels.json"></script>
 
 		<!--<script type="text/javascript" src="world2level3.json"></script>-->
 		
@@ -38,7 +38,7 @@
 
 		<!--<script type="text/javascript" src="world2level1.json"></script>-->
 		<!--<script type="text/javascript" src="ghostDemo.json"></script>-->
-		<script type="text/javascript" src="jsonTest.js"></script>
+		<!--<script type="text/javascript" src="jsonTest.js"></script>-->
 
 		<script type="text/javascript" src="../../levelEditor/Terrain.js"></script>
 		<script type="text/javascript" src="images.js"></script>
@@ -48,8 +48,13 @@
 
 
 		<script>
-
+		var story = JSON.parse(StoryLevel)
+		//console.log(JSON.parse(StoryLevel));
+		var mydata;
+		//var myStorage=window.localStorage;
+		var storyLevelName=localStorage.getItem('level');
 		var isOfflineMode=true;
+		var isStoryMode='false';
 		var level = {};
 		level.hasBoss = false;
 		var gui;
@@ -59,6 +64,37 @@
 		var HEIGHT=500;
 		var WIDTH=1250;
 		var Timer= timer();
+		if(isOfflineMode){
+			switch(storyLevelName){
+				case 'one':
+					mydata=story['levelOne'];
+					break;
+				case 'two':
+					mydata=story['levelTwo'];
+					break;
+				case 'three':
+					mydata=story['levelThree'];
+					break;
+				case 'four':
+					mydata=story['levelFour'];
+					break;
+				case 'five':
+					mydata=story['levelFive'];
+					break;
+				case 'six':
+					mydata=story['levelSix'];
+					break;
+				case 'seven':
+					mydata=story['levelSeven'];
+					break;
+				case 'eight':
+					mydata=story['levelEight'];
+					break;
+				case 'nine':
+					mydata=story['levelNine'];
+					break;	
+			}
+		}
 		if (!isOfflineMode){
 			var socket = io();
 

@@ -12,17 +12,26 @@
 
 		<script>
 			var storyLevels={};
-			storyLevels["levelOne"]=levelOne;
-			storyLevels["levelTwo"]=levelTwo;
-			storyLevels["levelThree"]=levelThree;
-			storyLevels["levelFour"]=levelFour;
-			storyLevels["levelFive"]=levelFive;
-			storyLevels["levelSix"]=levelSix;
-			storyLevels["levelSeven"]=levelSeven;
-			storyLevels["levelEight"]=levelEight;
-			storyLevels["levelNine"]=levelNine;
+			storyLevels["levelOne"]=JSON.parse(levelOne);
+			storyLevels["levelTwo"]=JSON.parse(levelTwo);
+			storyLevels["levelThree"]=JSON.parse(levelThree);
+			storyLevels["levelFour"]=JSON.parse(levelFour);
+			storyLevels["levelFive"]=JSON.parse(levelFive);
+			storyLevels["levelSix"]=JSON.parse(levelSix);
+			storyLevels["levelSeven"]=JSON.parse(levelSeven);
+			storyLevels["levelEight"]=JSON.parse(levelEight);
+			storyLevels["levelNine"]=JSON.parse(levelNine);
 
-				
+			var filename = "StoryLevels.json";
+			var str=JSON.stringify(storyLevels).toString();
+			str = "StoryLevel='"+str;
+			str = str + "'";
+			var a = document.createElement("a");
+			document.body.appendChild(a);
+			var file = new Blob([str],{type: 'application/json'});
+			a.href = URL.createObjectURL(file);
+			a.download = filename;
+			a.click();	
 			console.log(JSON.parse(storyLevels["levelOne"]));
 		</script>
 	</body>
