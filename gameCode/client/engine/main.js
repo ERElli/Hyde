@@ -270,7 +270,7 @@ var update = function() {
 			else {
 				player.falling = false;
 				
-				if (block.mod) {
+				if (block.mod.type != 'none') {
 					block.mod.applyEffect(player);
 				}
 				else {
@@ -788,7 +788,7 @@ var createPlatforms = function() {
 }
 
 var createBoss = function() {
-	b = new TankBoss(Math.random(), 1000, 100, player);
+	b = new BasicBoss(Math.random(), 1000, 100, player);
 	enemies[b.id] = b;
 	level.hasBoss = true;
 }
