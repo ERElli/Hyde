@@ -200,7 +200,7 @@ var update = function() {
 		playerPositionLog[everyTenCount] = {};
 		playerPositionLog[everyTenCount].x = player.x;
 		playerPositionLog[everyTenCount].y = player.y;
-		if(ghost != null){
+		if(ghost != undefined && ghost.path != null){
 			//console.log("GHOST PATH",ghost.path);
 			if((everyTenCount<Object.keys(ghost.path).length)){
 				gui.ep_ctx.clearRect(0,0,gui.ep.width,gui.ep.height);
