@@ -825,7 +825,7 @@ io.sockets.on('connection', function(socket){
   socket.on('deleteSpikeItem',function(data){
     console.log(data);
     console.log('received socket to dlt spike');
-   Database.deleteSpikeItem(data);
+   Database.deleteTerrainItem(data);
   });
   socket.on('changeIceMod',function(data){
     console.log(data);
