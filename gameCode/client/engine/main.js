@@ -235,7 +235,7 @@ var update = function() {
 	}
 
 	if (player.health <= 0) {
-		player.reset(0, 0);
+		player.reset(50, 50);
 	}
 
 	if (player.x >= level_width && !level.hasBoss) {
