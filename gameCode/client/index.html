@@ -13,7 +13,7 @@
     <button id="signDiv-signUp" class="signInDiv-signUpButton" style=""></button><br><br>
 
     <button id="forgotButton" class="forgotPasswordButton" >Forgot your password?</button>
-    
+
 
 
 </div>
@@ -29,7 +29,7 @@
 <div id="signUp" class="signUpDiv" style="display:none;" >
   <input id="signUpDiv-username" class="signUpDiv-username" placeholder="Username" type="text"></input>
   <input id="signUpDiv-password" class="signUpDiv-password" placeholder="password" type="password"></input>
-  
+
   <input id="q1" class="firstKissTextfield" placeholder="First Kiss?" type="text"></input>
 
   <input id="q2" class="petTextfield" placeholder="Pet's Name?" type="text"></input>
@@ -176,7 +176,7 @@
    socket.on('signInResponse',function(data){
     if(data.success){
         signDiv.style.display = 'none';
-        location.href = "/client/gameMenu.html";
+        location.href = "/client/gameMenu2.html";
         //gameDiv.style.display = 'inline-block';
 
 
@@ -186,7 +186,7 @@
 socket.on('signUpResponse',function(data){
     if(data.success){
         //alert("Sign up successul.");
-          location.href = "/client/gameMenu.html";
+          location.href = "/client/gameMenu2.html";
     } else
         alert("Username already taken.");
 });
