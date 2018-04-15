@@ -53,6 +53,8 @@
 
     var socket = io();
 
+	var myStorage=window.localStorage;
+
     // var main = document.getElementById('main');
 
     // var playOne = document.getElementById('playOne');
@@ -61,9 +63,11 @@
 
     //Change Worlds
 
+
     worldOne_changeWorld.onclick = function(){
       worldOne.style.display = "none";
       worldTwo.style.display = "block";
+
 
     }
 
@@ -81,16 +85,25 @@
     //World One Levels
 
     worldOne_playOne.onclick = function(){
+      playOne.onclick = function(){
+		  localStorage.setItem('level','one');
+		  localStorage.setItem('isStory',true);
     	location.href = "interface/index.html";
     	//emit level one
     }
 
     worldOne_playTwo.onclick = function(){
     	//emit level two
+		localStorage.setItem('level','two');
+		localStorage.setItem('isStory',true);
+    	location.href = "interface/index.html";
     }
 
     worldOne_playThree.onclick = function(){
     	//emit level three
+		localStorage.setItem('level','three');
+		localStorage.setItem('isStory',true);
+    	location.href = "interface/index.html";
     }
 
     //World Two Levels
