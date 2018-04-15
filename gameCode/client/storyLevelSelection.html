@@ -6,15 +6,46 @@
 </head>
 
 <body background="images/newWorldTwoBackground.png" style="margin-left:50px; background-repeat: no-repeat; ">
-  <div id="main">
+  <div id="worldOne">
+
+    <h1 style="color: white; position: fixed; left: 560px; top: 170px;">World One</h1>
 
   	<img src="images/levelSelectLabel.png" style="position: fixed; left:380px; top:50px;" alt="Level Select Label">
   	<img src="images/levelSelectPanel.png" style="position: fixed; left:375px; top:160px;" alt="Level Select Panel">
 
-    <button id="playOne" class="playLevelOne"></button>
-    <button id="playTwo" class="playLevelTwo"></button>
-    <button id="playThree" class="playLevelThree"></button>
+    <button id="worldOne_changeWorld" class="changeWorld"></button>
+    <button id="worldOne_playOne" class="playLevelOne"></button>
+    <button id="worldOne_playTwo" class="playLevelTwo"></button>
+    <button id="worldOne_playThree" class="playLevelThree"></button>
   </div>
+
+  <div id="worldTwo" style="display: none;">
+
+    <h1 style="color: white; position: fixed; left: 560px; top: 170px;">World Two</h1>
+
+    <img src="images/levelSelectLabel.png" style="position: fixed; left:380px; top:50px;" alt="Level Select Label">
+    <img src="images/levelSelectPanel.png" style="position: fixed; left:375px; top:160px;" alt="Level Select Panel">
+
+    <button id="worldTwo_changeWorld" class="changeWorld"></button>
+    <button id="worldTwo_playOne" class="playLevelOne"></button>
+    <button id="worldTwo_playTwo" class="playLevelTwo"></button>
+    <button id="worldTwo_playThree" class="playLevelThree"></button>
+  </div>
+
+  <div id="worldThree" style="display: none;">
+
+    <h1 style="color: white; position: fixed; left: 560px; top: 170px;">World Three</h1>
+
+    <img src="images/levelSelectLabel.png" style="position: fixed; left:380px; top:50px;" alt="Level Select Label">
+    <img src="images/levelSelectPanel.png" style="position: fixed; left:375px; top:160px;" alt="Level Select Panel">
+
+    <button id="worldThree_changeWorld" class="changeWorld"></button>
+    <button id="worldThree_playOne" class="playLevelOne"></button>
+    <button id="worldThree_playTwo" class="playLevelTwo"></button>
+    <button id="worldThree_playThree" class="playLevelThree"></button>
+  </div>
+
+
 
 
   <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
@@ -22,23 +53,87 @@
 
     var socket = io();
 
-    var main = document.getElementById('main');
+	var myStorage=window.localStorage;
 
-    var playOne = document.getElementById('playOne');
-   	var playTwo = document.getElementById('playTwo');
-   	var playThree = document.getElementById('playThree');
+    // var main = document.getElementById('main');
 
-    playOne.onclick = function(){
+    // var playOne = document.getElementById('playOne');
+   	// var playTwo = document.getElementById('playTwo');
+   	// var playThree = document.getElementById('playThree');
+
+    //Change Worlds
+
+
+    worldOne_changeWorld.onclick = function(){
+      worldOne.style.display = "none";
+      worldTwo.style.display = "block";
+
+
+    }
+
+    worldTwo_changeWorld.onclick = function(){
+      worldTwo.style.display = "none";
+      worldThree.style.display = "block";
+
+    }
+
+     worldThree_changeWorld.onclick = function(){
+        worldThree.style.display = "none";
+        worldOne.style.display = "block";
+    }
+
+    //World One Levels
+
+    worldOne_playOne.onclick = function(){
+      playOne.onclick = function(){
+		  localStorage.setItem('level','one');
+		  localStorage.setItem('isStory',true);
     	location.href = "interface/index.html";
     	//emit level one
     }
 
-    playTwo.onclick = function(){
+    worldOne_playTwo.onclick = function(){
     	//emit level two
+		localStorage.setItem('level','two');
+		localStorage.setItem('isStory',true);
+    	location.href = "interface/index.html";
     }
 
-    playThree.onclick = function(){
+    worldOne_playThree.onclick = function(){
     	//emit level three
+		localStorage.setItem('level','three');
+		localStorage.setItem('isStory',true);
+    	location.href = "interface/index.html";
+    }
+
+    //World Two Levels
+
+    worldTwo_playOne.onclick = function(){
+      location.href = "interface/index.html";
+      //emit level one
+    }
+
+    worldTwo_playTwo.onclick = function(){
+      //emit level two
+    }
+
+    worldTwo_playThree.onclick = function(){
+      //emit level three
+    }
+
+    //World Three Levels
+
+    worldThree_playOne.onclick = function(){
+      location.href = "interface/index.html";
+      //emit level one
+    }
+
+    worldThree_playTwo.onclick = function(){
+      //emit level two
+    }
+
+    worldThree_playThree.onclick = function(){
+      //emit level three
     }
 
     </script>

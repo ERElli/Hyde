@@ -1,5 +1,19 @@
 /* LEVEL SELECTION STYLING */
 
+.changeWorld{
+	background: transparent;
+	background-image: url(images/changeWorldArrow.png); 
+	outline: none;
+	border: none;
+	background-size: cover; 
+	position: fixed;
+	width: 56px;
+	height: 52px; 
+	left: 850px; 
+	top: 75px;
+
+}
+
 
 .playLevelOne{
 	background: transparent;
@@ -63,5 +77,4 @@
 	background: transparent;
 	background-image: url(images/levelThreeHover.png); 
 	
-
 }
