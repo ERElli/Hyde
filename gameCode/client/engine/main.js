@@ -561,6 +561,16 @@ var update = function() {
 						break;
 					}
 				}
+				
+				else {
+					if (bullet.type == 'bullet') {
+							toRemove = true;
+					}
+
+					//Enemy takes damage, maybe apply effect (like knockback)
+					enemies[key2].takeDamage(bullet.damage);
+					break;
+				}
 
 				
 			}
