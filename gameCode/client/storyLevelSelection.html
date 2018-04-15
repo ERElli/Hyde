@@ -55,6 +55,7 @@
 
 	var myStorage=window.localStorage;
 
+
     // var main = document.getElementById('main');
 
     // var playOne = document.getElementById('playOne');
@@ -85,9 +86,9 @@
     //World One Levels
 
     worldOne_playOne.onclick = function(){
-      playOne.onclick = function(){
-		  localStorage.setItem('level','one');
-		  localStorage.setItem('isStory',true);
+		localStorage.setItem('level','one');
+		localStorage.setItem('isStory',true);
+
     	location.href = "interface/index.html";
     	//emit level one
     }
@@ -109,31 +110,43 @@
     //World Two Levels
 
     worldTwo_playOne.onclick = function(){
-      location.href = "interface/index.html";
-      //emit level one
+		localStorage.setItem('level','four');
+		localStorage.setItem('isStory',true);
+    	location.href = "interface/index.html";
     }
 
     worldTwo_playTwo.onclick = function(){
-      //emit level two
+		localStorage.setItem('level','five');
+		localStorage.setItem('isStory',true);
+    	location.href = "interface/index.html";
     }
 
     worldTwo_playThree.onclick = function(){
-      //emit level three
+		localStorage.setItem('level','six');
+		localStorage.setItem('isStory',true);
+    	location.href = "interface/index.html";
     }
 
     //World Three Levels
 
     worldThree_playOne.onclick = function(){
-      location.href = "interface/index.html";
-      //emit level one
+		localStorage.setItem('level','seven');
+		localStorage.setItem('isStory',true);
+    	location.href = "interface/index.html";
     }
 
     worldThree_playTwo.onclick = function(){
       //emit level two
+		localStorage.setItem('level','eight');
+		localStorage.setItem('isStory',true);
+    	location.href = "interface/index.html";
     }
 
     worldThree_playThree.onclick = function(){
       //emit level three
+		localStorage.setItem('level','nine');
+		localStorage.setItem('isStory',true);
+    	location.href = "interface/index.html";
     }
 
     </script>
