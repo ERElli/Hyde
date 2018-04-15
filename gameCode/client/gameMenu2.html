@@ -18,7 +18,7 @@
 	</div>
 
   <div id="achievementsMenu" style="display:none;">
-    <p> You are awesome </p>
+    <p id  = "lev">  You are awesome </p>
   </div>
 
 
@@ -29,6 +29,7 @@
   <script>
 
     var socket = io();
+    var lev  = document.getElementById('lev');
     var levelChoose = document.getElementById('levelChoose');
     var main = document.getElementById('main');
     var play = document.getElementById('play');
@@ -46,6 +47,7 @@
       location.href = "/levelEditor";
     }
     Achievements.onclick = function(){
+      socket.emit('getTheAchievements');
       main.style.display = 'none';
       achievementsMenu.style.display = 'inline-block';
     }
@@ -78,6 +80,15 @@
             };
           //  console.log(i);
         };
+
+    });
+    socket.on('receiveTheAchievements' ,function(res){
+    //  var  arrayOfLevels = res.result;
+    //  var num =res.levels.length;
+        console.log("lets check  "+ JSON.stringify(res));
+        lev.innerHTML =  JSON.stringify(res);
+
+
 
     });
 
