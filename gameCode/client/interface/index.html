@@ -5,6 +5,9 @@
 		<br>
 		<div id="menu">
 			<a href='../gameMenu2.html'>Quit</a>
+			<a href='../gameMenu2.html'>Restart</a>
+			<a href='../gameMenu2.html'>Main Menu</a>
+			<a href='../gameMenu2.html'>Level Editor</a>
 		</div>
 
 		<div id="container">
@@ -28,9 +31,11 @@
 		<script type="text/javascript" src="../engine/timer.js"></script>
 		<script type="text/javascript" src="storyLevels/levelNine.json"></script>
 
+		<script type="text/javascript" src="world2level3.json"></script>
+		
 
 
-		<!--<script type="text/javascript" src="level.json"></script>-->
+		<!--<script type="text/javascript" src="world2level1.json"></script>-->
 		<!--<script type="text/javascript" src="ghostDemo.json"></script>-->
 		<script type="text/javascript" src="jsonTest.js"></script>
 
@@ -71,6 +76,7 @@
 			//the socket receive the level objects from the database
 
 			socket.on('receiveLevelObjects',function(data){
+				console.log("loooik"+ data['level']);
 				levelObjects = data;
 				//level objects should be in data, right now they are logged in console
 				let realLevel = EntityFactory(levelObjects,false);
@@ -170,6 +176,7 @@
 				}
 
 				level.width = realLevel.width;
+				level.name = realLevel.name;
 
 				startGame(level);
 		  });
@@ -178,7 +185,8 @@
 			//FOR GUI TESTING PURPOSES
 
 			
-			if(mydata.ghost.path != undefined){
+			if(mydata.ghost != undefined){
+
 
 				console.log("GHOST",mydata.ghost);
 				let g = mydata['ghost'];
@@ -232,7 +240,7 @@
 				console.log(mydata);
 
 				for (let thing in mydata['weapons']) {
-					
+
 					w = mydata['weapons'][thing]
 					console.log("WEAPONS",level['player']);
 					var weapon;
@@ -294,7 +302,7 @@ console.log(level['weapons']);
 						case 'mud':
 							block.mod = new MudModifier();
 							break;
-						case 'none':						
+						case 'none':
 						default:
 							block.mod = new NoModifier();
 							break;

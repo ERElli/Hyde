@@ -380,7 +380,7 @@ function FlyingBoss(id, x, y, target) {
 function TankBoss(id, x, y, target) {
 
 	var tankWidth = 350;
-	var tankHeight = 350;
+	var tankHeight = 250;
 	var tankAcceleration = 5*mpsTOppf/framesPerSecond;
 	var tankMaxVX = 8*mpsTOppf;
 	var tankMaxVY = 20*mpsTOppf;
