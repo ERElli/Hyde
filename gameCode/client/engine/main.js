@@ -1,4 +1,5 @@
 
+var socket = io();
 var frameCount;
 
 var level;
@@ -135,13 +136,13 @@ var doPressedActions = function() {
 	if (pressing['shoot']) {
 
 		if (player.isBig) {
-			
+
 			if (player.hasBoulder && player.pickUpBoulderTimer > 10) {
 				boulder = player.throwBoulder();
 				bullets[boulder.id] = boulder;
 			}
 			else if (!player.hasBoulder && player.throwBoulderTimer > 10) {
-				
+
 				for (var key in boulderPickUps) {
 
 					bp = boulderPickUps[key];
@@ -155,7 +156,7 @@ var doPressedActions = function() {
 						delete boulderPickUps[key];
 					}
 				}
-			}				
+			}
 			player.pickUpBoulderTimer++;
 			player.throwBoulderTimer++;
 		}
@@ -177,8 +178,15 @@ var doPressedActions = function() {
 * Return true if the given entity is within the renderable radius
 */
 var inRange = function(thing) {
-	len = Math.sqrt( Math.pow(thing.x - player.x, 2) + Math.pow(thing.y - player.y, 2) ) //sqrt(delta_x^2 + delta_y^2)
-	return len < level_width;
+	var len = 0;
+	if (thing.type == 'basic boss' || thing.type == 'flying boss' || thing.type == 'tank boss') {
+		console.log("YEAH");
+		len = 0;
+	}
+	else {
+		len = Math.sqrt( Math.pow(thing.x - player.x, 2) + Math.pow(thing.y - player.y, 2) ) //sqrt(delta_x^2 + delta_y^2)
+	}
+	return len < 1500;
 }
 
 /*
@@ -200,7 +208,7 @@ var update = function() {
 		playerPositionLog[everyTenCount] = {};
 		playerPositionLog[everyTenCount].x = player.x;
 		playerPositionLog[everyTenCount].y = player.y;
-		if(ghost != null){
+		if(ghost != undefined && ghost.path != null){
 			//console.log("GHOST PATH",ghost.path);
 			if((everyTenCount<Object.keys(ghost.path).length)){
 				gui.ep_ctx.clearRect(0,0,gui.ep.width,gui.ep.height);
@@ -211,7 +219,7 @@ var update = function() {
 			}
 		}
 		everyTenCount++;
-		
+
 	}
 
 	//ghost.update();
@@ -228,7 +236,7 @@ var update = function() {
 	}
 
 	if (player.health <= 0) {
-		player.reset(0, 0);
+		player.reset(50, 50);
 	}
 
 	if (player.x >= level_width && !level.hasBoss) {
@@ -250,26 +258,26 @@ var update = function() {
 		block = terrain[key];
 
 		gui.drawTerrain(block,gui.fg_ctx)
-		
+
 		if (block.type == "moving platform") {
 			block.updatePosition();
 		}
 
-		if (!inRange(block)) {
-			continue;
-		}
+		//if (!inRange(block)) {
+			//continue;
+		//}
 
 		//Check collisions with player ####################################
 
 		if (blockUnderEntity(block, player)) {
-			
+
 			if (block.type == 'spike trap' && block.orientation == "up" && !player.isImmune) {
 				player.takeDamage(block.damage);
 				player.vy = 10;
 			}
 			else {
 				player.falling = false;
-				
+
 				if (block.mod.type != 'none') {
 
 					block.mod.applyEffect(player);
@@ -312,7 +320,7 @@ var update = function() {
 				player.x = block.x + block.width+player.xOffset;
 				player.blockedLeft = true;
 			}
-			
+
 			if (block.type == 'spike trap' && block.orientation == "right" && !player.isImmune) {
 				player.takeDamage(block.damage);
 				player.vx = 10;
@@ -340,7 +348,7 @@ var update = function() {
 				player.x = block.x - player.xOffset;
 				player.blockedRight = true;
 			}
-			
+
 			if (block.type == 'spike trap' && block.orientation == "left" && !player.isImmune) {
 				player.takeDamage(block.damage);
 				player.vx = -10;
@@ -365,7 +373,7 @@ var update = function() {
 
 
 		if (blockOverEntity(block, player)) {
-			
+
 			if (block.type == 'spike trap' && block.orientation == "down" && !player.isImmune) {
 				player.takeDamage(block.damage);
 				player.vy = -10;
@@ -386,14 +394,14 @@ var update = function() {
 
 			if (blockUnderEntity(block, enemy)) {
 				enemy.falling = false;
-				
+
 				if (block.mod) {
 					block.mod.applyEffect(enemy);
 				}
 				else {
 					block.clearEffects(enemy);
 				}
-				
+
 				if (!enemy.justJumped) {
 					if (enemy.type == 'flying enemy') {
 						enemy.y = block.y - block.height*0.75;
@@ -410,12 +418,12 @@ var update = function() {
 			}
 
 			if (enemy.falling) {
-				
+
 				if (enemy.isSlipping) {
 					enemy.isSlipping = false;
 					enemy.acceleration *= 15;
 				}
-				
+
 				enemy.inAir = true;
 				enemy.setAirMotion();
 			}
@@ -512,7 +520,7 @@ var update = function() {
 		}
 
 	}
-	
+
 	for (var key in boulderPickUps) {
 		boulderPickUps[key].draw();
 	}
@@ -541,14 +549,20 @@ var update = function() {
 
 			var isColliding = bullet.testCollision(enemies[key2]);
 			if (isColliding && bullet.ownerID != enemies[key2].id) {
+				
+				if (enemies[key2].type == 'basic boss' || enemies[key2].type == 'flying boss' || enemies[key2].type == 'tank boss') {
+					if (bullet.ownerID == player.id) {
+						if (bullet.type == 'bullet') {
+							toRemove = true;
+						}
 
-				if (bullet.type == 'bullet') {
-					toRemove = true;
+						//Enemy takes damage, maybe apply effect (like knockback)
+						enemies[key2].takeDamage(bullet.damage);
+						break;
+					}
 				}
 
-				//Enemy takes damage, maybe apply effect (like knockback)
-				enemies[key2].takeDamage(bullet.damage);
-				break;
+				
 			}
 		}
 
@@ -574,9 +588,9 @@ var update = function() {
 			delete bullets[key];
 		}
 	}
-	
 
-	
+
+
 	//Manage all the enemies ----------------------------------------------------------------------------------------
 
 	for (var key in enemies) {
@@ -584,6 +598,7 @@ var update = function() {
 		var enemy = enemies[key];
 
 		if (!inRange(enemy)) {
+			console.log("Skipping enemy");
 			continue;
 		}
 
@@ -594,7 +609,7 @@ var update = function() {
 			//plays enemy death animation sound
 			ani.enemyDeathSound();
 			delete enemies[key];
-			
+
 			if (enemy.type == 'basic boss' || enemy.type == 'flying boss' || enemy.type == 'tank boss') {
 				endGame();
 			}
@@ -725,6 +740,8 @@ var testCollision = function(rect1, rect2) {
 }
 
 var startGame = function(initial_level) {
+	Timer.start();
+	console.log(Timer.startTime);
 	level = initial_level;
 	player = level["player"];
 	if(level['ghost'] == null){
@@ -737,7 +754,7 @@ var startGame = function(initial_level) {
 	}
 
 	console.log("IN START: " + level.hasBoss);
-	
+
 	enemies = level["enemies"];
 	terrain = level["terrain"];
 	breakable = new Terrain1x1Breakable(Math.random(), 500, 325);
@@ -751,7 +768,7 @@ var startGame = function(initial_level) {
 	//createPickUps();
 	//createPlatforms();
 	//createBoss();
-	
+
 	updateControls();
 
 	setInterval(update, 1000/60)
@@ -798,6 +815,9 @@ var createBoss = function() {
 
 
 var endGame = function() {
+	//should be a varianle for level name and time
+	console.log("level is: "+ JSON.stringify(level.name)); //level.level doesn't work
+	socket.emit('updateLevel', { level: "level 3", time: "score"});
 	gui.levelComplete();
 	//console.log("PLAYER POSTIION",playerPositionLog);
 	ghost = new Ghost(Math.random(),0,0,{});

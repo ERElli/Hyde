@@ -1,23 +1,5 @@
-var socket = io();
 
 GUI = function(container){
-
-
-	var seconds = 0;
-	var minutes = 0;
-	var stop = false; //stop is true when level is finished
-
-    //calculate time for finishing the level
-    if(!stop){
-	  setInterval(function () {
-	     seconds++;
-		if(seconds == 60){
-				seconds =0;
-				minutes++;
-		}
-	  }, 1000);
-
-    };
 
 	var self={};
 	self.container=container;
@@ -544,11 +526,18 @@ GUI = function(container){
 		ctx.drawImage(img,0,0,fW,fH,en.x,en.y,50,50);
 	};
 	self.formatTime=function(time){
-		calcTime=time/1000;		
+		calcTime=time/1000;
 		minutes=Math.floor(calcTime/60);
 		seconds=Math.floor(calcTime-minutes*60);
 		milliseconds=(time-seconds*1000-minutes*60000)%1000;
-		console.log("Min",minutes,"sec",seconds,"mil",milliseconds);
+		//console.log("Min",minutes,"sec",seconds,"mil",milliseconds);
+		if (minutes<10){
+			minutes="0"+minutes;
+		}
+		if (seconds<10){
+			seconds="0"+seconds;
+		}
+		return [minutes,seconds,milliseconds];
 	};
 	self.HUD=function(ctx,player){
 
@@ -589,10 +578,10 @@ GUI = function(container){
 		ctx.fillStyle="#FFFFFF";
 		ctx.fillText('Health:',healthX,healthY);
 		ctx.fillText('Momentum:',momentX,momentY);
-
+		theTime=gui.formatTime(Timer.getCurrentTime());
+		//console.log(theTime);
 		//draws time
-		ctx.fillText('Time: '+ minutes +" min "+ seconds+ " seconds ",timeX,timeY);
-
+		ctx.fillText('Time: '+ theTime[0] +":"+theTime[1]+ ":"+theTime[2],timeX,timeY);
 		//draw ammo
 		if(!player.isBig){
 			if(player.weapon.type=="sword" || player.weapon.type=="pistol"){

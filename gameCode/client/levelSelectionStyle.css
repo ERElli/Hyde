@@ -1,5 +1,19 @@
 /* LEVEL SELECTION STYLING */
 
+.changeWorld{
+	background: transparent;
+	background-image: url(images/changeWorldArrow.png); 
+	outline: none;
+	border: none;
+	background-size: cover; 
+	position: fixed;
+	width: 56px;
+	height: 52px; 
+	left: 850px; 
+	top: 75px;
+
+}
+
 
 .playLevelOne{
 	background: transparent;
@@ -12,6 +26,13 @@
 	top: 240px;
 	width: 110px;
 	height: 180px;
+
+}
+
+.playLevelOne:hover{
+	background: transparent;
+	background-image: url(images/levelOneHover.png); 
+	
 
 }
 
@@ -30,6 +51,12 @@
 	
 }
 
+.playLevelTwo:hover{
+	background: transparent;
+	background-image: url(images/levelTwoHover.png); 
+	
+
+}
 
 .playLevelThree{
 
@@ -43,5 +70,11 @@
 	top: 240px;
 	width: 110px;
 	height: 180px;
+	
+}
+
+.playLevelThree:hover{
+	background: transparent;
+	background-image: url(images/levelThreeHover.png); 
 	
 }

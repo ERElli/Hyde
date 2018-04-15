@@ -171,7 +171,6 @@ var state;
 var theLevels= document.getElementById('theLevels');
 
 
-
 levelButton.onclick = function(){
 	state = "new";
 	if (levelNameField.value ==="" ){
@@ -183,12 +182,14 @@ levelButton.onclick = function(){
 		container.style.display = 'block';
 		levelMaker.style.display = 'block';
 		enemiesDropdown.style.display = 'inline-block';
+    bossesDropdown.style.display = 'inline-block';
 		musicDropdown.style.display ='inline-block';
 		backgroundDropdown.style.display = 'inline-block';
 		checkpointDropdown.style.display = 'inline-block';
 		characterDropdown.style.display = 'inline-block';
 		terrainDropdown.style.display = 'inline-block';
 		weaponDropdown.style.display = 'inline-block';
+
 	}
 }
 
@@ -205,12 +206,14 @@ levelButton2.onclick = function(){
     container.style.display = 'block';
     levelMaker.style.display = 'block';
     enemiesDropdown.style.display = 'inline-block';
-		bossesDropdown.style.display ='inline-block';
+    bossesDropdown.style.display = 'inline-block';
+		musicDropdown.style.display ='inline-block';
 		backgroundDropdown.style.display = 'inline-block';
 		checkpointDropdown.style.display = 'inline-block';
 		characterDropdown.style.display = 'inline-block';
 		terrainDropdown.style.display = 'inline-block';
 		weaponDropdown.style.display = 'inline-block';
+
   }
 }
 levelLoadButton.onclick = function(){
@@ -251,6 +254,8 @@ socket.on('receiveLevels' ,function(res){
 
     function doSomething(i) {
         var ki = document.getElementById(i);
+        
+        //ki.style.background  = "blue";
         ki.onclick= function(){
           console.log(ki.innerHTML );
           hh = ki.innerHTML;
@@ -259,12 +264,14 @@ socket.on('receiveLevels' ,function(res){
           container.style.display = 'block';
           levelMaker.style.display = 'block';
           enemiesDropdown.style.display = 'inline-block';
+          bossesDropdown.style.display = 'inline-block';
       		musicDropdown.style.display ='inline-block';
       		backgroundDropdown.style.display = 'inline-block';
       		checkpointDropdown.style.display = 'inline-block';
       		characterDropdown.style.display = 'inline-block';
       		terrainDropdown.style.display = 'inline-block';
       		weaponDropdown.style.display = 'inline-block';
+
 
         };
       //  console.log(i);
@@ -360,7 +367,8 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
   alert('The File APIs are not fully supported in this browser.');
 }
 //Initial values
-var WIDTH = 1250*24;
+
+var WIDTH = 1250*6;
 var HEIGHT = 650*1;
 var TILE_WIDTH = 50;
 var TILE_HEIGHT = 50;

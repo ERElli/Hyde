@@ -5,6 +5,9 @@
 		<br>
 		<div id="menu">
 			<a href='../gameMenu2.html'>Quit</a>
+			<a href='../gameMenu2.html'>Restart</a>
+			<a href='../gameMenu2.html'>Main Menu</a>
+			<a href='../gameMenu2.html'>Level Editor</a>
 		</div>
 
 		<div id="container">
@@ -25,14 +28,16 @@
 		<script type="text/javascript" src="../engine/usable.js"></script>
 		<script type="text/javascript" src="../engine/controls.js"></script>
 		<script type="text/javascript" src="../../levelEditor/EntityFactory.js"></script>
+		<script type="text/javascript" src="../engine/timer.js"></script>
+		<script type="text/javascript" src="StoryLevels.json"></script>
 
-		<script type="text/javascript" src="storyLevels/levelEight.json"></script>
+		<!--<script type="text/javascript" src="world2level3.json"></script>-->
+		
 
 
-
-		<!--<script type="text/javascript" src="level.json"></script>-->
+		<!--<script type="text/javascript" src="world2level1.json"></script>-->
 		<!--<script type="text/javascript" src="ghostDemo.json"></script>-->
-		<script type="text/javascript" src="jsonTest.js"></script>
+		<!--<script type="text/javascript" src="jsonTest.js"></script>-->
 
 		<script type="text/javascript" src="../../levelEditor/Terrain.js"></script>
 		<script type="text/javascript" src="images.js"></script>
@@ -42,8 +47,13 @@
 
 
 		<script>
-
+		var story = JSON.parse(StoryLevel)
+		//console.log(JSON.parse(StoryLevel));
+		var mydata;
+		//var myStorage=window.localStorage;
+		var storyLevelName=localStorage.getItem('level');
 		var isOfflineMode=true;
+		var isStoryMode='false';
 		var level = {};
 		level.hasBoss = false;
 		var gui;
@@ -52,7 +62,38 @@
 		var Sound = Sound("../../");
 		var HEIGHT=500;
 		var WIDTH=1250;
-
+		var Timer= timer();
+		if(isOfflineMode){
+			switch(storyLevelName){
+				case 'one':
+					mydata=story['levelOne'];
+					break;
+				case 'two':
+					mydata=story['levelTwo'];
+					break;
+				case 'three':
+					mydata=story['levelThree'];
+					break;
+				case 'four':
+					mydata=story['levelFour'];
+					break;
+				case 'five':
+					mydata=story['levelFive'];
+					break;
+				case 'six':
+					mydata=story['levelSix'];
+					break;
+				case 'seven':
+					mydata=story['levelSeven'];
+					break;
+				case 'eight':
+					mydata=story['levelEight'];
+					break;
+				case 'nine':
+					mydata=story['levelNine'];
+					break;	
+			}
+		}
 		if (!isOfflineMode){
 			var socket = io();
 
@@ -71,6 +112,7 @@
 			//the socket receive the level objects from the database
 
 			socket.on('receiveLevelObjects',function(data){
+				console.log("loooik"+ data['level']);
 				levelObjects = data;
 				//level objects should be in data, right now they are logged in console
 				let realLevel = EntityFactory(levelObjects,false);
@@ -170,6 +212,7 @@
 				}
 
 				level.width = realLevel.width;
+				level.name = realLevel.name;
 
 				startGame(level);
 		  });
@@ -178,7 +221,8 @@
 			//FOR GUI TESTING PURPOSES
 
 			
-			if(mydata.ghost.path != undefined){
+			if(mydata.ghost != undefined){
+
 
 				console.log("GHOST",mydata.ghost);
 				let g = mydata['ghost'];
@@ -232,7 +276,7 @@
 				console.log(mydata);
 
 				for (let thing in mydata['weapons']) {
-					
+
 					w = mydata['weapons'][thing]
 					console.log("WEAPONS",level['player']);
 					var weapon;
@@ -294,7 +338,7 @@ console.log(level['weapons']);
 						case 'mud':
 							block.mod = new MudModifier();
 							break;
-						case 'none':						
+						case 'none':
 						default:
 							block.mod = new NoModifier();
 							break;
