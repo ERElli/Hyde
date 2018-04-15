@@ -14,11 +14,11 @@ Map = function(width, height,tile_width, tile_height) {
 
 	self.ObjectList = {
 		enemies: {},
+		boss: {},
 		terrain: {},
 		player: {},
 		checkpoints: {},
 		weapons: {},
-		// music: {},
 		ghost: {},
 	};
 	//self.ObjectList is a list of lists of objects. There will be list for terrain, one for enemies, one for weapons, etc.
@@ -53,6 +53,8 @@ Map = function(width, height,tile_width, tile_height) {
 			return self.ObjectList['checkpoints'];
 		}else if(t.includes("weapon")){
 			return self.ObjectList['weapons'];
+		}else if(t.includes("boss")){
+			return self.ObjectList['boss'];
 		}
 	};
 
@@ -71,12 +73,22 @@ Map = function(width, height,tile_width, tile_height) {
 		if(type === "player"){
 			let size = Object.keys(list).length;
 			if(size === 1){
-				for(var key in list){
+				for(let key in list){
 					self.makeFreeSpace(self.tiles,list[key]);
 				}
 				delete list;
 				self.ObjectList['player'] = {};
 				self.ObjectList['player'][id] = object;
+			}
+		}else if(type.includes("boss")){
+			let size = Object.keys(list).length;
+			if(size === 1){
+				for(let key in list){
+					self.makeFreeSpace(self.tiles,list[key]);
+				}
+				delete list;
+				self.ObjectList['boss'] = {};
+				self.ObjectList['boss'][id] = object;
 			}
 		}
 
@@ -93,6 +105,7 @@ Map = function(width, height,tile_width, tile_height) {
 
 		list[id] = object;
 		var temp = type;
+		// self.makeLevel();
 		console.log("field 1: "+levelNameField.value+ " field 2:" + levelNameField2.value+ " name:"+ nameL);
 		//console.log("awesomenoss"+levelNameField1.value);
 	//	console.log("not awesomenoss"+nameL);
@@ -132,15 +145,12 @@ Map = function(width, height,tile_width, tile_height) {
 		var tileMap;
 
 		//Referencing the appropriate tileMap;
-		if(type.includes("enemy") || type.includes("Terrain") || type.includes("player") || type.includes("spike") || type.includes("platform")){
+		if(type.includes("enemy") || type.includes("Terrain") || type.includes("player") || type.includes("spike") || type.includes("platform") || type.includes("boss")){
 			tileMap = self.tiles;
-			console.log("ENTITY TILE MAP",tileMap);
 		}else if(type.includes("checkpoint")){
 			tileMap = self.checkpointTiles;
-			console.log("CHECKPOINT TILE MAP",tileMap);
 		}else if(type.includes("weapon") || type.includes("assault") || type.includes("shotgun") || type.includes("sword")){
 			tileMap = self.weaponTiles;
-			console.log("Weapon Tile Map", tileMap);
 		}
 
 		//Checking if tiles in tileMap are filled
@@ -189,7 +199,7 @@ Map = function(width, height,tile_width, tile_height) {
 
 			// console.log("COUNT IS FILLED",isFilled(currentMap,i,j));
 			if(filled/*self.isFilled(currentMap,i,j)*/){
-				console.log("FILLED LOOP",map);
+				// console.log("FILLED LOOP",map);
 				let list = self.getList(type);
 				toBeRemoved = list[id];
 				if(list[id]!= {}){
@@ -198,7 +208,6 @@ Map = function(width, height,tile_width, tile_height) {
 					console.log("UPDATE LIST",self.ObjectList);
 
 					self.makeFreeSpace(currentMap,toBeRemoved);
-					console.log("MAKE FREE SPACE ENTITY:",toBeRemoved);
 					gui.fg_ctx.clearRect(x,y,toBeRemoved.width, toBeRemoved.height);
 					console.log("delete here " + nameL);
 					if (type.includes("enemy") ){
@@ -256,8 +265,8 @@ Map = function(width, height,tile_width, tile_height) {
 		let j = y/tile_height - gridShiftDown;
 		let type= self.tiles[i][j].type;
 		let id = self.tiles[i][j].id;
-		console.log("TYPE",mod);
-		if(self.tiles[i][j].type.includes("Terrain")){
+
+		if(self.tiles[i][j].type.includes("Terrain") || self.tiles[i][j].type.includes("platform")){
 			let block = self.ObjectList['terrain'][id];
 			switch(mod){
 				case 'ice':
@@ -318,18 +327,23 @@ Map = function(width, height,tile_width, tile_height) {
 		Level.width = self.width;
 		Level.height = self.height;
 		Level.enemies = self.ObjectList.enemies;
+		//combining ObjectList.enemies and ObjectList.boss
+		for(let id in self.ObjectList.boss){
+			var newBoss = self.ObjectList.boss[id];
+			Level.enemies[id] = newBoss;
+		}
 		Level.terrain = self.ObjectList.terrain;
 		Level.player = self.ObjectList.player;
 		Level.background = self.background;
 		Level.weapons = self.ObjectList.weapons;
 		Level.ghost = self.ObjectList.ghost;
 
-		for(var type in Level){
-			for(var key in Level[type]){
-				Level[type][key].y = (Level[type][key].y);
-			}
-		}
-		
+		// for(var type in Level){
+		// 	for(var key in Level[type]){
+		// 		Level[type][key].y = (Level[type][key].y);
+		// 	}
+		// }
+
 		console.log("Level Object:",Level);
 		return Level;
 	}

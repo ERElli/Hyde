@@ -52,6 +52,44 @@
     z-index: 4;
 }
 
+/*Bosses Button*/
+#bossesbtn {
+    background:transparent;
+    background-image: url(../client/interface/img/levelEditor/buttons/header/bossButton.png);
+    background-size: 100%;
+    top: 8px;
+    position: fixed;
+    left: 158px;
+
+    border: none;
+    cursor: pointer;
+    z-index: 4;
+    width: 100px;
+    height: 100px;
+}
+
+#bossesbtn:hover, #bossesbtn:focus {
+    outline:0;
+    z-index:4;
+}
+
+#bossesDropdown {
+    position: fixed;
+    display: inline-block;
+    z-index:4;
+}
+
+#bosses {
+    display: none;
+    position: fixed;
+    left: 158px;
+    top:108px;
+    min-width: 100px;
+    overflow: auto;
+
+    z-index: 4;
+}
+
 /*Music Button*/
 
 /*#musicbtn {

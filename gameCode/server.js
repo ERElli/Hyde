@@ -337,6 +337,12 @@ app.get('/client/interface/img/levelEditor/buttons/terrain/topSpikeDrop.png',fun
 app.get('/client/interface/img/levelEditor/buttons/terrain/platformDrop.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/terrain/platformDrop.png');
 });
+app.get('/client/interface/img/levelEditor/buttons/terrain/iceDrop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/terrain/iceDrop.png');
+});
+app.get('/client/interface/img/levelEditor/buttons/terrain/mudDrop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/terrain/mudDrop.png');
+});
 
 
 app.get('/client/interface/img/levelEditor/buttons/weapon/pistolDrop.png',function(req, res) {
@@ -353,7 +359,9 @@ app.get('/client/interface/img/levelEditor/buttons/weapon/shottyDrop.png',functi
 });
 
 
-
+app.get('/client/interface/img/levelEditor/buttons/header/bossButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/header/bossButton.png');
+});
 app.get('/client/interface/img/levelEditor/buttons/header/enemiesButton.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/levelEditor/buttons/header/enemiesButton.png');
 });
