@@ -28,6 +28,8 @@
 		<script type="text/javascript" src="../engine/usable.js"></script>
 		<script type="text/javascript" src="../engine/controls.js"></script>
 		<script type="text/javascript" src="../../levelEditor/EntityFactory.js"></script>
+		<script type="text/javascript" src="../engine/timer.js"></script>
+		<script type="text/javascript" src="storyLevels/levelEight.json"></script>
 
 		<script type="text/javascript" src="world2level3.json"></script>
 		
@@ -55,7 +57,7 @@
 		var Sound = Sound("../../");
 		var HEIGHT=500;
 		var WIDTH=1250;
-
+		var Timer= timer();
 		if (!isOfflineMode){
 			var socket = io();
 
@@ -211,20 +213,20 @@
 				else if (e.type == 'tank enemy') {
 					enemy =  new TankEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
 				}
-				else if (e.type == 'flying enemy'){
+				else if(e.type =='flying enemy'){
 					enemy =  new FlyingEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
 				}
 				else if (e.type == 'basic boss') {
-					level.hasBoss = true;
-					enemy =  new BasicBoss(e.id, e.x, e.y-150, level['player']);
+						level.hasBoss = true;
+						enemy =  new BasicBoss(e.id, e.x, e.y-150, level['player']);
 				}
 				else if (e.type == 'tank boss') {
-					level.hasBoss = true;
-					enemy =  new TankBoss(e.id, e.x, e.y-150, level['player']);
+						level.hasBoss = true;
+						enemy =  new TankBoss(e.id, e.x, e.y-150, level['player']);
 				}
 				else {
-					level.hasBoss = true;
-					enemy =  new FlyingBoss(e.id, e.x, e.y-150, level['player']);
+						level.hasBoss = true;
+						enemy =  new FlyingBoss(e.id, e.x, e.y-150, level['player']);
 				}
 
 				level['enemies'][e.id] = enemy;

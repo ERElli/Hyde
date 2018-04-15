@@ -1,6 +1,7 @@
 <head>
 
-  <link rel="stylesheet" href="mainStyle.css">
+  <link rel="stylesheet" type="text/css" href="mainStyle.css">
+  <link rel="stylesheet" type="text/css" href="signUpStyle.css">
 
 </head>
 
@@ -10,10 +11,12 @@
     <input id="signDiv-password" class="passwordTextfield" placeholder="Password" type="password"></input><br><br>
     <button id="signDiv-signIn" class="signInDiv-signInButton"></button>
     <button id="signDiv-signUp" class="signInDiv-signUpButton" style=""></button><br><br>
-    <button id="forgotButton" style="display: none; background: transparent; border: none; left: 650px; top: 1000px; text-decoration-color: white;  ">Forgot your password?</button>
-    <br><br>
+    <button id="forgotButton" class="forgotPasswordButton" >Forgot your password?</button>
+    
 
 </div>
+
+
 
 <div id="main" style="padding-top:10%; padding-left:40%;" >
   <br><br><br>
@@ -22,19 +25,16 @@
 </div>
 
 <div id="signUp" class="signUpDiv" style="display:none;" >
-  Choose a Username: <input id="signDiv-user" type="text"></input><br><br>
-  Choose a Password: <input id="signDiv-pass" type="password"></input><br><br>
-  Answer these Security Questions for account recovery: <br> <br>
-  What is the first name of the person you first kissed? <br>
-  <input id="q1" type="text"></input><br><br>
+  <input id="signUpDiv-username" class="signUpDiv-username" placeholder="Username" type="text"></input>
+  <input id="signUpDiv-password" class="signUpDiv-password" placeholder="password" type="password"></input>
+  
+  <input id="q1" class="firstKissTextfield" placeholder="First Kiss?" type="text"></input>
 
-  What is your pet’s name? <br>
-  <input id="q2" type="text"></input><br><br>
+  <input id="q2" class="petTextfield" placeholder="Pet's Name?" type="text"></input>
 
-  What is your favorite sport? <br>
-  <input id="q3" type="text"></input><br><br>
+    <input id="q3" class="favoriteSportTextfield" placeholder="Favorite Sport?" type="text"></input>
 
-  <button id="signUpB">Sign Up</button><br><br>
+  <button id="signUpB" class="signUpDiv-signUpButton"></button>
 </div>
 
 <div id="forgotDiv" style=" display:none; padding-top:10%; padding-left:40%; color: #ddeeff;" >
@@ -173,9 +173,8 @@
 
    socket.on('signInResponse',function(data){
     if(data.success){
-      socket.emit('username', {username: signDivUsername.value} );
         signDiv.style.display = 'none';
-        location.href = "/client/gameMenu2.html";
+        location.href = "/client/gameMenu.html";
         //gameDiv.style.display = 'inline-block';
 
 
@@ -185,7 +184,7 @@
 socket.on('signUpResponse',function(data){
     if(data.success){
         //alert("Sign up successul.");
-          location.href = "/client/gameMenu2.html";
+          location.href = "/client/gameMenu.html";
     } else
         alert("Username already taken.");
 });

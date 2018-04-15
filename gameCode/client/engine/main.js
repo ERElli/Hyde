@@ -733,6 +733,8 @@ var testCollision = function(rect1, rect2) {
 }
 
 var startGame = function(initial_level) {
+	Timer.start();
+	console.log(Timer.startTime);
 	level = initial_level;
 	player = level["player"];
 	if(level['ghost'] == null){
@@ -811,6 +813,8 @@ var endGame = function() {
 	//console.log("PLAYER POSTIION",playerPositionLog);
 	ghost = new Ghost(Math.random(),0,0,{});
 	ghost.setPath(playerPositionLog);
+	//socket for signaling user has finished a level and sends level name and score
+	socket.emit('updateLevel', { level: "level 1", score: "score"});
 	setTimeout(function(){gui.drawMedal("gold")},5000);
 	makeLevel();
 	convertToString();
