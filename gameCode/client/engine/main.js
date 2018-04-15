@@ -187,7 +187,6 @@ var inRange = function(thing) {
 var update = function() {
 
 	if (paused) {
-		//console.log("paused");
 		return;
 	}
 
@@ -202,7 +201,7 @@ var update = function() {
 		playerPositionLog[everyTenCount].x = player.x;
 		playerPositionLog[everyTenCount].y = player.y;
 		if(ghost != null){
-			console.log("GHOST PATH",ghost.path);
+			//console.log("GHOST PATH",ghost.path);
 			if((everyTenCount<Object.keys(ghost.path).length)){
 				gui.ep_ctx.clearRect(0,0,gui.ep.width,gui.ep.height);
 				ghost.x = ghost.path[everyTenCount].x;
@@ -271,7 +270,8 @@ var update = function() {
 			else {
 				player.falling = false;
 				
-				if (block.mod.type!='none') {
+				if (block.mod.type != 'none') {
+
 					block.mod.applyEffect(player);
 				}
 				else {
@@ -736,7 +736,7 @@ var startGame = function(initial_level) {
 		ghost = level['ghost'];
 	}
 
-	console.log(player);
+	console.log("IN START: " + level.hasBoss);
 	
 	enemies = level["enemies"];
 	terrain = level["terrain"];
@@ -793,6 +793,7 @@ var createPlatforms = function() {
 var createBoss = function() {
 	b = new BasicBoss(Math.random(), 1000, 100, player);
 	enemies[b.id] = b;
+	level.hasBoss = true;
 }
 
 

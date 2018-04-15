@@ -9,16 +9,16 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	var smallHeight = 50;
 	var smallAcceleration = 50*mpsTOppf/framesPerSecond;
 	var smallMaxVX = 5*mpsTOppf;
-	var smallMaxVY = 15*mpsTOppf;
+	var smallMaxVY = 10*mpsTOppf;
 	var smallJumpSpeed = 5*mpsTOppf;
 	var smallSlowDown = 3;
 	
 	var bigMass = 300;
 	var bigWidth = 100;
 	var bigHeight = 100;
-	var bigAcceleration = 2*mpsTOppf/framesPerSecond;
-	var bigMaxVX = 12*mpsTOppf;
-	var bigMaxVY = 20*mpsTOppf;
+	var bigAcceleration = 3*mpsTOppf/framesPerSecond;
+	var bigMaxVX = 8*mpsTOppf;
+	var bigMaxVY = 10*mpsTOppf;
 	var bigJumpSpeed = 3*mpsTOppf;
 	var bigSlowDown = 4;
 	//Creating players weapon for GUI testing purposes	

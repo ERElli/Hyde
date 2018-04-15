@@ -174,7 +174,7 @@ function TankEnemy(id, x, y, vx, vy, img, color, target) {
 	var tankWidth = 70;
 	var tankHeight = 70;
 	var tankAcceleration = 3*mpsTOppf/framesPerSecond;
-	var tankMaxVX = 9*mpsTOppf;
+	var tankMaxVX = 7*mpsTOppf;
 	var tankMaxVY = 20*mpsTOppf;
 	var tankMaxHP = 50;
 	var tankWeapon = new NoWeapon("w1", x, y, 0, 0, 5, 5,'img','black', id);
@@ -310,7 +310,7 @@ function FlyingBoss(id, x, y, target) {
 	
 	self.width = 50;
 	self.height = 50;
-	self.health = 10;
+	self.health = 25;
 	self.weapon = new Shotgun(Math.random(), x, y, 0, 0, 5, 5,'img','black', self.id);
 	self.weapon.ammo = 100000;
 	self.meleeDamage = 50;
@@ -379,8 +379,8 @@ function FlyingBoss(id, x, y, target) {
 
 function TankBoss(id, x, y, target) {
 
-	var tankWidth = 250;
-	var tankHeight = 250;
+	var tankWidth = 350;
+	var tankHeight = 350;
 	var tankAcceleration = 5*mpsTOppf/framesPerSecond;
 	var tankMaxVX = 8*mpsTOppf;
 	var tankMaxVY = 20*mpsTOppf;
