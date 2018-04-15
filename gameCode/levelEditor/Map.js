@@ -119,7 +119,7 @@ Map = function(width, height,tile_width, tile_height) {
 		}else if(type.includes("player")){
 			socket.emit('addPlayerItem', {level:nameL, x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
 		}else if(type.includes("Terrain")){
-			socket.emit('addTerrainItem', {level:nameL,x: object.x, y:object.y, id: object.id, type: object.type});
+			socket.emit('addTerrainItem', {level:nameL,x: object.x, y:object.y, id: object.id, type: object.type, mod: object.mod.type});
 		}else if (type.includes("checkpoint")){
 			socket.emit('addCheckpointItem', {level:nameL,x: object.x, y:object.y, id: object.id, type: object.type});
 		}else if (type.includes("weapon")){
@@ -127,8 +127,18 @@ Map = function(width, height,tile_width, tile_height) {
 		}
 		else if (type.includes("platform")){
 			console.log( "object.finalpos is");
-      socket.emit('addPlatformItem',{level:nameL, x:object.x, y:object.y, id:object.id, type: object.type, direction: object.direction, finalVal: object.finalVal});
+      socket.emit('addPlatformItem',{level:nameL, x:object.x, y:object.y, id:object.id, type: object.type, direction: object.direction,mod: object.mod.type, finalVal: object.finalVal});
+
+		}else if (type.includes("boss")){ ///
+			console.log( "boss");
+      socket.emit('addBossItem',{level:nameL,  x: object.x, y:object.y, id: object.id , type: object.type});
     }
+		else if (type.includes("spike")){ ///
+			console.log( "spike");
+      socket.emit('addSpikeItem',{level:nameL,  x: object.x, y:object.y, id: object.id , orientation: object.orientation});
+    }
+
+
 		//{x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type}
 		console.log("Adding "+type+": ", object);
 		console.log("Updated ObjectList",self.ObjectList);
@@ -225,9 +235,19 @@ Map = function(width, height,tile_width, tile_height) {
 					else if (type.includes("weapon")){
 						socket.emit('deleteWeaponItem', {level:nameL, x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.weaponType});
 					}
-					else if (type.includes("platofrm")){
+					else if (type.includes("platform")){
 						console.log('trying to remove platform');
 						socket.emit('deleteTerrainItem', {level:nameL, x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
+					//	socket.emit('deletePlatformItem', {level:nameL, x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
+					}
+					else if (type.includes("boss")){
+						console.log('trying to remove boss');
+						socket.emit('deleteBossItem', {level:nameL, x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
+					//	socket.emit('deletePlatformItem', {level:nameL, x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
+					}
+					else if (type.includes("spike")){
+						console.log('trying to remove spike');
+						socket.emit('deleteSpikeItem', {level:nameL, x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id});
 					//	socket.emit('deletePlatformItem', {level:nameL, x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
 					}
 
@@ -270,12 +290,17 @@ Map = function(width, height,tile_width, tile_height) {
 			let block = self.ObjectList['terrain'][id];
 			switch(mod){
 				case 'ice':
+
+					socket.emit('changeMod', {level:nameL,x: toBeRemoved.x, y:toBeRemoved.y, id:toBeRemoved.id, type: toBeRemoved.type, mod: block.mod.type});
 					block.mod = new IceModifier();
+					//based on id, mod: block.mod.type
 					break;
 				case 'mud':
+				socket.emit('changeMod', {level:nameL,x: toBeRemoved.x, y:toBeRemoved.y, id:toBeRemoved.id, type: toBeRemoved.type, mod: block.mod.type});
 					block.mod = new MudModifier();
 					break;
 				case 'none':
+				socket.emit('changeMod', {level:nameL,x: toBeRemoved.x, y:toBeRemoved.y, id:toBeRemoved.id, type: toBeRemoved.type, mod: block.mod.type});
 					block.mod = new NoModifier();
 					break;
 			}
