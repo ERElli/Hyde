@@ -187,7 +187,6 @@ var inRange = function(thing) {
 var update = function() {
 
 	if (paused) {
-		console.log("paused");
 		return;
 	}
 
@@ -734,7 +733,7 @@ var startGame = function(initial_level) {
 		ghost = level['ghost'];
 	}
 
-	console.log(player);
+	console.log("IN START: " + level.hasBoss);
 	
 	enemies = level["enemies"];
 	terrain = level["terrain"];
@@ -748,7 +747,7 @@ var startGame = function(initial_level) {
 
 	//createPickUps();
 	//createPlatforms();
-	createBoss();
+	//createBoss();
 	
 	updateControls();
 
@@ -789,8 +788,9 @@ var createPlatforms = function() {
 }
 
 var createBoss = function() {
-	b = new BasicBoss(Math.random(), 1000, 100, player);
+	b = new TankBoss(Math.random(), 1000, 100, player);
 	enemies[b.id] = b;
+	level.hasBoss = true;
 }
 
 

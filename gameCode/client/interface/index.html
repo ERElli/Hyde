@@ -27,7 +27,7 @@
 		<script type="text/javascript" src="../../levelEditor/EntityFactory.js"></script>
 
 
-		<script type="text/javascript" src="level.json"></script>
+		<script type="text/javascript" src="world2level1.json"></script>
 		<!--<script type="text/javascript" src="ghostDemo.json"></script>-->
 		<script type="text/javascript" src="jsonTest.js"></script>
 
@@ -40,7 +40,7 @@
 
 		<script>
 
-		var isOfflineMode=false;
+		var isOfflineMode=true;
 		var level = {};
 		level.hasBoss = false;
 		var gui;
@@ -96,7 +96,7 @@
 					else if (e.type == 'flying enemy') {
 						enemy =  new FlyingEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
 					}
-					if (e.type == 'basic boss') {
+					else if (e.type == 'basic boss') {
 						level.hasBoss = true;
 						enemy =  new BasicBoss(e.id, e.x, e.y-150, level['player']);
 					}
