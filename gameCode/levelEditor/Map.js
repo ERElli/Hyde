@@ -111,8 +111,6 @@ Map = function(width, height,tile_width, tile_height) {
 			socket.emit('addCheckpointItem', {level:nameL,x: object.x, y:object.y, id: object.id, type: object.type});
 		}else if (type.includes("weapon")){
 			socket.emit('addWeaponItem', {level:nameL,x: object.x, y:object.y, id: object.id, type: object.weaponType});
-		}else if (type.includes("platform")){
-			socket.emit('addPlatform',{level:nameL, x:object.x, y:object.y, id:object.id, type: object.type, direction: object.direction, finalPos: object.finalpos});
 		}
 		else if (type.includes("platform")){
 			console.log( "object.finalpos is");
@@ -204,18 +202,25 @@ Map = function(width, height,tile_width, tile_height) {
 					gui.fg_ctx.clearRect(x,y,toBeRemoved.width, toBeRemoved.height);
 					console.log("delete here " + nameL);
 					if (type.includes("enemy") ){
+						console.log("deleting enemeey");
 						socket.emit('deleteLevelItem', {level:nameL, x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, vx: toBeRemoved.vx, vy: toBeRemoved.vy, type: toBeRemoved.type});
 					} else if (type.includes("player")){
 						socket.emit('deletePlayerItem', {level:nameL, x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, vx: toBeRemoved.vx, vy: toBeRemoved.vy, type: toBeRemoved.type});
 					}else if (type.includes("Terrain")){
+						console.log('terrain is gone');
 						socket.emit('deleteTerrainItem', {level:nameL, x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
 					}
 					else if (type.includes("checkpoint")){
 				socket.emit('deleteCheckpointItem', {level:nameL, x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
-			}
-			else if (type.includes("weapon")){
-				socket.emit('deleteWeaponItem', {level:nameL, x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.weaponType});
-			}
+					}
+					else if (type.includes("weapon")){
+						socket.emit('deleteWeaponItem', {level:nameL, x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.weaponType});
+					}
+					else if (type.includes("platofrm")){
+						console.log('trying to remove platform');
+						socket.emit('deleteTerrainItem', {level:nameL, x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
+					//	socket.emit('deletePlatformItem', {level:nameL, x: toBeRemoved.x, y:toBeRemoved.y, id: toBeRemoved.id, type: toBeRemoved.type});
+					}
 
 				}
 			}else{

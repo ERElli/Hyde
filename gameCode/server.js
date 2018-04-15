@@ -529,6 +529,36 @@ app.get('/client/interface/soundFX/playerSounds/bigPlayer/bigHurt.wav',function(
 app.get('/client/interface/soundFX/weaponEffects/weaponPickup.wav',function(req, res) {
     res.sendFile(__dirname + '/client/interface/soundFX/weaponEffects/weaponPickup.wav');
 });
+app.get('/client/interface/img/terrain/modifier/ice.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/modifier/ice.png');
+});
+app.get('/client/interface/img/terrain/modifier/mud.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/terrain/modifier/mud.png');
+});
+app.get('/client/interface/img/medals.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/medals.png');
+});
+app.get('/client/engine/controls.js',function(req, res) {
+    res.sendFile(__dirname + '/client/engine/controls.js');
+});
+app.get('/client/images/spikeLeft.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/spikeLeft.png');
+});
+app.get('/client/images/spikeLeftDrop.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/spikeLeftDrop.png');
+});
+app.get('/client/images/spikeRight.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/spikeRight.png');
+});
+app.get('/client/interface/ghostDemo.json',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/ghostDemo.json');
+});
+app.get('/client/interface/testLevel.json',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/testLevel.json');
+});
+
+
+
 
 
 app.get('/images/buildingTerrain3x6.png',function(req, res) {
@@ -731,6 +761,11 @@ io.sockets.on('connection', function(socket){
   socket.on('deleteWeaponItem',function(data){
     console.log(data);
    Database.deleteWeaponItem(data);
+  });
+  socket.on('deletePlatformItem',function(data){
+    console.log(data);
+    console.log('received socket to dlt platform');
+   Database.deletePlatformItem(data);
   });
 
   /*socket.on('deleteLevelItem',function(data){
