@@ -293,6 +293,9 @@ Animation=function(){
 	self.deathSound=function(){
 		Sound.death.play();
 	};
+	self.enemyDeathSound=function(){
+		Sound.enemyDeath.play();
+	};
 	self.checkpointSound=function(){
 		Sound.checkpoint.play();
 	};
@@ -304,6 +307,9 @@ Animation=function(){
 	};
 	self.weaponPickUpSound=function(){
 		Sound.weaponPickUp.play();
+	};
+	self.buildingBreakSound=function(){
+		Sound.buildingBreak.play();
 	};
 	self.playBackgroundMusic=function(worldnum){
 		if (worldnum==1){
