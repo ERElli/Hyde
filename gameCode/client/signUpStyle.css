@@ -1,0 +1,128 @@
+.signUpDiv {
+
+    background:transparent;
+    background-image: url(images/signUpBackground.png);
+    background-size: cover;
+    position: fixed;
+
+    width: 580px;
+    height: 530px;
+
+    left: 345px;
+    top: 75px;
+
+}
+
+.signUpDiv-username{
+	background:transparent;
+    background-image:url(images/textfieldBackground.png);
+    border: none;
+    padding: 20px;
+    width: 350px;
+    height: 62px;
+    font-size: 18;
+
+
+    background-size: 100%;
+    position: fixed;
+
+    left: 450px;
+    top: 200px;
+}
+
+.signUpDiv-password{
+	background:transparent;
+    background-image:url(images/textfieldBackground.png);
+    border: none;
+    padding: 20px;
+    width: 350px;
+    height: 62px;
+    font-size: 18;
+
+
+    background-size: 100%;
+    position: fixed;
+
+    left: 450px;
+    top: 265px;
+}
+
+.firstKissTextfield{
+	background:transparent;
+    background-image:url(images/textfieldBackground.png);
+    border: none;
+    padding: 20px;
+    width: 350px;
+    height: 62px;
+    font-size: 18;
+
+
+    background-size: 100%;
+    position: fixed;
+
+    left: 450px;
+    top: 330px;
+}
+
+.petTextfield{
+	background:transparent;
+    background-image:url(images/textfieldBackground.png);
+    border: none;
+    padding: 20px;
+    width: 350px;
+    height: 62px;
+    font-size: 18;
+
+
+    background-size: 100%;
+    position: fixed;
+
+    left: 450px;
+    top: 395px;
+}
+
+.favoriteSportTextfield{
+	background:transparent;
+    background-image:url(images/textfieldBackground.png);
+    border: none;
+    padding: 20px;
+    width: 350px;
+    height: 62px;
+    font-size: 18;
+
+
+    background-size: 100%;
+    position: fixed;
+
+    left: 450px;
+    top: 460px;
+}
+
+.signUpDiv-signUpButton{
+
+    background:transparent;
+    background-image:url(images/smallSignUp.png);
+    border: none;
+    background-size: 100%;
+    position: fixed;
+
+    width: 150px;
+    height: 55px;
+
+    left: 540px;
+    top: 525px;
+
+
+}
+
+.signUpDiv-signUpButton:hover{
+
+    background:transparent;
+    background-image:url(images/smallSignUpHover.png);
+    border: none;
+    background-size: 100%;
+    position: fixed;
+
+   
+
+}
