@@ -165,10 +165,11 @@ Database.deleteSpikeItem = function(data, cb){
 }
 Database.changeMod = function(data, cb){
   //db.saveLevel.update({ level:"level 3"}, {$pull: {player: {id: "0.32591480354017077" } } } );
-  console.log("changing mod");
-  db.saveLevel.update({ level:data.level},{$pull: {terrain : {id:data.id }  }    } );
-  db.saveLevel.update({level:data.level},   { $addToSet:{ terrain: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type, mod: data.mod} } } }, {upsert: true});
+  console.log("changing mod"+ data.mod);
+  db.saveLevel.update({ level:data.level},{$pull: {terrain : {id:data.id }  }  } , function(err,res){
 
+    db.saveLevel.update({level:data.level}, { $addToSet:{ terrain: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type, mod: data.mod} } } }, {upsert: true});
+  });
     //db.saveLevel.update({ level:data.level},{$set: {spike : {id:data.id }  }    } );
     //db.saveLevel.update({ level:"new"},{$set: {terrain : {mod:"somtet"}  }    } );
 }

@@ -827,7 +827,17 @@ io.sockets.on('connection', function(socket){
     console.log('received socket to dlt spike');
    Database.deleteSpikeItem(data);
   });
-  socket.on('changeMod',function(data){
+  socket.on('changeIceMod',function(data){
+    console.log(data);
+    console.log('received socket to change mod');
+   Database.changeMod(data);
+  });
+  socket.on('changeMudMod',function(data){
+    console.log(data);
+    console.log('received socket to change mod');
+   Database.changeMod(data);
+  });
+  socket.on('changeNoneMod',function(data){
     console.log(data);
     console.log('received socket to change mod');
    Database.changeMod(data);
