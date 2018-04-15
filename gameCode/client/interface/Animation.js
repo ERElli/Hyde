@@ -202,7 +202,7 @@ Animation=function(){
 					gui.aniDraw(Img.muzzleFlash.stepTwo,x-20,entity.y+yAniOffset,40,25);
 				}
 				else{
-					gui.aniDraw(Img.muzzleFlash.stepTwo,x+30,entity.y+yAniOffset7,40,25);
+					gui.aniDraw(Img.muzzleFlash.stepTwo,x+30,entity.y+yAniOffset,40,25);
 				}
 			}
 			else if(numAnimation<7){

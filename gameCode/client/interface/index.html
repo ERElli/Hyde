@@ -267,6 +267,8 @@ console.log(level['weapons']);
 							t.finalVal = t.finalVal-150;
 						}
 						block = MovingPlatform(t.id,t.x,t.y-150,t.direction,t.finalVal);
+					}else if(t.type == 'spike trap'){
+						block= SpikeTrap(t.id,t.x,t.y-150,t.orientation);
 					}
 					switch(t.mod.type){
 						case 'ice':
