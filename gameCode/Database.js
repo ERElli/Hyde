@@ -127,7 +127,7 @@ Database.deletePlayerItem = function(data, cb){
     db.saveLevel.update({ level:data.level},{$pull: {player : {id:data.id }  }    } );
 }
 Database.deleteTerrainItem = function(data, cb){
-  console.log("removing terrain");
+  console.log("removing terrain or platform");
   db.saveLevel.update({ level:data.level},{$pull: {terrain : {id:data.id }  }    } );
 }
 Database.deleteCheckpointItem = function(data, cb){
@@ -140,6 +140,12 @@ Database.deleteWeaponItem = function(data, cb){
   console.log("removing weapon");
     db.saveLevel.update({ level:data.level},{$pull: {weapon : {id:data.id }  }    } );
 }
+Database.deletePlatformItem = function(data, cb){
+  //db.saveLevel.update({ level:"level 3"}, {$pull: {player: {id: "0.32591480354017077" } } } );
+  console.log("removing deletePlatformItem");
+    db.saveLevel.update({ level:data.level},{$pull: {terrain : {id:data.id }  }    } );
+}
+
 //Database.deleteLevelItem = function(data, cb){
 
   //console.log("nice"+data.x, data.y, data.w, data.h, data.id, data.type);
