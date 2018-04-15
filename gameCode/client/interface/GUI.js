@@ -517,7 +517,7 @@ GUI = function(container){
 		img=Img.levelComplete;
 		gui.gr_ctx.drawImage(img,400,50,450,400);
 		//socket for signaling user has finished a level and sends level name and score
-		socket.emit('updateLevel', { level: "level 1", score: "score"});
+		
 		ani.winGameSound();
 	};
 	//QuickDraw Methods(For improved readability)

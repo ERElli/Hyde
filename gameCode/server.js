@@ -655,9 +655,6 @@ io.sockets.on('connection', function(socket){
 
       });
   });
-  socket.on('updateScore', function(data){
-    console.log("username are" + data.level);
-  });
 
 /*  socket.on('getLevelNames',function(){
    //Database.levelUpdate(user, data);
@@ -667,6 +664,7 @@ io.sockets.on('connection', function(socket){
   */
 
   socket.on('updateLevel',function(data){
+    console.log("i was called");
    Database.levelUpdate(user, data);
   });
 

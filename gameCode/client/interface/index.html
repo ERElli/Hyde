@@ -68,6 +68,7 @@
 			//the socket receive the level objects from the database
 
 			socket.on('receiveLevelObjects',function(data){
+				console.log("loooik"+ data['level']);
 				levelObjects = data;
 				//level objects should be in data, right now they are logged in console
 				let realLevel = EntityFactory(levelObjects,false);

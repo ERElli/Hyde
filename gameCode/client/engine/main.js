@@ -1,3 +1,4 @@
+var socket = io();
 
 var frameCount;
 
@@ -135,13 +136,13 @@ var doPressedActions = function() {
 	if (pressing['shoot']) {
 
 		if (player.isBig) {
-			
+
 			if (player.hasBoulder && player.pickUpBoulderTimer > 10) {
 				boulder = player.throwBoulder();
 				bullets[boulder.id] = boulder;
 			}
 			else if (!player.hasBoulder && player.throwBoulderTimer > 10) {
-				
+
 				for (var key in boulderPickUps) {
 
 					bp = boulderPickUps[key];
@@ -155,7 +156,7 @@ var doPressedActions = function() {
 						delete boulderPickUps[key];
 					}
 				}
-			}				
+			}
 			player.pickUpBoulderTimer++;
 			player.throwBoulderTimer++;
 		}
@@ -212,7 +213,7 @@ var update = function() {
 			}
 		}
 		everyTenCount++;
-		
+
 	}
 
 	//ghost.update();
@@ -251,7 +252,7 @@ var update = function() {
 		block = terrain[key];
 
 		gui.drawTerrain(block,gui.fg_ctx)
-		
+
 		if (block.type == "moving platform") {
 			block.updatePosition();
 		}
@@ -263,14 +264,14 @@ var update = function() {
 		//Check collisions with player ####################################
 
 		if (blockUnderEntity(block, player)) {
-			
+
 			if (block.type == 'spike trap' && block.orientation == "up" && !player.isImmune) {
 				player.takeDamage(block.damage);
 				player.vy = 10;
 			}
 			else {
 				player.falling = false;
-				
+
 				if (block.mod) {
 					block.mod.applyEffect(player);
 				}
@@ -312,7 +313,7 @@ var update = function() {
 				player.x = block.x + block.width+player.xOffset;
 				player.blockedLeft = true;
 			}
-			
+
 			if (block.type == 'spike trap' && block.orientation == "right" && !player.isImmune) {
 				player.takeDamage(block.damage);
 				player.vx = 10;
@@ -340,7 +341,7 @@ var update = function() {
 				player.x = block.x - player.xOffset;
 				player.blockedRight = true;
 			}
-			
+
 			if (block.type == 'spike trap' && block.orientation == "left" && !player.isImmune) {
 				player.takeDamage(block.damage);
 				player.vx = -10;
@@ -365,7 +366,7 @@ var update = function() {
 
 
 		if (blockOverEntity(block, player)) {
-			
+
 			if (block.type == 'spike trap' && block.orientation == "down" && !player.isImmune) {
 				player.takeDamage(block.damage);
 				player.vy = -10;
@@ -386,14 +387,14 @@ var update = function() {
 
 			if (blockUnderEntity(block, enemy)) {
 				enemy.falling = false;
-				
+
 				if (block.mod) {
 					block.mod.applyEffect(enemy);
 				}
 				else {
 					block.clearEffects(enemy);
 				}
-				
+
 				if (!enemy.justJumped) {
 					if (enemy.type == 'flying enemy') {
 						enemy.y = block.y - block.height*0.75;
@@ -410,12 +411,12 @@ var update = function() {
 			}
 
 			if (enemy.falling) {
-				
+
 				if (enemy.isSlipping) {
 					enemy.isSlipping = false;
 					enemy.acceleration *= 15;
 				}
-				
+
 				enemy.inAir = true;
 				enemy.setAirMotion();
 			}
@@ -512,7 +513,7 @@ var update = function() {
 		}
 
 	}
-	
+
 	for (var key in boulderPickUps) {
 		boulderPickUps[key].draw();
 	}
@@ -574,9 +575,9 @@ var update = function() {
 			delete bullets[key];
 		}
 	}
-	
 
-	
+
+
 	//Manage all the enemies ----------------------------------------------------------------------------------------
 
 	for (var key in enemies) {
@@ -594,7 +595,7 @@ var update = function() {
 			//plays enemy death animation sound
 			ani.enemyDeathSound();
 			delete enemies[key];
-			
+
 			if (enemy.type == 'basic boss' || enemy.type == 'flying boss' || enemy.type == 'tank boss') {
 				endGame();
 			}
@@ -737,7 +738,7 @@ var startGame = function(initial_level) {
 	}
 
 	console.log(player);
-	
+
 	enemies = level["enemies"];
 	terrain = level["terrain"];
 	breakable = new Terrain1x1Breakable(Math.random(), 500, 325);
@@ -751,7 +752,7 @@ var startGame = function(initial_level) {
 	//createPickUps();
 	//createPlatforms();
 	//createBoss();
-	
+
 	updateControls();
 
 	setInterval(update, 1000/60)
@@ -797,6 +798,9 @@ var createBoss = function() {
 
 
 var endGame = function() {
+	//should be a varianle for level name and time
+	console.log("level is: "+ JSON.stringify(level.level)); //level.level doesn't work
+	socket.emit('updateLevel', { level: "level 3", time: "score"});
 	gui.levelComplete();
 	//console.log("PLAYER POSTIION",playerPositionLog);
 	ghost = new Ghost(Math.random(),0,0,{});

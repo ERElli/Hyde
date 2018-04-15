@@ -213,6 +213,7 @@ Database.savePlayerProgress = function(data,cb){
 }
 
 Database.levelUpdate = function(username,data){
+  console.log("hereeee  "+ data.level + " " + data.time);
   db.progress.findOne({username:username},function(err,res){
     if(res){
       console.log("true "+ data.level);
@@ -220,9 +221,9 @@ Database.levelUpdate = function(username,data){
         {username:username},
         {  $addToSet:
           {
-            items: {level : "level 1", time: 130}
+            items: {level : data.level, time: data.time}
           }
-        });
+        }, {upsert: true});
 
     }
   });
