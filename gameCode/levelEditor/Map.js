@@ -327,11 +327,7 @@ Map = function(width, height,tile_width, tile_height) {
 		Level.width = self.width;
 		Level.height = self.height;
 		Level.enemies = self.ObjectList.enemies;
-		//combining ObjectList.enemies and ObjectList.boss
-		for(let id in self.ObjectList.boss){
-			var newBoss = self.ObjectList.boss[id];
-			Level.enemies[id] = newBoss;
-		}
+		Level.boss = self.ObjectList.boss;
 		Level.terrain = self.ObjectList.terrain;
 		Level.player = self.ObjectList.player;
 		Level.background = self.background;

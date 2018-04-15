@@ -17,7 +17,10 @@ EntityFactory = function(levelString,isLevelEditor){
 		console.log(generalType);
 		// console.log(Object.keys(LevelObject[generalType]).length);
 
-		if(generalType === 'enemies' || generalType === 'terrain' || generalType === 'player' || generalType ==='weapon'){
+		if(generalType === 'enemies' || generalType === 'terrain' || generalType === 'player' || generalType ==='weapon' /*|| generalType === 'boss'*/){
+			// if(generalType === 'boss'){
+			// 	generalType = 'enemies';
+			// }
 
 			self[generalType] = {};
 			// for(let id in LevelObject[0][generalType][0]){
@@ -84,6 +87,16 @@ EntityFactory = function(levelString,isLevelEditor){
 								break;
 							case "tank enemy":
 								mObject[mID] = TankEnemy(mID,mX,mY,0,0,Img.basicEnemy3,'red',null);
+								break;
+							// case "basic boss":
+							// 	mObject[mID] = BasicBoss(mID,mX,mY,null);
+							// 	break;
+							// case "flying boss":
+							// 	mObject[mID] = FlyingBoss(mID,mX,mY,null);
+							// 	break;
+							// case "tank boss":
+							// 	mObject[mID] = TankBoss(mID,mX,mY,null);
+							// 	break;
 						}
 						break;
 					case "checkpoints":
