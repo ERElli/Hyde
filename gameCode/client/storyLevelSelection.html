@@ -21,7 +21,7 @@
   <script>
 
     var socket = io();
-
+	var myStorage=window.localStorage;
     var main = document.getElementById('main');
 
     var playOne = document.getElementById('playOne');
@@ -29,16 +29,24 @@
    	var playThree = document.getElementById('playThree');
 
     playOne.onclick = function(){
+		localStorage.setItem('level','one');
+		localStorage.setItem('isStory',true);
     	location.href = "interface/index.html";
     	//emit level one
     }
 
     playTwo.onclick = function(){
     	//emit level two
+		localStorage.setItem('level','two');
+		localStorage.setItem('isStory',true);
+    	location.href = "interface/index.html";
     }
 
     playThree.onclick = function(){
     	//emit level three
+		localStorage.setItem('level','three');
+		localStorage.setItem('isStory',true);
+    	location.href = "interface/index.html";
     }
 
     </script>
