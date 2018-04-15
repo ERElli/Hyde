@@ -201,7 +201,7 @@ var update = function() {
 		playerPositionLog[everyTenCount].x = player.x;
 		playerPositionLog[everyTenCount].y = player.y;
 		if(ghost != null){
-			console.log("GHOST PATH",ghost.path);
+			//console.log("GHOST PATH",ghost.path);
 			if((everyTenCount<Object.keys(ghost.path).length)){
 				gui.ep_ctx.clearRect(0,0,gui.ep.width,gui.ep.height);
 				ghost.x = ghost.path[everyTenCount].x;
