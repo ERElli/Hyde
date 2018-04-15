@@ -582,7 +582,6 @@ GUI = function(container){
 		//console.log(theTime);
 		//draws time
 		ctx.fillText('Time: '+ theTime[0] +":"+theTime[1]+ ":"+theTime[2],timeX,timeY);
-		gui.formatTime(Timer.getCurrentTime());
 		//draw ammo
 		if(!player.isBig){
 			if(player.weapon.type=="sword" || player.weapon.type=="pistol"){
