@@ -1,11 +1,13 @@
-//ENEMY
+/*
+* Base class for all enemies; creatures that attack and are killed by the player.
+*/
 function Enemy(type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, maxHealth, weapon, mass, jumpSpeed, meleeDamage, patrolRange, slowDown, target) {
 	
 	
 	var self = Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, maxHealth, weapon, mass, jumpSpeed, meleeDamage);
 
-	self.zeroPoint = x;
-	self.patrolRange = patrolRange;
+	self.zeroPoint = x; // where the enemy starts
+	self.patrolRange = patrolRange; // how far the enemy can move from its start position (not currently used)
 	self.target = target;	
 	self.maxForward = self.zeroPoint + self.patrolRange;
 	self.maxBackward = self.zeroPoint - self.patrolRange;
@@ -14,9 +16,6 @@ function Enemy(type, id, x, y, vx, vy, width, height, img, color, acceleration, 
 	
 	var superUpdatePos = self.updatePosition;
 	self.updatePosition = function() {
-		
-		//console.log("In Enemy: " + self.target);
-
 		
 		if (self.isLaunched) {
 			self.ax = 0;
@@ -59,19 +58,17 @@ function Enemy(type, id, x, y, vx, vy, width, height, img, color, acceleration, 
 		
 	}
 	
-	self.melee = function(direction) {
-		
-	}
-	
-	self.attack = function(target) {
-		
-	}
-	
 	self.updateAim = function(target) {
 		self.aimAngle = Math.atan2(target.y-self.y,target.x-self.x) / Math.PI * -180;
 	}
 	
 	self.takeDamage = function(amount) {
+		if (difficulty == 'easy') { 
+			amount *= 2;
+		}
+		else if (difficulty == 'hard') {
+			amount /= 2; 
+		}
 		self.health -= amount;
 		self.isImmune = true;
 		self.immuneCounter = 0;
@@ -80,6 +77,10 @@ function Enemy(type, id, x, y, vx, vy, width, height, img, color, acceleration, 
 	return self;
 }
 
+
+/*
+* Goomba
+*/
 function BasicEnemy(id, x, y, vx, vy, img, color, target) {
 	
 	var basicWidth = 40;
@@ -101,13 +102,13 @@ function BasicEnemy(id, x, y, vx, vy, img, color, target) {
 					basicJumpSpeed, basicMeleeDamage, basicPatrolRange, basicSlowDown, target);
 	
 	
-	//self.draw = function() {
-		
-	//}
-	
 	return self;
 }
 
+
+/*
+* An enemy with a pistol that flies around
+*/
 function FlyingEnemy(id, x, y, vx, vy, img, color, target) {
 	
 	var flyingWidth = 30;
@@ -161,14 +162,16 @@ function FlyingEnemy(id, x, y, vx, vy, img, color, target) {
 			self.y = self.maxUp;
 		}
 		
-		
-		
 	}
 	
 	
 	return self;
 }
 
+
+/*
+* A massive enemy that will charge at and possibly knock back the player
+*/
 function TankEnemy(id, x, y, vx, vy, img, color, target) {
 
 	var tankWidth = 70;
@@ -203,7 +206,7 @@ function TankEnemy(id, x, y, vx, vy, img, color, target) {
 	
 	var superTakeDamage = self.takeDamage;
 	self.takeDamage = function(amount) {
-		if (self.isBlocking) {
+		if (self.isBlocking) { // defensive posture
 			amount /= 10;
 		}
 		superTakeDamage(amount);
@@ -226,7 +229,9 @@ function TankEnemy(id, x, y, vx, vy, img, color, target) {
 }
 
 
-
+/*
+* The first boss of the game. Throws basic enemies at the player
+*/
 function BasicBoss(id, x, y, target) {
 	
 	var basicWidth = 100;
@@ -279,17 +284,16 @@ function BasicBoss(id, x, y, target) {
 		
 	}
 	
-	//self.draw = function() {
-		
-	//}
-	
 	return self;
 }
 
 
+/*
+* The last boss. Keeps a large vertical distance from the player while kiting, then dives after a certain amount of time.
+* Dive very effective since shotgun effective at close range, and boss does high melee damage
+*/
 function FlyingBoss(id, x, y, target) {
 	
-	//kamakazee with shotguns
 	
 	var flyingWidth = 50;
 	var flyingHeight = 50;
@@ -377,6 +381,9 @@ function FlyingBoss(id, x, y, target) {
 }
 
 
+/*
+* Second boss. Very big, player can barely double-jump over him.
+*/
 function TankBoss(id, x, y, target) {
 
 	var tankWidth = 350;

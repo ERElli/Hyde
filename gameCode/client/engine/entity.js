@@ -1,17 +1,12 @@
-/*
-Coordinates are center of entities (still updating from bottom-left)
-*/
-
-//var canvas = document.getElementById("fg")
-//ctx=gui.fg_ctx; //canvas.getContext('2d');
-
 var framesPerSecond = 60; //conversion factor for frames to seconds
 var pixPerMetre = 120;
 var mpsTOppf = pixPerMetre/framesPerSecond;
 
 var g = -9*mpsTOppf/framesPerSecond; //metres pre frame squared
 
-//ENTITY
+/*
+* The base class for all entities in the game.
+*/
 function Entity(type, id, x, y, vx, vy, width, height, img, color) {
 
 	var self = {
@@ -34,14 +29,9 @@ function Entity(type, id, x, y, vx, vy, width, height, img, color) {
 
 	self.draw = function(ctx,isLevelEditor) {
 		gui.drawEntity(self, ctx, isLevelEditor);
-		/*
-		ctx.save();
-		ctx.fillStyle = self.color;
-		ctx.fillRect(self.x,self.y-self.height,self.width,self.height);
-		ctx.restore();
-		*/
 	}
-	self.getDistance = function(entity2) {	//return distance (number)
+	
+	self.getDistance = function(entity2) {
 		var dx = self.x - entity2.x;
 		var dy = self.y - entity2.y;
 		return Math.sqrt(dx*dx+dy*dy);
@@ -72,6 +62,9 @@ function Entity(type, id, x, y, vx, vy, width, height, img, color) {
 	return self;
 };
 
+/*
+* Basic test collision for two rectangles
+*/
 var testCollisionRectRect = function(rect1,rect2){
 	return rect1.x <= rect2.x+rect2.width
 		&& rect2.x <= rect1.x+rect1.width
@@ -80,12 +73,14 @@ var testCollisionRectRect = function(rect1,rect2){
 }
 
 
-//HUMANOID ------------------------------------------------------------------------------------------------------------------------------------------
+/*
+* The base class for player and enemies. Defines entities with more complex movement.
+*/
 function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, health, weapon, mass, jumpSpeed, meleeDamage, slowDown) {
 
 	var self = Entity(type, id, x, y, vx, vy, width, height, img, color);
 
-	self.acceleration = acceleration;
+	self.acceleration = acceleration; // acceleration in x
 	self.maxVelocityX = maxVX;
 	self.maxVelocityY = maxVY;
 	self.health = health;
@@ -93,9 +88,9 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 	self.mass = mass;
 	self.jumpSpeed = jumpSpeed;
 	self.meleeDamage = meleeDamage;
-	self.slowDownFactor = slowDown;
+	self.slowDownFactor = slowDown; // the rate at which the humanoid slows down when not deliberately accelerating
 
-	self.attackCounter = 100;
+	self.attackCounter = 100; // timer for keeping track of when the humanoid can attack
 	self.aimAngle = 0;
 
 	self.isImmune = false;
@@ -109,36 +104,37 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 
 	self.falling = false;
 
-	self.xOffset = self.width/2;
+	//values used in collision detection
+	self.xOffset = self.width/2; 
 	self.yOffset = self.height/2;
 
 	self.ax = 0;
 	self.ay = 0;
-	//self.fx = 0;
-	//self.fy = 0;
+	
 	//Animation counter for humanoids
 	self.aniCount=0;
 
 	self.setAniCount=function(newCount){
 		self.aniCount=newCount;
 	}
+	
+	
 	self.updatePosition = function() {
-
-		//self.ax = -self.fx / self.mass;
-		//self.ay = -self.fy / self.mass;
 
 		self.vx += self.ax;
 		self.vy += self.ay;
 
+		// If speed greater than max and humanoid is not launched, set speed to max speed (in appropriate direction)
 		if (Math.abs(self.vx) > self.maxVelocityX && !self.isLaunched) {
 			self.vx = Math.sign(self.vx)*self.maxVelocityX;
 		}
 
+		// Same with y
 		if (Math.abs(self.vy) > self.maxVelocityY) {
 			self.vy = Math.sign(self.vy)*self.maxVelocityX;
 		}
 
-
+		// Make sure humanoid does not move if it is blocked by terrain
 		if (self.blockedLeft && self.vx < 0) {
 			self.vx = 0;
 		}
@@ -150,6 +146,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		self.x += self.vx;
 		self.y -= self.vy;
 
+		// Humanoid's weapon moves with humanoid
 		self.weapon.x = self.x;
 		self.weapon.y = self.y;
 		self.weapon.vx = self.vx;
@@ -159,21 +156,23 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 
 	}
 
+	// Set properties for air motion
 	self.setAirMotion = function() {
 		self.ay = g;
 		self.ax /= 2;
 	}
 
+	// Set properties for ground motion
 	self.setGroundMotion = function() {
 		self.ay = 0;
 		self.vy = 0;
 	}
 
 	self.getMomentum = function() {
-		return self.vx*self.mass;
-		//return 100;
+		return self.vx*self.mass; // p = mv
 	}
 
+	// Make the humanoid move very fast for a short time (used in collisions)
 	self.launch = function(vx, time) {
 		self.isLaunched = true;
 		self.vx = vx;
@@ -189,6 +188,7 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 		ani.jumpSound(self);
 	}
 
+	
 	self.shoot = function() {
 		
 		if (self.weapon.ammo > 0) {
@@ -200,25 +200,11 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 				return false;
 			}
 		}
+		
 	}
-
-	self.melee = function() {
-
-	}
+	
 
 	self.takeDamage = function(amount) {
-		if (self.type == 'player') {
-			if (difficulty == 'easy') { 
-				amount /= 2; 
-			}
-			else if (difficulty == 'hard') {
-				amount *= 2; 
-			}
-		}
-		else {
-			if (difficulty == 'easy') { amount *= 2; }
-			else if (difficulty == 'hard') { amount /= 2; }
-		}
 		self.health -= amount;
 		self.isImmune = true;
 		self.immuneCounter = 0;
@@ -229,9 +215,9 @@ function Humanoid(type, id, x, y, vx, vy, width, height, img, color, acceleratio
 
 
 
-
-
-//GHOST --------------------------------------------------------------------------------------------------------------------------------------
+/*
+* The record of the high-score run through the level.
+*/
 function Ghost(id, x, y, path) {
 	self = Entity("ghost", id, x, y, 0, 0, self.width, self.height, "", "red");
 	self.width = 50;
@@ -254,7 +240,9 @@ function Ghost(id, x, y, path) {
 
 
 
-//PROJECTILE ------------------------------------------------------------------------------------------------------------------
+/*
+* General bullet, fired by gun, does damage to entities.
+*/
 function Bullet(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	var self = Entity("bullet", id, x, y, vx, vy, width, height, img, color);
 
@@ -262,16 +250,15 @@ function Bullet(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	self.height = 10;
 	self.damage = 5;
 
-	self.ownerID = ownerID;
-
-
-	//self.draw = function() {
-	//}
+	self.ownerID = ownerID; // does not damage its owner
 
 	return self;
 }
 
 
+/*
+* Damage radius done by a melee weapon (sword).
+*/
 function MeleeBullet(id, x, y, vx, vy, width, height, img, color, ownerID) {
 	var self = Entity("meleeBullet", id, x, y, vx, vy, width, height, img, color);
 
@@ -280,6 +267,7 @@ function MeleeBullet(id, x, y, vx, vy, width, height, img, color, ownerID) {
 
 	self.ownerID = ownerID;
 
+	// Moves with the player during the swing
 	self.updatePosition = function() {
 		self.x = player.x;
 		self.y = player.y;
@@ -287,15 +275,13 @@ function MeleeBullet(id, x, y, vx, vy, width, height, img, color, ownerID) {
 		self.vy = player.vy;
 	}
 
-
-	//self.draw = function() {
-
-	//}
-
 	return self;
 }
 
 
+/*
+* A boulder that has been thrown.
+*/
 function BoulderBullet(id, x, y, vx, vy, img, color, ownerID) {	
 	
 	var self = Entity("boulderBullet", id, x, y, vx, vy, 0, 0, img, color);
@@ -315,8 +301,9 @@ function BoulderBullet(id, x, y, vx, vy, img, color, ownerID) {
 	self.setAniCount=function(newCount){
 		self.aniCount=newCount;
 	}
-	var oldUpdate = self.updatePosition;
 	
+	
+	var oldUpdate = self.updatePosition;
 	self.updatePosition = function() {
 
 		self.vy += self.ay;
