@@ -58,8 +58,8 @@
 		var mydata;
 		//var myStorage=window.localStorage;
 		var storyLevelName=localStorage.getItem('level');
-		var isOfflineMode= true;
-		var isStoryMode='false';
+		var isOfflineMode= false;
+		var isStoryMode=true;
 		var level = {};
 		level.hasBoss = false;
 		var gui;
@@ -297,11 +297,11 @@
 
 				startGame(level);
 		  });
-		}else{
+		}else {
 			//#############################################################################
 			//FOR GUI TESTING PURPOSES
 
-
+			/*
 			if(mydata.ghost !== undefined){
 				console.log("GHOST",mydata.ghost);
 				let g = mydata['ghost'];
@@ -310,6 +310,7 @@
 				// level['ghost'].setPath(g.path);
 				console.log("LEVEL GHOST PATH",level['ghost'].path);
 			}
+			*/
 
 
 			for (var thing in mydata['player']) {
@@ -358,13 +359,13 @@
 							break;
 					}
 					level['enemies'][mainBoss.id] = boss;
-				}
 			}
+			//}
 
 			level['weapons'] = {};
-				console.log(mydata);
+			console.log(mydata);
 
-				for (let thing in mydata['weapons']) {
+			for (let thing in mydata['weapons']) {
 
 					w = mydata['weapons'][thing]
 					console.log("WEAPONS",level['player']);
@@ -374,10 +375,10 @@
 
 					level['weapons'][w.id] = weapon;
 
-				}
-console.log(level['weapons']);
+			}
+			console.log(level['weapons']);
 			level['terrain'] = {};
-				for (var thing in mydata['terrain']) {
+			for (var thing in mydata['terrain']) {
 					let t = mydata['terrain'][thing]
 					console.log("MOD",t.mod);
 
@@ -435,12 +436,13 @@ console.log(level['weapons']);
 					//console.log(block.mod);
 					level['terrain'][t.id] = block;
 
-				}
+			}
 			level.width=mydata.width;
 			level.height= mydata.height;
 			level.background=mydata.background;
 			console.log(mydata);
 			startGame(level);
+		}
 
 //######################################################################################
 		// }
