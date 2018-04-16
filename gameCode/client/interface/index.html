@@ -58,7 +58,7 @@
 		var mydata;
 		//var myStorage=window.localStorage;
 		var storyLevelName=localStorage.getItem('level');
-		var isOfflineMode= false;
+		var isOfflineMode= true;
 		var isStoryMode='false';
 		var level = {};
 		level.hasBoss = false;
@@ -192,18 +192,6 @@
 					else if (e.type == 'flying enemy') {
 						enemy =  new FlyingEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
 					}
-					// else if (e.type == 'basic boss') {
-					// 	level.hasBoss = true;
-					// 	enemy =  new BasicBoss(e.id, e.x, e.y-150, level['player']);
-					// }
-					// else if (e.type == 'tank boss') {
-					// 	level.hasBoss = true;
-					// 	enemy =  new TankBoss(e.id, e.x, e.y-150, level['player']);
-					// }
-					// else {
-					// 	level.hasBoss = true;
-					// 	enemy =  new FlyingBoss(e.id, e.x, e.y-150, level['player']);
-					// }
 
 					level['enemies'][e.id] = enemy;
 
@@ -316,9 +304,7 @@
 			//FOR GUI TESTING PURPOSES
 
 
-			if(mydata.ghost != undefined){
-
-
+			if(mydata.ghost !== undefined){
 				console.log("GHOST",mydata.ghost);
 				let g = mydata['ghost'];
 				// console.log("G PATH",g.path);
@@ -350,21 +336,31 @@
 				else if(e.type =='flying enemy'){
 					enemy =  new FlyingEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
 				}
-				else if (e.type == 'basic boss') {
-						level.hasBoss = true;
-						enemy =  new BasicBoss(e.id, e.x, e.y-150, level['player']);
-				}
-				else if (e.type == 'tank boss') {
-						level.hasBoss = true;
-						enemy =  new TankBoss(e.id, e.x, e.y-150, level['player']);
-				}
-				else {
-						level.hasBoss = true;
-						enemy =  new FlyingBoss(e.id, e.x, e.y-150, level['player']);
-				}
 
 				level['enemies'][e.id] = enemy;
 
+			}
+
+			for(let thing in mydata['boss']) {
+					console.log("BOSS",mydata.boss[thing]);
+					let mainBoss = mydata.boss[thing];
+					let boss;
+					switch(mainBoss.type){
+						case 'basic boss':
+							level.hasBoss = true;
+							boss = BasicBoss(mainBoss.id,mainBoss.x, mainBoss.y-150,level['player']);
+							break;
+						case 'flying boss':
+							level.hasBoss = true;
+							boss = FlyingBoss(mainBoss.id,mainBoss.x, mainBoss.y-150,level['player']);
+							break;
+						case 'tank boss':
+							level.hasBoss = true;
+							boss = TankBoss(mainBoss.id,mainBoss.x, mainBoss.y-150,level['player']);
+							break;
+					}
+					level['enemies'][mainBoss.id] = boss;
+				}
 			}
 
 			level['weapons'] = {};
@@ -449,7 +445,7 @@ console.log(level['weapons']);
 			startGame(level);
 
 //######################################################################################
-		}
+		// }
 
 		//let gameWidth=2000
 		// construct the gui with the container and the map
