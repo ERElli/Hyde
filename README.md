@@ -12,7 +12,7 @@ npm install express
 
 npm install socket.io
 
-Install mongodb on [https://www.mongodb.com/download-center#atlas]()
+Install mongodb on [https://www.mongodb.com/download-center#atlas](https://www.mongodb.com/download-center#atlas)
 
 Go to the downloaded file for mongodb and open the mongod.exe file.
 
