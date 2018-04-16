@@ -58,13 +58,29 @@
 		var mydata;
 		//var myStorage=window.localStorage;
 		var storyLevelName=localStorage.getItem('level');
-		var isOfflineMode= false;
+		var isOfflineMode= true;
 		var isStoryMode='false';
 		var level = {};
 		level.hasBoss = false;
 		var gui;
 		//medal time requirements ['gold','silver','bronze'];
 		var storyMedals=[0,0,0];
+		storyMedal=function(){
+			console.log("calling");
+			console.log(Timer.end(),storyMedals[0],storyMedals[1],storyMedals[2]);
+			if(Timer.end()<storyMedals[0]){
+				return "gold";
+			}
+			else if(Timer.end()<storyMedals[1]){
+				return "silver";				
+			}
+			else if(Timer.end()<storyMedals[2]){
+				return "bronze";
+			}
+			else{
+				return 'none';
+			}
+		}
 		var ani=Animation();
 		var Img=Img("../../");
 		var Sound = Sound("../../");
@@ -111,13 +127,21 @@
 					break;
 				case 'seven':
 					mydata=story['levelSeven'];
-
+					storyMedals[0]=240000;
+					storyMedals[1]=250000;
+					storyMedals[2]=260000;
 					break;
 				case 'eight':
 					mydata=story['levelEight'];
+					storyMedals[0]=240000;
+					storyMedals[1]=250000;
+					storyMedals[2]=260000;
 					break;
 				case 'nine':
 					mydata=story['levelNine'];
+					storyMedals[0]=30000;
+					storyMedals[1]=45000;
+					storyMedals[2]=60000;
 					break;
 			}
 		}

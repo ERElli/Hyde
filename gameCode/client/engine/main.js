@@ -849,7 +849,7 @@ var endGame = function() {
 	ghost.setPath(playerPositionLog);
 	//socket for signaling user has finished a level and sends level name and score
 	socket.emit('updateLevel', { level: "level 1", score: "score"});
-	setTimeout(function(){gui.drawMedal("gold")},5000);
+	setTimeout(function(){gui.drawMedal(storyMedal())},5000);
 	//makeLevel();
 	//convertToString();
 	paused = true;
