@@ -59,6 +59,8 @@
 		var level = {};
 		level.hasBoss = false;
 		var gui;
+		//medal time requirements ['gold','silver','bronze'];
+		var storyMedals=[0,0,0];
 		var ani=Animation();
 		var Img=Img("../../");
 		var Sound = Sound("../../");
@@ -69,24 +71,43 @@
 			switch(storyLevelName){
 				case 'one':
 					mydata=story['levelOne'];
+					storyMedals[0]=16000;
+					storyMedals[1]=20000;
+					storyMedals[2]=25000;
 					break;
 				case 'two':
 					mydata=story['levelTwo'];
+					storyMedals[0]=12000;
+					storyMedals[1]=16000;
+					storyMedals[2]=20000;
 					break;
 				case 'three':
 					mydata=story['levelThree'];
+					storyMedals[0]=25000;
+					storyMedals[1]=30000;
+					storyMedals[2]=35000;
 					break;
 				case 'four':
 					mydata=story['levelFour'];
+					storyMedals[0]=45000;
+					storyMedals[1]=55000;
+					storyMedals[2]=65000;
 					break;
 				case 'five':
 					mydata=story['levelFive'];
+					storyMedals[0]=45000;
+					storyMedals[1]=55000;
+					storyMedals[2]=65000;
 					break;
 				case 'six':
 					mydata=story['levelSix'];
+					storyMedals[0]=20000;
+					storyMedals[1]=25000;
+					storyMedals[2]=30000;
 					break;
 				case 'seven':
 					mydata=story['levelSeven'];
+
 					break;
 				case 'eight':
 					mydata=story['levelEight'];
