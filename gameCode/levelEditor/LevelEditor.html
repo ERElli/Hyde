@@ -319,7 +319,7 @@ socket.on('loadIt', function(data){
 	map = new Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
 	for(let type in levelObject){
 		console.log("TYPE",levelObject[type]);
-		if(type.includes("terrain") || type.includes("enemies") || type.includes("player") || type.includes("weapon")){
+		if(type.includes("terrain") || type.includes("enemies") || type.includes("player") || type.includes("weapon")||type.includes("boss")){
 			for(let id in levelObject[type]){
 				console.log("ID",levelObject[type][id]);
 				map.tryToPlaceEntity(levelObject[type][id]);
@@ -338,6 +338,16 @@ socket.on('hey', function(data){
   let levelObject = EntityFactory(level,true);
   console.log("LEVEL OBJECT",levelObject.width);
   var map = Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
+  for(let type in levelObject){
+		console.log("TYPE",levelObject[type]);
+		if(type.includes("terrain") || type.includes("enemies") || type.includes("player") || type.includes("weapon")){
+			for(let id in levelObject[type]){
+				console.log("ID",levelObject[type][id]);
+				map.tryToPlaceEntity(levelObject[type][id]);
+			}
+		}
+	}
+
   console.log("MAP",map);
   updateWidth(levelObject.width);
   //console.log(levelObject);
