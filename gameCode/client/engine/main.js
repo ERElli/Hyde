@@ -180,7 +180,7 @@ var doPressedActions = function() {
 var inRange = function(thing) {
 	var len = 0;
 	if (thing.type == 'basic boss' || thing.type == 'flying boss' || thing.type == 'tank boss') {
-		console.log("YEAH");
+		//console.log("YEAH");
 		len = 0;
 	}
 	else {
@@ -195,6 +195,7 @@ var inRange = function(thing) {
 var update = function() {
 
 	if (paused) {
+		Timer.pause;
 		return;
 	}
 
@@ -598,7 +599,7 @@ var update = function() {
 		var enemy = enemies[key];
 
 		if (!inRange(enemy)) {
-			console.log("Skipping enemy");
+			//console.log("Skipping enemy");
 			continue;
 		}
 

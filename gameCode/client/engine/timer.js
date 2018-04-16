@@ -23,6 +23,7 @@ timer = function(){
 		self.endTime = Date.now();
 		self.totalTime = self.endTime-self.startTime;
 		console.log(self.totalTime);
+		return self.totalTime;
 	}
 	return self;
 }
