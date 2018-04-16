@@ -494,6 +494,14 @@ app.get('/client/images/playStoryButtonHover.png',function(req, res) {
 });
 
 
+
+app.get('/client/images/changeWorldArrow.png',function(req, res) {
+   res.sendFile(__dirname + '/client/images/changeWorldArrow.png');
+});
+
+
+
+
 app.get('/client/images/achievementsButton.png',function(req, res) {
     res.sendFile(__dirname + '/client/images/achievementsButton.png');
 });

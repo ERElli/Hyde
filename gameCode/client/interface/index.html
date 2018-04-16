@@ -58,7 +58,11 @@
 		var mydata;
 		//var myStorage=window.localStorage;
 		var storyLevelName=localStorage.getItem('level');
-		var isOfflineMode= localStorage.getItem('isOffline');;
+		var isOfflineMode= false;
+		if (localStorage.getItem('isOffline')=='true') {
+			isOfflineMode = true;
+		}
+		console.log(isOfflineMode);
 		var isStoryMode=localStorage.getItem('isStory');;
 		var level = {};
 		level.hasBoss = false;
