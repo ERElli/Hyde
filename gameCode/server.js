@@ -592,12 +592,9 @@ app.get('/client/interface/storyLevels/levelEight.json',function(req, res) {
 app.get('/client/engine/timer.js',function(req, res) {
     res.sendFile(__dirname + '/client/engine/timer.js');
 });
-
-
-
-
-
-
+app.get('/signInHover.png',function(req, res) {
+    res.sendFile(__dirname + '/images/signInHover.png');
+});
 
 app.get('/images/buildingTerrain3x6.png',function(req, res) {
     res.sendFile(__dirname + '/images/buildingTerrain3x6.png');

@@ -4,7 +4,7 @@ timer = function(){
 	self.pauseStart;
 	self.pauseEnd;
 	self.start=function(){
-		
+
 		self.startTime=Date.now();
 	}
 	self.getCurrentTime = function(){
@@ -23,6 +23,7 @@ timer = function(){
 		self.endTime = Date.now();
 		self.totalTime = self.endTime-self.startTime;
 		console.log(self.totalTime);
+		return self.totalTime;
 	}
 	return self;
 }
