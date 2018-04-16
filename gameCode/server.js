@@ -595,6 +595,26 @@ app.get('/client/engine/timer.js',function(req, res) {
 app.get('/signInHover.png',function(req, res) {
     res.sendFile(__dirname + '/images/signInHover.png');
 });
+app.get('/client/interface/inGameMenuStyle.css',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/inGameMenuStyle.css');
+});
+app.get('/client/interface/img/menuMainMenu.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/menuMainMenu.png');
+});
+app.get('/client/interface/img/menuQuit.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/menuQuit.png');
+});
+app.get('/client/interface/img/menuLevelEditor.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/menuLevelEditor.png');
+});
+app.get('/client/interface/img/menuLevelEditor.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/menuLevelEditor.png');
+});
+app.get('/client/interface/img/menuQuit.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/menuQuit.png');
+});
+
+
 
 app.get('/images/buildingTerrain3x6.png',function(req, res) {
     res.sendFile(__dirname + '/images/buildingTerrain3x6.png');
