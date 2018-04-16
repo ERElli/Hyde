@@ -15,11 +15,22 @@
     height: 62px;
 
 }
+.pstyle{
+  margin-bottom: 15px;
+  background-color: #626262;
+  color: white;
+  font-size: 16px;
+  border: 2px solid #f6f0e4;
+  width: 200px;
+  padding-left: 10px;
+
+
+}
 .btnstyle{
 
   width: 400px;
   margin-bottom: 15px;
-  background-color: #626262; /* Green */
+  background-color: #626262;
 
   color: white;
   padding: 15px 32px;
