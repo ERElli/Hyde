@@ -841,7 +841,7 @@ var createBoss = function() {
 
 var endGame = function() {
 	//should be a varianle for level name and time
-	console.log("level is: "+level.name +"time " Timer.end() ); //level.level doesn't work
+	console.log("level is: "+level.name +"time " + Timer.end() ); //level.level doesn't work
 	socket.emit('updateLevel', { level: level.name , time: Timer.end() });
 	gui.levelComplete();
 	//console.log("PLAYER POSTIION",playerPositionLog);
