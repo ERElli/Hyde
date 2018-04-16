@@ -63,7 +63,13 @@
 		//var myStorage=window.localStorage;
 		var storyLevelName=localStorage.getItem('level');
 		var isOfflineMode= false;
-		var isStoryMode=true;
+		if (localStorage.getItem('isOffline')=='true') {
+			isOfflineMode = true;
+		}
+		var isStoryMode = false;
+		if (localStorage.getItem('isStory') == 'true') {
+			isStoryMode = true;
+		}
 		var level = {};
 		level.hasBoss = false;
 		var gui;
@@ -90,7 +96,7 @@
 		var HEIGHT=500;
 		var WIDTH=1250;
 		var Timer= timer();
-		if(isOfflineMode){
+		if(isStoryMode){
 			switch(storyLevelName){
 				case 'one':
 					mydata=story['levelOne'];
@@ -148,7 +154,7 @@
 					break;
 			}
 		}
-		if (!isOfflineMode){
+		if (!isOfflineMode && !isStoryMode){
 			var socket = io();
 
 

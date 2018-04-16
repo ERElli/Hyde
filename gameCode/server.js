@@ -20,6 +20,9 @@ app.get('/client/gameMenu.html',function(req, res) {
 app.get('/client/gameMenu2.html',function(req, res) {
     res.sendFile(__dirname + '/client/gameMenu2.html');
 });
+app.get('/client/storyLevelSelection.html',function(req, res) {
+    res.sendFile(__dirname + '/client/storyLevelSelection.html');
+});
 //for interface
 app.get('/client/engine/usable.js',function(req, res) {
     res.sendFile(__dirname + '/client/engine/usable.js');
@@ -48,6 +51,9 @@ app.get('/client/engine/weapon.js',function(req, res) {
 app.get('/client/engine/player.js',function(req, res) {
     res.sendFile(__dirname + '/client/engine/player.js');
 });
+app.get('/client/engine/timer.js',function(req, res) {
+    res.sendFile(__dirname + '/client/engine/timer.js');
+});
 app.get('/client/interface/GUI.js',function(req, res) {
     res.sendFile(__dirname + '/client/interface/GUI.js');
 });
@@ -61,6 +67,7 @@ app.get('/client/interface/StoryLevels.json',function(req, res) {
 app.get('/signUpStyle.css',function(req, res) {
     res.sendFile(__dirname + '/client/signUpStyle.css');
 });
+
 
 
 
@@ -81,6 +88,12 @@ app.get('/client/interface/img/level_complete.png',function(req, res) {
 });
 app.get('/client/interface/img/placeCheckpoint.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/placeCheckpoint.png');
+});
+app.get('/client/interface/img/medals.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/medals.png');
+});
+app.get('/client/interface/img/background/menuBackground.jpg',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/background/menuBackground.jpg');
 });
 
 //client/interface/img/animations
@@ -481,6 +494,32 @@ app.get('/client/images/playStoryButtonHover.png',function(req, res) {
 });
 
 
+
+//---------------------------------------
+
+app.get('/client/images/changeWorldArrow.png',function(req, res) {
+   res.sendFile(__dirname + '/client/images/changeWorldArrow.png');
+});
+
+app.get('/client/images/logoutButton.png',function(req, res) {
+   res.sendFile(__dirname + '/client/images/logoutButton.png');
+});
+
+app.get('/client/images/logoutHover.png',function(req, res) {
+   res.sendFile(__dirname + '/client/images/logoutHover.png');
+});
+app.get('/client/images/playGuest.png',function(req, res) {
+   res.sendFile(__dirname + '/client/images/playGuest.png');
+});
+
+app.get('/client/images/playGuestHover.png',function(req, res) {
+   res.sendFile(__dirname + '/client/images/playGuestHover.png');
+});
+
+//---------------------------------------
+
+
+
 app.get('/client/images/achievementsButton.png',function(req, res) {
     res.sendFile(__dirname + '/client/images/achievementsButton.png');
 });
@@ -625,6 +664,42 @@ app.get('/client/interface/img/menuLevelEditor.png',function(req, res) {
 });
 app.get('/client/interface/img/menuQuit.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/menuQuit.png');
+});
+
+app.get('/client/images/levelOneButton.png',function(req, res) {
+   res.sendFile(__dirname + '/client/images/levelOneButton.png');
+});
+
+app.get('/client/images/levelOneHover.png',function(req, res) {
+   res.sendFile(__dirname + '/client/images/levelOneHover.png');
+});
+
+app.get('/client/images/levelTwoButton.png',function(req, res) {
+   res.sendFile(__dirname + '/client/images/levelTwoButton.png');
+});
+
+app.get('/client/images/levelTwoHover.png',function(req, res) {
+   res.sendFile(__dirname + '/client/images/levelTwoHover.png');
+});
+
+app.get('/client/images/levelThreeButton.png',function(req, res) {
+   res.sendFile(__dirname + '/client/images/levelThreeButton.png');
+});
+
+app.get('/client/images/levelThreeHover.png',function(req, res) {
+   res.sendFile(__dirname + '/client/images/levelThreeHover.png');
+});
+
+app.get('/client/images/levelSelectLabel.png',function(req, res) {
+   res.sendFile(__dirname + '/client/images/levelSelectLabel.png');
+});
+
+app.get('/client/images/levelSelectPanel.png',function(req, res) {
+   res.sendFile(__dirname + '/client/images/levelSelectPanel.png');
+});
+
+app.get('/client/levelSelectionStyle.css',function(req, res) {
+   res.sendFile(__dirname + '/client/levelSelectionStyle.css');
 });
 
 
