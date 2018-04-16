@@ -1,4 +1,6 @@
-//PLAYER
+/*
+* The player character.
+*/
 function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	
 	var maxHealth = 100;
@@ -21,12 +23,6 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	var bigMaxVY = 10*mpsTOppf;
 	var bigJumpSpeed = 3*mpsTOppf;
 	var bigSlowDown = 4;
-	//Creating players weapon for GUI testing purposes	
-
-	var weapon=new Pistol(1, x, y, vx, vy, 40, 40, Img.assaultWeapon, "blue", id);
-
-
-	//var weapon=new Shotgun(1, x, y, vx, vy, 40, 40, Img.assaultWeapon, "blue", id);
 
 	
 	//type, id, x, y, vx, vy, width, height, img, color, acceleration, maxVX, maxVY, health, weapon, mass, jumpSpeed, meleeDamage
@@ -68,6 +64,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 
 		self.transformAniTimer++;
 		
+		// trust
 		if (self.isLaunched && Math.abs(self.vx) < 2) {
 			self.isLaunched = false;
 		}
@@ -114,14 +111,12 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	}
 	
 	self.pickUpBoulder = function() {
-		//console.log("Picking up boulder");
 		self.hasBoulder = true;
 		self.pickUpBoulderTimer = 0;
 	}
 	
 	self.throwBoulder = function() {
 		
-		//console.log("Throwing boulder");
 		var spdX = Math.cos(self.aimAngle/180*Math.PI)*5 * mpsTOppf + self.vx;
 		var spdY = Math.sin(self.aimAngle/180*Math.PI)*5 * mpsTOppf + self.vy;
 
@@ -215,6 +210,12 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	self.takeDamage = function(amount) {
 		
 		ani.hurtSound(self);
+		if (difficulty == 'easy') { 
+			amount /= 2; 
+		}
+		else if (difficulty == 'hard') {
+			amount *= 2; 
+		}
 		
 		if (!self.isBig) {
 			self.health -= amount;

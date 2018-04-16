@@ -568,7 +568,7 @@ var update = function() {
 
 				else {
 					if (bullet.type == 'bullet') {
-							toRemove = true;
+						toRemove = true;
 					}
 
 					//Enemy takes damage, maybe apply effect (like knockback)
@@ -841,7 +841,9 @@ var createBoss = function() {
 
 var endGame = function() {
 	//should be a varianle for level name and time
+
 	console.log("level is: "+level.name +"time "+ Timer.end() ); //level.level doesn't work
+
 	socket.emit('updateLevel', { level: level.name , time: Timer.end() });
 	gui.levelComplete();
 	//console.log("PLAYER POSTIION",playerPositionLog);
