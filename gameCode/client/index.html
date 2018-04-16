@@ -18,7 +18,8 @@
 <div id="main" style="padding-top:10%; padding-left:40%;" >
   <br><br><br>
   <button id="signInButton" class="signInButton"></button>
-  <button id="signUpButton" class="signUpButton"></button><br><br>
+  <button id="signUpButton" class="signUpButton"></button>
+  <button id="playGuest" class="playGuest"></button>
 </div>
 
 <div id="signUp" class="signUpDiv" style="display:none;" >
@@ -66,9 +67,13 @@
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 <script>
     var socket = io();
+    var myStorage=window.localStorage;
+
+
     var main = document.getElementById('main');
     var signDiv = document.getElementById('signDiv');
     var signUp = document.getElementById('signUp');
+
     //sign in menu
     var signDivUsername = document.getElementById('signDiv-username');
     var signDivPassword = document.getElementById('signDiv-password');
@@ -98,10 +103,20 @@
       //console.log("forgot");
          //socket.emit('forgotPassword',{username:usernameField.value,a1: a1.value, a2: a2.value, a3: a3.value});
     }
+
+    playGuest.onclick = function(){
+
+        localStorage.setItem('isOffline', true);
+        location.href = "gameMenu2.html";
+
+    }
+    
     signInButton.onclick = function(){
       main.style.display = 'none';
       signDiv.style.display = 'inline-block';
+      localStorage.setItem('isOffline', false);
     }
+    
     recoverButton.onclick = function(){
       if (usernameField.value ==="" || a1.value ===""  || a2.value ===""  || a3.value ===""  ){
         alert("You must fill all fields!");
@@ -110,10 +125,13 @@
       socket.emit('forgotPassword',{username:usernameField.value,a1: a1.value, a2: a2.value, a3: a3.value});
       }
     }
+    
     signUpButton.onclick = function(){
       main.style.display = 'none';
       signUp.style.display = 'inline-block';
+      localStorage.setItem('isOffline', false);
     }
+    
     signUpB.onclick = function(){
       var hasNumber = /\d/;
       if (signDivUser.value ==="" ||signDivPass.value ==="" || q1.value ===""  || q2.value ===""  || q3.value ===""  ){
