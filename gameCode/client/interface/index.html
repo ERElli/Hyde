@@ -10,6 +10,7 @@
 			<a href='../gameMenu2.html'>Level Editor</a>
 		</div>
 
+
 		<div id="container">
 
 			<div id="results" style="positions:absolute; left: 511px;">
@@ -33,7 +34,7 @@
 		<script type="text/javascript" src="StoryLevels.json"></script>
 
 		<!--<script type="text/javascript" src="world2level3.json"></script>-->
-		
+
 
 
 		<!--<script type="text/javascript" src="world2level1.json"></script>-->
@@ -53,7 +54,7 @@
 		var mydata;
 		//var myStorage=window.localStorage;
 		var storyLevelName=localStorage.getItem('level');
-		var isOfflineMode=true;
+		var isOfflineMode= false;
 		var isStoryMode='false';
 		var level = {};
 		level.hasBoss = false;
@@ -92,7 +93,7 @@
 					break;
 				case 'nine':
 					mydata=story['levelNine'];
-					break;	
+					break;
 			}
 		}
 		if (!isOfflineMode){
@@ -221,7 +222,7 @@
 			//#############################################################################
 			//FOR GUI TESTING PURPOSES
 
-			
+
 			if(mydata.ghost != undefined){
 
 

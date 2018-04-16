@@ -478,6 +478,7 @@ GUI = function(container){
 			medalType=3;
 		}
 		if (medalType!=3){
+			gui.gr_ctx.clearRect(400,50,450,400);
 			gui.gr_ctx.drawImage(img,fW*medalType,0,fW,fH,500,100,100,200);
 		}
 	}

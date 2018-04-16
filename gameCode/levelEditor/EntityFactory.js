@@ -18,7 +18,10 @@ EntityFactory = function(levelString,isLevelEditor){
 		// console.log(Object.keys(LevelObject[generalType]).length);
 
 		if(generalType === 'enemies' || generalType === 'terrain' || generalType === 'player' || generalType ==='weapon'){
-
+			console.log('GENERAL',generalType);
+			// if(generalType === 'spike'){
+			// 	generalType === 'terrain';
+			// }
 			self[generalType] = {};
 			// for(let id in LevelObject[0][generalType][0]){
 			for(let i=0;i<LevelObject[0][generalType].length;i++){
@@ -30,6 +33,7 @@ EntityFactory = function(levelString,isLevelEditor){
 				let mObject = self[generalType];
 				switch(generalType){
 					case "terrain":
+						console.log("MOD",object.type);
 						switch(object.type){
 							case "Terrain1x1":
 								mObject[mID] = Terrain1x1(mID,mX,mY);
@@ -59,15 +63,30 @@ EntityFactory = function(levelString,isLevelEditor){
 								mObject[mID] = Terrain1x6Breakable(mID,mX,mY);
 								break;
 							case "moving platform":
-               					console.log("MOVING PLATFORM");
-                				mObject[mID] = MovingPlatform(mID,mX,mY,object.direction,object.finalVal);
+               	console.log("MOVING PLATFORM");
+        				mObject[mID] = MovingPlatform(mID,mX,mY,object.direction,object.finalVal);
 								break;
 							case "spike trap":
 								console.log("spike trap");
 								mObject[mID] = SpikeTrap(mID,mX,mY,object.orientation);
+								console.log("spike TRAP",mObject[mID])
 								break;
 							}
-						break;
+							switch(object.mod){
+								case 'ice':
+									console.log(mObject[mID]);
+									mObject[mID].mod = new IceModifier();
+									break;
+								case 'mud':
+									console.log(mObject[mID]);
+									mObject[mID].mod = new MudModifier();
+									break;
+								case 'none':
+									console.log(mObject[mID]);
+									mObject[mID].mod = new MudModifier();
+									break;
+							}
+							break;
 					case "player":
 						let weapID = Math.random();
 						let weapon = Pistol(weapID, mX, mY, 0, 0, 25, 25, Img.pistol, 'red', mID);
@@ -84,6 +103,16 @@ EntityFactory = function(levelString,isLevelEditor){
 								break;
 							case "tank enemy":
 								mObject[mID] = TankEnemy(mID,mX,mY,0,0,Img.basicEnemy3,'red',null);
+								break;
+							// case "basic boss":
+							// 	mObject[mID] = BasicBoss(mID,mX,mY,null);
+							// 	break;
+							// case "flying boss":
+							// 	mObject[mID] = FlyingBoss(mID,mX,mY,null);
+							// 	break;
+							// case "tank boss":
+							// 	mObject[mID] = TankBoss(mID,mX,mY,null);
+							// 	break;
 						}
 						break;
 					case "checkpoints":
