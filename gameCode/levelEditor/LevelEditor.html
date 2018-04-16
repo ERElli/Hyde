@@ -108,14 +108,14 @@
 		<br><br>
 		Choose Width (ex: 1200): <input id="widthValue" type="text"></input><br><br>
 		<br><br>
-		<button id="levelButton">Go to Level Editor</button>
+		<button id="levelButton" class = "btnstyle">Go to Level Editor</button>
 	</div>
 
 	<div id="levelLoad"  style=" display:none; padding-top:10%; padding-left:40%;height:500px;  background-image: url('/images/newWorldTwoBackground.png') " >
 
 		Level Name: <input id="levelNameField2" type="text"></input><br><br>
 		<br><br>
-		<button id="levelButton2">Load in Level Editor</button>
+		<button id="levelButton2" class = "btnstyle">Load in Level Editor</button>
 	</div>
 
   <div id="levelChoose"  style=" display:none; padding-top:10%; padding-left:40%;height:500px;  background-image: url('/images/newWorldTwoBackground.png') " >
@@ -126,9 +126,9 @@
 
 	<div id="levelChoice"  style="   padding-top:10%; padding-left:40%;height:500px;  background-image: url('/images/newWorldTwoBackground.png')" >
 
-		<button id="levelNewButton">New Level</button>
-		<button id="levelLoadButton">Load Level</button>
-    <button id="levelChooseButton">Choose a Level</button>
+		<button id="levelNewButton" class = "btnstyle">New Level</button>
+		<button id="levelLoadButton" class = "btnstyle">Load Level</button>
+    <button id="levelChooseButton" class = "btnstyle">Choose a Level</button>
 	</div>
 </body>
 
@@ -255,7 +255,7 @@ socket.on('receiveLevels' ,function(res){
     for(var i=0; i < num; i++){
       var btn = document.createElement("BUTTON");
       btn.id = 'r'+i;
-
+      btn.className = 'btnstyle';
       //btn.onclick = function(){console.log('hello btn'+btn.innerHTML );  };
       var t = document.createTextNode(res.levels[i].level);
       btn.appendChild(t);
@@ -1067,4 +1067,5 @@ weaponTapped = function(thing){
 	toggleDisplay(parent);
 }
 </script>
+
 </html>
