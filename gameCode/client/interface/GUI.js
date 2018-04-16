@@ -464,9 +464,11 @@ GUI = function(container){
 	};
 	//draw medals at end of game
 	self.drawMedal=function(medal){
+		playTime=Timer.end();
 		img=Img.medals;
 		fW=img.width/3;
 		fH=img.height;
+		theTime=gui.formatTime(playTime);
 		if(medal=="gold"){
 			medalType=0;
 		}else if(medal=="silver"){
@@ -479,7 +481,15 @@ GUI = function(container){
 		}
 		if (medalType!=3){
 			gui.gr_ctx.clearRect(400,50,450,400);
-			gui.gr_ctx.drawImage(img,fW*medalType,0,fW,fH,500,100,100,200);
+			gui.gr_ctx.drawImage(Img.menuBackground,400,50,450,400);
+			gui.gr_ctx.drawImage(img,fW*medalType,0,fW,fH,450,150,100,200);
+			gui.gr_ctx.fillText('Your time: '+ theTime[0] +":"+theTime[1]+ ":"+theTime[2],600,200);
+			medalTime=gui.formatTime(storyMedals[0]);
+			gui.gr_ctx.fillText('Gold time: '+ medalTime[0] +":"+medalTime[1]+ ":"+medalTime[2],600,250);
+			medalTime=gui.formatTime(storyMedals[1]);
+			gui.gr_ctx.fillText('Silver time: '+ medalTime[0] +":"+medalTime[1]+ ":"+medalTime[2],600,275);
+			medalTime=gui.formatTime(storyMedals[2]);
+			gui.gr_ctx.fillText('Bronze time: '+ medalTime[0] +":"+medalTime[1]+ ":"+medalTime[2],600,300);
 		}
 	}
 	//Draws goal flag
@@ -537,6 +547,12 @@ GUI = function(container){
 		}
 		if (seconds<10){
 			seconds="0"+seconds;
+		}
+		if (milliseconds<100){
+			milliseconds="0"+milliseconds;
+			if(milliseconds<10){
+				milliseconds="0"+milliseconds;
+			}
 		}
 		return [minutes,seconds,milliseconds];
 	};
