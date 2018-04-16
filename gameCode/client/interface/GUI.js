@@ -464,7 +464,8 @@ GUI = function(container){
 	};
 	//draw medals at end of game
 	self.drawMedal=function(medal){
-		playTime=Timer.end();
+		
+		playTime=Timer.getEndTime();
 		img=Img.medals;
 		fW=img.width/3;
 		fH=img.height;

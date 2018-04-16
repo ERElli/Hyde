@@ -202,7 +202,7 @@ var inRange = function(thing) {
 var update = function() {
 
 	if (paused) {
-		Timer.pause;
+		Timer.pause();
 		return;
 	}
 
@@ -840,23 +840,23 @@ var createBoss = function() {
 
 
 var endGame = function() {
+	Timer.end();
 	//should be a varianle for level name and time
 
-	console.log("level is: "+level.name +"time "+ Timer.end() ); //level.level doesn't work
+	console.log("level is: "+level.name +"time "+ Timer.getEndTime() ); //level.level doesn't work
 
-	socket.emit('updateLevel', { level: level.name , time: Timer.end() });
+	socket.emit('updateLevel', { level: level.name , time: Timer.getEndTime() });
 	gui.levelComplete();
 	//console.log("PLAYER POSTIION",playerPositionLog);
 	ghost = new Ghost(Math.random(),0,0,{});
 	ghost.setPath(playerPositionLog);
 	//socket for signaling user has finished a level and sends level name and score
-
+	paused = true;
 	//socket.emit('updateLevel', { level: "level 1", score: "score"});
 	setTimeout(function(){gui.drawMedal(storyMedal())},5000);
 	//makeLevel();
 	//convertToString();
 
-	paused = true;
 	//Creates ghost object
 	//level.ghost=ghostArray
 }
