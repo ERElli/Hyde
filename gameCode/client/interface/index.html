@@ -1,8 +1,18 @@
 <html>
+	<head>
+		<link rel="stylesheet" href="inGameMenuStyle.css">
+	</head>
 
 	<body>
 		<br>
 		<br>
+		<div id="menu">
+			<a href='../gameMenu2.html' class="quitButton"></a>
+			<a href='../gameMenu2.html' class="restartButton"></a>
+			<a href='../gameMenu2.html' class="mainMenuButton"></a>
+			<a href='../gameMenu2.html' class="levelEditorButton"></a>
+		</div>
+
 
 
 		<div id="container">
@@ -24,6 +34,7 @@
 		<script type="text/javascript" src="../engine/controls.js"></script>
 		<script type="text/javascript" src="../../levelEditor/EntityFactory.js"></script>
 		<script type="text/javascript" src="../engine/timer.js"></script>
+
 		<script type="text/javascript" src="StoryLevels.json"></script>
 
 		<!--<script type="text/javascript" src="world2level3.json"></script>-->
@@ -47,11 +58,29 @@
 		var mydata;
 		//var myStorage=window.localStorage;
 		var storyLevelName=localStorage.getItem('level');
-		var isOfflineMode= false;
+		var isOfflineMode= true;
 		var isStoryMode='false';
 		var level = {};
 		level.hasBoss = false;
 		var gui;
+		//medal time requirements ['gold','silver','bronze'];
+		var storyMedals=[0,0,0];
+		storyMedal=function(){
+			console.log("calling");
+			console.log(Timer.end(),storyMedals[0],storyMedals[1],storyMedals[2]);
+			if(Timer.end()<storyMedals[0]){
+				return "gold";
+			}
+			else if(Timer.end()<storyMedals[1]){
+				return "silver";				
+			}
+			else if(Timer.end()<storyMedals[2]){
+				return "bronze";
+			}
+			else{
+				return 'none';
+			}
+		}
 		var ani=Animation();
 		var Img=Img("../../");
 		var Sound = Sound("../../");
@@ -62,30 +91,57 @@
 			switch(storyLevelName){
 				case 'one':
 					mydata=story['levelOne'];
+					storyMedals[0]=16000;
+					storyMedals[1]=20000;
+					storyMedals[2]=25000;
 					break;
 				case 'two':
 					mydata=story['levelTwo'];
+					storyMedals[0]=12000;
+					storyMedals[1]=16000;
+					storyMedals[2]=20000;
 					break;
 				case 'three':
 					mydata=story['levelThree'];
+					storyMedals[0]=25000;
+					storyMedals[1]=30000;
+					storyMedals[2]=35000;
 					break;
 				case 'four':
 					mydata=story['levelFour'];
+					storyMedals[0]=45000;
+					storyMedals[1]=55000;
+					storyMedals[2]=65000;
 					break;
 				case 'five':
 					mydata=story['levelFive'];
+					storyMedals[0]=45000;
+					storyMedals[1]=55000;
+					storyMedals[2]=65000;
 					break;
 				case 'six':
 					mydata=story['levelSix'];
+					storyMedals[0]=20000;
+					storyMedals[1]=25000;
+					storyMedals[2]=30000;
 					break;
 				case 'seven':
 					mydata=story['levelSeven'];
+					storyMedals[0]=240000;
+					storyMedals[1]=250000;
+					storyMedals[2]=260000;
 					break;
 				case 'eight':
 					mydata=story['levelEight'];
+					storyMedals[0]=240000;
+					storyMedals[1]=250000;
+					storyMedals[2]=260000;
 					break;
 				case 'nine':
 					mydata=story['levelNine'];
+					storyMedals[0]=30000;
+					storyMedals[1]=45000;
+					storyMedals[2]=60000;
 					break;
 			}
 		}

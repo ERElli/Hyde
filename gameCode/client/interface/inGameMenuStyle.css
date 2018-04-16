@@ -1,0 +1,93 @@
+/* In Game Menu Style*/
+
+.quitButton{
+	background: transparent;
+	background-image: url(img/menuQuit.png); 
+	background-size: 100%;
+	position: fixed;
+
+	width: 134px;
+	height: 43px;
+
+	top: 2px;
+	left:5px;
+}
+
+.quitButton:hover{
+	background: transparent;
+	background-image: url(img/menuQuitHover.png);
+	background-size: cover;
+	position: fixed;
+
+}
+
+
+.restartButton{
+	background: transparent;
+	background-image: url(img/menuRestart.png);
+	background-size: 100%;
+	position: fixed;
+
+	width: 134px;
+	height: 43px;
+
+	top: 2px;
+	left:140px;
+
+}
+
+.restartButton:hover{
+	background: transparent;
+	background-image: url(img/menuRestartHover.png);
+	background-size: cover;
+	position: fixed;
+
+
+}
+
+.mainMenuButton{
+	background: transparent;
+	background-image: url(img/menuMainMenu.png);
+	background-size: cover;
+	position: fixed;
+
+	width: 134px;
+	height: 43px;
+
+	top: 2px;
+	left:276px;
+
+
+}
+
+.mainMenuButton:hover{
+	background: transparent;
+	background-image: url(img/menuMainHover.png);
+	background-size: cover;
+	position: fixed;
+
+
+}
+
+.levelEditorButton{
+	background: transparent;
+	background-image: url(img/menuLevelEditor.png);
+	background-size: cover;
+	position: fixed;
+
+	width: 134px;
+	height: 43px;
+
+	top: 2px;
+	left:411px;
+
+}
+
+.levelEditorButton:hover{
+	background: transparent;
+	background-image: url(img/menuLevelEditorHover.png);
+	background-size: cover;
+	position: fixed;
+
+
+}

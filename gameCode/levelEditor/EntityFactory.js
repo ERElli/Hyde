@@ -103,6 +103,16 @@ EntityFactory = function(levelString,isLevelEditor){
 								break;
 							case "tank enemy":
 								mObject[mID] = TankEnemy(mID,mX,mY,0,0,Img.basicEnemy3,'red',null);
+								break;
+							// case "basic boss":
+							// 	mObject[mID] = BasicBoss(mID,mX,mY,null);
+							// 	break;
+							// case "flying boss":
+							// 	mObject[mID] = FlyingBoss(mID,mX,mY,null);
+							// 	break;
+							// case "tank boss":
+							// 	mObject[mID] = TankBoss(mID,mX,mY,null);
+							// 	break;
 						}
 						break;
 					case "checkpoints":
