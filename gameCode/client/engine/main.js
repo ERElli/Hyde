@@ -784,7 +784,7 @@ var startGame = function(initial_level) {
 
 	enemies = level["enemies"];
 	terrain = level["terrain"];
-	pickUps = level['weapons'];
+	pickUps = level['weapon'];
 	frameCount = 0;
 	everyTenCount = 0;
 

@@ -379,21 +379,21 @@
 			}
 			//}
 
-			level['weapons'] = {};
+			level['weapon'] = {};
 			console.log(mydata);
 
-			for (let thing in mydata['weapons']) {
+			for (let thing in mydata['weapon']) {
 
-					w = mydata['weapons'][thing]
+					w = mydata['weapon'][thing]
 					console.log("WEAPONS",level['player']);
 					var weapon;
 
 					weapon = new WeaponPickUp(w.id, w.x, w.y-150, w.weaponType, level['player']);
 
-					level['weapons'][w.id] = weapon;
+					level['weapon'][w.id] = weapon;
 
 			}
-			console.log(level['weapons']);
+			console.log(level['weapon']);
 			level['terrain'] = {};
 			for (var thing in mydata['terrain']) {
 					let t = mydata['terrain'][thing]
