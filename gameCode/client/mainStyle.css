@@ -1,5 +1,35 @@
 /* Sign In Sign Up Page */
 
+.playGuest{
+    background:transparent;
+    background-image: url(images/playGuest.png);
+    background-size: 100%;
+    top: 300px;
+    position: fixed;
+    left: 445px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+
+    width: 400px;
+    height: 62px;
+
+}
+
+.playGuest:hover{
+
+    background:transparent;
+    background-image: url(images/playGuestHover.png);
+    background-size: cover;
+    position: fixed;
+    outline: none;
+
+    border: none;
+    cursor: pointer;
+
+
+}
+
 .signInButton {
     background:transparent;
     background-image: url(images/signInButton.png);
