@@ -15,6 +15,20 @@
     height: 62px;
 
 }
+.btnstyle{
+
+  width: 400px;
+  margin-bottom: 15px;
+  background-color: #626262; /* Green */
+
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border: 2px solid #f6f0e4;
+}
 
 .playGuest:hover{
 
@@ -401,4 +415,3 @@
     border: none;
     cursor: pointer;
 }
-

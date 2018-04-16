@@ -626,6 +626,41 @@ app.get('/client/interface/img/menuLevelEditor.png',function(req, res) {
 app.get('/client/interface/img/menuQuit.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/menuQuit.png');
 });
+app.get('/client/storyLevelSelection.html',function(req, res) {
+    res.sendFile(__dirname + '/client/storyLevelSelection.html');
+});
+app.get('/client/levelSelectionStyle.css',function(req, res) {
+    res.sendFile(__dirname + '/client/levelSelectionStyle.css');
+});
+app.get('/client/images/levelSelectLabel.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/levelSelectLabel.png');
+});
+app.get('/client/images/levelSelectPanel.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/levelSelectPanel.png');
+});
+app.get('/client/images/levelThreeButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/levelThreeButton.png');
+});
+app.get('/client/images/levelTwoButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/levelTwoButton.png');
+});
+app.get('/client/images/levelOneButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/levelOneButton.png');
+});
+app.get('/client/images/changeWorldArrow.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/changeWorldArrow.png');
+});
+app.get('/client/images/levelThreeHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/levelThreeHover.png');
+});
+app.get('/client/images/levelTwoHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/levelTwoHover.png');
+});
+app.get('/client/images/levelOneHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/levelOneHover.png');
+});
+
+
 
 
 
@@ -782,7 +817,7 @@ io.sockets.on('connection', function(socket){
      socket.emit('loadIt', res);
       });
    });
-  
+
 
    socket.on('levelNewButton',function(data){
      console.log('levelNewButton');
