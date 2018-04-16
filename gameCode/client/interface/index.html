@@ -58,7 +58,7 @@
 		var mydata;
 		//var myStorage=window.localStorage;
 		var storyLevelName=localStorage.getItem('level');
-		var isOfflineMode= false;
+		var isOfflineMode= true;
 		var isStoryMode='false';
 		var level = {};
 		level.hasBoss = false;
@@ -66,15 +66,13 @@
 		//medal time requirements ['gold','silver','bronze'];
 		var storyMedals=[0,0,0];
 		storyMedal=function(){
-			console.log("calling");
-			console.log(Timer.end(),storyMedals[0],storyMedals[1],storyMedals[2]);
-			if(Timer.end()<storyMedals[0]){
+			if(Timer.getEndTime()<storyMedals[0]){
 				return "gold";
 			}
-			else if(Timer.end()<storyMedals[1]){
+			else if(Timer.getEndTime()<storyMedals[1]){
 				return "silver";
 			}
-			else if(Timer.end()<storyMedals[2]){
+			else if(Timer.getEndTime()<storyMedals[2]){
 				return "bronze";
 			}
 			else{
