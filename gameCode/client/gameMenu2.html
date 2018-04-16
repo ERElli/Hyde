@@ -10,8 +10,6 @@
     <button id="playOnline" class="playOnlineButton"></button>
     <button id="levelEditor" class="levelEditorButton"></button>
     <button id="Achievements" class="achievementsButton"></button>
-    <button id="Settings" class="settingsButton"></button>
-    <button id="Logout" class="logoutButton"></button>
   </div>
 
   <div id="levelChoose"  style=" display:none; padding-top:10%; padding-left:40%;height:500px;  background-image: url('/images/newWorldTwoBackground.png') " >
@@ -29,7 +27,6 @@
 
   <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
   <script>
-
     var socket = io();
     var lev  = document.getElementById('lev');
     var levelChoose = document.getElementById('levelChoose');
@@ -38,46 +35,34 @@
     var levelEditor = document.getElementById('levelEditor');
     var Achievements = document.getElementById('Achievements');
     var achievementsMenu = document.getElementById('achievementsMenu');
-
     play.onclick = function(){
-      location.href = "storyLevelSelection.html";
+      main.style.display = 'none';
+      levelChoose.style.display = 'inline-block';
+      socket.emit('getLevels');
     }
-    
     levelEditor.onclick = function(){
-      location.href = "../levelEditor/levelEditor.html";
+      location.href = "/levelEditor";
     }
     Achievements.onclick = function(){
       socket.emit('getTheAchievements');
       main.style.display = 'none';
       achievementsMenu.style.display = 'inline-block';
     }
-
-  Settings.onclick = function(){
-      location.href = "settingsMenu.html";
-    }
-
-    Logout.onclick = function(){
-      location.href = "index.html";
-    }
-
     /// Adding levels here ////
     socket.on('receiveTheLevels' ,function(res){
       var  arrayOfLevels = res.result;
       var num =res.levels.length;
         console.log("let check  "+ JSON.stringify(res.levels[0])+ "  num"+ num);
-
         var toAdd = document.createDocumentFragment();
         for(var i=0; i < num; i++){
           var btn = document.createElement("BUTTON");
           btn.id = 'r'+i;
-
           //btn.onclick = function(){console.log('hello btn'+btn.innerHTML );  };
           var t = document.createTextNode(res.levels[i].level);
           btn.appendChild(t);
           document.getElementById('levelChoose').appendChild(btn);
           doSomething('r'+i);
         }
-
         function doSomething(i) {
             var ki = document.getElementById(i);
             ki.onclick= function(){
@@ -85,23 +70,21 @@
               hh = ki.innerHTML;
               socket.emit('levelLoadButton', {level:ki.innerHTML });
               location.href = "/client/interface/index.html";
-
             };
           //  console.log(i);
         };
-
     });
     socket.on('receiveTheAchievements' ,function(res){
     //  var  arrayOfLevels = res.result;
     //  var num =res.levels.length;
         console.log("lets check  "+ JSON.stringify(res));
         lev.innerHTML =  JSON.stringify(res);
-
-
-
     });
-
-
+    /* socket.on('changeMe', function(data){
+      location.href = "/levelEditor";
+    //  socket.emit('loadIt', data);
+    //  socket.emit('do');
+  }); */
     </script>
 
   </body>
