@@ -58,7 +58,7 @@
 		var mydata;
 		//var myStorage=window.localStorage;
 		var storyLevelName=localStorage.getItem('level');
-		var isOfflineMode= true;
+		var isOfflineMode= false;
 		var isStoryMode='false';
 		var level = {};
 		level.hasBoss = false;
@@ -72,7 +72,7 @@
 				return "gold";
 			}
 			else if(Timer.end()<storyMedals[1]){
-				return "silver";				
+				return "silver";
 			}
 			else if(Timer.end()<storyMedals[2]){
 				return "bronze";

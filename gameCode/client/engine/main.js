@@ -270,7 +270,7 @@ var update = function() {
 		if (block.type == "moving platform") { // only terrain type that moves
 			block.updatePosition();
 		}
-		
+
 
 		//Check collisions with player ####################################
 
@@ -293,7 +293,7 @@ var update = function() {
 					putOnTerrain(block, player);
 				}
 			}
-			
+
 			if (block.type == 'moving platform') {
 				if (block.direction == "horizontal" && !pressing['left'] && !pressing['right']) {
 					player.vx = block.vx; // player is standing on a moving platform and not trying to move, so they move with the platform
@@ -554,7 +554,7 @@ var update = function() {
 			if (isColliding && bullet.ownerID != enemies[key2].id) {
 
 				if (enemies[key2].type == 'basic boss' || enemies[key2].type == 'flying boss' || enemies[key2].type == 'tank boss') {
-					
+
 					if (bullet.ownerID == player.id) { // bosses only take damage from player bullets
 						if (bullet.type == 'bullet') {
 							toRemove = true;
@@ -563,9 +563,9 @@ var update = function() {
 						enemies[key2].takeDamage(bullet.damage);
 						break;
 					}
-					
+
 				}
-				
+
 				else {
 					if (bullet.type == 'bullet') {
 						toRemove = true;
@@ -671,7 +671,7 @@ var update = function() {
 
 					delta_p = Math.abs(player_p - enemy_p); // difference in momentums
 
-					
+
 					// entity with lower momentum takes damage and is launched
 					if (player_p > enemy_p) {
 						enemy.launch(Math.sign(player.vx)*delta_p/enemy.mass);
@@ -772,7 +772,7 @@ var startGame = function(initial_level) {
 	console.log(Timer.startTime);
 	level = initial_level;
 	player = level["player"];
-	
+
 	if(level['ghost'] == null){
 		//console.log("GHOST NULL");
 		ghost = null;
@@ -841,7 +841,9 @@ var createBoss = function() {
 
 var endGame = function() {
 	//should be a varianle for level name and time
-	console.log("level is: "+level.name +"time " + Timer.end() ); //level.level doesn't work
+
+	console.log("level is: "+level.name +"time "+ Timer.end() ); //level.level doesn't work
+
 	socket.emit('updateLevel', { level: level.name , time: Timer.end() });
 	gui.levelComplete();
 	//console.log("PLAYER POSTIION",playerPositionLog);
