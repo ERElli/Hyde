@@ -3,6 +3,7 @@ timer = function(){
 	self.startTime;
 	self.pauseStart;
 	self.pauseEnd;
+	self.endTime;
 	self.start=function(){
 
 		self.startTime=Date.now();
@@ -17,13 +18,23 @@ timer = function(){
 	}
 	self.unpause=function(){
 		self.pauseEnd=Date.now();
-		self.startTime+=(self.pauseEnd-self.pauseStart);
+		timeShift=(self.pauseEnd-self.pauseStart);
+		self.updateStart(timeShift);
+	}
+	self.updateStart=function(timeShift){
+		self.startTime=self.startTime+timeShift
 	}
 	self.end = function(){
 		self.endTime = Date.now();
 		self.totalTime = self.endTime-self.startTime;
+		self.setEndTime(self.totalTime);
 		console.log(self.totalTime);
-		return self.totalTime;
+	}
+	self.setEndTime=function(endtime){
+		self.endTime=endtime;
+	}
+	self.getEndTime=function(){
+		return self.endTime;
 	}
 	return self;
 }

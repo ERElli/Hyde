@@ -1,7 +1,7 @@
 Title: Transforming
 
 Description: The user wants to transform the character from the current character form to another.
-
+![](https://github.com/markwindsorr/CS4770/blob/master/DesignDocuments/Mechanics/Transformation.jpg)
 Actors: User
 
 Triggers: User enters the transformation input.
