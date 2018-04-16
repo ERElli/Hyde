@@ -136,22 +136,44 @@
 					else if (e.type == 'flying enemy') {
 						enemy =  new FlyingEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
 					}
-					else if (e.type == 'basic boss') {
-						level.hasBoss = true;
-						enemy =  new BasicBoss(e.id, e.x, e.y-150, level['player']);
-					}
-					else if (e.type == 'tank boss') {
-						level.hasBoss = true;
-						enemy =  new TankBoss(e.id, e.x, e.y-150, level['player']);
-					}
-					else {
-						level.hasBoss = true;
-						enemy =  new FlyingBoss(e.id, e.x, e.y-150, level['player']);
-					}
+					// else if (e.type == 'basic boss') {
+					// 	level.hasBoss = true;
+					// 	enemy =  new BasicBoss(e.id, e.x, e.y-150, level['player']);
+					// }
+					// else if (e.type == 'tank boss') {
+					// 	level.hasBoss = true;
+					// 	enemy =  new TankBoss(e.id, e.x, e.y-150, level['player']);
+					// }
+					// else {
+					// 	level.hasBoss = true;
+					// 	enemy =  new FlyingBoss(e.id, e.x, e.y-150, level['player']);
+					// }
 
 					level['enemies'][e.id] = enemy;
 
 				}
+
+				for(let thing in realLevel['boss']) {
+					console.log("BOSS",realLevel.boss[thing]);
+					let mainBoss = realLevel.boss[thing];
+					let boss;
+					switch(mainBoss.type){
+						case 'basic boss':
+							level.hasBoss = true;
+							boss = BasicBoss(mainBoss.id,mainBoss.x, mainBoss.y-150,level['player']);
+							break;
+						case 'flying boss':
+							level.hasBoss = true;
+							boss = FlyingBoss(mainBoss.id,mainBoss.x, mainBoss.y-150,level['player']);
+							break;
+						case 'tank boss':
+							level.hasBoss = true;
+							boss = TankBoss(mainBoss.id,mainBoss.x, mainBoss.y-150,level['player']);
+							break;
+					}
+					level['enemies'][mainBoss.id] = boss;
+				}
+
 
 				level['weapon'] = {};
 
@@ -199,6 +221,28 @@
 					}
 					else if (t.type == 'Terrain1x6Breakable') {
 						block = Terrain1x6Breakable(t.id, t.x, t.y-150);
+					}else if(t.type == 'moving platform'){
+						console.log("moving platform");
+						console.log(t.direction);
+						if(t.direction === "vertical"){
+							console.log(t.finalVal);
+							t.finalVal = t.finalVal-150;
+						}
+						block = MovingPlatform(t.id,t.x,t.y-150,t.direction,t.finalVal);
+					}else if(t.type == 'spike trap'){
+						block= SpikeTrap(t.id,t.x,t.y-150,t.orientation);
+					}
+					switch(t.mod.type){
+						case 'ice':
+							block.mod = new IceModifier();
+							break;
+						case 'mud':
+							block.mod = new MudModifier();
+							break;
+						case 'none':
+						default:
+							block.mod = new NoModifier();
+							break;
 					}
 
 

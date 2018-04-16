@@ -17,8 +17,7 @@ EntityFactory = function(levelString,isLevelEditor){
 		console.log(generalType);
 		// console.log(Object.keys(LevelObject[generalType]).length);
 
-		if(generalType === 'enemies' || generalType === 'terrain' || generalType === 'player' || generalType ==='weapon'){
-			console.log('GENERAL',generalType);
+		if(generalType === 'enemies' || generalType === 'terrain' || generalType === 'player' || generalType ==='weapon' || generalType ==='boss'){
 			// if(generalType === 'spike'){
 			// 	generalType === 'terrain';
 			// }
@@ -69,9 +68,10 @@ EntityFactory = function(levelString,isLevelEditor){
 							case "spike trap":
 								console.log("spike trap");
 								mObject[mID] = SpikeTrap(mID,mX,mY,object.orientation);
-								console.log("spike TRAP",mObject[mID])
+								console.log("spike TRAP",mObject[mID]);
 								break;
 							}
+							console.log(object.mod);
 							switch(object.mod){
 								case 'ice':
 									console.log(mObject[mID]);
@@ -83,7 +83,7 @@ EntityFactory = function(levelString,isLevelEditor){
 									break;
 								case 'none':
 									console.log(mObject[mID]);
-									mObject[mID].mod = new MudModifier();
+									mObject[mID].mod = new NoModifier();
 									break;
 							}
 							break;
@@ -113,6 +113,22 @@ EntityFactory = function(levelString,isLevelEditor){
 							// case "tank boss":
 							// 	mObject[mID] = TankBoss(mID,mX,mY,null);
 							// 	break;
+						}
+						break;
+					case "boss":
+						switch(object.type){
+							case 'basic boss':
+								console.log("basic boss");
+								mObject[mID] = BasicBoss(mID,mX,mY,null);
+								break;
+							case 'flying boss':
+								console.log("flying boss");
+								mObject[mID] = FlyingBoss(mID,mX,mY,null);
+								break;
+							case 'tank boss':
+								console.log("tank boss");
+								mObject[mID] = TankBoss(mID,mX,mY,null);
+								break;
 						}
 						break;
 					case "checkpoints":
@@ -160,6 +176,10 @@ EntityFactory = function(levelString,isLevelEditor){
 
 	for(let id in self['weapon']){
 		self['weapon'][id].target = player;
+	}
+
+	for(let id in self['boss']){
+		self['boss'][id].target = player;
 	}
 //console.log("ggg "+ LevelObject[0].background);
 	self.name = LevelObject[0].level;
