@@ -63,7 +63,7 @@
 		//var myStorage=window.localStorage;
 		var storyLevelName=localStorage.getItem('level');
 		var isOfflineMode= false;
-		var isStoryMode='false';
+		var isStoryMode=true;
 		var level = {};
 		level.hasBoss = false;
 		var gui;
@@ -71,15 +71,13 @@
 		//medal time requirements ['gold','silver','bronze'];
 		var storyMedals=[0,0,0];
 		storyMedal=function(){
-			console.log("calling");
-			console.log(Timer.end(),storyMedals[0],storyMedals[1],storyMedals[2]);
-			if(Timer.end()<storyMedals[0]){
+			if(Timer.getEndTime()<storyMedals[0]){
 				return "gold";
 			}
-			else if(Timer.end()<storyMedals[1]){
+			else if(Timer.getEndTime()<storyMedals[1]){
 				return "silver";
 			}
-			else if(Timer.end()<storyMedals[2]){
+			else if(Timer.getEndTime()<storyMedals[2]){
 				return "bronze";
 			}
 			else{
@@ -203,18 +201,6 @@
 					else if (e.type == 'flying enemy') {
 						enemy =  new FlyingEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
 					}
-					// else if (e.type == 'basic boss') {
-					// 	level.hasBoss = true;
-					// 	enemy =  new BasicBoss(e.id, e.x, e.y-150, level['player']);
-					// }
-					// else if (e.type == 'tank boss') {
-					// 	level.hasBoss = true;
-					// 	enemy =  new TankBoss(e.id, e.x, e.y-150, level['player']);
-					// }
-					// else {
-					// 	level.hasBoss = true;
-					// 	enemy =  new FlyingBoss(e.id, e.x, e.y-150, level['player']);
-					// }
 
 					level['enemies'][e.id] = enemy;
 
@@ -322,14 +308,12 @@
 
 				startGame(level);
 		  });
-		}else{
+		}else {
 			//#############################################################################
 			//FOR GUI TESTING PURPOSES
 
-
-			if(mydata.ghost != undefined){
-
-
+			/*
+			if(mydata.ghost !== undefined){
 				console.log("GHOST",mydata.ghost);
 				let g = mydata['ghost'];
 				// console.log("G PATH",g.path);
@@ -337,6 +321,7 @@
 				// level['ghost'].setPath(g.path);
 				console.log("LEVEL GHOST PATH",level['ghost'].path);
 			}
+			*/
 
 
 			for (var thing in mydata['player']) {
@@ -361,27 +346,37 @@
 				else if(e.type =='flying enemy'){
 					enemy =  new FlyingEnemy(e.id, e.x, e.y-150, e.vx, e.vy, e.img, null, level['player']);
 				}
-				else if (e.type == 'basic boss') {
-						level.hasBoss = true;
-						enemy =  new BasicBoss(e.id, e.x, e.y-150, level['player']);
-				}
-				else if (e.type == 'tank boss') {
-						level.hasBoss = true;
-						enemy =  new TankBoss(e.id, e.x, e.y-150, level['player']);
-				}
-				else {
-						level.hasBoss = true;
-						enemy =  new FlyingBoss(e.id, e.x, e.y-150, level['player']);
-				}
 
 				level['enemies'][e.id] = enemy;
 
 			}
 
-			level['weapons'] = {};
-				console.log(mydata);
+			for(let thing in mydata['boss']) {
+					console.log("BOSS",mydata.boss[thing]);
+					let mainBoss = mydata.boss[thing];
+					let boss;
+					switch(mainBoss.type){
+						case 'basic boss':
+							level.hasBoss = true;
+							boss = BasicBoss(mainBoss.id,mainBoss.x, mainBoss.y-150,level['player']);
+							break;
+						case 'flying boss':
+							level.hasBoss = true;
+							boss = FlyingBoss(mainBoss.id,mainBoss.x, mainBoss.y-150,level['player']);
+							break;
+						case 'tank boss':
+							level.hasBoss = true;
+							boss = TankBoss(mainBoss.id,mainBoss.x, mainBoss.y-150,level['player']);
+							break;
+					}
+					level['enemies'][mainBoss.id] = boss;
+			}
+			//}
 
-				for (let thing in mydata['weapons']) {
+			level['weapons'] = {};
+			console.log(mydata);
+
+			for (let thing in mydata['weapons']) {
 
 					w = mydata['weapons'][thing]
 					console.log("WEAPONS",level['player']);
@@ -391,10 +386,10 @@
 
 					level['weapons'][w.id] = weapon;
 
-				}
-console.log(level['weapons']);
+			}
+			console.log(level['weapons']);
 			level['terrain'] = {};
-				for (var thing in mydata['terrain']) {
+			for (var thing in mydata['terrain']) {
 					let t = mydata['terrain'][thing]
 					console.log("MOD",t.mod);
 
@@ -452,15 +447,16 @@ console.log(level['weapons']);
 					//console.log(block.mod);
 					level['terrain'][t.id] = block;
 
-				}
+			}
 			level.width=mydata.width;
 			level.height= mydata.height;
 			level.background=mydata.background;
 			console.log(mydata);
 			startGame(level);
+		}
 
 //######################################################################################
-		}
+		// }
 
 		//let gameWidth=2000
 		// construct the gui with the container and the map

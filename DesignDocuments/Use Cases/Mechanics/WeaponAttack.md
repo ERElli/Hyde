@@ -1,7 +1,7 @@
 Title: Weapon attack
 
 Description: Human form weapon attack.
-![](https://github.com/markwindsorr/CS4770/blob/master/images/Mechanics/HumanAttack.jpg)
+![](https://github.com/markwindsorr/CS4770/blob/master/DesignDocuments/Mechanics/HumanAttack.jpg)
 
 Actors: User
 

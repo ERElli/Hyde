@@ -36,18 +36,37 @@
     var levelEditor = document.getElementById('levelEditor');
     var Achievements = document.getElementById('Achievements');
     var achievementsMenu = document.getElementById('achievementsMenu');
+
+
+
+    var myStorage=window.localStorage;
+    
+
+    play.onclick = function(){
+      
+      localStorage.setItem('isStory', true);
+      location.href = "storyLevelSelection.html";
+
+    }
+
+
     playOnline.onclick = function(){
       main.style.display = 'none';
       levelChoose.style.display = 'inline-block';
       socket.emit('getLevels');
+      localStorage.setItem('isStory', false);
+
     }
+
     levelEditor.onclick = function(){
       location.href = "/levelEditor";
+      localStorage.setItem('isStory', false);
     }
     Achievements.onclick = function(){
       socket.emit('getTheAchievements');
       main.style.display = 'none';
       achievementsMenu.style.display = 'inline-block';
+      localStorage.setItem('isStory', false);
     }
     /// Adding levels here ////
     socket.on('receiveTheLevels' ,function(res){

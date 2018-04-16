@@ -393,8 +393,21 @@ app.get('/client/interface/img/levelEditor/buttons/header/backgroundButton.png',
 
 
 
+app.get('/client/images/playGuest.png',function(req, res) {
+    res.sendFile(__dirname +'/client/images/playGuest.png');
+});
 
+app.get('/client/images/playGuestHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/playGuestHover.png');
+});
 
+app.get('/client/images/logoutButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/logoutButton.png');
+});
+
+app.get('/client/images/logoutHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/logoutHover.png');
+});
 
 app.get('/images/playStory.png',function(req, res) {
     res.sendFile(__dirname + '/images/playStory.png');

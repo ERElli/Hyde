@@ -35,4 +35,4 @@ Alternative Flow:<br>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Object health is greater then calculated damage output.<br> 
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i) Player takes damage based on momentum.<br> 
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ii) Player's velocity and momentum is set to 0.<br>
-		![](https://github.com/markwindsorr/CS4770/blob/master/images/Mechanics/MomentumWallBreak.jpg)
+		![](https://github.com/markwindsorr/CS4770/blob/master/DesignDocuments/Mechanics/MomentumWallBreak.jpg)

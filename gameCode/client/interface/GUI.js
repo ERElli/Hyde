@@ -464,7 +464,8 @@ GUI = function(container){
 	};
 	//draw medals at end of game
 	self.drawMedal=function(medal){
-		playTime=Timer.end();
+		
+		playTime=Timer.getEndTime();
 		img=Img.medals;
 		fW=img.width/3;
 		fH=img.height;
@@ -475,14 +476,18 @@ GUI = function(container){
 			medalType=1;
 		}else if(medal=="bronze"){
 			medalType=2;
-		}
-		else{
+		}else if(medal=="none"){
 			medalType=3;
 		}
-		if (medalType!=3){
+		else{
+			medalType=4;
+		}
+		if (medalType!=4){
 			gui.gr_ctx.clearRect(400,50,450,400);
 			gui.gr_ctx.drawImage(Img.menuBackground,400,50,450,400);
-			gui.gr_ctx.drawImage(img,fW*medalType,0,fW,fH,450,150,100,200);
+			if(medalType!=3){
+				gui.gr_ctx.drawImage(img,fW*medalType,0,fW,fH,450,150,100,200);
+			}
 			gui.gr_ctx.fillText('Your time: '+ theTime[0] +":"+theTime[1]+ ":"+theTime[2],600,200);
 			medalTime=gui.formatTime(storyMedals[0]);
 			gui.gr_ctx.fillText('Gold time: '+ medalTime[0] +":"+medalTime[1]+ ":"+medalTime[2],600,250);
