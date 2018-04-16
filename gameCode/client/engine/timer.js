@@ -4,7 +4,7 @@ timer = function(){
 	self.pauseStart;
 	self.pauseEnd;
 	self.start=function(){
-		
+
 		self.startTime=Date.now();
 	}
 	self.getCurrentTime = function(){

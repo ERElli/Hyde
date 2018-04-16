@@ -552,7 +552,7 @@ var update = function() {
 
 			var isColliding = bullet.testCollision(enemies[key2]);
 			if (isColliding && bullet.ownerID != enemies[key2].id) {
-				
+
 				if (enemies[key2].type == 'basic boss' || enemies[key2].type == 'flying boss' || enemies[key2].type == 'tank boss') {
 					
 					if (bullet.ownerID == player.id) { // bosses only take damage from player bullets
@@ -576,7 +576,7 @@ var update = function() {
 					break;
 				}
 
-				
+
 			}
 		}
 
@@ -841,17 +841,19 @@ var createBoss = function() {
 
 var endGame = function() {
 	//should be a varianle for level name and time
-	console.log("level is: "+ JSON.stringify(level.name)); //level.level doesn't work
-	socket.emit('updateLevel', { level: "level 3", time: "score"});
+	console.log("level is: "+level.name +"time " Timer.end() ); //level.level doesn't work
+	socket.emit('updateLevel', { level: level.name , time: Timer.end() });
 	gui.levelComplete();
 	//console.log("PLAYER POSTIION",playerPositionLog);
 	ghost = new Ghost(Math.random(),0,0,{});
 	ghost.setPath(playerPositionLog);
 	//socket for signaling user has finished a level and sends level name and score
-	socket.emit('updateLevel', { level: "level 1", score: "score"});
+
+	//socket.emit('updateLevel', { level: "level 1", score: "score"});
 	setTimeout(function(){gui.drawMedal(storyMedal())},5000);
 	//makeLevel();
 	//convertToString();
+
 	paused = true;
 	//Creates ghost object
 	//level.ghost=ghostArray

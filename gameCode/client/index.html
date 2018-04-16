@@ -1,7 +1,6 @@
 <head>
 
-  <link rel="stylesheet" type="text/css" href="mainStyle.css">
-  <link rel="stylesheet" type="text/css" href="signUpStyle.css">
+  <link rel="stylesheet" href="mainStyle.css">
 
 </head>
 
@@ -11,14 +10,10 @@
     <input id="signDiv-password" class="passwordTextfield" placeholder="Password" type="password"></input><br><br>
     <button id="signDiv-signIn" class="signInDiv-signInButton"></button>
     <button id="signDiv-signUp" class="signInDiv-signUpButton" style=""></button><br><br>
-
-    <button id="forgotButton" class="forgotPasswordButton" >Forgot your password?</button>
-
-
+    <button id="forgotButton" style="display: none; background: transparent; border: none; left: 650px; top: 1000px; text-decoration-color: white;  ">Forgot your password?</button>
+    <br><br>
 
 </div>
-
-
 
 <div id="main" style="padding-top:10%; padding-left:40%;" >
   <br><br><br>
@@ -27,16 +22,19 @@
 </div>
 
 <div id="signUp" class="signUpDiv" style="display:none;" >
-  <input id="signUpDiv-username" class="signUpDiv-username" placeholder="Username" type="text"></input>
-  <input id="signUpDiv-password" class="signUpDiv-password" placeholder="password" type="password"></input>
+  Choose a Username: <input id="signDiv-user" type="text"></input><br><br>
+  Choose a Password: <input id="signDiv-pass" type="password"></input><br><br>
+  Answer these Security Questions for account recovery: <br> <br>
+  What is the first name of the person you first kissed? <br>
+  <input id="q1" type="text"></input><br><br>
 
-  <input id="q1" class="firstKissTextfield" placeholder="First Kiss?" type="text"></input>
+  What is your pet’s name? <br>
+  <input id="q2" type="text"></input><br><br>
 
-  <input id="q2" class="petTextfield" placeholder="Pet's Name?" type="text"></input>
+  What is your favorite sport? <br>
+  <input id="q3" type="text"></input><br><br>
 
-    <input id="q3" class="favoriteSportTextfield" placeholder="Favorite Sport?" type="text"></input>
-
-  <button id="signUpB" class="signUpDiv-signUpButton"></button>
+  <button id="signUpB">Sign Up</button><br><br>
 </div>
 
 <div id="forgotDiv" style=" display:none; padding-top:10%; padding-left:40%; color: #ddeeff;" >
@@ -67,57 +65,43 @@
 
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 <script>
-
     var socket = io();
-
     var main = document.getElementById('main');
     var signDiv = document.getElementById('signDiv');
     var signUp = document.getElementById('signUp');
-
     //sign in menu
     var signDivUsername = document.getElementById('signDiv-username');
     var signDivPassword = document.getElementById('signDiv-password');
     var signDivSignIn = document.getElementById('signDiv-signIn');
     var signDivSignUp = document.getElementById('signDiv-signUp');
-
     var signInButton = document.getElementById('signInButton');
     var signUpButton  =  document.getElementById('signUpButton');
     var level = document.getElementById('level');
     var text = document.getElementById('text');
-
     var signDivUser= document.getElementById('signDiv-user');
     var signDivPass = document.getElementById('signDiv-pass');
     var q1 = document.getElementById('q1');
     var q2 = document.getElementById('q2');
     var q3 = document.getElementById('q3');
     var signUpB = document.getElementById('signUpB');
-
     var forgotButton = document.getElementById('forgotButton');
     var forgotDiv = document.getElementById('forgotDiv');
     var usernameField = document.getElementById('usernameField');
     var a1 = document.getElementById('a1');
     var a2 = document.getElementById('a2');
     var a3 = document.getElementById('a3');
-
     var passwordRecovered = document.getElementById('passwordRecovered');
-
-
     var signDivUser= document.getElementById('signDiv-user');
-
     forgotButton.onclick = function(){
       signDiv.style.display = 'none';
       forgotDiv.style.display = 'inline-block';
       //console.log("forgot");
          //socket.emit('forgotPassword',{username:usernameField.value,a1: a1.value, a2: a2.value, a3: a3.value});
-
     }
-
     signInButton.onclick = function(){
-
       main.style.display = 'none';
       signDiv.style.display = 'inline-block';
     }
-
     recoverButton.onclick = function(){
       if (usernameField.value ==="" || a1.value ===""  || a2.value ===""  || a3.value ===""  ){
         alert("You must fill all fields!");
@@ -126,12 +110,10 @@
       socket.emit('forgotPassword',{username:usernameField.value,a1: a1.value, a2: a2.value, a3: a3.value});
       }
     }
-
     signUpButton.onclick = function(){
       main.style.display = 'none';
       signUp.style.display = 'inline-block';
     }
-
     signUpB.onclick = function(){
       var hasNumber = /\d/;
       if (signDivUser.value ==="" ||signDivPass.value ==="" || q1.value ===""  || q2.value ===""  || q3.value ===""  ){
@@ -147,12 +129,10 @@
       else if (!hasNumber.test(signDivUser.value) || !hasNumber.test(signDivPass.value) ){
         alert("Password and/or Username should be at least 6 in length, with at least one number in each.");
       }
-
       else{
         console.log("something wrong");
       }
     }
-
     signDivSignIn.onclick = function(){
       if (signDivUsername.value ==="" || signDivPassword.value ===""){
         alert("Username and/or Password cannot be empty");
@@ -161,25 +141,18 @@
        socket.emit('signIn',{username:signDivUsername.value,password:signDivPassword.value});
       }
    }
-
    signDivSignUp.onclick = function(){
       signDiv.style.display = 'none';
       signUp.style.display = 'inline-block';
-
    }
-
    level.onclick = function(){
-
        socket.emit('updateLevel', {level: level.textContent} );
    }
-
    socket.on('signInResponse',function(data){
     if(data.success){
         signDiv.style.display = 'none';
         location.href = "/client/gameMenu2.html";
         //gameDiv.style.display = 'inline-block';
-
-
     } else
         alert("Sign in unsuccessul.");
 });
@@ -194,21 +167,16 @@ socket.on('recoverResponse',function(data){
     if(data.success){
       passwordRecovered.textContent = "Your password is: "+ data.password;
       //alert("recover successul."  + data.password);
-
     } else
         alert("Username does not exist.");
 });
 socket.on('levels',function(progress){
     text.textContent = "You have finished " + JSON.stringify(progress.items[0].level) + "in "+JSON.stringify(progress.items[0].time+ " seconds") ;
 });
-
-
 //game
 socket.on('serverMsg',function(data){
         console.log(data.msg);
     });
-
-
 </script>
 
 </body>
