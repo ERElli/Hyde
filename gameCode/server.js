@@ -782,6 +782,7 @@ io.sockets.on('connection', function(socket){
      socket.emit('loadIt', res);
       });
    });
+  
 
    socket.on('levelNewButton',function(data){
      console.log('levelNewButton');

@@ -171,12 +171,12 @@ var state;
 var theLevels= document.getElementById('theLevels');
 
 ///////////////testing adding json
-var ddata = JSON.parse(StoryLevel);
-console.log("letssuuuu", ddata.levelTwo.enemies);
-for(let thing in ddata.levelTwo.enemies/* ;i<ddata.levelTwo.enemies.length; i++*/){
-  console.log(ddata.levelTwo.enemies[thing]);
-  //socket.emit('addLevelItem', {level:"levelTwo", x: ddata.levelTwo.enemies.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
-}
+//var ddata = JSON.parse(StoryLevel);
+//console.log("letssuuuu", ddata.levelTwo.enemies);
+//for(let thing in ddata.levelTwo.enemies/* ;i<ddata.levelTwo.enemies.length; i++*/){
+  //console.log(ddata.levelTwo.enemies[thing].type+ " "+ ddata.levelTwo.enemies[thing].x+ " "+ ddata.levelTwo.enemies[thing].y+ " "+ ddata.levelTwo.enemies[thing].vx + " "+ ddata.levelTwo.enemies[thing].vy+ " "+ ddata.levelTwo.enemies[thing].id);
+  //socket.emit('addLevelItem', {level:"levelTwo", x:ddata.levelTwo.enemies[thing].x, y:ddata.levelTwo.enemies[thing].y, id: ddata.levelTwo.enemies[thing].id,vx: ddata.levelTwo.enemies[thing].vx , vy: ddata.levelTwo.enemies[thing].vy, type:ddata.levelTwo.enemies[thing].type});
+//}
 
 //console.log('ddata')
 /////////////////////////////
@@ -315,12 +315,14 @@ button3.onclick = function(){
  button2.onclick = function(){
        socket.emit('button', {level:levelNameField.value});
  }
+
 //receive
  socket.on('result',function(res){
     console.log("result", JSON.parse(JSON.stringify(res)));
       location.href = "/client/interface/index.html";
  });
 socket.on('loadIt', function(data){
+
 	console.log("this is cool");
 	let level = data;
 	console.log("result"+ level);

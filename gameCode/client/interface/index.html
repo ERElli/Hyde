@@ -6,6 +6,9 @@
 	<body>
 		<br>
 		<br>
+		<div id"backtoLE">
+			<button id="backtoLEButton"> Back to Level Editor </button>
+		</div>
 		<div id="menu">
 			<a href='../gameMenu2.html' class="quitButton"></a>
 			<a href='../gameMenu2.html' class="restartButton"></a>
@@ -56,6 +59,7 @@
 		var story = JSON.parse(StoryLevel)
 		//console.log(JSON.parse(StoryLevel));
 		var mydata;
+		var backtoLEButton = document.getElementById("backtoLEButton");
 		//var myStorage=window.localStorage;
 		var storyLevelName=localStorage.getItem('level');
 		var isOfflineMode= false;
@@ -63,6 +67,7 @@
 		var level = {};
 		level.hasBoss = false;
 		var gui;
+
 		//medal time requirements ['gold','silver','bronze'];
 		var storyMedals=[0,0,0];
 		storyMedal=function(){
@@ -161,8 +166,14 @@
 			//the socket receive the level objects from the database
 
 			socket.on('receiveLevelObjects',function(data){
+
 				console.log("loooik"+ data['level']);
 				levelObjects = data;
+				backtoLEButton.onclick = function(){
+				
+					location.href = "/levelEditor";
+
+				}
 				//level objects should be in data, right now they are logged in console
 				let realLevel = EntityFactory(levelObjects,false);
 
