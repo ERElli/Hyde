@@ -222,6 +222,7 @@ levelLoadButton.onclick = function(){
       levelLoad.style.display = 'block';
       button2.style.display = 'none';
         button3.style.display = 'none';
+        button1.style.display = 'block';
 }
 levelChooseButton.onclick = function(){
       //socket.emit('levelLoadButton', {level:"hey"});
@@ -231,7 +232,7 @@ levelChooseButton.onclick = function(){
       socket.emit('getTheLevels');
       button1.style.display = 'none';
       button2.style.display = 'none';
-      button3.style.display = 'none';
+      button3.style.display = 'block';
 }
 
 /// Adding levels here ////
@@ -254,7 +255,7 @@ socket.on('receiveLevels' ,function(res){
 
     function doSomething(i) {
         var ki = document.getElementById(i);
-        
+
         //ki.style.background  = "blue";
         ki.onclick= function(){
           console.log(ki.innerHTML );
@@ -286,6 +287,7 @@ levelNewButton.onclick = function(){
       levelChoice.style.display = 'none';
       levelMenu.style.display = 'block';
       button1.style.display = 'none';
+      button2.style.display = 'block';
       button3.style.display = 'none';
 }
 //newLevelName.innerHTML= "blue";
@@ -348,11 +350,13 @@ updateWidth = function(newWidth){
   console.log("NEW WIDTH",WIDTH);
 
 };
+
 updateMap = function(newMap){
   console.log("old map",map);
   map = newMap;
   console.log("NEW map",map);
 }
+
 var Update = function(level){
 	// var l = level;
 	 console.log("heeey"+JSON.stringify(level[0] ));
@@ -392,14 +396,9 @@ var pos;
 var id;
 var x;
 var y;
-// //Creating images
-var backgroundImage = new Image();
-backgroundImage.src = "../../images/worldTwoBackground.png";
+
 //Initializing the map
 var map = Map(WIDTH,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
-//map.setBackgroundImage(backgroundImage.src);
-// let levelObject = EntityFactory(levelString,true);
-// console.log(levelObject);
 
 /*
 	Controls
@@ -499,7 +498,7 @@ translateCanvases = function(xOffset,yOffset){
 };
 
 
-//Drawing a preview of the object to be placed on the level
+//Drawing a transparent preview of the object to be placed on the level
 //and snapping the top right corner of the preview to the grid lines
 snapToGrid  = function(canvas,mouse){
 	var pos = getMousePosition(canvas,mouse);
@@ -554,19 +553,13 @@ snapToGrid  = function(canvas,mouse){
 		case 'terrains':
 			switch(selectedTerrain){
 				case "1x1":
-					// console.log("STG 1X1");
 					entity = new Terrain1x1(tempID,prev_x,prev_y);
-					// selectedButton = 'terrains';
-					// selectedTerrain = '1x1';
-					// console.log("SELECTEDBUTTON",entity);
 					break;
 				case "1x1Breakable":
 					entity = Terrain1x1Breakable(tempID,prev_x,prev_y);
 					break;
 				case "3x2":
 					entity = Terrain3x2(tempID,prev_x,prev_y);
-					// selectedButton = 'terrains';
-					// selectedTerrain = '3x2';
 					break;
 				case "3x2Breakable":
 					entity = Terrain3x2Breakable(tempID,prev_x,prev_y);
@@ -596,7 +589,6 @@ snapToGrid  = function(canvas,mouse){
 					gui.ep_ctx.fillRect(x,y,TILE_WIDTH,TILE_HEIGHT);
 					break;
 			}
-			// console.log("ENTITY",entity);
 			entity.draw(gui.ep_ctx,true);
 			break;
 		case 'weapons':
@@ -622,7 +614,7 @@ snapToGrid  = function(canvas,mouse){
 	}
 };
 
-//function to place entity on the map
+//function to place entity on the map in the same position that the preview from snapToGrid is drawn
 putEntity = function() {
 	var mouseBelowUpperBound = pos.x<gui.fg.width && pos.y<gui.fg.height+(2*TILE_HEIGHT);
 	var mouseAboveLowerBound = pos.x>0 && pos.y>TILE_HEIGHT*2;
@@ -861,6 +853,7 @@ document.onmousedown = function(mouse){
 document.onmouseup = function(mouse){
 	(mouse.which===1) ? (mouseLeft = false) : (mouseRight = false);
 };
+
 //Drawing Grid lines
 drawGrid = function(){
 	gui.gr_ctx.globalAlpha = 0.05;
@@ -880,6 +873,7 @@ drawGrid = function(){
 	}
 	gui.gr_ctx.globalAlpha = 1;
 };
+
 init = function() {
 	container = document.getElementById("container");
 	gui = GUI(container);
@@ -887,6 +881,7 @@ init = function() {
 	drawGrid();
 };
 init();
+
 /***********************
 DROP DOWN FUNCTIONALITY
 ***********************/
@@ -898,6 +893,7 @@ var selectedCheckpoint = null;
 var selectedCharacter = null;
 var selectedTerrain = null;
 var selectedWeapon = null;
+
 /*
 	Toggles style.display of an element
 */
@@ -914,6 +910,7 @@ function toggleDisplay(element) {
 	}
 	// console.log("AFTER",element.style.display,dropdownDisplayed,visibleDropdown);
 }
+
 /*
 	Detects what button is pressed and toggles the style.display of the corresponding
 	dropdown menu
@@ -927,6 +924,12 @@ function typeTapped(thing){
 		// visibleDropdown = element.id;
 	}
 }
+
+/*
+	If the target of click isn't a dropdown button, and a dropdown menu is displayed,
+	close it
+*/
+
 window.onclick = function(event){
 	// console.log("CLASSNAME",event.target);
 	target = event.target.parentElement.className;
@@ -944,6 +947,7 @@ window.onclick = function(event){
 		// console.log("DROPDOWN");
 	}
 }
+
 /*************************
 	Enemies
 **************************/
@@ -965,17 +969,11 @@ enemyTapped = function(thing){
 /*************************
 	Music
 **************************/
-// Close the enemies dropdown if the user clicks outside of it
-// document.onclick = function(event) {
-//   	var divToHide = document.getElementById("myMusicDropdown");
-// 	if (!event.target.matches('.musicbtn')) {
-// 		if(divToHide.style.display === 'block'){
-// 			divToHide.style.display = 'none';
-// 		}
-// 	}
-// }
 
 
+/*************************
+	Boss
+**************************/
 bossTapped = function(thing){
 	selectedBoss = thing;
 	let parent = document.getElementById("bosses");
@@ -987,15 +985,6 @@ bossTapped = function(thing){
 /*************************
 	Background
 **************************/
-// // Close the enemies dropdown if the user clicks outside of it
-// document.onclick = function(event) {
-// 	let divToHide = document.getElementById("backgrounds");
-// 	if (!event.target.matches('.backgroundbtn')) {
-// 		if(divToHide.style.display === 'block'){
-// 			divToHide.style.display = 'none';
-// 		}
-// 	}
-// }
 worldTapped = function(thing){
 	selectedBackground = thing;
   //console.log("this is so awesome");
@@ -1008,6 +997,7 @@ worldTapped = function(thing){
 	let parent = document.getElementById('backgrounds');
 	toggleDisplay(parent);
 }
+
 /*************************
 	Checkpoint
 **************************/
@@ -1020,14 +1010,7 @@ checkpointTapped = function(thing) {
 	let parent = document.getElementById('checkpoints');
 	toggleDisplay(parent);
 }
-// window.onclick = function(event) {
-// 	var divToHide = document.getElementById("checkpointDropdown");
-// 	if (!event.target.matches('.checkpointbtn')) {
-// 		if(divToHide.style.display === 'block'){
-// 			divToHide.style.display = 'none';
-// 		}
-// 	}
-// }
+
 /*************************
 	Character
 **************************/
@@ -1038,28 +1021,10 @@ characterTapped = function() {
 	// var element = document.getElementById("characterDropdown");
 	// toggleDisplay(element);
 }
-// window.onclick = function(event) {
-// 	var divToHide = document.getElementById("characterDropdown");
-// 	if (!event.target.matches('.characterbtn')) {
-// 		if(divToHide.style.display === 'block'){
-// 			divToHide.style.display = 'none';
-// 		}
-// 	}
-// }
+
 /*************************
 	Terrain
 **************************/
-// Close the Terrain dropdown if the user clicks outside of it
-// window.onclick = function(event) {
-// 	var divToHide = document.getElementById("myTerrainDropdown");
-// 	if (!event.target.matches('.terrainbtn')) {
-// 		if(divToHide.style.display === 'block'){
-// 			divToHide.style.display = 'none';
-// 		}
-// 	}
-// }
-
-
 terrainTapped = function(thing){
 	console.log(thing);
 	selectedTerrain = thing;
@@ -1067,24 +1032,10 @@ terrainTapped = function(thing){
 	var parent = document.getElementById('terrains');
 	toggleDisplay(parent);
 }
-/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
 
-// function weaponTapped() {
-// 	selectedButton = "weapon";
-// 	var element = document.getElementById("myWeaponDropdown");
-// 	toggleDisplay(element);
-// }
-
-// Close the weapon dropdown if the user clicks outside of it
-// window.onclick = function(event) {
-// 	var divToHide = document.getElementById("weapons");
-// 	if (!event.target.matches('.weaponbtn')) {
-// 		if(divToHide.style.display === 'block'){
-// 			divToHide.style.display = 'none';
-// 		}
-// 	}
-// }
+/*************************
+	Terrain
+**************************/
 weaponTapped = function(thing){
 	selectedWeapon = thing;
 	console.log(selectedWeapon);

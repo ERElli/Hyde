@@ -73,7 +73,10 @@ Map = function(width, height,tile_width, tile_height) {
 		if(type === "player"){
 			let size = Object.keys(list).length;
 			if(size === 1){
+				//socket.emit('addPlayerItem', {level:nameL, x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
 				//////
+				//socket.emit('deletePlayerItem', {level:nameL, x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
+				//socket.emit('addPlayerItem', {level:nameL, x: object.x, y:object.y, id: object.id, vx: object.vx, vy: object.vy, type: object.type});
 				for(let key in list){
 					self.makeFreeSpace(self.tiles,list[key]);
 				}
@@ -137,7 +140,7 @@ Map = function(width, height,tile_width, tile_height) {
     }
 		else if (type.includes("spike")){ ///
 			console.log( "spike");
-      socket.emit('addSpikeItem',{level:nameL,  x: object.x, y:object.y, id: object.id , orientation: object.orientation});
+      socket.emit('addSpikeItem',{level:nameL,  x: object.x, y:object.y, id: object.id ,type: object.type, orientation: object.orientation});
     }
 
 

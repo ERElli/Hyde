@@ -15,7 +15,12 @@ Database.addLevelItem = function(data, cb){
   db.saveLevel.update({level:data.level},   { $addToSet:{ enemies: { id: data.id, items: {x:data.x, y: data.y, vx: data.vx,vy: data.vy,id: data.id,type: data.type} } } }, {upsert: true});
 }
 Database.addPlayerItem = function(data, cb){
-  db.saveLevel.update({level:data.level},   { $addToSet:{ player: { id: data.id, items: {x:data.x, y: data.y, vx: data.vx,vy: data.vy,id: data.id,type: data.type} } } }, {upsert: true});
+  db.saveLevel.update({ level:data.level},{$set: {player : []  }  } , function(err,res){
+
+    db.saveLevel.update({level:data.level}, { $addToSet:{ player: { id: data.id, items: {x:data.x, y: data.y, vx: data.vx,vy: data.vy,id: data.id,type: data.type} } } }, {upsert: true});
+  });
+
+  //db.saveLevel.update({level:data.level},   { $addToSet:{ player: { id: data.id, items: {x:data.x, y: data.y, vx: data.vx,vy: data.vy,id: data.id,type: data.type} } } }, {upsert: true});
 }
 Database.addTerrainItem = function(data, cb){
   console.log("it works");
@@ -31,11 +36,16 @@ Database.addPlatformItem = function(data, cb){
 }
 Database.addBossItem = function(data, cb){
   console.log("add boss");
-  db.saveLevel.update({level:data.level},   { $addToSet:{ boss: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type} } } }, {upsert: true});
+  db.saveLevel.update({ level:data.level},{$set: {boss : []  }  } , function(err,res){
+
+    db.saveLevel.update({level:data.level},  { $addToSet:{ boss: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type} } } }, {upsert: true});
+  });
+
+  //db.saveLevel.update({level:data.level},   { $addToSet:{ boss: { id: data.id, items: {x:data.x, y: data.y,id: data.id,type: data.type} } } }, {upsert: true});
 }
 Database.addSpikeItem = function(data, cb){
   console.log("add spike");
-  db.saveLevel.update({level:data.level},   { $addToSet:{ spike: { id: data.id, items: {x:data.x, y: data.y,id: data.id, orientation: data.orientation} } } }, {upsert: true});
+  db.saveLevel.update({level:data.level},   { $addToSet:{ terrain : { id: data.id, items: {x:data.x, y: data.y,id: data.id, type: data.type, orientation: data.orientation} } } }, {upsert: true});
 }
 
 Database.addBackgroundItem = function(data, cb){

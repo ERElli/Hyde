@@ -20,10 +20,14 @@ var hasReleasedJump = false;
 var hasReleasedCrouch = true;
 var paused = false;
 
-var charCodes ={}; // {65:"left", 87:"jump", 68:"right", 83:"crouch", 32:"transform",};
+var charCodes ={}; // updated using controls stored in controls.js
 
-var pressing = { "left": 0, "right":0, "jump":0, "crouch":0, "transform":0, "shoot":0 };
+var pressing = { "left": 0, "right":0, "jump":0, "crouch":0, "transform":0, "shoot":0 }; // the actions the player is currently inputting
 
+
+/*
+* Updates the key bindings using the values set in controls.js
+*/
 var updateControls = function() {
 	for (var key in codeToChar) {
 		charCodes[codeToChar[key]] = key;
@@ -31,6 +35,9 @@ var updateControls = function() {
 }
 
 
+/*
+* Sets the appropriate value in 'pressing' to 1, according to the input key code
+*/
 document.onkeydown = function(event) {
 	pressing[charCodes[event.keyCode]] = 1;
 }
@@ -232,11 +239,11 @@ var update = function() {
 
 	//Manage player -----------------------------------------------------------------------------------
 
-	if (player.y > 500) {
+	if (player.y > 500) { // player has fallen off the map
 		player.health = 0;
 	}
 
-	if (player.health <= 0) {
+	if (player.health <= 0) { // player has died
 		player.reset(50, 50);
 	}
 
@@ -260,39 +267,36 @@ var update = function() {
 
 		gui.drawTerrain(block,gui.fg_ctx)
 
-		if (block.type == "moving platform") {
+		if (block.type == "moving platform") { // only terrain type that moves
 			block.updatePosition();
 		}
-
-		//if (!inRange(block)) {
-			//continue;
-		//}
+		
 
 		//Check collisions with player ####################################
 
-		if (blockUnderEntity(block, player)) {
+		if (blockUnderEntity(block, player)) { // player is standing on some sort of terrain
 
-			if (block.type == 'spike trap' && block.orientation == "up" && !player.isImmune) {
+			if (block.type == 'spike trap' && block.orientation == "up" && !player.isImmune) { // player is not immune and is standing on a spike trap
 				player.takeDamage(block.damage);
-				player.vy = 10;
+				player.vy = 10; // launch player upwards when they step on a spike trap
 			}
 			else {
 				player.falling = false;
 
-				if (block.mod.type != 'none') {
-
+				if (block.mod.type != 'none') { // block has some modifier on it
 					block.mod.applyEffect(player);
 				}
-				else {
+				else { // block has no modifier on it
 					block.clearEffects(player);
 				}
 				if (!player.justJumped) {
 					putOnTerrain(block, player);
 				}
 			}
+			
 			if (block.type == 'moving platform') {
 				if (block.direction == "horizontal" && !pressing['left'] && !pressing['right']) {
-					player.vx = block.vx;
+					player.vx = block.vx; // player is standing on a moving platform and not trying to move, so they move with the platform
 					player.onPlatform = true;
 				}
 				else if (block.direction == "vertical" && !pressing['jump']) {
@@ -315,26 +319,25 @@ var update = function() {
 		}
 
 
-		if (blockLeftEntity(block, player)) {
+		if (blockLeftEntity(block, player)) { // player is blocked on the left by some sort of terrain
 
-			if (!block.breakAt) {
+			if (!block.breakAt) { // block is not breakable, stop player from moving
 				player.x = block.x + block.width+player.xOffset;
 				player.blockedLeft = true;
 			}
 
-			if (block.type == 'spike trap' && block.orientation == "right" && !player.isImmune) {
+			if (block.type == 'spike trap' && block.orientation == "right" && !player.isImmune) { // player is running into a right-facing spike trap
 				player.takeDamage(block.damage);
 				player.vx = 10;
 			}
 
-			else {
-				if (Math.abs(player.getMomentum()) >= block.breakAt) {
-					b = new BoulderPickUp(Math.random(), block.x, block.y, player);
+			else { // player is running into a breakable
+				if (Math.abs(player.getMomentum()) >= block.breakAt) { // player breaks breakable
+					b = new BoulderPickUp(Math.random(), block.x, block.y, player); // this creates a boulder pick-up
 					boulderPickUps[b.id] = b;
-					console.log("Creating boulder");
 					delete  terrain[key];
 				}
-				else {
+				else { // player does not break breakable
 					player.x = block.x + block.width+player.xOffset;
 					player.blockedLeft = true;
 				}
@@ -357,7 +360,6 @@ var update = function() {
 
 			else {
 				if (Math.abs(player.getMomentum()) >= block.breakAt) {
-					//Plays break sound when building is destoryed
 					ani.buildingBreakSound();
 					b = new BoulderPickUp(Math.random(), block.x, block.y+block.height, player);
 					boulderPickUps[b.id] = b;
@@ -373,7 +375,7 @@ var update = function() {
 		}
 
 
-		if (blockOverEntity(block, player)) {
+		if (blockOverEntity(block, player)) { // player is jumping into the bottom of a block
 
 			if (block.type == 'spike trap' && block.orientation == "down" && !player.isImmune) {
 				player.takeDamage(block.damage);
@@ -386,7 +388,7 @@ var update = function() {
 		}
 
 
-		//Check collisions with enemies ####################################
+		//Check collisions with enemies (same logic as for player) ####################################
 
 		for (var key in enemies) {
 
@@ -453,7 +455,7 @@ var update = function() {
 
 			bullet = bullets[key]
 
-			if (bullet.type != 'meleeBullet') {
+			if (bullet.type != 'meleeBullet') { // then it is either a normal bullet or a boulder (either way delete)
 				if (testCollision(block, {'x':bullet.x-bullet.width/2, 'y':bullet.y-bullet.height/2, 'width':bullet.width, 'height':bullet.height})) {
 					delete bullets[key];
 				}
@@ -552,22 +554,33 @@ var update = function() {
 			if (isColliding && bullet.ownerID != enemies[key2].id) {
 				
 				if (enemies[key2].type == 'basic boss' || enemies[key2].type == 'flying boss' || enemies[key2].type == 'tank boss') {
-					if (bullet.ownerID == player.id) {
+					
+					if (bullet.ownerID == player.id) { // bosses only take damage from player bullets
 						if (bullet.type == 'bullet') {
 							toRemove = true;
 						}
 
-						//Enemy takes damage, maybe apply effect (like knockback)
 						enemies[key2].takeDamage(bullet.damage);
 						break;
 					}
+					
+				}
+				
+				else {
+					if (bullet.type == 'bullet') {
+							toRemove = true;
+					}
+
+					//Enemy takes damage, maybe apply effect (like knockback)
+					enemies[key2].takeDamage(bullet.damage);
+					break;
 				}
 
 				
 			}
 		}
 
-		if (bullet.ownerID != player.id) {
+		if (bullet.ownerID != player.id) { // player cannot shoot themselves
 			var isColliding = bullet.testCollision(player);
 			if (isColliding) {
 				if (bullet.type == 'bullet') {
@@ -599,23 +612,21 @@ var update = function() {
 		var enemy = enemies[key];
 
 		if (!inRange(enemy)) {
-			//console.log("Skipping enemy");
 			continue;
 		}
 
 		enemy.update();
-		enemy.updateAim(player);
+		enemy.updateAim(player); // enemies always aim at player
 
 		if (enemy.health <= 0) {
-			//plays enemy death animation sound
 			ani.enemyDeathSound();
 			delete enemies[key];
 
 			if (enemy.type == 'basic boss' || enemy.type == 'flying boss' || enemy.type == 'tank boss') {
-				endGame();
+				endGame(); // game ends if boss dies
 			}
 
-			if (Math.random() < 0.3) {
+			if (Math.random() < 0.7) { // enemies drop ammo with probability 0.7
 				a = new AmmoPickUp(Math.random(), enemy.x, enemy.y, player);
 				pickUps[a.id] = a;
 
@@ -633,7 +644,7 @@ var update = function() {
 		}
 
 
-		if (enemy.type == "flying enemy" || enemy.type == "flying boss") {
+		if (enemy.type == "flying enemy" || enemy.type == "flying boss") { // these are the only enemies with guns
 			newBullets = enemy.shoot();
 			for (i in newBullets) {
 				newBullet = newBullets[i];
@@ -648,8 +659,8 @@ var update = function() {
 
 		if (isColliding) {
 
-			var enemyDeals = enemy.meleeDamage;
-			var playerDeals = 0;
+			var enemyDeals = enemy.meleeDamage; // enemies always deal damage on collision
+			var playerDeals = 0; // player only deals damage if he is big and has greater momentum
 
 			if (!player.isImmune) {
 
@@ -658,19 +669,18 @@ var update = function() {
 					player_p = Math.abs(player.getMomentum());
 					enemy_p = Math.abs(enemy.getMomentum());
 
-					delta_p = Math.abs(player_p - enemy_p);
+					delta_p = Math.abs(player_p - enemy_p); // difference in momentums
 
+					
+					// entity with lower momentum takes damage and is launched
 					if (player_p > enemy_p) {
 						enemy.launch(Math.sign(player.vx)*delta_p/enemy.mass);
 						playerDeals += delta_p/150;
 					}
 					else if (enemy_p > player_p) {
 						player.launch(Math.sign(enemy.vx)*delta_p/player.mass, 25);
-
 						enemyDeals += delta_p/150;
 
-					}
-					else {
 					}
 
 				}
@@ -686,6 +696,10 @@ var update = function() {
 
 }
 
+
+/*
+* Tests if the given block is under the given entity
+*/
 var blockUnderEntity = function(terrain, entity) {
 
 	terrain_rect = {'x':terrain.x, 'y':terrain.y, 'width':terrain.width, 'height':terrain.height/4};
@@ -696,6 +710,9 @@ var blockUnderEntity = function(terrain, entity) {
 
 }
 
+/*
+* Tests if the given block is left of the given entity
+*/
 var blockLeftEntity = function(terrain, entity) {
 
 	entity_rect = {'x':entity.x-entity.xOffset, 'y':entity.y-entity.yOffset/2, 'width':entity.xOffset/2, 'height':entity.yOffset};
@@ -704,6 +721,9 @@ var blockLeftEntity = function(terrain, entity) {
 
 }
 
+/*
+* Tests if the given block is right of the given entity
+*/
 var blockRightEntity = function(terrain, entity) {
 
 	entity_rect = {'x':entity.x+entity.xOffset, 'y':entity.y-entity.yOffset/2, 'width':entity.xOffset/2, 'height':entity.yOffset};
@@ -712,6 +732,9 @@ var blockRightEntity = function(terrain, entity) {
 
 }
 
+/*
+* Tests if the given block is over the given entity
+*/
 var blockOverEntity = function(terrain, entity) {
 
 	entity_rect = {'x':entity.x-entity.xOffset/2, 'y':entity.y-entity.yOffset, 'width':entity.xOffset, 'height':entity.yOffset/2};
@@ -721,6 +744,9 @@ var blockOverEntity = function(terrain, entity) {
 }
 
 
+/*
+* Places the given entity on the given block
+*/
 var putOnTerrain = function(terrain, entity) {
 
 	entity.inAir = false;
@@ -732,6 +758,7 @@ var putOnTerrain = function(terrain, entity) {
 
 
 }
+
 
 var testCollision = function(rect1, rect2) {
 	return rect1.x <= rect2.x+rect2.width
@@ -745,21 +772,18 @@ var startGame = function(initial_level) {
 	console.log(Timer.startTime);
 	level = initial_level;
 	player = level["player"];
+	
 	if(level['ghost'] == null){
-		console.log("GHOST NULL");
+		//console.log("GHOST NULL");
 		ghost = null;
 		//DO NOTHING
 	}else{
-		console.log("GHOST",level['ghost']);
+		//console.log("GHOST",level['ghost']);
 		ghost = level['ghost'];
 	}
 
-	console.log("IN START: " + level.hasBoss);
-
 	enemies = level["enemies"];
 	terrain = level["terrain"];
-	breakable = new Terrain1x1Breakable(Math.random(), 500, 325);
-	//surfaceMods = level["terrain"];
 	pickUps = level['weapons'];
 	frameCount = 0;
 	everyTenCount = 0;

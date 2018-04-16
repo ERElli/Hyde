@@ -55,6 +55,13 @@ app.get('/client/interface/GUI.js',function(req, res) {
 app.get('/client/interface/sounds.js',function(req, res) {
     res.sendFile(__dirname + '/client/interface/sounds.js');
 });
+app.get('/client/interface/StoryLevels.json',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/StoryLevels.json');
+});
+app.get('/signUpStyle.css',function(req, res) {
+    res.sendFile(__dirname + '/client/signUpStyle.css');
+});
+
 
 
 
@@ -825,7 +832,7 @@ io.sockets.on('connection', function(socket){
   socket.on('deleteSpikeItem',function(data){
     console.log(data);
     console.log('received socket to dlt spike');
-   Database.deleteSpikeItem(data);
+   Database.deleteTerrainItem(data);
   });
   socket.on('changeIceMod',function(data){
     console.log(data);
