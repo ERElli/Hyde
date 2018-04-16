@@ -568,7 +568,7 @@ var update = function() {
 				
 				else {
 					if (bullet.type == 'bullet') {
-							toRemove = true;
+						toRemove = true;
 					}
 
 					//Enemy takes damage, maybe apply effect (like knockback)
