@@ -13,6 +13,9 @@
     background-size: 100%;
     z-index: 4;
 }
+body {
+  margin: 0px;
+}
 .btnstyle{
 
   width: 400px;

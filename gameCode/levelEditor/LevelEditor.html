@@ -337,6 +337,7 @@ socket.on('loadIt', function(data){
 				map.tryToPlaceEntity(levelObject[type][id]);
 			}
 		}
+    map.setBackgroundImage = levelObject.background;
 	}
 	updateWidth(parseInt(levelObject.width));
 	updateMap(map);
