@@ -628,6 +628,73 @@ app.get('/client/interface/img/menuQuit.png',function(req, res) {
 });
 
 
+//NEWLY ADDED
+
+app.get('/client/images/levelOneButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/levelOneButton.png');
+});
+
+app.get('/client/images/levelOneHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/levelOneHover.png');
+});
+
+app.get('/client/images/levelTwoButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/levelTwoButton.png');
+});
+
+app.get('/client/images/levelTwoHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/levelTwoHover.png');
+});
+
+app.get('/client/images/levelThreeButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/levelThreeButton.png');
+});
+
+app.get('/client/images/levelThreeHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/levelThreeHover.png');
+});
+
+app.get('/client/images/levelSelectLabel.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/levelSelectLabel.png');
+});
+
+app.get('/client/images/levelSelectHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/levelSelectHover.png');
+});
+
+app.get('/client/levelSelectionStyle.css',function(req, res) {
+    res.sendFile(__dirname + '/client/levelSelectionStyle.css');
+});
+
+app.get('/client/images/changeWorldArrow.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/changeWorldArrow.png');
+});
+
+app.get('/client/images/logoutButton.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/logoutButton.png');
+});
+
+app.get('/client/images/logoutHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/logoutHover.png');
+});
+
+app.get('/client/images/playGuest.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/playGuest.png');
+});
+
+app.get('/client/images/playGuestHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/playGuestHover.png');
+});
+
+
+
+
+
+
+
+
+
+
 
 app.get('/images/buildingTerrain3x6.png',function(req, res) {
     res.sendFile(__dirname + '/images/buildingTerrain3x6.png');
