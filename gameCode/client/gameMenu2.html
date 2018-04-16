@@ -32,10 +32,11 @@
     var levelChoose = document.getElementById('levelChoose');
     var main = document.getElementById('main');
     var play = document.getElementById('play');
+    var playOnline = document.getElementById('playOnline');
     var levelEditor = document.getElementById('levelEditor');
     var Achievements = document.getElementById('Achievements');
     var achievementsMenu = document.getElementById('achievementsMenu');
-    play.onclick = function(){
+    playOnline.onclick = function(){
       main.style.display = 'none';
       levelChoose.style.display = 'inline-block';
       socket.emit('getLevels');
