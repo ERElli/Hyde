@@ -19,6 +19,7 @@ var playerPositionLog={};
 var hasReleasedJump = false;
 var hasReleasedCrouch = true;
 var paused = false;
+var gameOver = false;
 
 var charCodes ={}; // updated using controls stored in controls.js
 
@@ -81,7 +82,16 @@ document.onmousemove = function(mouse){
 
 document.onkeypress = function(event) {
 	if (event.keyCode == 112) {
-		paused = !paused;
+		
+		if (paused && !gameOver) {
+			paused = false;
+			Timer.unpause();
+		}
+		else {
+			Timer.pause();
+			paused = true;
+			
+		}
 	}
 }
 
@@ -202,7 +212,7 @@ var inRange = function(thing) {
 var update = function() {
 
 	if (paused) {
-		Timer.pause();
+		//Timer.pause();
 		return;
 	}
 
@@ -843,7 +853,6 @@ var endGame = function() {
 	Timer.end();
 	//should be a varianle for level name and time
 
-	console.log("level is: "+level.name +"time "+ Timer.getEndTime() ); //level.level doesn't work
 
 	socket.emit('updateLevel', { level: level.name , time: Timer.getEndTime() });
 	gui.levelComplete();
@@ -852,6 +861,7 @@ var endGame = function() {
 	ghost.setPath(playerPositionLog);
 	//socket for signaling user has finished a level and sends level name and score
 	paused = true;
+	gameOver = true;
 	//socket.emit('updateLevel', { level: "level 1", score: "score"});
 	setTimeout(function(){gui.drawMedal(storyMedal())},5000);
 	//makeLevel();
