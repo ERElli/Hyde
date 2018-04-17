@@ -54,6 +54,7 @@ GUI = function(container){
 		gui.bg_ctx.clearRect(0,0,self.bg.width,self.bg.height);
 		n=editorBackgroundCounter;
 		var image;
+		//console.log(img);
 		switch(img){
 			case 'world1':
 				image = Img.background1;
@@ -65,6 +66,7 @@ GUI = function(container){
 				image = Img.background3;
 				break;
 		}
+		//console.log(image);
 		if(image != null){
 			gui.bg_ctx.drawImage(image,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
 			gui.bg_ctx.drawImage(image,x+self.bg.width*n,y,self.bg.width,self.bg.height);
@@ -100,13 +102,26 @@ GUI = function(container){
 		n=backgroundPositionCounter;
 		x=self.bg.width-level['player'].x;
 		y=0;
+		//if(
 		img.onload=function(){
 		}
+		//console.log(Sound.worldTwo);
 		sound.play();
 		//continuously loops backgrounds
 		gui.bg_ctx.drawImage(img,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(img,x+self.bg.width*n,y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(img,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
+    /*
+		//reached the end of the level
+		if(backgroundPositionCounter ==3){
+			 document.getElementById('canvas').onkeypress=function()
+			{
+				 stop = true;
+				 return false;
+			 };
+		}
+		*/
+
 		if(x<self.bg.width-self.bg.width*n){
 			backgroundPositionCounter++;
 		}
@@ -134,6 +149,7 @@ GUI = function(container){
 					if(!isLevelEditor){
 						playDir=ani.getPlayDirection(en);
 						//Draws jumping animation
+						//console.log(en.vy);
 						if(en.vy!=0){
 							playDir=ani.playJumpAnimation(en,playDir);
 						}else{
@@ -145,7 +161,9 @@ GUI = function(container){
 					}
 					var fW=Img.playerBig.width/5;
 					var fH=Img.playerBig.height/3;
+					//ani.updateEntityAnimation(en,5);
 					if(en.isImmune && en.immuneCounter%6==0){
+						//self.quickAnimatedDraw(Img.playerBig,en,ctx,playDir,fW,fH);
 
 					}
 					else{
@@ -158,6 +176,7 @@ GUI = function(container){
 					if(!isLevelEditor){
 						playDir=ani.getPlayDirection(en);
 						//Draws jumping animation
+						//console.log(en.vy);
 						if(en.vy!=0){
 							playDir=ani.playJumpAnimation(en,playDir);
 						}else{
@@ -168,6 +187,7 @@ GUI = function(container){
 						playDir=0;
 					}
 					if(en.isImmune && en.immuneCounter%6==0){
+		      			//self.quickAnimatedDraw(Img.playerSmall,en,ctx,playDir,fW,fH);
 					}else{
 						self.quickAnimatedDraw(Img.playerSmall,en,ctx,playDir,fW,fH);
 					}
@@ -232,6 +252,8 @@ GUI = function(container){
 				var weapImg=Img.pistol;
 				var fW=weapImg.width/5;
 				var fH=weapImg.height/2;
+
+
 				dir=1;
 				newX=ani.getWeaponPosition(en);
 				if (en.isFiring==true){
@@ -250,6 +272,7 @@ GUI = function(container){
 					newX=0;
 					self.editorWeaponDraw(weapImg,en,ctx,fW,fH);
 				}
+
 				break;
 			case "shotgun":
 				weapImg=Img.shotgun;
@@ -334,8 +357,10 @@ GUI = function(container){
 
 			case "meleeBullet":
 				//melee bullets shouldnt be drawn
+				//self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;
 			case "boulder":
+				//console.log(en.width,en.height,en.x,en.y);
 				fW=Img.boulder.width/5;
 				fH=Img.boulder.height;
 				ctx.drawImage(Img.boulder,0,0,fW,Img.boulder.height,en.x-xOffset-playX,en.y-yOffset,en.width,en.height);
@@ -351,6 +376,8 @@ GUI = function(container){
 				self.quickDraw(Img.bullet,en,ctx,en.x,en.y);
 				break;
 		}
+		//console.log(entity);
+		//entity.img.onload=function(){};
 		ctx.restore();
 	};
 	//draws terrain
@@ -398,6 +425,8 @@ GUI = function(container){
 				break;
 			case "Checkpoint":
 				if (t.isActive){
+					//does not exist yet
+					//img=Img.activeCheckpoint;
 				}
 				else{
 					img=Img.standardCheckpoint;
@@ -414,6 +443,7 @@ GUI = function(container){
 				break;
 		}
 		//Drawing terrain modifiers
+
 		if(terrain.mod.type!='none'){
 			gui.drawTerrainMod(terrain,ctx);
 		}
@@ -475,6 +505,9 @@ GUI = function(container){
 	};
 	//Checkpoint update
 	self.checkpointUpdate=function(checkpoint){
+		//Does not exist
+		//img=Img.activeCheckpoint;
+		//self.quickDraw(img,checkpoint,gui,fg_ctx,checkpoint.x,checkpoint.y);
 		ani.checkpointSound();
 	};
 	//LevelComplete
@@ -513,6 +546,7 @@ GUI = function(container){
 		minutes=Math.floor(calcTime/60);
 		seconds=Math.floor(calcTime-minutes*60);
 		milliseconds=(time-seconds*1000-minutes*60000)%1000;
+		//console.log("Min",minutes,"sec",seconds,"mil",milliseconds);
 		if (minutes<10){
 			minutes="0"+minutes;
 		}
@@ -527,10 +561,12 @@ GUI = function(container){
 		}
 		return [minutes,seconds,milliseconds];
 	};
-	self.prettyPrint=function(time){
-		prettyTime=(time[0] +":"+time[1]+ ":"+time[2]);
+
+	self.prettyPrint = function(time){
+		prettyTime = time[0]+":"+time[1]+":"+time[2];
 		return prettyTime;
 	}
+
 	self.HUD=function(ctx,player){
 
 		var timeX=0;
@@ -554,7 +590,7 @@ GUI = function(container){
 
 		ctx.save();
 
-		ctx.clearRect(0,0,self.fg.width,100);
+		ctx.clearRect(0,0,self.fg.width,self.fg.height);
 		ctx.font="18px Arial";
 		//draw bar outlines
 		ctx.strokeRect(healthX,healthY,100,10);
@@ -571,6 +607,7 @@ GUI = function(container){
 		ctx.fillText('Health:',healthX,healthY);
 		ctx.fillText('Momentum:',momentX,momentY);
 		theTime=gui.formatTime(Timer.getCurrentTime());
+		//console.log(theTime);
 		//draws time
 		ctx.fillText('Time: '+ theTime[0] +":"+theTime[1]+ ":"+theTime[2],timeX,timeY);
 		//draw ammo
