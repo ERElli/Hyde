@@ -19,6 +19,7 @@ var playerPositionLog={};
 var hasReleasedJump = false;
 var hasReleasedCrouch = true;
 var paused = false;
+var gameOver = false;
 
 var charCodes ={}; // updated using controls stored in controls.js
 
@@ -81,7 +82,16 @@ document.onmousemove = function(mouse){
 
 document.onkeypress = function(event) {
 	if (event.keyCode == 112) {
-		paused = !paused;
+		
+		if (paused && !gameOver) {
+			paused = false;
+			Timer.unpause();
+		}
+		else {
+			Timer.pause();
+			paused = true;
+			
+		}
 	}
 }
 
@@ -110,7 +120,7 @@ var doPressedActions = function() {
 
 	if (pressing['jump']) {
 		if (!player.inAir) {
-			console.log("Jumping");
+			//console.log("Jumping");
 			player.jump();
 			hasReleasedJump = false;
 		}
@@ -202,7 +212,7 @@ var inRange = function(thing) {
 var update = function() {
 
 	if (paused) {
-		Timer.pause();
+		//Timer.pause();
 		return;
 	}
 
@@ -333,8 +343,10 @@ var update = function() {
 
 			else { // player is running into a breakable
 				if (Math.abs(player.getMomentum()) >= block.breakAt) { // player breaks breakable
-					b = new BoulderPickUp(Math.random(), block.x, block.y, player); // this creates a boulder pick-up
+					ani.buildingBreakSound();
+					b = new BoulderPickUp(Math.random(), block.x, block.y+block.height, player);
 					boulderPickUps[b.id] = b;
+					//console.log("Creating boulder");
 					delete  terrain[key];
 				}
 				else { // player does not break breakable
@@ -346,7 +358,7 @@ var update = function() {
 		}
 		if (blockRightEntity(block, player) && player.vx >= 0){
 
-			console.log(block.type);
+			//console.log(block.type);
 
 			if (!block.breakAt) {
 				player.x = block.x - player.xOffset;
@@ -363,7 +375,7 @@ var update = function() {
 					ani.buildingBreakSound();
 					b = new BoulderPickUp(Math.random(), block.x, block.y+block.height, player);
 					boulderPickUps[b.id] = b;
-					console.log("Creating boulder");
+					//console.log("Creating boulder");
 					delete  terrain[key];
 				}
 				else {
@@ -769,7 +781,7 @@ var testCollision = function(rect1, rect2) {
 
 var startGame = function(initial_level) {
 	Timer.start();
-	console.log(Timer.startTime);
+	//console.log(Timer.startTime);
 	level = initial_level;
 	player = level["player"];
 
@@ -843,7 +855,6 @@ var endGame = function() {
 	Timer.end();
 	//should be a varianle for level name and time
 
-	console.log("level is: "+level.name +"time "+ Timer.getEndTime() ); //level.level doesn't work
 
 	socket.emit('updateLevel', { level: level.name , time: Timer.getEndTime() });
 	gui.levelComplete();
@@ -852,6 +863,7 @@ var endGame = function() {
 	ghost.setPath(playerPositionLog);
 	//socket for signaling user has finished a level and sends level name and score
 	paused = true;
+	gameOver = true;
 	//socket.emit('updateLevel', { level: "level 1", score: "score"});
 	setTimeout(function(){gui.drawMedal(storyMedal())},5000);
 	//makeLevel();
@@ -890,8 +902,8 @@ var convertToString = function(){
 	var levelName = "ghostDemo"
 	var filename = levelName+".json";
 	var Level = makeLevel();
-	console.log("CTS LEVEL",Level);
-	console.log("CTS MYDATA",mydata);
+	//console.log("CTS LEVEL",Level);
+	//console.log("CTS MYDATA",mydata);
 	Level.name = levelName;
 
 	var str = JSON.stringify(Level).toString();

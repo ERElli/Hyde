@@ -180,6 +180,7 @@
 
 				}
 				for(let thing in realLevel['boss']) {
+
 					let mainBoss = realLevel.boss[thing];
 					let boss;
 					switch(mainBoss.type){
@@ -317,6 +318,7 @@
 			}
 
 			for(let thing in mydata['boss']) {
+
 				let mainBoss = mydata.boss[thing];
 				let boss;
 				switch(mainBoss.type){
@@ -351,7 +353,6 @@
 			level['terrain'] = {};
 			for (var thing in mydata['terrain']) {
 					let t = mydata['terrain'][thing]
-
 					var block;
 
 					if (t.type == 'Terrain1x1') {
