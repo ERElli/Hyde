@@ -173,7 +173,7 @@
 
 			socket.on('receiveLevelObjects',function(data){
 
-				console.log("loooik"+ data['level']);
+				//console.log("loooik"+ data['level']);
 				levelObjects = data;
 				backtoLEButton.onclick = function(){
 				
@@ -213,7 +213,7 @@
 				}
 
 				for(let thing in realLevel['boss']) {
-					console.log("BOSS",realLevel.boss[thing]);
+					//console.log("BOSS",realLevel.boss[thing]);
 					let mainBoss = realLevel.boss[thing];
 					let boss;
 					switch(mainBoss.type){
@@ -281,10 +281,10 @@
 					else if (t.type == 'Terrain1x6Breakable') {
 						block = Terrain1x6Breakable(t.id, t.x, t.y-150);
 					}else if(t.type == 'moving platform'){
-						console.log("moving platform");
-						console.log(t.direction);
+						//console.log("moving platform");
+						//console.log(t.direction);
 						if(t.direction === "vertical"){
-							console.log(t.finalVal);
+							//console.log(t.finalVal);
 							t.finalVal = t.finalVal-150;
 						}
 						block = MovingPlatform(t.id,t.x,t.y-150,t.direction,t.finalVal);
@@ -358,7 +358,7 @@
 			}
 
 			for(let thing in mydata['boss']) {
-					console.log("BOSS",mydata.boss[thing]);
+					//console.log("BOSS",mydata.boss[thing]);
 					let mainBoss = mydata.boss[thing];
 					let boss;
 					switch(mainBoss.type){
@@ -380,12 +380,12 @@
 			//}
 
 			level['weapon'] = {};
-			console.log(mydata);
+			//console.log(mydata);
 
 			for (let thing in mydata['weapon']) {
 
 					w = mydata['weapon'][thing]
-					console.log("WEAPONS",level['player']);
+					//console.log("WEAPONS",level['player']);
 					var weapon;
 
 					weapon = new WeaponPickUp(w.id, w.x, w.y-150, w.weaponType, level['player']);
@@ -393,11 +393,11 @@
 					level['weapon'][w.id] = weapon;
 
 			}
-			console.log(level['weapon']);
+			//console.log(level['weapon']);
 			level['terrain'] = {};
 			for (var thing in mydata['terrain']) {
 					let t = mydata['terrain'][thing]
-					console.log("MOD",t.mod);
+					//console.log("MOD",t.mod);
 
 					var block;
 
@@ -428,10 +428,10 @@
 					else if (t.type == 'Terrain1x6Breakable') {
 						block = Terrain1x6Breakable(t.id, t.x, t.y-150);
 					}else if(t.type == 'moving platform'){
-						console.log("moving platform");
-						console.log(t.direction);
+						//console.log("moving platform");
+						//console.log(t.direction);
 						if(t.direction === "vertical"){
-							console.log(t.finalVal);
+							//console.log(t.finalVal);
 							t.finalVal = t.finalVal-150;
 						}
 						block = MovingPlatform(t.id,t.x,t.y-150,t.direction,t.finalVal);
@@ -457,7 +457,7 @@
 			level.width=mydata.width;
 			level.height= mydata.height;
 			level.background=mydata.background;
-			console.log(mydata);
+			//console.log(mydata);
 			startGame(level);
 		}
 
