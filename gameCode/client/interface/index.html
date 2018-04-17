@@ -15,15 +15,11 @@
 			<a href='../gameMenu2.html' class="mainMenuButton"></a>
 			<a href='../gameMenu2.html' class="levelEditorButton"></a>
 		</div>
-
-
-
 		<div id="container">
 
 			<div id="results" style="positions:absolute; left: 511px;">
 				<table style="border:1px"></table>
 			</div>
-
 		</div>
 
 	</body>
@@ -37,17 +33,7 @@
 		<script type="text/javascript" src="../engine/controls.js"></script>
 		<script type="text/javascript" src="../../levelEditor/EntityFactory.js"></script>
 		<script type="text/javascript" src="../engine/timer.js"></script>
-
 		<script type="text/javascript" src="StoryLevels.json"></script>
-
-		<!--<script type="text/javascript" src="world2level3.json"></script>-->
-
-
-
-		<!--<script type="text/javascript" src="world2level1.json"></script>-->
-		<!--<script type="text/javascript" src="ghostDemo.json"></script>-->
-		<!--<script type="text/javascript" src="jsonTest.js"></script>-->
-
 		<script type="text/javascript" src="../../levelEditor/Terrain.js"></script>
 		<script type="text/javascript" src="images.js"></script>
 		<script type="text/javascript" src="sounds.js"></script>
@@ -57,10 +43,8 @@
 
 		<script>
 		var story = JSON.parse(StoryLevel)
-		//console.log(JSON.parse(StoryLevel));
 		var mydata;
 		var backtoLEButton = document.getElementById("backtoLEButton");
-		//var myStorage=window.localStorage;
 		var storyLevelName=localStorage.getItem('level');
 		var isOfflineMode= false;
 		if (localStorage.getItem('isOffline')=='true') {
@@ -73,8 +57,6 @@
 		var level = {};
 		level.hasBoss = false;
 		var gui;
-
-		//medal time requirements ['gold','silver','bronze'];
 		var storyMedals=[0,0,0];
 		storyMedal=function(){
 			if(Timer.getEndTime()<storyMedals[0]){
@@ -156,39 +138,25 @@
 		}
 		if (!isOfflineMode && !isStoryMode){
 			var socket = io();
-
-
 			//call the socket to get the level objects from database
 			var  getLevelObjects = function() {
 				//it says "level 1" but in reality its getting level Objects for the specified level name in Database
 				socket.emit('getLevelObject', {level:"level 1"});
 			};
-
 			var levelObjects;
 			getLevelObjects();
-
-
-
 			//the socket receive the level objects from the database
-
 			socket.on('receiveLevelObjects',function(data){
-
-				//console.log("loooik"+ data['level']);
 				levelObjects = data;
 				backtoLEButton.onclick = function(){
-				
 					location.href = "/levelEditor";
-
 				}
 				//level objects should be in data, right now they are logged in console
 				let realLevel = EntityFactory(levelObjects,false);
-
 				var p;
-
 				for (var thing in realLevel['player']) {
 					p = realLevel['player'][thing]
 				}
-
 				level['player'] = new Player(p.id, p.x, p.y-150, p.vx, p.vy, p.img, new Pistol(Math.random(), p.x, p.y, p.vx, p.vy, 50, 50,"pistol_image",null, p.id), p.isBig);
 
 				level['enemies'] = {};
@@ -211,9 +179,8 @@
 					level['enemies'][e.id] = enemy;
 
 				}
-
 				for(let thing in realLevel['boss']) {
-					//console.log("BOSS",realLevel.boss[thing]);
+
 					let mainBoss = realLevel.boss[thing];
 					let boss;
 					switch(mainBoss.type){
@@ -247,7 +214,6 @@
 					level['weapon'][w.id] = weapon;
 
 				}
-
 				level['terrain'] = {};
 				for (var thing in realLevel['terrain']) {
 					let t = realLevel['terrain'][thing]
@@ -281,10 +247,7 @@
 					else if (t.type == 'Terrain1x6Breakable') {
 						block = Terrain1x6Breakable(t.id, t.x, t.y-150);
 					}else if(t.type == 'moving platform'){
-						//console.log("moving platform");
-						//console.log(t.direction);
 						if(t.direction === "vertical"){
-							//console.log(t.finalVal);
 							t.finalVal = t.finalVal-150;
 						}
 						block = MovingPlatform(t.id,t.x,t.y-150,t.direction,t.finalVal);
@@ -317,7 +280,6 @@
 		}else {
 			//#############################################################################
 			//FOR GUI TESTING PURPOSES
-
 			/*
 			if(mydata.ghost !== undefined){
 				console.log("GHOST",mydata.ghost);
@@ -328,8 +290,6 @@
 				console.log("LEVEL GHOST PATH",level['ghost'].path);
 			}
 			*/
-
-
 			for (var thing in mydata['player']) {
 				p = mydata['player'][thing]
 			}
@@ -358,34 +318,31 @@
 			}
 
 			for(let thing in mydata['boss']) {
-					//console.log("BOSS",mydata.boss[thing]);
-					let mainBoss = mydata.boss[thing];
-					let boss;
-					switch(mainBoss.type){
-						case 'basic boss':
-							level.hasBoss = true;
-							boss = BasicBoss(mainBoss.id,mainBoss.x, mainBoss.y-150,level['player']);
-							break;
-						case 'flying boss':
-							level.hasBoss = true;
-							boss = FlyingBoss(mainBoss.id,mainBoss.x, mainBoss.y-150,level['player']);
-							break;
-						case 'tank boss':
-							level.hasBoss = true;
-							boss = TankBoss(mainBoss.id,mainBoss.x, mainBoss.y-150,level['player']);
-							break;
-					}
-					level['enemies'][mainBoss.id] = boss;
+
+				let mainBoss = mydata.boss[thing];
+				let boss;
+				switch(mainBoss.type){
+					case 'basic boss':
+						level.hasBoss = true;
+						boss = BasicBoss(mainBoss.id,mainBoss.x, mainBoss.y-150,level['player']);
+						break;
+					case 'flying boss':
+						level.hasBoss = true;
+						boss = FlyingBoss(mainBoss.id,mainBoss.x, mainBoss.y-150,level['player']);
+						break;
+					case 'tank boss':
+						level.hasBoss = true;
+						boss = TankBoss(mainBoss.id,mainBoss.x, mainBoss.y-150,level['player']);
+						break;
+				}
+				level['enemies'][mainBoss.id] = boss;
 			}
-			//}
 
 			level['weapon'] = {};
-			//console.log(mydata);
 
 			for (let thing in mydata['weapon']) {
 
 					w = mydata['weapon'][thing]
-					//console.log("WEAPONS",level['player']);
 					var weapon;
 
 					weapon = new WeaponPickUp(w.id, w.x, w.y-150, w.weaponType, level['player']);
@@ -393,12 +350,9 @@
 					level['weapon'][w.id] = weapon;
 
 			}
-			//console.log(level['weapon']);
 			level['terrain'] = {};
 			for (var thing in mydata['terrain']) {
 					let t = mydata['terrain'][thing]
-					//console.log("MOD",t.mod);
-
 					var block;
 
 					if (t.type == 'Terrain1x1') {
@@ -428,10 +382,7 @@
 					else if (t.type == 'Terrain1x6Breakable') {
 						block = Terrain1x6Breakable(t.id, t.x, t.y-150);
 					}else if(t.type == 'moving platform'){
-						//console.log("moving platform");
-						//console.log(t.direction);
 						if(t.direction === "vertical"){
-							//console.log(t.finalVal);
 							t.finalVal = t.finalVal-150;
 						}
 						block = MovingPlatform(t.id,t.x,t.y-150,t.direction,t.finalVal);
@@ -450,24 +401,16 @@
 							block.mod = new NoModifier();
 							break;
 					}
-					//console.log(block.mod);
 					level['terrain'][t.id] = block;
 
 			}
 			level.width=mydata.width;
 			level.height= mydata.height;
 			level.background=mydata.background;
-			//console.log(mydata);
 			startGame(level);
 		}
-
 //######################################################################################
-		// }
 
-		//let gameWidth=2000
-		// construct the gui with the container and the map
-
-		//-----------
 		init = function() {
 			// get a reference to the container div in the page
 			var container = document.getElementById("container");
