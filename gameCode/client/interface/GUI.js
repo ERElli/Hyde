@@ -528,7 +528,7 @@ GUI = function(container){
 		return [minutes,seconds,milliseconds];
 	};
 	self.prettyPrint=function(time){
-		prettyTime=toString(time[0] +":"+time[1]+ ":"+time[2]);
+		prettyTime=(time[0] +":"+time[1]+ ":"+time[2]);
 		return prettyTime;
 	}
 	self.HUD=function(ctx,player){
@@ -554,7 +554,7 @@ GUI = function(container){
 
 		ctx.save();
 
-		ctx.clearRect(0,0,self.fg.width,self.fg.height);
+		ctx.clearRect(0,0,self.fg.width,100);
 		ctx.font="18px Arial";
 		//draw bar outlines
 		ctx.strokeRect(healthX,healthY,100,10);
