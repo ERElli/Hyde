@@ -274,7 +274,7 @@ function BasicBoss(id, x, y, target) {
 	
 	self.spawnMinion = function() {
 		
-		console.log(self.aimAngle);
+		//console.log(self.aimAngle);
 		
 		var spdX = Math.cos(self.aimAngle/180*Math.PI)*10 * mpsTOppf + self.vx;
 		var spdY = Math.sin(self.aimAngle/180*Math.PI)*10 * mpsTOppf + self.vy;
