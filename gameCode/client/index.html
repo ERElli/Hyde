@@ -10,7 +10,7 @@
     <input id="signDiv-password" class="passwordTextfield" placeholder="Password" type="password"></input><br><br>
     <button id="signDiv-signIn" class="signInDiv-signInButton"></button>
     <button id="signDiv-signUp" class="signInDiv-signUpButton" style=""></button><br><br>
-    <button id="forgotButton" style="display: none; background: transparent; border: none; left: 650px; top: 1000px; text-decoration-color: white;  ">Forgot your password?</button>
+    <button id="forgotButton" style=" background: transparent; border: none; left: 650px; top: 1000px; text-decoration-color: white;  ">Forgot your password?</button>
     <br><br>
 
 </div>
@@ -100,8 +100,7 @@
     forgotButton.onclick = function(){
       signDiv.style.display = 'none';
       forgotDiv.style.display = 'inline-block';
-      //console.log("forgot");
-         //socket.emit('forgotPassword',{username:usernameField.value,a1: a1.value, a2: a2.value, a3: a3.value});
+
     }
 
     playGuest.onclick = function(){
@@ -110,13 +109,13 @@
         location.href = "client/gameMenu2.html";
 
     }
-    
+
     signInButton.onclick = function(){
       main.style.display = 'none';
       signDiv.style.display = 'inline-block';
       localStorage.setItem('isOffline', false);
     }
-    
+
     recoverButton.onclick = function(){
       if (usernameField.value ==="" || a1.value ===""  || a2.value ===""  || a3.value ===""  ){
         alert("You must fill all fields!");
@@ -125,13 +124,13 @@
       socket.emit('forgotPassword',{username:usernameField.value,a1: a1.value, a2: a2.value, a3: a3.value});
       }
     }
-    
+
     signUpButton.onclick = function(){
       main.style.display = 'none';
       signUp.style.display = 'inline-block';
       localStorage.setItem('isOffline', false);
     }
-    
+
     signUpB.onclick = function(){
       var hasNumber = /\d/;
       if (signDivUser.value ==="" ||signDivPass.value ==="" || q1.value ===""  || q2.value ===""  || q3.value ===""  ){
