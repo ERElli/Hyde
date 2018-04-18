@@ -618,7 +618,7 @@ var update = function() {
 		enemy.update();
 		enemy.updateAim(player); // enemies always aim at player
 
-		if (enemy.health <= 0) {
+		if (enemy.health <= 0 || enemy.y > 500) {
 			ani.enemyDeathSound();
 			delete enemies[key];
 
