@@ -174,9 +174,9 @@ function MudModifier() {
 	
 	self.applyEffect = function(target) {
 		if (!target.isMuddy) {
-			console.log("Applying mud");
+			// console.log("Applying mud");
 			target.maxVelocityX /= 2;
-			console.log("In mud: " + target.maxVelocityX);
+			// console.log("In mud: " + target.maxVelocityX);
 			target.isMuddy = true;
 		}
 		else if (target.isSlipping) {
