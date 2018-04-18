@@ -6,14 +6,11 @@
 	<body>
 		<br>
 		<br>
-		<div id"backtoLE">
-			<button id="backtoLEButton"> Back to Level Editor </button>
-		</div>
 		<div id="menu">
-			<a href='../gameMenu2.html' class="quitButton"></a>
-			<a href='../gameMenu2.html' class="restartButton"></a>
+			<a href='../storyLevelSelection.html' class="quitButton"></a>
+			<a href class="restartButton" id="restartButton"></a>
 			<a href='../gameMenu2.html' class="mainMenuButton"></a>
-			<a href='../gameMenu2.html' class="levelEditorButton"></a>
+			<a href='/levelEditor' class="levelEditorButton"></a>
 		</div>
 		<div id="container">
 
@@ -44,7 +41,10 @@
 		<script>
 		var story = JSON.parse(StoryLevel)
 		var mydata;
-		var backtoLEButton = document.getElementById("backtoLEButton");
+		var restartButton = document.getElementById("restartButton");
+		restartButton.onClick = function(){
+			startGame(level);
+		}
 		var storyLevelName=localStorage.getItem('level');
 		var isOfflineMode= false;
 		if (localStorage.getItem('isOffline')=='true') {
@@ -148,9 +148,6 @@
 			//the socket receive the level objects from the database
 			socket.on('receiveLevelObjects',function(data){
 				levelObjects = data;
-				backtoLEButton.onclick = function(){
-					location.href = "/levelEditor";
-				}
 				//level objects should be in data, right now they are logged in console
 				let realLevel = EntityFactory(levelObjects,false);
 				var p;

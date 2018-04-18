@@ -2,7 +2,7 @@
 
 .quitButton{
 	background: transparent;
-	background-image: url(img/menuQuit.png); 
+	background-image: url(img/menuButtons/menuQuit.png); 
 	background-size: 100%;
 	position: fixed;
 
@@ -15,7 +15,7 @@
 
 .quitButton:hover{
 	background: transparent;
-	background-image: url(img/menuQuitHover.png);
+	background-image: url(img/menuButtons/menuQuitHover.png);
 	background-size: cover;
 	position: fixed;
 
@@ -24,7 +24,7 @@
 
 .restartButton{
 	background: transparent;
-	background-image: url(img/menuRestart.png);
+	background-image: url(img/menuButtons/menuRestart.png);
 	background-size: 100%;
 	position: fixed;
 
@@ -38,7 +38,7 @@
 
 .restartButton:hover{
 	background: transparent;
-	background-image: url(img/menuRestartHover.png);
+	background-image: url(img/menuButtons/menuRestartHover.png);
 	background-size: cover;
 	position: fixed;
 
@@ -47,7 +47,7 @@
 
 .mainMenuButton{
 	background: transparent;
-	background-image: url(img/menuMainMenu.png);
+	background-image: url(img/menuButtons/menuMainMenu.png);
 	background-size: cover;
 	position: fixed;
 
@@ -62,7 +62,7 @@
 
 .mainMenuButton:hover{
 	background: transparent;
-	background-image: url(img/menuMainHover.png);
+	background-image: url(img/menuButtons/menuMainHover.png);
 	background-size: cover;
 	position: fixed;
 
@@ -71,7 +71,7 @@
 
 .levelEditorButton{
 	background: transparent;
-	background-image: url(img/menuLevelEditor.png);
+	background-image: url(img/menuButtons/menuLevelEditor.png);
 	background-size: cover;
 	position: fixed;
 
@@ -85,7 +85,7 @@
 
 .levelEditorButton:hover{
 	background: transparent;
-	background-image: url(img/menuLevelEditorHover.png);
+	background-image: url(img/menuButtons/menuLevelEditorHover.png);
 	background-size: cover;
 	position: fixed;
 
