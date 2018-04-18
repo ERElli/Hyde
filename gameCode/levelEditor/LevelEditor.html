@@ -323,7 +323,7 @@ button3.onclick = function(){
  });
 socket.on('loadIt', function(data){
 	let level = data;
-	console.log("result"+ level);
+	// console.log("result"+ level);
 	var levelObject = EntityFactory(level,false);
 	// console.log("LEVEL OBJECT",levelObject);
 	map = new Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
@@ -348,7 +348,6 @@ socket.on('hey', function(data){
   // console.log("result hey"+ level);
   let levelObject = EntityFactory(level,true);
   map = new Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
-  console.log("MAP",map);
   updateWidth(levelObject.width);
   updateMap(map);
 });
@@ -390,7 +389,6 @@ var y;
 
 //Initializing the map
 var map = Map(WIDTH,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
-console.log("FIRST MAP",map);
 
 /*
 	Controls
@@ -700,10 +698,10 @@ putEntity = function() {
 								direction = "horizontal";
 							}
 							entity = MovingPlatform(id, startPos.x,startPos.y,direction,finalPos);
-							console.log(entity);
+							// console.log(entity);
 							break;
 						case 'ice':
-							console.log("POS",x,y);
+							// console.log("POS",x,y);
 							map.applyTerrainMod("ice",x,y);
 							break;
 						case 'mud':
@@ -792,13 +790,13 @@ doMouseAction = function(){
 				gui.ep_ctx.fillRect(startPos.x+platform.width,startPos.y+platform.height,WIDTH-startPos.x-platform.width,HEIGHT-startPos.y);
 				gui.ep_ctx.fillStyle="#000000";
 				numClicks++;
-				console.log("FIRST CLICK at",startPos);
+				// console.log("FIRST CLICK at",startPos);
 			}else if(numClicks == 2){
 				if(x==startPos.x || y == startPos.y){
 					endPos.x = x;
 					endPos.y = y;
 					putEntity();
-					console.log("SECOND CLICK at", endPos);
+					// console.log("SECOND CLICK at", endPos);
 				}else{
 					gui.ep_ctx.clearRect(0,0,gui.ep.width,gui.ep.height);
 					console.log("NOT VALID FINAL POSITION");
@@ -908,7 +906,6 @@ function toggleDisplay(element) {
 	dropdown menu
 */
 function typeTapped(thing){
-	console.log("TYPE TAPPED",thing);
 	selectedButton = thing;
 	if(thing !== 'character'){
 		let element = document.getElementById(thing);
@@ -954,7 +951,6 @@ window.onclick = function(event){
 // }
 enemyTapped = function(thing){
 	selectedEnemy = thing;
-	console.log(selectedEnemy);
 	let parent = document.getElementById('enemies')
 	toggleDisplay(parent);
 }
@@ -978,11 +974,9 @@ bossTapped = function(thing){
 	Background
 **************************/
 worldTapped = function(thing){
-	console.log("BACKGROUND",thing);
 	selectedBackground = thing;
   //console.log("this is so awesome");
   //socket.emit('addBackgroundItem',{background:selectedBackground,  });
-	console.log(selectedBackground);
 	// map.setBackground = id;
   	map.setBackgroundImage(selectedBackground);
 	gui.editorBackground(offsetX,offsetY,selectedBackground);
@@ -998,7 +992,6 @@ worldTapped = function(thing){
 toggle between hiding and showing the dropdown content */
 checkpointTapped = function(thing) {
 	selectedCheckpoint = thing;
-	console.log(thing);
 
 	let parent = document.getElementById('checkpoints');
 	toggleDisplay(parent);
@@ -1019,7 +1012,6 @@ characterTapped = function() {
 	Terrain
 **************************/
 terrainTapped = function(thing){
-	console.log(thing);
 	selectedTerrain = thing;
 
 	var parent = document.getElementById('terrains');
@@ -1031,7 +1023,6 @@ terrainTapped = function(thing){
 **************************/
 weaponTapped = function(thing){
 	selectedWeapon = thing;
-	console.log(selectedWeapon);
 
 	var parent = document.getElementById('weapons');
 	toggleDisplay(parent);
