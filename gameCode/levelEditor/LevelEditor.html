@@ -8,10 +8,6 @@
 <body>
 	<div id ="container" style="display:none; "></div>
 	<div id ="levelMaker" style="display:none; width:500px; height:40px; position:absolute; top:700px; left:10;";>
-		<form action ="#" id="form" onsubmit="map.convertToString()">
-			Level Name: <input type="text" id="levelName"><br>
-			<input type="submit" value="Submit">
-		</form>
     	<p id="newLevelName"> Level </p>
     	<button id="button1" > Save </button>
       <button id="button2"> Save  and Test</button>
@@ -129,6 +125,7 @@
 		<button id="levelNewButton" class = "btnstyle">New Level</button>
 		<button id="levelLoadButton" style="display: none" class = "btnstyle">Load Level</button>
     <button id="levelChooseButton" class = "btnstyle">Choose a Level</button>
+    <button id="backButton" class = "btnstyle"> Back to Main Menu </button>
 	</div>
 </body>
 
@@ -169,6 +166,7 @@ var levelLoad = document.getElementById('levelLoad');
 var levelButton2 = document.getElementById('levelButton2');
 var state;
 var theLevels= document.getElementById('theLevels');
+var backButton = document.getElementById('backButton');
 
 ///////////////testing adding json
 //var ddata = JSON.parse(StoryLevel);
@@ -180,6 +178,11 @@ var theLevels= document.getElementById('theLevels');
 
 //console.log('ddata')
 /////////////////////////////
+backButton.onclick = function(){
+
+  location.href = '/client/gameMenu2.html';
+
+}
 levelButton.onclick = function(){
 	state = "new";
 	if (levelNameField.value ==="" ){
