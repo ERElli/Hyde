@@ -99,6 +99,9 @@
     socket.on('receiveTheAchievements' ,function(res){
     //  var  arrayOfLevels = res.result;
     //  var num =res.levels.length;
+    if(res.items.length == 0){
+      //do nothing
+    }else {
         var toAdd2 = document.createDocumentFragment();
         console.log("lets check  "+ JSON.stringify(res));
         for(var i=0; i<res.items.length; i++){
@@ -111,6 +114,7 @@
         //lev.innerHTML = lev.innerHTML+"  " +JSON.stringify(res.items[i].level + " "+ res.items[i].time);
 
         }
+      }
     });
 
     /* socket.on('changeMe', function(data){

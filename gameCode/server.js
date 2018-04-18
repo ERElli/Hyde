@@ -217,6 +217,8 @@ app.get('/client/interface/img/terrain/platform.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/terrain/platform.png');
 });
 
+//////////////////
+//for level editor
 
 app.get('/images/loadlevelbutton.png',function(req, res) {
     res.sendFile(__dirname + '/images/loadlevelbutton.png');
@@ -242,10 +244,6 @@ app.get('/testLevel.js',function(req, res) {
     res.sendFile(__dirname + '/levelEditor/testLevel.js');
 });
 
-
-////////////////
-
-//for level editor
 app.get('/Checkpoint.js',function(req, res) {
     res.sendFile(__dirname + '/levelEditor/Checkpoint.js');
 });
@@ -281,7 +279,7 @@ app.get('/client/interface/images.js',function(req, res) {
 });
 
 ///////////////
-
+// imgs
 
 
 app.get('/client/interface/img/levelEditor/buttons/checkpoint/checkpointDrop.png',function(req, res) {
@@ -644,6 +642,13 @@ app.get('/client/interface/storyLevels/levelEight.json',function(req, res) {
 app.get('/client/engine/timer.js',function(req, res) {
     res.sendFile(__dirname + '/client/engine/timer.js');
 });
+app.get('/images/playGuest.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/playGuest.png');
+});
+app.get('/images/playGuestHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/playGuestHover.png');
+});
+
 app.get('/signInHover.png',function(req, res) {
     res.sendFile(__dirname + '/images/signInHover.png');
 });
@@ -699,8 +704,6 @@ app.get('/client/images/levelOneHover.png',function(req, res) {
     res.sendFile(__dirname + '/client/images/levelOneHover.png');
 });
 
-
-
 app.get('/client/images/levelOneButton.png',function(req, res) {
    res.sendFile(__dirname + '/client/images/levelOneButton.png');
 });
@@ -737,8 +740,6 @@ app.get('/client/levelSelectionStyle.css',function(req, res) {
    res.sendFile(__dirname + '/client/levelSelectionStyle.css');
 });
 
-
-
 app.get('/images/buildingTerrain3x6.png',function(req, res) {
     res.sendFile(__dirname + '/images/buildingTerrain3x6.png');
 });
@@ -747,10 +748,9 @@ app.use('/',express.static('CS4770'));
 serv.listen(2000);
 console.log("Server started.");
 
-
+//// Socket.io  connection, Sends and receives sockets ////
 var io = require('socket.io')(serv,{});
 io.sockets.on('connection', function(socket){
-
 
     console.log('socket connection');
 
@@ -771,18 +771,10 @@ io.sockets.on('connection', function(socket){
 
     socket.on('newLevel',function(data){
       console.log(data.level);
-     //socket.emit('changeLevelName', {level: data.level});
-     Database.newLevel(data);
-      /* if(!res){
-         socket.emit('checkLevelName', {success:false});
-       }
-       else if(res){
-         socket.emit('checkLevelName', {success:true});
-       }
-       */
+
+      Database.newLevel(data);
+
    });
-
-
 
     socket.on('signUp',function(data){
 		 Database.isUsernameTaken(data,function(res){
@@ -792,9 +784,9 @@ io.sockets.on('connection', function(socket){
 				Database.addUser(data,function(){
 					socket.emit('signUpResponse',{success:true});
 				});
-			}
-		});
-	});
+		 	}
+		 });
+	 });
 
   socket.on('forgotPassword',function(data){
      Database.isUsernameTaken(data,function(res){
@@ -818,13 +810,6 @@ io.sockets.on('connection', function(socket){
       });
   });
 
-/*  socket.on('getLevelNames',function(){
-   //Database.levelUpdate(user, data);
-   socket.emit('receiveLevelNames', {level1:"level 1",level2: "level 2", level3:"level 3"});
-  });
-
-  */
-
   socket.on('updateLevel',function(data){
     console.log("i was called");
    Database.levelUpdate(user, data);
@@ -839,17 +824,9 @@ io.sockets.on('connection', function(socket){
 
   });
 
-
-
   socket.on('saveLevel',function(data){
    Database.levelSave(data);
   });
-
-
-
-  //Database.getLevelObject("level1", function(res){
-  //socket.emit('hey', res);
-//   });
 
    socket.on('button',function(data){
      console.log("console new" +data.level);
@@ -883,8 +860,6 @@ io.sockets.on('connection', function(socket){
       });
    });
 
-
-
    socket.on('levelLoadButton',function(data){
      console.log('levelLoadButtonB'+ data.level);
 
@@ -892,7 +867,6 @@ io.sockets.on('connection', function(socket){
      socket.emit('loadIt', res);
       });
    });
-
 
    socket.on('levelNewButton',function(data){
      console.log('levelNewButton');
@@ -990,13 +964,6 @@ io.sockets.on('connection', function(socket){
     console.log('received socket to change mod');
    Database.changeMod(data);
   });
-  /*socket.on('deleteLevelItem',function(data){
-   Database.deleteLevelItem(data);
- }); */
-
 
 
 });
-
-
-// socket.emit('saveLevel',{username:signDivUsername.value,password:signDivPassword.value});
