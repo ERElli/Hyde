@@ -255,6 +255,7 @@ Map = function(width, height,tile_width, tile_height) {
 	self.setBackgroundImage = function(worldName){
 		socket.emit('addBackgroundItem',{background: worldName, level: nameL });
 		self.background = worldName;
+		console.log("MAP WORLD",worldName);
 	};
 
 	//Function to clear spaces on the tile array

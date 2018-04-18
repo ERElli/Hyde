@@ -323,7 +323,7 @@ button3.onclick = function(){
  });
 socket.on('loadIt', function(data){
 	let level = data;
-	// console.log("result"+ level);
+	console.log("result"+ level);
 	var levelObject = EntityFactory(level,false);
 	// console.log("LEVEL OBJECT",levelObject);
 	map = new Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
@@ -333,8 +333,10 @@ socket.on('loadIt', function(data){
 				map.tryToPlaceEntity(levelObject[type][id]);
 			}
 		}
-    map.setBackgroundImage = levelObject.background;
 	}
+	// console.log(levelObject.background);
+	worldTapped(levelObject.background);
+    // map.setBackgroundImage(levelObject.background);
 	updateWidth(parseInt(levelObject.width));
 	updateMap(map);
 });
@@ -345,7 +347,7 @@ socket.on('hey', function(data){
   let level = data;
   // console.log("result hey"+ level);
   let levelObject = EntityFactory(level,true);
-  var map = Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
+  map = new Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
   console.log("MAP",map);
   updateWidth(levelObject.width);
   updateMap(map);
@@ -388,6 +390,7 @@ var y;
 
 //Initializing the map
 var map = Map(WIDTH,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
+console.log("FIRST MAP",map);
 
 /*
 	Controls
@@ -975,12 +978,13 @@ bossTapped = function(thing){
 	Background
 **************************/
 worldTapped = function(thing){
+	console.log("BACKGROUND",thing);
 	selectedBackground = thing;
   //console.log("this is so awesome");
   //socket.emit('addBackgroundItem',{background:selectedBackground,  });
 	console.log(selectedBackground);
 	// map.setBackground = id;
-  	map.setBackgroundImage(thing);
+  	map.setBackgroundImage(selectedBackground);
 	gui.editorBackground(offsetX,offsetY,selectedBackground);
 
 	let parent = document.getElementById('backgrounds');
