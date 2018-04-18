@@ -176,6 +176,32 @@ app.get('/client/interface/img/entity/weapon/shotgunAttack.png',function(req, re
     res.sendFile(__dirname + '/client/interface/img/entity/weapon/shotgunAttack.png');
 });
 
+//client/interface/img/menuButtons
+app.get('/client/interface/img/menuButtons/menuLevelEditor.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/menuButtons/menuLevelEditor.png');
+});
+app.get('/client/interface/img/menuButtons/menuLevelEditorHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/menuButtons/menuLevelEditorHover.png');
+});
+app.get('/client/interface/img/menuButtons/menuMainMenu.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/menuButtons/menuMainMenu.png');
+});
+app.get('/client/interface/img/menuButtons/menuMainHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/menuButtons/menuMainHover.png');
+});
+app.get('/client/interface/img/menuButtons/menuQuit.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/menuButtons/menuQuit.png');
+});
+app.get('/client/interface/img/menuButtons/menuQuitHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/menuButtons/menuQuitHover.png');
+});
+app.get('/client/interface/img/menuButtons/menuRestart.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/menuButtons/menuRestart.png');
+});
+app.get('/client/interface/img/menuButtons/menuRestartHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/interface/img/menuButtons/menuRestartHover.png');
+});
+
 //client/interface/img/terrain
 app.get('/client/interface/img/terrain/1x6BreakableBuilding.png',function(req, res) {
     res.sendFile(__dirname + '/client/interface/img/terrain/1x6BreakableBuilding.png');
