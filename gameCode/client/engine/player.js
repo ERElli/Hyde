@@ -146,7 +146,7 @@ function Player(id, x, y, vx, vy, img, weapon, isBig) {
 	
 	
 	self.transform = function() {
-		if (self.transformCounter > 100) {
+		if (self.transformCounter > 120) {
 			
 			ani.transformSound();
 			
