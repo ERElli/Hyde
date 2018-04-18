@@ -1,6 +1,6 @@
 var socket = io();
 EntityFactory = function(levelString,isLevelEditor){
-	 console.log(levelString);
+	 // console.log(levelString);
 	var self = {};
 
 	//creating a JSON object from a string
@@ -9,12 +9,11 @@ EntityFactory = function(levelString,isLevelEditor){
 
 
 	let LevelObject = JSON.parse(levelString);
-	console.log("Level Object",LevelObject);
+	// console.log("Level Object",LevelObject);
 
 	var player;
 
 	for(let generalType in LevelObject[0]){
-		console.log(generalType);
 		// console.log(Object.keys(LevelObject[generalType]).length);
 
 		if(generalType === 'enemies' || generalType === 'terrain' || generalType === 'player' || generalType ==='weapon' || generalType ==='boss'){
@@ -32,7 +31,7 @@ EntityFactory = function(levelString,isLevelEditor){
 				let mObject = self[generalType];
 				switch(generalType){
 					case "terrain":
-						console.log("MOD",object.type);
+						// console.log("MOD",object.type);
 						switch(object.type){
 							case "Terrain1x1":
 								mObject[mID] = Terrain1x1(mID,mX,mY);
@@ -62,27 +61,22 @@ EntityFactory = function(levelString,isLevelEditor){
 								mObject[mID] = Terrain1x6Breakable(mID,mX,mY);
 								break;
 							case "moving platform":
-               	console.log("MOVING PLATFORM");
-        				mObject[mID] = MovingPlatform(mID,mX,mY,object.direction,object.finalVal);
+        						mObject[mID] = MovingPlatform(mID,mX,mY,object.direction,object.finalVal);
 								break;
 							case "spike trap":
-								console.log("spike trap");
+								// console.log("spike trap");
 								mObject[mID] = SpikeTrap(mID,mX,mY,object.orientation);
-								console.log("spike TRAP",mObject[mID]);
+								// console.log("spike TRAP",mObject[mID]);
 								break;
 							}
-							console.log(object.mod);
 							switch(object.mod){
 								case 'ice':
-									console.log(mObject[mID]);
 									mObject[mID].mod = new IceModifier();
 									break;
 								case 'mud':
-									console.log(mObject[mID]);
 									mObject[mID].mod = new MudModifier();
 									break;
 								case 'none':
-									console.log(mObject[mID]);
 									mObject[mID].mod = new NoModifier();
 									break;
 							}
@@ -104,29 +98,17 @@ EntityFactory = function(levelString,isLevelEditor){
 							case "tank enemy":
 								mObject[mID] = TankEnemy(mID,mX,mY,0,0,Img.basicEnemy3,'red',null);
 								break;
-							// case "basic boss":
-							// 	mObject[mID] = BasicBoss(mID,mX,mY,null);
-							// 	break;
-							// case "flying boss":
-							// 	mObject[mID] = FlyingBoss(mID,mX,mY,null);
-							// 	break;
-							// case "tank boss":
-							// 	mObject[mID] = TankBoss(mID,mX,mY,null);
-							// 	break;
 						}
 						break;
 					case "boss":
 						switch(object.type){
 							case 'basic boss':
-								console.log("basic boss");
 								mObject[mID] = BasicBoss(mID,mX,mY,null);
 								break;
 							case 'flying boss':
-								console.log("flying boss");
 								mObject[mID] = FlyingBoss(mID,mX,mY,null);
 								break;
 							case 'tank boss':
-								console.log("tank boss");
 								mObject[mID] = TankBoss(mID,mX,mY,null);
 								break;
 						}
@@ -164,9 +146,6 @@ EntityFactory = function(levelString,isLevelEditor){
 				}
 			}
 		}
-
-
-		// console.log(Object.keys(self[generalType]).length);
 	}
 
 	//Giving all enemies a target
@@ -181,13 +160,12 @@ EntityFactory = function(levelString,isLevelEditor){
 	for(let id in self['boss']){
 		self['boss'][id].target = player;
 	}
-//console.log("ggg "+ LevelObject[0].background);
 	self.name = LevelObject[0].level;
 	self.background = LevelObject[0].background;
 	self.width = LevelObject[0].width;
 	self.height = LevelObject[0].height;
 
-	console.log("ENTITY FACTORY",self);
+	// console.log("ENTITY FACTORY",self);
 
 	return self;
 }

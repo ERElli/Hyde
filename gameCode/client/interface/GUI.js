@@ -111,16 +111,6 @@ GUI = function(container){
 		gui.bg_ctx.drawImage(img,x+self.bg.width*(n-1),y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(img,x+self.bg.width*n,y,self.bg.width,self.bg.height);
 		gui.bg_ctx.drawImage(img,x+self.bg.width*(n-2),y,self.bg.width,self.bg.height);
-    /*
-		//reached the end of the level
-		if(backgroundPositionCounter ==3){
-			 document.getElementById('canvas').onkeypress=function()
-			{
-				 stop = true;
-				 return false;
-			 };
-		}
-		*/
 
 		if(x<self.bg.width-self.bg.width*n){
 			backgroundPositionCounter++;
@@ -590,7 +580,7 @@ GUI = function(container){
 
 		ctx.save();
 
-		ctx.clearRect(0,0,self.fg.width,self.fg.height);
+		ctx.clearRect(0,0,self.fg.width,100);
 		ctx.font="18px Arial";
 		//draw bar outlines
 		ctx.strokeRect(healthX,healthY,100,10);

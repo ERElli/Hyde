@@ -249,7 +249,7 @@ levelChooseButton.onclick = function(){
 socket.on('receiveLevels' ,function(res){
   var  arrayOfLevels = res.result;
   var num =res.levels.length;
-    console.log("in level editor the levels are "+ JSON.stringify(res.levels[0])+ "  num"+ num);
+    // console.log("in level editor the levels are "+ JSON.stringify(res.levels[0])+ "  num"+ num);
 
     var toAdd = document.createDocumentFragment();
     for(var i=0; i < num; i++){
@@ -268,7 +268,7 @@ socket.on('receiveLevels' ,function(res){
 
         //ki.style.background  = "blue";
         ki.onclick= function(){
-          console.log(ki.innerHTML );
+          // console.log(ki.innerHTML );
           hh = ki.innerHTML;
           socket.emit('levelLoadButton', {level:ki.innerHTML });
           levelChoose.style.display = 'none';
@@ -318,82 +318,48 @@ button3.onclick = function(){
 
 //receive
  socket.on('result',function(res){
-    console.log("result", JSON.parse(JSON.stringify(res)));
+    // console.log("result", JSON.parse(JSON.stringify(res)));
       location.href = "/client/interface/index.html";
  });
 socket.on('loadIt', function(data){
-
-	console.log("this is cool");
 	let level = data;
-	console.log("result"+ level);
+	// console.log("result"+ level);
 	var levelObject = EntityFactory(level,false);
-	console.log("LEVEL OBJECT",levelObject);
+	// console.log("LEVEL OBJECT",levelObject);
 	map = new Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
 	for(let type in levelObject){
-		console.log("TYPE",levelObject[type]);
 		if(type.includes("terrain") || type.includes("enemies") || type.includes("player") || type.includes("weapon")||type.includes("boss")){
 			for(let id in levelObject[type]){
-				console.log("ID",levelObject[type][id]);
 				map.tryToPlaceEntity(levelObject[type][id]);
 			}
 		}
-    map.setBackgroundImage = levelObject.background;
 	}
+	// console.log(levelObject.background);
+	worldTapped(levelObject.background);
+    // map.setBackgroundImage(levelObject.background);
 	updateWidth(parseInt(levelObject.width));
 	updateMap(map);
-	Update(level);
 });
 
 
 //This will Receive the level objects and set them to the variable level
 socket.on('hey', function(data){
   let level = data;
-  console.log("result hey"+ level);
+  // console.log("result hey"+ level);
   let levelObject = EntityFactory(level,true);
-  console.log("LEVEL OBJECT",levelObject.width);
-  var map = Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
-  for(let type in levelObject){
-		console.log("TYPE",levelObject[type]);
-		if(type.includes("terrain") || type.includes("enemies") || type.includes("player") || type.includes("weapon")){
-			for(let id in levelObject[type]){
-				console.log("ID",levelObject[type][id]);
-				map.tryToPlaceEntity(levelObject[type][id]);
-			}
-		}
-	}
-
-  console.log("MAP",map);
+  map = new Map(levelObject.width,HEIGHT,TILE_WIDTH,TILE_HEIGHT);
   updateWidth(levelObject.width);
-  //console.log(levelObject);
-  Update(level);
+  updateMap(map);
 });
 
 updateWidth = function(newWidth){
-  console.log("OLD WIDTH", WIDTH);
-  WIDTH = newWidth;
-  console.log("NEW WIDTH",WIDTH);
-
+	WIDTH = newWidth;
 };
 
 updateMap = function(newMap){
-  console.log("old map",map);
-  map = newMap;
-  console.log("NEW map",map);
+	map = newMap;
 }
 
-var Update = function(level){
-	// var l = level;
-	 console.log("heeey"+JSON.stringify(level[0] ));
-	// for(var i=0; i<l[0].enemies.length; i++){
-		//console.log("heeey"+JSON.stringify(level[0].enemies) );
-	// }
-  // console.log("heeey"+level[0].enemies );
-}
-if (window.File && window.FileReader && window.FileList && window.Blob) {
-  // alert("SUCCESS!");
-} else {
-  alert('The File APIs are not fully supported in this browser.');
-}
 //Initial values
 
 var WIDTH = 1250*6;
@@ -732,10 +698,10 @@ putEntity = function() {
 								direction = "horizontal";
 							}
 							entity = MovingPlatform(id, startPos.x,startPos.y,direction,finalPos);
-							console.log(entity);
+							// console.log(entity);
 							break;
 						case 'ice':
-							console.log("POS",x,y);
+							// console.log("POS",x,y);
 							map.applyTerrainMod("ice",x,y);
 							break;
 						case 'mud':
@@ -784,7 +750,7 @@ deleteEntity = function() {
 };
 
 updateLevel = function() {
-	gui.fg_ctx.clearRect(0,0,WIDTH,HEIGHT);
+	gui.fg_ctx.clearRect(0,0,gui.fg.width,gui.fg.height);
 	map.update();
 	doPressedAction();
 	framecount++;
@@ -824,13 +790,13 @@ doMouseAction = function(){
 				gui.ep_ctx.fillRect(startPos.x+platform.width,startPos.y+platform.height,WIDTH-startPos.x-platform.width,HEIGHT-startPos.y);
 				gui.ep_ctx.fillStyle="#000000";
 				numClicks++;
-				console.log("FIRST CLICK at",startPos);
+				// console.log("FIRST CLICK at",startPos);
 			}else if(numClicks == 2){
 				if(x==startPos.x || y == startPos.y){
 					endPos.x = x;
 					endPos.y = y;
 					putEntity();
-					console.log("SECOND CLICK at", endPos);
+					// console.log("SECOND CLICK at", endPos);
 				}else{
 					gui.ep_ctx.clearRect(0,0,gui.ep.width,gui.ep.height);
 					console.log("NOT VALID FINAL POSITION");
@@ -940,7 +906,6 @@ function toggleDisplay(element) {
 	dropdown menu
 */
 function typeTapped(thing){
-	console.log("TYPE TAPPED",thing);
 	selectedButton = thing;
 	if(thing !== 'character'){
 		let element = document.getElementById(thing);
@@ -986,7 +951,6 @@ window.onclick = function(event){
 // }
 enemyTapped = function(thing){
 	selectedEnemy = thing;
-	console.log(selectedEnemy);
 	let parent = document.getElementById('enemies')
 	toggleDisplay(parent);
 }
@@ -1013,9 +977,8 @@ worldTapped = function(thing){
 	selectedBackground = thing;
   //console.log("this is so awesome");
   //socket.emit('addBackgroundItem',{background:selectedBackground,  });
-	console.log(selectedBackground);
 	// map.setBackground = id;
-  	map.setBackgroundImage(thing);
+  	map.setBackgroundImage(selectedBackground);
 	gui.editorBackground(offsetX,offsetY,selectedBackground);
 
 	let parent = document.getElementById('backgrounds');
@@ -1029,7 +992,6 @@ worldTapped = function(thing){
 toggle between hiding and showing the dropdown content */
 checkpointTapped = function(thing) {
 	selectedCheckpoint = thing;
-	console.log(thing);
 
 	let parent = document.getElementById('checkpoints');
 	toggleDisplay(parent);
@@ -1050,7 +1012,6 @@ characterTapped = function() {
 	Terrain
 **************************/
 terrainTapped = function(thing){
-	console.log(thing);
 	selectedTerrain = thing;
 
 	var parent = document.getElementById('terrains');
@@ -1062,7 +1023,6 @@ terrainTapped = function(thing){
 **************************/
 weaponTapped = function(thing){
 	selectedWeapon = thing;
-	console.log(selectedWeapon);
 
 	var parent = document.getElementById('weapons');
 	toggleDisplay(parent);
