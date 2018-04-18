@@ -28,7 +28,7 @@ timer = function(){
 		self.endTime = Date.now();
 		self.totalTime = self.endTime-self.startTime;
 		self.setEndTime(self.totalTime);
-		console.log(self.totalTime);
+		// console.log(self.totalTime);
 	}
 	self.setEndTime=function(endtime){
 		self.endTime=endtime;
