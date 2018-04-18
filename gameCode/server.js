@@ -642,6 +642,13 @@ app.get('/client/interface/storyLevels/levelEight.json',function(req, res) {
 app.get('/client/engine/timer.js',function(req, res) {
     res.sendFile(__dirname + '/client/engine/timer.js');
 });
+app.get('/images/playGuest.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/playGuest.png');
+});
+app.get('/images/playGuestHover.png',function(req, res) {
+    res.sendFile(__dirname + '/client/images/playGuestHover.png');
+});
+
 app.get('/signInHover.png',function(req, res) {
     res.sendFile(__dirname + '/images/signInHover.png');
 });
